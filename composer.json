@@ -1,0 +1,29 @@
+{
+    "name": "up/techno-store",
+    "autoload": {
+        "psr-4": {
+            "Up\\": "src/",
+			"Core\\": "core/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Илья Соловьев",
+            "email": "solovevilya3101@gmail.com"
+        },
+		{
+			"name": "Yulya Gaus",
+			"email": "yulya.yulya.010202@gmail.com"
+		},
+		{
+			"name": "Vadim Valeev",
+			"email": "vadyapple@gmail.com"
+		},
+		{
+			"name": "Dmitrii Zmachinskii",
+			"email": "zmachinskiiof@gmail.com"
+		}
+
+	],
+    "require": {}
+}
