@@ -8,7 +8,7 @@
     },
     "authors": [
         {
-            "name": "Илья Соловьев",
+            "name": "Ilya Solovev",
             "email": "solovevilya3101@gmail.com"
         },
 		{
@@ -25,5 +25,7 @@
 		}
 
 	],
-    "require": {}
+    "require": {
+		"ext-mysqli": "*"
+	}
 }
