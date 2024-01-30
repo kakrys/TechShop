@@ -20,11 +20,17 @@ class Router
 	{
 		self::add('GET', $uri, $action);
 	}
+	public static function post(string $uri, callable $action): void
+	{
+		self::add('POST', $uri, $action);
+	}
 
 	public static function find(string $method, $uri): ?Route
 	{
 		[$path] = explode('?', $uri);
 		var_dump($path);
+		var_dump(PHP_VERSION);
+
 
 		foreach (self::$routes as $route)
 		{
