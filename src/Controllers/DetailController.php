@@ -6,6 +6,10 @@ class DetailController extends BaseController
 {
 	public function detailsAction($id): string
 	{
-		return "detail page " . $id;
+		return $this->render('layout', [
+			'page' => $this->render('/pages/detail', [
+				'id' => $id
+			]),
+		]);
 	}
 }

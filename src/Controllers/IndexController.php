@@ -6,6 +6,9 @@ class IndexController extends BaseController
 {
 	public function indexAction(): string
 	{
-		return "main page";
+
+		return $this->render('layout', [
+			'page' => $this->render('/pages/main', []),
+		]);
 	}
 }
