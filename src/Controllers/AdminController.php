@@ -10,7 +10,8 @@ class AdminController extends BaseController
 		return $this->render('layout', [
 			'modal' => $this->render('/components/modals', []),
 			'page' => $this->render('/pages/admin', [
-				'id' => $id
+				'id' => $id,
+				'productList' => $this->render('/components/product-list', []),
 			]),
 		]);
 	}

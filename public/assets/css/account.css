@@ -1,0 +1,67 @@
+.account {
+    width: 100%;
+    padding: 48px 212px 82px 0;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 24px;
+}
+
+.account__sidebar {
+    width: 288px;
+    border-radius: 8px;
+    border: 1px solid #F6F6F6;
+    background: #F9F9F9;
+    padding: 3px 0;
+}
+
+.account__nav {
+    display: flex;
+    flex-direction: column;
+    margin-top: 24px;
+    align-items: flex-start;
+    justify-content: space-between;
+    position: relative;
+    --active-tab: 0;
+}
+
+.account_userContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 10px;
+}
+
+.account__sideBarBtn {
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 16px;
+    color: #0C0C0C;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 28px;
+}
+.account__sideBarBtn img{
+    display: block;
+    width: 24px;
+    height: 24px;
+}
+
+.active-btn {
+    color: #0C68F4;
+}
+
+nav .account__asideLine {
+    height: 68px;
+    width: 2px;
+    background: #0C68F4;
+    position: absolute;
+    left: 0;
+    top: calc(var(--active-tab) * 68px);
+    transition: all 0.3s;
+}

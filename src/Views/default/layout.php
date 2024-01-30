@@ -17,8 +17,17 @@
 <body>
 <header class="header">
 	<div class="wrapper header__wrapper">
-		<a href="/main/all/">Your logo is here</a>
-		<nav class="header__nav"></nav>
+		<a href="/" class="header__logoLink">Your logo <br> is here</a>
+		<nav class="header__nav">
+			<ul class="header__list">
+				<li class="header__item">
+					<a href="/" class="header__link">Home</a>
+				</li>
+				<li class="header__item">
+					<a href="/catalog/all/" class="header__link">Products</a>
+				</li>
+			</ul>
+		</nav>
 		<div class="accountNav">
 			<ul class="accountNav__list">
 				<li class="accountNav__item user">
