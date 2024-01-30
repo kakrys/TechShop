@@ -1,0 +1,173 @@
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.modalCard {
+    position: absolute;
+    top: 20%;
+    left: 30%;
+    z-index: 4;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    padding: 41px 80px 24px;
+    border-radius: 8px;
+    background: #FFF;
+    box-shadow: 0 0 0 9999px rgba(0,0,0, 0.5);
+}
+.signUp{
+    opacity: 0;
+    pointer-events: none;
+}
+.show__signUp .signUp{
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal__list {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    border-bottom: 2px solid #CBCBCB;
+}
+
+.modal__item {
+    width: 100%;
+    padding: 8px 12px;
+    text-align: center;
+}
+
+.activeModalItem
+{
+    border-bottom: 2px solid #0C68F4;
+}
+
+.modal__link {
+    width: 100%;
+    color: #717171;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 28px;
+}
+
+.activeModalLink {
+    color: #0C68F4;
+}
+
+.modalCard__title {
+    color: #0C0C0C;
+    font-size: 32px;
+    text-align: center;
+    font-weight: 500;
+    line-height: normal;
+    margin-top: 40px;
+    margin-bottom: 24px;
+}
+
+.modalCard__form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 16px;
+}
+
+.modalCard__form_input {
+    border-radius: 8px;
+    border: 1px solid #B4B4B4;
+    color: #2D2D2D;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 24px;
+    padding: 12px 8px 12px 44px;
+    width: 100%;
+}
+
+.modalField {
+    position: relative;
+    width: 100%;
+}
+
+.modalField__img{
+    position: absolute;
+    top: 12px;
+    left: 12px;
+}
+
+.modalField__eye{
+    display: block;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    cursor: pointer;
+}
+
+
+.keepLog {
+    color: #717171;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    padding-left: 48px;
+}
+
+.keepLog__input {
+}
+
+.modalCard__btn {
+    width: 100%;
+    padding: 10px 16px;
+    border-radius: 8px;
+    background: #0C68F4;
+    color: #FFF;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.modalCard__availability {
+    margin: 24px auto 0px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.modalCard__availability_text {
+    color: #717171;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 24px;
+}
+
+.modalCard__availability_btn {
+    color: #0C68F4;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.keepLog__link{
+    color: #0C68F4;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 22px;
+    text-decoration-line: underline;
+}

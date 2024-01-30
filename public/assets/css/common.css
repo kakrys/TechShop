@@ -1,0 +1,11 @@
+body, a, button, p, input{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+}
+
+.wrapper {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0px 95px;
+}

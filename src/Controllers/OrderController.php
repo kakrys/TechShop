@@ -8,6 +8,7 @@ class OrderController extends BaseController
 	public function orderAction($id): string
 	{
 		return $this->render('layout', [
+			'modal' => $this->render('/components/modals', []),
 			'page' => $this->render('/pages/order', [
 				'id' => $id
 			]),
