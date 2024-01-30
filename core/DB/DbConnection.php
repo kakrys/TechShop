@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace Core\DB;
 
+use Exception;
 use mysqli;
 
 class DbConnection
 {
 	/**
 	 * @return bool|mysqli|null
-	 * @throws \Exception
+	 * @throws Exception
 	 */
-	function getDbConnection(): bool|mysqli|null
+	public static function getDbConnection(): bool|mysqli|null
 	{
 		static $connection = null;
 

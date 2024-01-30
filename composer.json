@@ -1,16 +1,16 @@
 {
-    "name": "up/techno-store",
-    "autoload": {
-        "psr-4": {
-            "Up\\": "src/",
+	"name": "up/techno-store",
+	"autoload": {
+		"psr-4": {
+			"Up\\": "src/",
 			"Core\\": "core/"
-        }
-    },
-    "authors": [
-        {
-            "name": "Ilya Solovev",
-            "email": "solovevilya3101@gmail.com"
-        },
+		}
+	},
+	"authors": [
+		{
+			"name": "Ilya Solovev",
+			"email": "solovevilya3101@gmail.com"
+		},
 		{
 			"name": "Yulya Gaus",
 			"email": "yulya.yulya.010202@gmail.com"
@@ -25,7 +25,7 @@
 		}
 
 	],
-    "require": {
+	"require": {
 		"ext-mysqli": "*"
 	}
 }
