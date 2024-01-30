@@ -4,11 +4,15 @@ namespace Up\Controllers;
 
 class IndexController extends BaseController
 {
-	public function indexAction(): string
+	public function indexAction($tagName): string
 	{
 
 		return $this->render('layout', [
-			'page' => $this->render('/pages/main', []),
+			'modal' => $this->render('/components/modals', []),
+			'page' => $this->render('/pages/main', [
+				'tag' => $tagName,
+				'toolbar' => $this->render('/components/toolbar', [])
+			]),
 		]);
 	}
 }
