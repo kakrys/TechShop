@@ -5,8 +5,12 @@ declare(strict_types=1);
 namespace Up\Controllers;
 class AdminController extends BaseController
 {
-	public function adminAction(): string
+	public function adminAction($id): string
 	{
-		return "admin page";
+		return $this->render('layout', [
+			'page' => $this->render('/pages/admin', [
+				'id' => $id
+			]),
+		]);
 	}
 }

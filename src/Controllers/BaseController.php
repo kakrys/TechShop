@@ -12,7 +12,7 @@ class BaseController
 		{
 			throw new \RuntimeException('Invalid template path');
 		}
-		$absolutePath = ROOT . "/views/$path.php";
+		$absolutePath = ROOT . "/src/Views/default/$path.php";
 
 		if (!file_exists($absolutePath))
 		{
