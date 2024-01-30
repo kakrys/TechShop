@@ -5,7 +5,7 @@
 				<p class="modal__link activeModalLink">Log in</p>
 			</li>
 		</ul>
-		<h2 class="modalCard__title">Log in to TechShop</h2>
+		<h2 class="modalCard__title">Log in to Tech Shop</h2>
 		<form class="modalCard__form" action="/admin/:id/" method="post">
 			<div class="modalField">
 				<img src="/assets/images/common/email.svg" alt="click and write your E-mail" class="modalField__img">

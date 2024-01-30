@@ -10,7 +10,10 @@
     align-items: center;
     justify-content: space-between;
 }
-
+.header__logoLink{
+    text-align: center;
+    color: rgba(12, 104, 244, 0.9);
+}
 .header__list
 {
     max-width: 615px;
