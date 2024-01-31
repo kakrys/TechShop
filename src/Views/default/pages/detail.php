@@ -8,6 +8,16 @@
 		<div class="detail__imgContainer">
 			<img src="/assets/images/adminFolder/macbook12.png" alt="product image" class="detail__mainImg">
 		</div>
+		<div class="detail__brandContainer">
+			<ul class="detail__brandList">
+				<li class="detail__brandItem">
+					<a href="#" class="detail__brandLink">Brand Name</a>
+				</li>
+				<li class="detail__brandItem">
+					<a href="#" class="detail__brandLink">Brand Name</a>
+				</li>
+			</ul>
+		</div>
 		<div class="deatil__infoContainer">
 			<div class="detail__title">
 				<h2>MacBook Pro M2 MNEJ3 2022 LLA 13.3 inch</h2>

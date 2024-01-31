@@ -6,6 +6,7 @@
     justify-content: flex-start;
     gap: 24px;
     margin-top: 50px;
+    padding-left: 5%;
 }
 
 .detail__title h2, .detail__cost {
@@ -58,6 +59,7 @@
     align-items: center;
     justify-content: center;
     margin: 0 auto;
+    padding-left: 6%;
 }
 
 .detail__buyBtn {
@@ -72,4 +74,37 @@
     width: 50%;
     background-color: rgba(12, 104, 244, 1);
     color: rgba(255, 255, 255, 1);
+}
+
+.detail__brandContainer {
+    align-self: flex-start;
+}
+
+.detail__brandList {
+    padding-left: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 32px;
+}
+
+.detail__brandItem {
+    border-radius: 8px;
+    border: 1px solid #0C0C0C;
+    padding: 8px;
+}
+
+.detail__brandLink {
+    color: #0C0C0C;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.detail__brandLink:hover, .detail__brandLink:active {
+    color: #0C68F4;
+    background-color: rgba(12, 104, 244, 0.09);
+    transition: 0.3s;
+    -webkit-box-shadow: 5px 5px 100px 10px rgba(12, 104, 244, 0.3);
+    -moz-box-shadow: 5px 5px 100px 10px rgba(12, 104, 244, 0.3);
+    box-shadow: 5px 5px 100px 10px rgba(12, 104, 244, 0.3);
 }
