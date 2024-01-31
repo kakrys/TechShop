@@ -3,7 +3,8 @@
 	"autoload": {
 		"psr-4": {
 			"Up\\": "src/",
-			"Core\\": "core/"
+			"Core\\": "core/",
+			"Repository\\": "services/repository"
 		}
 	},
 	"authors": [

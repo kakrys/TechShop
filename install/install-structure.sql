@@ -1,7 +1,7 @@
 CREATE TABLE `PRODUCT` (
 	                       `ID` int PRIMARY KEY NOT NULL AUTO_INCREMENT,
 	                       `TITLE` varchar(255) NOT NULL,
-	                       `DESCRIPTION` varchar(65535) NOT NULL,
+	                       `DESCRIPTION` varchar(1000) NOT NULL,
 	                       `PRICE` float NOT NULL,
 	                       `ENTITY_STATUS_ID` int NOT NULL,
 	                       `DATE_RELEASE` datetime DEFAULT NOW(),
