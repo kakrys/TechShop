@@ -23,7 +23,7 @@ $tags=$product->getTags();
 
 			</ul>
 		</div>
-		<div class="deatil__infoContainer">
+		<div class="detail__infoContainer">
 			<div class="detail__title">
 				<h2><?=$product->getTitle()?></h2>
 			</div>
@@ -36,6 +36,6 @@ $tags=$product->getTags();
 		<div class="detail__cost">$ <?=$product->getPrice()?></div>
 	</section>
 	<div class="btnContainer">
-		<button class="detail__buyBtn">Buy Now</button>
+		<a href="/order/id/" class="detail__buyBtn">Buy Now</a>
 	</div>
 </div>

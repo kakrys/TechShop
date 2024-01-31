@@ -1,7 +1,8 @@
 <?php
 /**
  * @var $id
- * @var $productList
+ * @var $content
+ * @var $adminEdit
  */
 ?>
 <div class="wrapper account">
@@ -11,7 +12,7 @@
 			<p class="account__userName">Admin Name or E-Mail</p>
 		</div>
 		<nav class="account__nav">
-			<button class="account__sideBarBtn active-btn" data-tab-Index="0" id="loadUser">
+			<button class="account__sideBarBtn active-btn" data-tab-Index="0" id="loadProducts">
 				<img src="/assets/images/tags/all.svg" alt="edit Personal Data button"
 					 class="account__img">
 				Products
@@ -37,4 +38,9 @@
 			<div class="account__asideLine"></div>
 		</nav>
 	</aside>
+	<main class="account__main">
+		<?= $content ?>
+		<?= $adminEdit ?>
+	</main>
 </div>
+<script src="/assets/js/account.js"></script>

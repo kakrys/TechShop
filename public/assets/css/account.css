@@ -1,6 +1,6 @@
 .account {
     width: 100%;
-    padding: 48px 212px 82px 0;
+    padding: 48px 160px 82px 0;
     margin: 0 auto;
     display: flex;
     align-items: flex-start;
@@ -65,3 +65,106 @@ nav .account__asideLine {
     top: calc(var(--active-tab) * 68px);
     transition: all 0.3s;
 }
+
+/*ADMIN CONTENT STYLES START*/
+.account__main {
+   max-width: 1000px;
+}
+.admin {
+
+}
+.title__container {
+    width: 950px;
+}
+
+.account__title {
+    color: #0C0C0C;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.account__toolbarList {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 24px;
+}
+
+.account__toolbarBtn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.admin__productList {
+    width: 90%;
+    margin: 40px auto 0;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.admin__productItem {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 16px;
+    border-radius: 8px;
+    background: #FFF;
+    box-shadow: -2px 2px 20px -1px rgba(113, 113, 113, 0.20);
+}
+
+.admin__productImage {
+    display: block;
+    width: 200px;
+    height: 150px;
+}
+
+.admin__productTitle, .admin__productCost, .admin__productEdit{
+    margin-top: 10px;
+}
+.admin__productTitle {
+    width: 200px;
+    overflow: hidden;
+    color: #063A88;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.admin__productDescription{
+    width: 200px;
+    overflow: hidden;
+    color: #063A88;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 16px;
+    font-weight: 300;
+    display: none;
+}
+.admin__productCost {
+}
+
+.admin__productEdit {
+    border-radius: 8px;
+    border: 2px solid #0C68F4;
+    padding: 8px 10px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #0C68F4;
+}
+
+.admin__productEdit:hover, .admin__productEdit:active, .admin__productEdit:focus {
+    background-color: #0C68F4;
+    color: #FFFFFF;
+    transition: 0.3s;
+}
+
