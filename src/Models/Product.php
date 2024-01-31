@@ -7,6 +7,9 @@ class Product
     private ?int $id;
     private ?string $title;
     private ?string $description;
+    private ?string $brand;
+
+
     private ?float $price;
     private ?int $entityStatusId;
     private ?\DateTime $dateRelease;
@@ -23,8 +26,13 @@ class Product
      * @param \DateTime $dateUpdate
      * @param int $sortOrder
      * @param array $tags
+     * @param string $brand
      */
-    public function __construct(?int $id, ?string $title, ?string $description, ?float $price, ?int $entityStatusId, ?\DateTime $dateRelease, ?\DateTime $dateUpdate, ?int $sortOrder, ?array $tags)
+    public function __construct(?int $id, ?string $title,
+                                ?string $description, ?float $price,
+                                ?int $entityStatusId, ?\DateTime $dateRelease,
+                                ?\DateTime $dateUpdate, ?int $sortOrder,
+                                ?array $tags,?string $brand)
     {
         $this->id = $id??null;
         $this->title = $title??null;
@@ -35,6 +43,7 @@ class Product
         $this->dateUpdate = $dateUpdate??null;
         $this->sortOrder = $sortOrder??null;
         $this->tags = $tags??[];
+        $this->$brand=$brand??null;
     }
 
 
@@ -131,5 +140,14 @@ class Product
     public function addTag(Tag $tag):void
     {
         $this->tags[]=$tag;
+    }
+    public function getBrand(): ?string
+    {
+        return $this->brand;
+    }
+
+    public function setBrand(?string $brand): void
+    {
+        $this->brand = $brand;
     }
 }

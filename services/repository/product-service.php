@@ -27,7 +27,7 @@ function getProductList(): array
         $product = new \Up\Models\Product(
             $row['ID'], $row['TITLE'], null,
             $row['PRICE'], null,
-            null, null, null, null
+            null, null, null, null,null
         );
 
         $products[] = $product;
@@ -57,7 +57,7 @@ function getProductInfoByID(int $id): \Up\Models\Product
     $product = new \Up\Models\Product(
         $row['ID'], $row['TITLE'], $row['DESCRIPTION'],
         $row['PRICE'], null,
-        null, null, null, []);
+        null, null, null, [],null);
 
     $query = "SELECT `TITLE` from `TAG`inner join `PRODUCT_TAG`"
         . "WHERE PRODUCT_ID={$id}";
