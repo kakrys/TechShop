@@ -28,19 +28,19 @@
 				</a>
 			</li>
 			<li class="aside__item">
-				<a class="aside__link" href="/catalog/cameras/">
+				<a class="aside__link" href="/catalog/camera/">
 					<img src="/assets/images/tags/instacs.svg" alt="Camera" class="aside__img">
 					<p class="aside__title">Cameras</p>
 				</a>
 			</li>
 			<li class="aside__item">
-				<a class="aside__link" href="/catalog/laptops/">
+				<a class="aside__link" href="/catalog/laptop/">
 					<img src="/assets/images/tags/laptop.svg" alt="Laptop" class="aside__img">
 					<p class="aside__title">Laptops</p>
 				</a>
 			</li>
 			<li class="aside__item">
-				<a class="aside__link" href="/catalog/phones/">
+				<a class="aside__link" href="/catalog/mobile/">
 					<img src="/assets/images/tags/iphone14.svg" alt="Smart Phone" class="aside__img">
 					<p class="aside__title">Smart Phones</p>
 				</a>
@@ -52,7 +52,7 @@
 				</a>
 			</li>
 			<li class="aside__item">
-				<a class="aside__link" href="/catalog/watches/">
+				<a class="aside__link" href="/catalog/wearable/">
 					<img src="/assets/images/tags/watches.svg" alt="Smart Watch" class="aside__img">
 					<p class="aside__title">Smart Watches</p>
 				</a>

@@ -174,14 +174,16 @@
 
 /*order modal styles start*/
 .orderModal {
-    position: absolute;
-    top: 40%;
+    display: none;
+    overflow: hidden;
+    position: fixed;
+    top: 30%;
     left: 39%;
     z-index: 3;
     border-radius: 8px;
     border: 1px solid #EDEDED;
     background: #FFF;
-    box-shadow: -2px 2px 20px -1px rgba(113, 113, 113, 0.20);
+    box-shadow: 0 0 0 9999px rgba(0,0,0, 0.7);
 }
 
 .orderModal__container {
