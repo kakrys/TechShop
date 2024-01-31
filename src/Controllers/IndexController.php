@@ -10,7 +10,8 @@ class IndexController extends BaseController
 		return $this->render('layout', [
 			'modal' => $this->render('/components/modals', []),
 			'page' => $this->render('/pages/main', [
-				'toolbar' => $this->render('/components/toolbar', [])
+				'toolbar' => $this->render('/components/toolbar', []),
+                'addProducts'=>[9,10]
 			]),
 		]);
 	}

@@ -2,6 +2,7 @@
 /**
  * @var $tag
  * @var $toolbar
+ * @var  array $addProducts
  */
 ?>
 <div class="wrapper main">
@@ -63,10 +64,10 @@
 <section>
 	<div class="wrapper">
 		<div class="banners-section">
-			<a href="/product/id/" class="banner__link">
+			<a href="/product/<?=$addProducts[0]?>/" class="banner__link">
 				<img src="/assets/images/common/banner3.jpg" alt="Iphone 15 Series banner">
 			</a>
-			<a href="/product/id/" class="banner__link">
+			<a href="/product/<?=$addProducts[1]?>/" class="banner__link">
 				<img src="/assets/images/common/miniBanner2.png" alt="Play station 5 banner">
 			</a>
 		</div>
