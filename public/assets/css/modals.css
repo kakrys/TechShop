@@ -171,3 +171,55 @@
     line-height: 22px;
     text-decoration-line: underline;
 }
+
+/*order modal styles start*/
+.orderModal {
+    position: absolute;
+    top: 40%;
+    left: 39%;
+    z-index: 3;
+    border-radius: 8px;
+    border: 1px solid #EDEDED;
+    background: #FFF;
+    box-shadow: -2px 2px 20px -1px rgba(113, 113, 113, 0.20);
+}
+
+.orderModal__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 38px 24px;
+}
+
+.orderStatus {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.orderStatus__img {
+    display: block;
+    background-color: #fff;
+    border-radius: 50%;
+    box-shadow: -2px 2px 20px -1px rgba(113, 113, 113, 0.4);
+}
+
+.orderStatus__text {
+    color: #146C43;
+    text-align: center;
+    font-size: 32px;
+    font-weight: 500;
+}
+
+.orderModal__btn {
+    margin-top: 48px;
+    padding: 16px;
+    border-radius: 8px;
+    background: #0C68F4;
+    font-size: 16px;
+    font-weight: 400;
+    color: #FFFFFF;
+}

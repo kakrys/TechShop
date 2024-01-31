@@ -8,11 +8,15 @@
     margin-top: 50px;
 }
 
-.detail__title h2{
+.detail__title h2, .detail__cost {
     color: #000;
     font-size: 20px;
     font-weight: 500;
     line-height: normal;
+}
+
+.detail__cost {
+    margin-bottom: 20px;
 }
 
 .techDetail__description {

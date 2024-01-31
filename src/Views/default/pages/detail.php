@@ -18,6 +18,7 @@
 				</p>
 			</div>
 		</div>
+		<div class="detail__cost">$ 1299.00</div>
 	</section>
 	<div class="btnContainer">
 		<button class="detail__buyBtn">Buy Now</button>
