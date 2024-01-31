@@ -3,6 +3,7 @@
  * @var $id
  * @var \Up\Models\Product $product
  */
+$tags=$product->getTags();
 ?>
 <div class="wrapper">
 	<section class="detail">
@@ -12,11 +13,14 @@
 		<div class="detail__brandContainer">
 			<ul class="detail__brandList">
 				<li class="detail__brandItem">
-					<a href="#" class="detail__brandLink">Brand Name</a>
+					<a href="#" class="detail__brandLink"><?=$product->getBrand()?></a>
 				</li>
-				<li class="detail__brandItem">
-					<a href="#" class="detail__brandLink">Brand Name</a>
-				</li>
+                <?php foreach ($tags as $tag):?>
+                <li class="detail__brandItem">
+                    <a href="#" class="detail__brandLink"><?=$tag->getTitle()?></a>
+                </li>
+                <?php endforeach;?>
+
 			</ul>
 		</div>
 		<div class="deatil__infoContainer">

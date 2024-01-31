@@ -12,8 +12,8 @@ function getProductList(): array
 {
     $connection = DbConnection::getDbConnection();
 
-    $result = mysqli_query($connection, "SELECT `ID`,`TITLE`,`PRICE` from `PRODUCT`
-    ");
+    $query = "SELECT `ID`,`TITLE`,`PRICE` from `PRODUCT`";
+    $result = mysqli_query($connection, $query);
 
     if (!$result)
     {
@@ -43,7 +43,10 @@ function getProductInfoByID(int $id): \Up\Models\Product
 {
     $connection = DbConnection::getDbConnection();
 
-    $query = "SELECT `ID`,`TITLE`,`PRICE`,`DESCRIPTION` from `PRODUCT`WHERE ID={$id}";
+    $query = "SELECT PRODUCT.`ID`,PRODUCT.`TITLE`,`PRICE`,`DESCRIPTION`,BRAND.`TITLE` as `BRAND`"
+        ."from `PRODUCT` INNER JOIN `BRAND` on PRODUCT.BRAND_ID=`BRAND`.`id` "
+        ." WHERE PRODUCT.`ID`={$id}";
+
 
     $result = mysqli_query($connection, $query);
 
@@ -53,14 +56,14 @@ function getProductInfoByID(int $id): \Up\Models\Product
     }
 
     $row = mysqli_fetch_assoc($result);
-
     $product = new \Up\Models\Product(
         $row['ID'], $row['TITLE'], $row['DESCRIPTION'],
         $row['PRICE'], null,
-        null, null, null, [],null);
+        null, null, null, null,$row['BRAND']);
 
     $query = "SELECT `TITLE` from `TAG`inner join `PRODUCT_TAG`"
-        . "WHERE PRODUCT_ID={$id}";
+        ." on `TAG`.ID = `PRODUCT_TAG`.TAG_ID"
+        . " WHERE PRODUCT_ID={$id}";
 
     $tags = mysqli_query($connection,$query);
 

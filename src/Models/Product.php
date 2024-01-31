@@ -7,15 +7,13 @@ class Product
     private ?int $id;
     private ?string $title;
     private ?string $description;
-    private ?string $brand;
-
-
     private ?float $price;
     private ?int $entityStatusId;
     private ?\DateTime $dateRelease;
     private ?\DateTime $dateUpdate;
     private ?int $sortOrder;
     private ?array $tags;
+    private ?string $brand;
     /**
      * @param int $id
      * @param string $title
@@ -43,7 +41,7 @@ class Product
         $this->dateUpdate = $dateUpdate??null;
         $this->sortOrder = $sortOrder??null;
         $this->tags = $tags??[];
-        $this->$brand=$brand??null;
+        $this->brand=$brand??null;
     }
 
 
