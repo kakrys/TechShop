@@ -34,7 +34,7 @@ class Product
         $this->dateRelease = $dateRelease??null;
         $this->dateUpdate = $dateUpdate??null;
         $this->sortOrder = $sortOrder??null;
-        $this->tags = $tags??null;
+        $this->tags = $tags??[];
     }
 
 
@@ -128,5 +128,8 @@ class Product
         $this->tags = $tags;
     }
 
-
+    public function addTag(Tag $tag):void
+    {
+        $this->tags[]=$tag;
+    }
 }
