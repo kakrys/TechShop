@@ -14,41 +14,21 @@
 			<button class="account__sideBarBtn active-btn" data-tab-Index="0" id="loadUser">
 				<img src="/assets/images/tags/all.svg" alt="edit Personal Data button"
 					 class="account__img">
-				All
+				Products
 			</button>
 			<button class="account__sideBarBtn" data-tab-Index="1" id="loadOrder">
-				<img src="/assets/images/tags/1.svg" alt="show Orders button" class="account__img">
-				Mobile
+				<img src="/assets/images/accountIcons/accountUserEdit.svg" alt="show Orders button" class="account__img">
+				Profiles
 			</button>
 			<button class="account__sideBarBtn" data-tab-Index="2" id="loadWishList">
-				<img src="/assets/images/tags/2.svg" alt="show Wishlist button"
+				<img src="/assets/images/accountIcons/accountBag.svg" alt="show Wishlist button"
 					 class="account__img">
-				Laptop
+				Orders
 			</button>
 			<button class="account__sideBarBtn" data-tab-Index="3">
-				<img src="/assets/images/tags/3.svg" alt="show Contact us button"
+				<img src="/assets/images/accountIcons/accountCreate.svg" alt="show Contact us button"
 					 class="account__img">
-				Tablet
-			</button>
-			<button class="account__sideBarBtn" data-tab-Index="4">
-				<img src="/assets/images/tags/4.svg" alt="Log out button" class="account__img">
-				Wearable
-			</button>
-			<button class="account__sideBarBtn" data-tab-Index="4">
-				<img src="/assets/images/tags/5.svg" alt="Log out button" class="account__img">
-				Audio
-			</button>
-			<button class="account__sideBarBtn" data-tab-Index="4">
-				<img src="/assets/images/tags/6.svg" alt="Log out button" class="account__img">
-				Camera
-			</button>
-			<button class="account__sideBarBtn" data-tab-Index="4">
-				<img src="/assets/images/tags/7.svg" alt="Log out button" class="account__img">
-				Gaming
-			</button>
-			<button class="account__sideBarBtn" data-tab-Index="4">
-				<img src="/assets/images/tags/9.svg" alt="Log out button" class="account__img">
-				Accessories
+				Create product
 			</button>
 			<button class="account__sideBarBtn" style="color: #C91433;" data-tab-Index="4">
 				<img src="/assets/images/accountIcons/accountLogout.svg" alt="Log out button" class="account__img">
@@ -57,5 +37,4 @@
 			<div class="account__asideLine"></div>
 		</nav>
 	</aside>
-	<?= $productList ?>
 </div>

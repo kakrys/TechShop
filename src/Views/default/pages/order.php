@@ -57,7 +57,7 @@
 		</div>
 	</div>
 </div>
-<div class="orderModal">
+<div class="orderModal" data-field-message="CODE:200" >
 	<div class="orderModal__container">
 		<div class="orderStatus">
 			<img src="/assets/images/common/tick-circle.png" alt="Successful order submit" class="orderStatus__img">
@@ -66,3 +66,4 @@
 		<a href="/" class="orderModal__btn">Return To Main Page</a>
 	</div>
 </div>
+<script src="/assets/js/order.js"></script>
