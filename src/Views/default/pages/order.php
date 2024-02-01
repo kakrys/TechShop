@@ -1,6 +1,7 @@
 <?php
 /**
  * @var $id
+ * @var \Up\Models\Product $product
  */
 ?>
 <div class="wrapper orderTitleContainer">
@@ -28,32 +29,14 @@
 					<img src="../adminFolder/$img" alt="product image">
 				</div>
 				<div class="order__description">
-					<h3 class="order__title">MacBook Pro M2 MNEJ3 2022 LLA 13.3 inch</h3>
-					<p class="order__price">$1543.02</p>
-				</div>
-			</li>
-			<li class="order__item">
-				<div class="order__image">
-					<img src="../adminFolder/$img" alt="product image">
-				</div>
-				<div class="order__description">
-					<h3 class="order__title">MacBook Pro M2 MNEJ3 2022 LLA 13.3 inch</h3>
-					<p class="order__price">$1543.02</p>
-				</div>
-			</li>
-			<li class="order__item">
-				<div class="order__image">
-					<img src="../adminFolder/$img" alt="product image">
-				</div>
-				<div class="order__description">
-					<h3 class="order__title">MacBook Pro M2 MNEJ3 2022 LLA 13.3 inch</h3>
-					<p class="order__price">$1543.02</p>
+					<h3 class="order__title"><?=$product->getTitle()?></h3>
+					<p class="order__price"><?=$product->getPrice()?></p>
 				</div>
 			</li>
 		</ul>
 		<div class="order__totalSum">
 			<h4 class="order__totalTitle">Grand Total</h4>
-			<p class="order__totalPrice">$1543.02</p>
+			<p class="order__totalPrice"><?=$product->getPrice()?></p>
 		</div>
 	</div>
 </div>
