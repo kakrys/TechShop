@@ -1,18 +1,19 @@
 <?php
 namespace Core\DB;
+
 use Core\DB\DbConnection;
 use Up\Services\ConfigurationService;
+
 class Migrator
 {
     public static function executeMigrations():void
     {
-        $migrationsDir=scandir(__DIR__."/../../src/Migrations");
-        $migrations=array_slice($migrationsDir,2);
-        $number = (int)trim(file_get_contents(__DIR__.'/DbMigration.txt'));
+        $migrationsDir = scandir(__DIR__."/../../src/Migrations");
+        $migrations = array_slice($migrationsDir,2);
         $connection = DbConnection::getDbConnection();
         foreach($migrations as $migration)
             {
-                $migrationTime=(int)substr($migration,0,-4);
+                $migrationTime = (int)substr($migration,0,-4);
                 if(strtotime($migrationTime)<time())
                 {
                     $query = file_get_contents(__DIR__ . '/../../src/Migrations/' . $migration);
@@ -20,13 +21,11 @@ class Migrator
                     {
                         continue;
                     }
-                    else
-                    {
-                        throw new \RuntimeException(mysqli_error($connection));
-                    }
+
+                    throw new \RuntimeException(mysqli_error($connection));
                 }
             }
-        file_put_contents(__DIR__.'/DbMigration.txt',time());
+
 
     }
 }
