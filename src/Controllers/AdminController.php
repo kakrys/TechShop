@@ -3,10 +3,15 @@
 declare(strict_types=1);
 
 namespace Up\Controllers;
+
+use Exception;
 use Up\Services\Repository\ProductService;
 
 class AdminController extends BaseController
 {
+	/**
+	 * @throws Exception
+	 */
 	public function adminAction($id): string
 	{
         $products = ProductService::getProductListForAdmin();
