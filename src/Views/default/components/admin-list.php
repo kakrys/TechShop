@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var \Up\Models\Product[] $products
+ */
+?>
 <div class="title__container">
 	<h2 class="account__title">Your Products</h2>
 	<ul class="account__toolbarList">
@@ -58,52 +63,15 @@
 	</ul>
 </div>
 <ul class="admin admin__productList">
+    <?php foreach($products as $product):?>
 	<li class="admin__productItem">
 		<img src="../adminFolder/image.svg" alt="product image" class="admin__productImage">
-		<h3 class="admin__productTitle" data-title="title123">PRODUCT TITLE</h3>
-		<p class="admin__productDescription" data-description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti dolor dolorum explicabo suscipit? Aspernatur exercitationem facilis officia saepe sunt voluptatum."></p>
-		<p class="admin__productCost" data-price="123" >$10000000</p>
-		<p class="admin__productBrand" data-brand="Sony"></p>
-		<button class="admin__productEdit" data-id="1">Edit Product</button>
+		<h3 class="admin__productTitle" data-title="<?=$product->getTitle()?>"><?=$product->getTitle()?></h3>
+		<p class="admin__productDescription" data-description="<?=$product->getDescription()?>"></p>
+		<p class="admin__productCost" data-price="<?=$product->getPrice()?>" >$<?=$product->getPrice()?></p>
+		<p class="admin__productBrand" data-brand="<?=$product->getBrand()?>"></p>
+		<button class="admin__productEdit" data-id="<?=$product->getId()?>">Edit Product</button>
 	</li>
-	<li class="admin__productItem">
-		<img src="../adminFolder/image.svg" alt="product image" class="admin__productImage">
-		<h3 class="admin__productTitle" data-title="title12345">PRODUCT TITLE</h3>
-		<p class="admin__productDescription" data-description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti dolor dolorum explicabo suscipit? Aspernatur exercitationem facilis officia saepe sunt voluptatum."></p>
-		<p class="admin__productCost"  data-price="12345">$10000000</p>
-		<p class="admin__productBrand" data-brand="Apple"></p>
-		<button class="admin__productEdit" data-id="2">Edit Product</button>
-	</li>
-	<li class="admin__productItem">
-		<img src="../adminFolder/image.svg" alt="product image" class="admin__productImage">
-		<h3 class="admin__productTitle">PRODUCT TITLE</h3>
-		<p class="admin__productDescription" data-description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti dolor dolorum explicabo suscipit? Aspernatur exercitationem facilis officia saepe sunt voluptatum."></p>
-		<p class="admin__productCost" data-price="1234567">$10000000</p>
-		<p class="admin__productBrand" data-brand="Apple"></p>
-		<button class="admin__productEdit" data-id="3">Edit Product</button>
-	</li>
-	<li class="admin__productItem">
-		<img src="../adminFolder/image.svg" alt="product image" class="admin__productImage">
-		<h3 class="admin__productTitle">PRODUCT TITLE</h3>
-		<p class="admin__productDescription" data-description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti dolor dolorum explicabo suscipit? Aspernatur exercitationem facilis officia saepe sunt voluptatum."></p>
-		<p class="admin__productCost" data-price="10000023">$10000000</p>
-		<p class="admin__productBrand" data-brand="Sony"></p>
-		<button class="admin__productEdit" data-id="4">Edit Product</button>
-	</li>
-	<li class="admin__productItem">
-		<img src="../adminFolder/image.svg" alt="product image" class="admin__productImage">
-		<h3 class="admin__productTitle">PRODUCT TITLE</h3>
-		<p class="admin__productDescription" data-description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti dolor dolorum explicabo suscipit? Aspernatur exercitationem facilis officia saepe sunt voluptatum."></p>
-		<p class="admin__productCost" data-price="10000000003">$10000000</p>
-		<p class="admin__productBrand" data-brand="Apple"></p>
-		<button class="admin__productEdit" data-id="5">Edit Product</button>
-	</li>
-	<li class="admin__productItem">
-		<img src="../adminFolder/image.svg" alt="product image" class="admin__productImage">
-		<h3 class="admin__productTitle">PRODUCT TITLE</h3>
-		<p class="admin__productDescription" data-description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti dolor dolorum explicabo suscipit? Aspernatur exercitationem facilis officia saepe sunt voluptatum."></p>
-		<p class="admin__productCost" data-price="222222222222222222222222">$10000000</p>
-		<p class="admin__productBrand" data-brand="Sony"></p>
-		<button class="admin__productEdit" data-id="6">Edit Product</button>
-	</li>
+    <?php endforeach;?>
+
 </ul>

@@ -99,7 +99,7 @@ class ProductService
         while ($row = mysqli_fetch_assoc($result))
         {
             $product = new \Up\Models\Product(
-                $row['ID'], $row['TITLE'], null,
+                $row['ID'], $row['TITLE'], $row['DESCRIPTION'],
                 $row['PRICE'], null,
                 null, null, null, null,$row['BRAND']
             );

@@ -2,8 +2,7 @@
 
 namespace Up\Controllers;
 
-//use function Repository\getProductList;
-//use function Repository\getTagList;
+
 use Up\Services\Repository\ProductService;
 use Up\Services\Repository\TagService;
 class CatalogController extends BaseController
