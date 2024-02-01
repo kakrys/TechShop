@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Core\DB;
+namespace Core\Database;
 use Up\Services\ConfigurationService;
 use Exception;
 use mysqli;
