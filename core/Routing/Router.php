@@ -2,8 +2,6 @@
 
 namespace Core\Routing;
 
-use Core\Routing\Route;
-
 class Router
 {
 	/**
@@ -28,9 +26,6 @@ class Router
 	public static function find(string $method, $uri): ?Route
 	{
 		[$path] = explode('?', $uri);
-		var_dump($path);
-		var_dump(PHP_VERSION);
-
 
 		foreach (self::$routes as $route)
 		{
