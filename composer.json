@@ -4,7 +4,7 @@
 		"psr-4": {
 			"Up\\": "src/",
 			"Core\\": "core/",
-			"Repository\\": "services/repository"
+
 		}
 	},
 	"authors": [

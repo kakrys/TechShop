@@ -2,9 +2,10 @@
 
 namespace Up\Controllers;
 
-use function Repository\getProductList;
-use function Repository\getTagList;
-
+//use function Repository\getProductList;
+//use function Repository\getTagList;
+use Up\Services\Repository\ProductService;
+use Up\Services\Repository\TagService;
 class CatalogController extends BaseController
 {
     /**
@@ -12,8 +13,8 @@ class CatalogController extends BaseController
      */
     public function catalogAction(string $tagName): string
 	{
-        $products = getProductList();
-        $tags = getTagList();
+        $products = ProductService::getProductList();
+        $tags = TagService::getTagList();
 
 		return $this->render('layout', [
 			'modal' => $this->render('/components/modals', []),

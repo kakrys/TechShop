@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 namespace Core\DB;
-
+use Up\Services\ConfigurationService;
 use Exception;
 use mysqli;
 
@@ -19,10 +19,10 @@ class DbConnection
 
 		if ($connection === null)
 		{
-			$dbHost = option('DB_HOST');
-			$dbUser = option('DB_USER');
-			$dbPassword = option('DB_PASSWORD');
-			$dbName = option('DB_NAME');
+			$dbHost = ConfigurationService::option('DB_HOST');
+			$dbUser = ConfigurationService::option('DB_USER');
+			$dbPassword = ConfigurationService::option('DB_PASSWORD');
+			$dbName = ConfigurationService::option('DB_NAME');
 
 			$connection = mysqli_init();
 
