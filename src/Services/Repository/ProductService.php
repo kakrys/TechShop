@@ -5,108 +5,114 @@ namespace Up\Services\Repository;
 use Core\DB\DbConnection;
 use Exception;
 
-
 class ProductService
 {
-    /**
-     * @throws \Exception
-     */
-    public static function getProductList(): array
-    {
-        $connection = DbConnection::getDbConnection();
+	/**
+	 * @throws Exception
+	 */
+	public static function getProductList(): array
+	{
+		$connection = DbConnection::get();
 
-        $query = "SELECT `ID`,`TITLE`,`PRICE` from `PRODUCT`";
-        $result = mysqli_query($connection, $query);
+		$query = "SELECT `ID`,`TITLE`,`PRICE` from `PRODUCT`";
+		$result = mysqli_query($connection, $query);
 
-        if (!$result)
-        {
-            throw new Exception(mysqli_error($connection));
-        }
+		if (!$result)
+		{
+			throw new \RuntimeException(mysqli_error($connection));
+		}
 
-        $products = [];
+		$products = [];
 
-        while ($row = mysqli_fetch_assoc($result))
-        {
-            $product = new \Up\Models\Product(
-                $row['ID'], $row['TITLE'], null,
-                $row['PRICE'], null,
-                null, null, null, null,null
-            );
+		while ($row = mysqli_fetch_assoc($result))
+		{
+			$product = new \Up\Models\Product(
+				$row['ID'], $row['TITLE'], null, $row['PRICE'], null, null, null, null, null, null
+			);
 
-            $products[] = $product;
-        }
-        return $products;
+			$products[] = $product;
+		}
 
-    }
+		return $products;
 
-    /**
-     * @throws \Exception
-     */
-    public static function getProductInfoByID(int $id): \Up\Models\Product
-    {
-        $connection = DbConnection::getDbConnection();
+	}
 
-        $query = "SELECT PRODUCT.`ID`,PRODUCT.`TITLE`,`PRICE`,`DESCRIPTION`,BRAND.`TITLE` as `BRAND`"
-            ."from `PRODUCT` INNER JOIN `BRAND` on PRODUCT.BRAND_ID=`BRAND`.`id` "
-            ." WHERE PRODUCT.`ID`={$id}";
+	/**
+	 * @throws Exception
+	 */
+	public static function getProductInfoByID(int $id): \Up\Models\Product
+	{
+		$connection = DbConnection::get();
 
+		$query = "SELECT PRODUCT.`ID`,PRODUCT.`TITLE`,`PRICE`,`DESCRIPTION`,BRAND.`TITLE` as `BRAND`"
+			. "from `PRODUCT` INNER JOIN `BRAND` on PRODUCT.BRAND_ID=`BRAND`.`id` "
+			. " WHERE PRODUCT.`ID`={$id}";
 
-        $result = mysqli_query($connection, $query);
+		$result = mysqli_query($connection, $query);
 
-        if (!$result)
-        {
-            throw new \RuntimeException(mysqli_error($connection));
-        }
+		if (!$result)
+		{
+			throw new \RuntimeException(mysqli_error($connection));
+		}
 
-        $row = mysqli_fetch_assoc($result);
-        $product = new \Up\Models\Product(
-            $row['ID'], $row['TITLE'], $row['DESCRIPTION'],
-            $row['PRICE'], null,
-            null, null, null, null,$row['BRAND']);
+		$row = mysqli_fetch_assoc($result);
+		$product = new \Up\Models\Product(
+			$row['ID'], $row['TITLE'], $row['DESCRIPTION'], $row['PRICE'], null, null, null, null, null, $row['BRAND']
+		);
 
-        $query = "SELECT `TITLE` from `TAG`inner join `PRODUCT_TAG`"
-            ." on `TAG`.ID = `PRODUCT_TAG`.TAG_ID"
-            . " WHERE PRODUCT_ID={$id}";
+		$query = "SELECT `TITLE` from `TAG`inner join `PRODUCT_TAG`"
+			. " on `TAG`.ID = `PRODUCT_TAG`.TAG_ID"
+			. " WHERE PRODUCT_ID={$id}";
 
-        $tags = mysqli_query($connection,$query);
+		$tags = mysqli_query($connection, $query);
 
-        while ($row = mysqli_fetch_assoc($tags))
-        {
-            $tag = new \Up\Models\Tag(null, $row['TITLE'], null);
-            $product->addTag($tag);
+		while ($row = mysqli_fetch_assoc($tags))
+		{
+			$tag = new \Up\Models\Tag(null, $row['TITLE'], null);
+			$product->addTag($tag);
 
-        }
-        return $product;
-    }
-    /**
-     * @throws \Exception
-     */
-    public static function getProductListForAdmin(): array
-    {
-        $connection = DbConnection::getDbConnection();
+		}
 
-        $query = $query = "SELECT PRODUCT.`ID`,PRODUCT.`TITLE`,`PRICE`,`DESCRIPTION`,BRAND.`TITLE` as `BRAND`"
-            ."from `PRODUCT` INNER JOIN `BRAND` on PRODUCT.BRAND_ID=`BRAND`.`id` ";
-        $result = mysqli_query($connection, $query);
+		return $product;
+	}
 
-        if (!$result)
-        {
-            throw new Exception(mysqli_error($connection));
-        }
+	/**
+	 * @throws Exception
+	 */
+	public static function getProductListForAdmin(): array
+	{
+		$connection = DbConnection::get();
 
-        $products = [];
+		$query = $query = "SELECT PRODUCT.`ID`,PRODUCT.`TITLE`,`PRICE`,`DESCRIPTION`,BRAND.`TITLE` as `BRAND`"
+			. "from `PRODUCT` INNER JOIN `BRAND` on PRODUCT.BRAND_ID=`BRAND`.`id` ";
+		$result = mysqli_query($connection, $query);
 
-        while ($row = mysqli_fetch_assoc($result))
-        {
-            $product = new \Up\Models\Product(
-                $row['ID'], $row['TITLE'], $row['DESCRIPTION'],
-                $row['PRICE'], null,
-                null, null, null, null,$row['BRAND']
-            );
+		if (!$result)
+		{
+			throw new \RuntimeException(mysqli_error($connection));
+		}
 
-            $products[] = $product;
-        }
-        return $products;
+		$products = [];
 
-    }
+		while ($row = mysqli_fetch_assoc($result))
+		{
+			$product = new \Up\Models\Product(
+				$row['ID'],
+				$row['TITLE'],
+				$row['DESCRIPTION'],
+				$row['PRICE'],
+				null,
+				null,
+				null,
+				null,
+				null,
+				$row['BRAND']
+			);
+
+			$products[] = $product;
+		}
+
+		return $products;
+
+	}
 }

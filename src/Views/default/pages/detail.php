@@ -3,7 +3,7 @@
  * @var $id
  * @var \Up\Models\Product $product
  */
-$tags=$product->getTags();
+$tags = $product->getTags();
 ?>
 <div class="wrapper">
 	<section class="detail">
