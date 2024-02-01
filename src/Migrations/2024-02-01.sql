@@ -180,7 +180,7 @@ CREATE TABLE `ROLE` (
 --
 -- Дамп данных таблицы `ROLE`
 --
-
+INSERT INTO `ROLE`(`ID`, `TITLE`) VALUES ('1','Admin');
 
 -- --------------------------------------------------------
 
@@ -235,7 +235,7 @@ CREATE TABLE `USER` (
   `ROLE_ID` int(11) NOT NULL,
   `ENTITY_STATUS_ID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
+INSERT INTO `USER`(`ID`, `NAME`, `SURNAME`, `EMAIL`, `PASSWORD`, `ADDRESS`, `ROLE_ID`, `ENTITY_STATUS_ID`) VALUES ('1','Admin','Admin','test@gmail.com','Admin','Admin','1','1');
 --
 -- Индексы сохранённых таблиц
 --
