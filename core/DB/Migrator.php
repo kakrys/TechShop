@@ -1,6 +1,6 @@
 <?php
-namespace Core\Database;
-use Core\Database\DbConnection;
+namespace Core\DB;
+use Core\DB\DbConnection;
 use Up\Services\ConfigurationService;
 class Migrator
 {

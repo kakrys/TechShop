@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Up;
 
-use Core\Database\Migrator;
+use Core\DB\Migrator;
 use Core\Routing\Router;
 
 class Application
