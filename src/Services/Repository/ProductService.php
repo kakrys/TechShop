@@ -2,7 +2,7 @@
 
 namespace Up\Services\Repository;
 
-use Core\Database\DbConnection;
+use Core\DB\DbConnection;
 use Exception;
 
 
