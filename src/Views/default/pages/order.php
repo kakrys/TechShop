@@ -11,13 +11,13 @@
 	<div class="order__formContainer">
 		<form class="order__form" action="/order/success/" method="post">
 			<label class="order__label" for="userName">Name</label>
-			<input class="order__input" id="userName" type="text" placeholder="Input Your Name" required>
+			<input class="order__input" id="userName" type="text" name="name" placeholder="Input Your Name" required>
 			<label class="order__label" for="userSurname">Surname</label>
-			<input class="order__input" id="userSurname" type="text" placeholder="Input Your Surname" required>
+			<input class="order__input" id="userSurname" type="text" name="surname" placeholder="Input Your Surname" required>
 			<label class="order__label" for="userEmail">E-mail</label>
-			<input class="order__input" id="userEmail" type="text" placeholder="Input Your E-mail" required>
+			<input class="order__input" id="userEmail" type="text" name="email" placeholder="Input Your E-mail" required>
 			<label class="order__label" for="userAddress">Ship to</label>
-			<input class="order__input" id="userAddress" type="text" placeholder="Input Your Address" required>
+			<input class="order__input" id="userAddress" type="text" name="address" placeholder="Input Your Address" required>
 			<button class="order__addOrder" type="submit">Submit & Order</button>
 		</form>
 	</div>
