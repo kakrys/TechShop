@@ -1,3 +1,5 @@
+
+
 <div class="modal" id="authModal">
 	<div class="modalCard" id="logInModalContainer">
 		<ul class="modal__list">

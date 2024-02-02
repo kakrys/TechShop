@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Up\Services;
 
+use Up\Models\User;
 use Up\Services\Repository\UserService;
 class AuthenticationService
 {
 	/**
 	 * @throws \Exception
 	 */
-	public static function authenticateUser(string $email, string $password, bool $isAdmin = false): bool
+	public static function authenticateUser(?User $user,string $email, string $password, bool $isAdmin = false): bool
 	{
-		$user = UserService::getUserByEmail($email);
 
 		if ($isAdmin) $roleID = 1;
 		if (!$isAdmin) $roleID = 2;

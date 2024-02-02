@@ -17,13 +17,15 @@ class AdminController extends BaseController
 	public function adminAction($id): string
 	{
         $products = ProductService::getProductListForAdmin();
-		if (AuthenticationService::authenticateUser($_POST['email'],$_POST['password'],true))
+		$user = UserService::getUserByEmail($_POST['email']);
+		if (AuthenticationService::authenticateUser($user,$_POST['email'],$_POST['password'],true))
 		{
 			return $this->render('layout', [
 				'modal' => $this->render('/components/modals', []),
 				'page' => $this->render('/pages/admin', [
 					'id' => $id,
-					'adminEmail' => $_POST['email'],
+					'adminFullName' => $user->name . ' ' . $user->surname,
+					'adminEmail' => $user->email,
 					'content' => $this->render('/components/admin-list', ['products' => $products]),
 					'adminEdit' => $this->render('/components/admin-edit', []),
 				]),
