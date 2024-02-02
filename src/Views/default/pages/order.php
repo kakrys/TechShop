@@ -18,6 +18,8 @@
 			<input class="order__input" id="userEmail" type="text" name="email" placeholder="Input Your E-mail" required>
 			<label class="order__label" for="userAddress">Ship to</label>
 			<input class="order__input" id="userAddress" type="text" name="address" placeholder="Input Your Address" required>
+			<input name="productID" type="hidden" value="<?=$product->getId()?>">
+			<input name="productPrice" type="hidden" value="<?=$product->getPrice()?>">
 			<button class="order__addOrder" type="submit">Submit & Order</button>
 		</form>
 	</div>
