@@ -1,6 +1,8 @@
 <?php
 /**
  * @var \Up\Models\Product $products
+ * @var $pageNumber
+ * @var $tagName
  */
 ?>
 <div class="mainSection">
@@ -23,14 +25,14 @@
 	<div class="pagination">
 		<ul class="pagination__list">
 			<li class="pagination__item">
-				<button class="pagination__btn">
+				<a class="pagination__btn" href="/catalog/<?=$tagName?>/<?=(int)$pageNumber-1?>/">
 					Previous page
-				</button>
+				</a>
 			</li>
 			<li class="pagination__item">
-				<button class="pagination__btn">
+				<a class="pagination__btn" href="/catalog/<?=$tagName?>/<?=(int)$pageNumber+1?>/">
 					Next page
-				</button>
+				</a>
 			</li>
 		</ul>
 	</div>
