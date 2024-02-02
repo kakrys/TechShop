@@ -11,3 +11,7 @@ VALUES (1, 1, '1.jpg', 1),
        (8, 8, '8.webp', 1),
        (9, 9, '9.jpg', 1),
        (10, 10, '10.png', 1);
+
+CREATE INDEX index_product_brand_id ON PRODUCT (BRAND_ID);
+CREATE INDEX index_product_tag_id ON PRODUCT_TAG (TAG_ID);
+CREATE INDEX index_image_product_id ON IMAGE (PRODUCT_ID);
