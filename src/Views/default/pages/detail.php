@@ -36,6 +36,6 @@ $tags = $product->getTags();
 		<div class="detail__cost">$ <?=$product->getPrice()?></div>
 	</section>
 	<div class="btnContainer">
-		<a href="/order/id/" class="detail__buyBtn">Buy Now</a>
+		<a href="/order/<?=$product->getId()?>/" class="detail__buyBtn">Buy Now</a>
 	</div>
 </div>
