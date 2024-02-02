@@ -3,13 +3,14 @@
  * @var $id
  * @var $content
  * @var $adminEdit
+ * @var $adminEmail
  */
 ?>
 <div class="wrapper account">
 	<aside class="account__sidebar">
 		<div class="account_userContainer">
 			<div class="account__userImg"></div>
-			<p class="account__userName">Admin Name or E-Mail</p>
+			<p class="account__userName"><?=$adminEmail?></p>
 		</div>
 		<nav class="account__nav">
 			<button class="account__sideBarBtn active-btn" data-tab-Index="0" id="loadProducts">
