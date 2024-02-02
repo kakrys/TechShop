@@ -14,7 +14,10 @@ class ProductService
 	{
 		$connection = DbConnection::get();
 
-		$query = "SELECT `ID`,`TITLE`,`PRICE` from `PRODUCT`";
+		$query = "SELECT `PRODUCT`.`ID`,`TITLE`,`PRICE`,`PATH` from `PRODUCT`"
+            ."inner join `IMAGE`"
+            ."on `PRODUCT`.`ID`=`IMAGE`.`PRODUCT_ID`"
+            ."WHERE `IS_COVER`=1";
 		$result = mysqli_query($connection, $query);
 
 		if (!$result)
@@ -26,9 +29,10 @@ class ProductService
 
 		while ($row = mysqli_fetch_assoc($result))
 		{
+            $cover=new \Up\Models\Image(null,$row['ID'],$row['PATH'],1);
 			$product = new \Up\Models\Product(
-				$row['ID'], $row['TITLE'], null, $row['PRICE'], null, null, null, null, null, null
-			);
+				$row['ID'], $row['TITLE'], null, $row['PRICE'], null,
+                null, null, null, null, null,$cover,[]);
 
 			$products[] = $product;
 		}
@@ -44,9 +48,11 @@ class ProductService
 	{
 		$connection = DbConnection::get();
 
-		$query = "SELECT PRODUCT.`ID`,PRODUCT.`TITLE`,`PRICE`,`DESCRIPTION`,BRAND.`TITLE` as `BRAND`"
+		$query = "SELECT `PRODUCT`.`ID`,PRODUCT.`TITLE`,`PRICE`,`DESCRIPTION`,BRAND.`TITLE` as `BRAND`,`PATH`"
 			. "from `PRODUCT` INNER JOIN `BRAND` on PRODUCT.BRAND_ID=`BRAND`.`id` "
-			. " WHERE PRODUCT.`ID`={$id}";
+            ."inner join `IMAGE`"
+            ."on `PRODUCT`.`ID`=`IMAGE`.`PRODUCT_ID`"
+            ."WHERE PRODUCT.`ID`={$id} and `IS_COVER`= 1";
 
 		$result = mysqli_query($connection, $query);
 
@@ -56,8 +62,10 @@ class ProductService
 		}
 
 		$row = mysqli_fetch_assoc($result);
+        $cover=new \Up\Models\Image(null,$row['ID'],$row['PATH'],1);
 		$product = new \Up\Models\Product(
-			$row['ID'], $row['TITLE'], $row['DESCRIPTION'], $row['PRICE'], null, null, null, null, null, $row['BRAND']
+			$row['ID'], $row['TITLE'], $row['DESCRIPTION'], $row['PRICE'], null,
+            null, null, null, null, $row['BRAND'],$cover,null
 		);
 
 		$query = "SELECT `TITLE` from `TAG`inner join `PRODUCT_TAG`"
@@ -83,8 +91,11 @@ class ProductService
 	{
 		$connection = DbConnection::get();
 
-		$query = $query = "SELECT PRODUCT.`ID`,PRODUCT.`TITLE`,`PRICE`,`DESCRIPTION`,BRAND.`TITLE` as `BRAND`"
-			. "from `PRODUCT` INNER JOIN `BRAND` on PRODUCT.BRAND_ID=`BRAND`.`id` ";
+		$query = "SELECT PRODUCT.`ID`,PRODUCT.`TITLE`,`PRICE`,`PATH`,`DESCRIPTION`,BRAND.`TITLE` as `BRAND`"
+			. "from `PRODUCT` INNER JOIN `BRAND` on PRODUCT.BRAND_ID=`BRAND`.`id` "
+            ."inner join `IMAGE`"
+            ."on `PRODUCT`.`ID`=`IMAGE`.`PRODUCT_ID`"
+            ."WHERE `IS_COVER`=1";;
 		$result = mysqli_query($connection, $query);
 
 		if (!$result)
@@ -96,6 +107,7 @@ class ProductService
 
 		while ($row = mysqli_fetch_assoc($result))
 		{
+            $cover=new \Up\Models\Image(null,$row['ID'],$row['PATH'],1);
 			$product = new \Up\Models\Product(
 				$row['ID'],
 				$row['TITLE'],
@@ -106,7 +118,9 @@ class ProductService
 				null,
 				null,
 				null,
-				$row['BRAND']
+				$row['BRAND'],
+                $cover,
+                null
 			);
 
 			$products[] = $product;

@@ -8,7 +8,7 @@ $tags = $product->getTags();
 <div class="wrapper">
 	<section class="detail">
 		<div class="detail__imgContainer">
-			<img src="/assets/images/adminFolder/macbook12.png" alt="product image" class="detail__mainImg">
+			<img src="/assets/images/productImages/<?=$product->getCover()->getPath()?>" alt="product image" class="detail__mainImg">
 		</div>
 		<div class="detail__brandContainer">
 			<ul class="detail__brandList">

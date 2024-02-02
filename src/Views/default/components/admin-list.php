@@ -65,7 +65,7 @@
 <ul class="admin admin__productList">
     <?php foreach($products as $product):?>
 	<li class="admin__productItem">
-		<img src="../adminFolder/image.svg" alt="product image" class="admin__productImage">
+		<img src="/assets/images/productImages/<?=$product->getCover()->getPath()?>" alt="product image" class="admin__productImage">
 		<h3 class="admin__productTitle" data-title="<?=$product->getTitle()?>"><?=$product->getTitle()?></h3>
 		<p class="admin__productDescription" data-description="<?=$product->getDescription()?>"></p>
 		<p class="admin__productCost" data-price="<?=$product->getPrice()?>" >$<?=$product->getPrice()?></p>

@@ -16,6 +16,8 @@ class Product
 	private ?int $sortOrder;
 	private ?array $tags;
 	private ?string $brand;
+    private ?Image $cover;
+    private ?array $images;
 
 	/**
 	 * @param int|null $id
@@ -28,6 +30,9 @@ class Product
 	 * @param int|null $sortOrder
 	 * @param array|null $tags
 	 * @param string|null $brand
+     * @param Image|null $cover
+     * @param array|null $images
+     *
 	 */
 	public function __construct(
 		?int $id,
@@ -39,7 +44,9 @@ class Product
 		?DateTime $dateUpdate,
 		?int $sortOrder,
 		?array $tags,
-		?string $brand
+		?string $brand,
+        ?Image $cover,
+        ?array $images
 	)
 	{
 		$this->id = $id ?? null;
@@ -52,6 +59,8 @@ class Product
 		$this->sortOrder = $sortOrder ?? null;
 		$this->tags = $tags ?? [];
 		$this->brand = $brand ?? null;
+        $this->cover = $cover ?? null;
+        $this->images = $images ?? null;
 	}
 
 	public function getId(): int
@@ -158,4 +167,23 @@ class Product
 	{
 		$this->brand = $brand;
 	}
+    public function getCover(): ?Image
+    {
+        return $this->cover;
+    }
+
+    public function setCover(?Image $cover): void
+    {
+        $this->cover = $cover;
+    }
+
+    public function getImages(): ?array
+    {
+        return $this->images;
+    }
+
+    public function setImages(?array $images): void
+    {
+        $this->images = $images;
+    }
 }

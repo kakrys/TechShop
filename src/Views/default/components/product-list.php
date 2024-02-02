@@ -8,7 +8,7 @@
         <?php foreach($products as $product):?>
 		<li class="mainSection__item">
 			<a href="/product/<?=$product->getID()?>/" class="mainSection__link">
-				<img src="/assets/images/adminFolder/macbook12.png" alt="product Image" class="mainSection__img">
+				<img src="/assets/images/productImages/<?=$product->getCover()->getPath()?>" alt="product Image" class="mainSection__img">
 				<div class="description__section">
 					<p class="description__title"><?=$product->getTitle()?></p>
 					<div class="product__footer_container">
