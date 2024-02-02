@@ -1,5 +1,8 @@
 <?php
 
+use Up\Services\Repository\OrderService;
+
+OrderService::addOrder();
 ?>
 
 <div class="orderModal" data-field-message="CODE:200" >
