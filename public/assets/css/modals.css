@@ -174,7 +174,6 @@
 
 /*order modal styles start*/
 .orderModal {
-    display: none;
     overflow: hidden;
     position: fixed;
     top: 30%;

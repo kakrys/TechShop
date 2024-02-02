@@ -42,6 +42,10 @@
     line-height: 28px;
 }
 
+.toolbar__category:first-letter {
+    text-transform: uppercase;
+}
+
 .toolbar__line{
     display: none;
     width: 100px;
