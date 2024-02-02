@@ -24,7 +24,7 @@
 					<a href="/" class="header__link">Home</a>
 				</li>
 				<li class="header__item">
-					<a href="/catalog/all/" class="header__link">Products</a>
+					<a href="/catalog/all/1/" class="header__link">Products</a>
 				</li>
 			</ul>
 		</nav>

@@ -11,17 +11,20 @@ class CatalogController extends BaseController
 	/**
 	 * @throws Exception
 	 */
-	public function catalogAction(string $tagName): string
+	public function catalogAction(string $tagName,$pageNumber): string
 	{
-		$products = ProductService::getProductList();
+        var_dump($pageNumber);
+		$products = ProductService::getProductList($pageNumber);
 		$tags = TagService::getTagList();
 
 		return $this->render('layout', [
 			'modal' => $this->render('/components/modals', []),
 			'page' => $this->render('/pages/catalog', [
 				'tag' => $tagName,
+                'pageNumber'=>$pageNumber,
 				'toolbar' => $this->render('/components/toolbar', ['tags' => $tags]),
-				'productList' => $this->render('/components/product-list', ['products' => $products]),
+				'productList' => $this->render('/components/product-list', ['products' => $products,
+                    'pageNumber'=>$pageNumber,'tagName'=>$tagName]),
 			]),
 		]);
 	}

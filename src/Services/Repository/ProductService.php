@@ -10,14 +10,16 @@ class ProductService
 	/**
 	 * @throws Exception
 	 */
-	public static function getProductList(): array
+	public static function getProductList($pageNumber): array
 	{
 		$connection = DbConnection::get();
+        $offset = ($pageNumber-1)*9;
 
 		$query = "SELECT `PRODUCT`.`ID`,`TITLE`,`PRICE`,`PATH` from `PRODUCT`"
             ."inner join `IMAGE`"
             ."on `PRODUCT`.`ID`=`IMAGE`.`PRODUCT_ID`"
-            ."WHERE `IS_COVER`=1";
+            ."WHERE `IS_COVER`=1"
+            ." LIMIT 9 OFFSET {$offset}";
 		$result = mysqli_query($connection, $query);
 
 		if (!$result)

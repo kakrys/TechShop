@@ -10,7 +10,7 @@
 		<article class="banner__text">
 			<h1>Tech Shop</h1>
 			<p class="banner__title">"Join the <span>digital revolution</span>"</p>
-			<a href="/catalog/all/">
+			<a href="/catalog/all/1/">
 				<button class="banner__btn">Explore More</button>
 			</a>
 		</article>
@@ -23,37 +23,37 @@
 	<div class="wrapper">
 		<ul class="aside__list">
 			<li class="aside__item">
-				<a class="aside__link" href="/catalog/accessories/">
+				<a class="aside__link" href="/catalog/accessories/1/">
 					<img src="/assets/images/tags/case.svg" alt="accessories" class="aside__img">
 					<p class="aside__title">Accessories</p>
 				</a>
 			</li>
 			<li class="aside__item">
-				<a class="aside__link" href="/catalog/camera/">
+				<a class="aside__link" href="/catalog/camera/1/">
 					<img src="/assets/images/tags/instacs.svg" alt="Camera" class="aside__img">
 					<p class="aside__title">Cameras</p>
 				</a>
 			</li>
 			<li class="aside__item">
-				<a class="aside__link" href="/catalog/laptop/">
+				<a class="aside__link" href="/catalog/laptop/1/">
 					<img src="/assets/images/tags/laptop.svg" alt="Laptop" class="aside__img">
 					<p class="aside__title">Laptops</p>
 				</a>
 			</li>
 			<li class="aside__item">
-				<a class="aside__link" href="/catalog/mobile/">
+				<a class="aside__link" href="/catalog/mobile/1/">
 					<img src="/assets/images/tags/iphone14.svg" alt="Smart Phone" class="aside__img">
 					<p class="aside__title">Smart Phones</p>
 				</a>
 			</li>
 			<li class="aside__item">
-				<a class="aside__link" href="/catalog/gaming/">
+				<a class="aside__link" href="/catalog/gaming/1/">
 					<img src="/assets/images/tags/console.svg" alt="Gaming" class="aside__img">
 					<p class="aside__title">Gaming</p>
 				</a>
 			</li>
 			<li class="aside__item">
-				<a class="aside__link" href="/catalog/wearable/">
+				<a class="aside__link" href="/catalog/wearable/1/">
 					<img src="/assets/images/tags/watches.svg" alt="Smart Watch" class="aside__img">
 					<p class="aside__title">Smart Watches</p>
 				</a>
