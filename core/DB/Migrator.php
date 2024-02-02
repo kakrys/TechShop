@@ -26,9 +26,6 @@ class Migrator
      */
     public static function executeMigrations(): void
     {
-//        var_dump(self::getConfigPath());
-//        var_dump("\n");
-//        var_dump(self::getMigrationsPath());
         if (!file_exists(self::getConfigPath()))
         {
             $dbConfigFile = fopen(self::getConfigPath(), "wb");
@@ -65,5 +62,21 @@ class Migrator
             }
 
         }
+    }
+    public static function deleteMigrations():void
+    {
+        $connection = DbConnection::get();
+        $dbConfigFile = fopen(self::getConfigPath(), "wb");
+
+        fwrite($dbConfigFile, 0);
+        fclose($dbConfigFile);
+
+        $query = file_get_contents(__DIR__."/../../install/uninstall-structure.sql");
+        if (!mysqli_multi_query($connection, $query))
+        {
+            throw new \RuntimeException(mysqli_error($connection));
+        }
+
+
     }
 }
