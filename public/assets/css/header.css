@@ -9,6 +9,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    margin: 10px auto;
 }
 .header__logoLink{
     text-align: center;
@@ -60,7 +61,7 @@
     z-index: 2;
     min-width: 288px;
     position: absolute;
-    top: 62px;
+    top: 47px;
     right: -7px;
     padding: 16px;
     border-radius: 0px 0px 8px 8px;
@@ -115,7 +116,7 @@
 }
 .shadow
 {
-    box-shadow: 0 10000px 0 9999px rgba(0,0,0, 0.3);
+    box-shadow: 0 10000px 0 10000px rgba(0,0,0, 0.3);
     display: flex !important;
     flex-direction: column;
     align-items: flex-start;
