@@ -6,7 +6,7 @@
 			</li>
 		</ul>
 		<h2 class="modalCard__title">Log in to Tech Shop</h2>
-		<form class="modalCard__form" action="/admin/:id/" method="post">
+		<form class="modalCard__form" action="/admin/id/" method="post">
 			<div class="modalField">
 				<img src="/assets/images/common/email.svg" alt="click and write your E-mail" class="modalField__img">
 				<input class="modalCard__form_input" type="text" name="email" placeholder="E-mail" required>
