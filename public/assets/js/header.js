@@ -5,22 +5,6 @@ account.addEventListener('click', () => {
 	accountBlock.classList.toggle('shadow');
 });
 
-//modal
-const modal = document.getElementById("authModal");
-const loginBtn = document.getElementById("LogIn");
-
-loginBtn.addEventListener('click', () => {
-	modal.style.display = "flex";
-});
-
-window.addEventListener('click', (event) => {
-	if (event.target === modal)
-	{
-		modal.style.display = "none";
-		accountBlock.classList.remove('shadow');
-	}
-});
-
 const forms = document.querySelector(".modal"),
 	pwShowHide = document.querySelectorAll(".modalField__eye"),
 	buttons = document.querySelectorAll(".modalCard__availability_btn"),

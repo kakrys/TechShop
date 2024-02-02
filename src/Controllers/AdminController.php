@@ -36,4 +36,12 @@ class AdminController extends BaseController
 			return 'У вас нет прав доступа';
 		}
 	}
+
+	public function loginAction()
+	{
+		return $this->render('layout', [
+			'modal' => $this->render('/components/modals', []),
+			'page' => $this->render('/pages/login', []),
+		]);
+	}
 }

@@ -38,7 +38,7 @@
 						<li class="user__item">
 							<button class="user__link" id="LogIn">
 								<img src="/assets/images/accountIcons/log.svg" alt="" class="user__img">
-								<p class="user__text">Log In</p>
+								<a href="/login/" class="user__text">Log In</a>
 							</button>
 						</li>
 					</ul>
@@ -47,7 +47,7 @@
 		</div>
 	</div>
 </header>
-<?= $modal ?>
+
 <main>
 	<?= $page ?>
 </main>

@@ -1,5 +1,4 @@
 .modal {
-    display: none;
     position: fixed;
     z-index: 3;
     top: 0;
@@ -10,12 +9,13 @@
 
     gap: 30px;
     align-items: flex-start;
+    backdrop-filter: blur(30px);
 }
 
 .modalCard {
     position: absolute;
     top: 20%;
-    left: 30%;
+    left: 32%;
     z-index: 4;
     width: 600px;
     display: flex;
@@ -33,6 +33,20 @@
     opacity: 1;
     pointer-events: auto;
 }
+
+
+.modalResponse {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    border-radius: 11px;
+    width: 100%;
+    height: 30px;
+    background-color: #FFD580;
+}
+
 
 .modal__list {
     display: flex;
