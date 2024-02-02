@@ -25,4 +25,11 @@ class OrderController extends BaseController
 			]),
 		]);
 	}
+	public function successAction()
+	{
+		return $this->render('layout', [
+			'modal' => $this->render('/components/modals', []),
+			'page' => $this->render('/pages/success', []),
+		]);
+	}
 }

@@ -9,7 +9,7 @@
 </div>
 <div class="wrapper order">
 	<div class="order__formContainer">
-		<form class="order__form" action="/order/success/" method="post">
+		<form class="order__form" action="/success/" method="post">
 			<label class="order__label" for="userName">Name</label>
 			<input class="order__input" id="userName" type="text" name="name" placeholder="Input Your Name" required>
 			<label class="order__label" for="userSurname">Surname</label>
@@ -40,13 +40,4 @@
 		</div>
 	</div>
 </div>
-<div class="orderModal" data-field-message="CODE:200" >
-	<div class="orderModal__container">
-		<div class="orderStatus">
-			<img src="/assets/images/common/tick-circle.png" alt="Successful order submit" class="orderStatus__img">
-			<p class="orderStatus__text">Successfully Ordered</p>
-		</div>
-		<a href="/" class="orderModal__btn">Return To Main Page</a>
-	</div>
-</div>
-<script src="/assets/js/order.js"></script>
+
