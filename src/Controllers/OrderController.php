@@ -25,7 +25,7 @@ class OrderController extends BaseController
 			]),
 		]);
 	}
-	public function successAction()
+	public function successAction(): string
 	{
 		return $this->render('layout', [
 			'modal' => $this->render('/components/modals', []),

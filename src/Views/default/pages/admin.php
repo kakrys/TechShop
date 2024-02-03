@@ -34,7 +34,17 @@
 					 class="account__img">
 				Create product
 			</button>
-			<button class="account__sideBarBtn" style="color: #C91433;" data-tab-Index="4">
+			<button class="account__sideBarBtn" data-tab-Index="4">
+				<img src="/assets/images/accountIcons/accountClear.svg" alt="show Contact us button"
+					 class="account__img">
+				Clear database
+			</button>
+			<button class="account__sideBarBtn" data-tab-Index="5">
+				<img src="/assets/images/accountIcons/scull.svg" alt="show Contact us button"
+					 class="account__img">
+				Delete database
+			</button>
+			<button class="account__sideBarBtn" style="color: #C91433;" data-tab-Index="6">
 				<img src="/assets/images/accountIcons/accountLogout.svg" alt="Log out button" class="account__img">
 				Log out
 			</button>
