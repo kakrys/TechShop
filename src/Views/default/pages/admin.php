@@ -1,10 +1,14 @@
 <?php
 /**
  * @var $id
- * @var $content
+ * @var $productList
  * @var $adminEdit
  * @var $adminEmail
  * @var $adminFullName
+ * @var $orders
+ * @var $users
+ * @var $create
+ * @var $deleteData
  */
 ?>
 <div class="wrapper account">
@@ -15,45 +19,52 @@
 			<p class="account__userName"><?=$adminEmail?></p>
 		</div>
 		<nav class="account__nav">
-			<button class="account__sideBarBtn active-btn" data-tab-Index="0" id="loadProducts">
+			<button class="account__sideBarBtn active-btn" data-tab-Index="0" id="loadProducts" data-tab-content="adminProductContainer">
 				<img src="/assets/images/tags/all.svg" alt="edit Personal Data button"
 					 class="account__img">
 				Products
 			</button>
-			<button class="account__sideBarBtn" data-tab-Index="1" id="loadOrder">
+			<button class="account__sideBarBtn" data-tab-Index="1" id="loadProfiles" data-tab-content="adminUserContainer">
 				<img src="/assets/images/accountIcons/accountUserEdit.svg" alt="show Orders button" class="account__img">
 				Profiles
 			</button>
-			<button class="account__sideBarBtn" data-tab-Index="2" id="loadWishList">
+			<button class="account__sideBarBtn" data-tab-Index="2" id="loadOrders" data-tab-content="adminOrderContainer">
 				<img src="/assets/images/accountIcons/accountBag.svg" alt="show Wishlist button"
 					 class="account__img">
 				Orders
 			</button>
-			<button class="account__sideBarBtn" data-tab-Index="3">
+			<button class="account__sideBarBtn" data-tab-Index="3" data-tab-content="adminCreateContainer">
 				<img src="/assets/images/accountIcons/accountCreate.svg" alt="show Contact us button"
 					 class="account__img">
 				Create product
 			</button>
-			<button class="account__sideBarBtn" data-tab-Index="4">
-				<img src="/assets/images/accountIcons/accountClear.svg" alt="show Contact us button"
+			<button class="account__sideBarBtn" data-tab-Index="4" data-tab-content="adminDeleteContainer">
+				<img src="/assets/images/accountIcons/accountAccess.svg" alt="show Contact us button"
 					 class="account__img">
-				Clear database
+				Security & access
 			</button>
-			<button class="account__sideBarBtn" data-tab-Index="5">
-				<img src="/assets/images/accountIcons/scull.svg" alt="show Contact us button"
-					 class="account__img">
-				Delete database
-			</button>
-			<button class="account__sideBarBtn" style="color: #C91433;" data-tab-Index="6">
+			<button class="account__sideBarBtn" style="color: #C91433;" data-tab-Index="5">
 				<img src="/assets/images/accountIcons/accountLogout.svg" alt="Log out button" class="account__img">
 				Log out
 			</button>
 			<div class="account__asideLine"></div>
 		</nav>
 	</aside>
-	<main class="account__main">
-		<?= $content ?>
+	<main class="account__main" id="adminProductContainer" data-admin-cont="0">
+		<?= $productList ?>
 		<?= $adminEdit ?>
+	</main>
+	<main class="account__main" id="adminUserContainer" data-admin-cont="1">
+		<?= $users ?>
+	</main>
+	<main class="account__main" id="adminOrderContainer" data-admin-cont="2">
+		<?= $orders ?>
+	</main>
+	<main class="account__main" id="adminCreateContainer" data-admin-cont="3">
+		<?= $create ?>
+	</main>
+	<main class="account__main" id="adminDeleteContainer" data-admin-cont="4">
+		<?= $deleteData ?>
 	</main>
 </div>
 <script src="/assets/js/account.js"></script>

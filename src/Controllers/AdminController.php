@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace Up\Controllers;
 
 use Exception;
+use Up\Models\Product;
 use Up\Services\AuthenticationService;
 use Up\Services\Repository\ProductService;
 use Up\Services\Repository\UserService;
+use Core\Web\Json;
 
 class AdminController extends BaseController
 {
@@ -28,8 +30,12 @@ class AdminController extends BaseController
 					'id' => $id,
 					'adminFullName' => $user->name . ' ' . $user->surname,
 					'adminEmail' => $user->email,
-					'content' => $this->render('/components/admin-list', ['products' => $products]),
+					'productList' => $this->render('/components/admin-list', ['products' => $products]),
 					'adminEdit' => $this->render('/components/admin-edit', []),
+					'orders' => $this->render('/components/admin-orders', []),
+					'users' => $this->render('/components/admin-users', []),
+					'create' => $this->render('/components/admin-create', []),
+					'deleteData' => $this->render('/components/admin-clear', []),
 				]),
 			]);
 		}
@@ -53,6 +59,17 @@ class AdminController extends BaseController
 			]),
 		]);
 
+	}
+	public function removeAction(): void
+	{
+		//coming soon...
+		//$delete = RemoveService::delete();
+		//echo Json::encode([
+			//'result' => $delete > 0 ? 'Y' : 'N',
+		//]);
+		echo Json::encode([
+			'result' => 'Y',
+		]);
 	}
 }
 

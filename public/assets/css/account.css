@@ -69,7 +69,7 @@ nav .account__asideLine {
 
 /*ADMIN CONTENT STYLES START*/
 .account__main {
-   max-width: 1000px;
+   max-width: 1400px;
 }
 .admin {
 
@@ -112,6 +112,7 @@ nav .account__asideLine {
 }
 
 .admin__productItem {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -155,6 +156,11 @@ nav .account__asideLine {
     display: none;
 }
 .admin__productCost {
+}
+.admin__productDelete {
+    position: absolute;
+    bottom: 9%;
+    right: 8%;
 }
 
 .admin__productEdit {

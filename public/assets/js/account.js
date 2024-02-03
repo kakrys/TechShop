@@ -49,3 +49,76 @@ document.querySelector('.closeModal').addEventListener('click', function() {
 	const modal = document.querySelector('.admin__edit');
 	modal.style.display = 'none';
 });
+
+//delete product
+const deleteBtn = document.getElementById('dangerBtn');
+function removeItem(id, title)
+{
+	const shouldRemove = confirm(`Are you sure you want to delete this product: ${title}`);
+	if (!shouldRemove)
+	{
+		return;
+	}
+
+	const removeParams = {
+		id: id,
+	};
+
+	fetch('/product/remove/',
+		{
+			method: 'POST',
+			headers:{
+				'Content-Type': 'application/json;charset=utf-8',
+			},
+			body: JSON.stringify(removeParams)
+		}
+	)
+		.then((response) => {
+			return response.json();
+		})
+		.then((response) => {
+			if (response.result !== 'Y')
+			{
+				console.log('error while deleting item :(');
+			}
+			const productItem = document.querySelector(`[data-id="${id}"]`);
+			if (productItem)
+			{
+				productItem.remove();
+			}
+
+		})
+		.catch((error) => {
+			console.log('error while deleting item:' + error);
+		})
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+	const buttons = document.querySelectorAll('.account__sideBarBtn');
+	const containers = document.querySelectorAll('.account__main');
+
+	function showContainer() {
+		containers.forEach(function(container) {
+			container.style.display = 'none';
+		});
+		const activeButton = document.querySelector('.active-btn');
+		if (activeButton) {
+			const targetCont = document.querySelector(`.account__main[id="${activeButton.dataset.tabContent}"]`);
+			if (targetCont) {
+				targetCont.style.display = 'block';
+			}
+		}
+	}
+
+	buttons.forEach(function(button) {
+		button.addEventListener('click', function() {
+			buttons.forEach(function(btn) {
+				btn.classList.remove('active-btn');
+			});
+			button.classList.add('active-btn');
+			showContainer();
+		});
+	});
+
+	showContainer();
+});

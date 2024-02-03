@@ -1,0 +1,183 @@
+/*admin order content styles start*/
+.account__ordersContainer {
+    margin-top: 24px;
+    max-width: 922px;
+    width: 100%;
+}
+
+.adminOrder, .adminUser {
+    padding: 15px;
+    width: 150%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.adminOrder {
+    border: 1px solid rgba(12, 104, 244, 0.2);
+    border-radius: 6px;
+    margin-bottom: 5px;
+}
+
+.account__ordersInfoList {
+    width: 100%;
+    padding: 16px;
+    border-radius: 4px;
+    background: #F6F6F6;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.account__ordersInfoItem {
+    max-width: 260px;
+    width: 100%;
+    position: relative;
+}
+
+.account__ordersInfoTitle {
+    color: #0C0C0C;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.account__ordersInfoSubtitle {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #0C0C0C;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 300;
+    margin-top: 10px;
+}
+
+.account__ordersProductInfo {
+    padding: 0 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.account__ordersImagesItem {
+    max-width: 109px;
+    width: 100%;
+}
+
+.account__ordersImage {
+    display: block;
+    width: 100px;
+    height: 100px;
+}
+
+.admin__userDelete {
+    max-width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.admin__userDelete img {
+    display: block;
+    width: 20px;
+}
+
+/*database styles*/
+.admin__databaseCont {
+    margin-top: 40px;
+    padding: 30px;
+    min-width: 640px;
+    border-radius: 6px;
+    border: 2px solid #C91433;
+}
+
+.account__title {
+}
+
+.admin__databaseList {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 30px;
+    margin-top: 15px;
+    margin-left: 20px;
+}
+
+.admin__databaseItem {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.admin__databaseTitle {
+    font-size: 18px;
+}
+
+.admin__databaseBtn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 10px;
+    color: #C91433;
+    border: 2px solid #C91433;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+.admin__databaseBtn:hover, .admin__databaseBtn:active{
+    color: #FFFFFF;
+    background-color: #C91433;
+    transition: 0.3s;
+}
+
+.admin__databaseBtn img{
+    display: block;
+    width: 25px;
+    height: 25px;
+}
+
+/*admin create styles*/
+.admin__create {
+    margin-top: 30px;
+}
+
+.admin__createForm{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.admin__createLabel {
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.admin__createForm #name, .admin__createForm #description, .admin__createForm #price{
+    border-radius: 5px;
+    border: 1px solid rgba(12, 104, 244, 0.4);
+    padding: 5px;
+    font-size: 16px;
+    width: 320px;
+    color: #0C0C0C;
+}
+
+.admin__createBtn {
+    border-radius: 8px;
+    border: 2px solid #0C68F4;
+    padding: 8px 10px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #0C68F4;
+}

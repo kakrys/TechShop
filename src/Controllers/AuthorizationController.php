@@ -28,7 +28,7 @@ class AuthorizationController extends BaseController
 		}
 		else
 		{
-			$_SESSION['AuthError'] = 'Неверный логин или пароль';
+			$_SESSION['AuthError'] = 'Invalid login or password';
 			header('Location: /login/');
 		}
 	}

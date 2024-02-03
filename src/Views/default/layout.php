@@ -11,13 +11,22 @@
 	<meta name="viewport"
 		  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favIcon/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favIcon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favIcon/favicon-16x16.png">
+	<link rel="manifest" href="/assets/images/favIcon/site.webmanifest">
+	<link rel="mask-icon" href="/assets/images/favIcon/safari-pinned-tab.svg" color="#063a88">
+	<meta name="msapplication-TileColor" content="#063a88">
+	<meta name="theme-color" content="#063a88">
 	<title>TechShop</title>
 	<link rel="stylesheet" href="/assets/css/index.css">
 </head>
 <body>
 <header class="header">
 	<div class="wrapper header__wrapper">
-		<a href="/" class="header__logoLink">Your logo <br> is here</a>
+		<a href="/" class="header__logoLink">
+			<img src="/assets/images/common/logo.svg" alt="logo" class="header__logo">
+		</a>
 		<nav class="header__nav">
 			<ul class="header__list">
 				<li class="header__item">

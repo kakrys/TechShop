@@ -12,7 +12,7 @@
 			</li>
 		</ul>
 		<h2 class="modalCard__title">Log in to Tech Shop</h2>
-		<div class="modalResponse"><?=$error?></div>
+		<div class="modalResponse <?= !empty($error) ? 'invalidField' : '' ?>"><?=$error?></div>
 		<form class="modalCard__form" action="/login/auth" method="post">
 			<div class="modalField">
 				<img src="/assets/images/common/email.svg" alt="click and write your E-mail" class="modalField__img">
@@ -28,6 +28,9 @@
 				Keep me logged in
 			</label>
 			<button id="logInButton" class="modalCard__btn" type="submit">Log In</button>
+			<div class="modalCard__availability">
+				<a href="/" class="modalCard__link">return to main</a>
+			</div>
 		</form>
 	</div>
 </div>

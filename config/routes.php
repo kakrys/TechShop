@@ -12,3 +12,6 @@ Router::get('/admin/:id/', [new Up\Controllers\AdminController(), 'adminAction']
 Router::get('/order/:id/', [new Up\Controllers\OrderController(), 'orderAction']);
 Router::post('/success/', [new Up\Controllers\OrderController(), 'successAction']);
 Router::post('/login/auth', [new Up\Controllers\AuthorizationController(), 'authAction']);
+
+//testing remove
+Router::post('/product/remove/',[new \Up\Controllers\AdminController(), 'removeAction']);
