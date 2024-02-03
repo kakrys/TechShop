@@ -16,9 +16,9 @@ class AdminController extends BaseController
 	 */
 	public function adminAction($id): string
 	{
+		session_start();
 		$products = ProductService::getProductListForAdmin();
-		$user = UserService::getUserByEmail($_POST['email']);
-
+		$user = UserService::getUserByEmail($_SESSION['AdminEmail']);
 		return $this->render('layout', [
 			'modal' => $this->render('/components/modals', []),
 			'page' => $this->render('/pages/admin', [
