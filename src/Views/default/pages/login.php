@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var $error
+ */
+?>
+
 <div class="modal" id="authModal">
 	<div class="modalCard" id="logInModalContainer">
 		<ul class="modal__list">
@@ -6,8 +12,8 @@
 			</li>
 		</ul>
 		<h2 class="modalCard__title">Log in to Tech Shop</h2>
-		<div class="modalResponse">Your response here</div>
-		<form class="modalCard__form" action="/admin/id/" method="post">
+		<div class="modalResponse"><?=$error?></div>
+		<form class="modalCard__form" action="/login/auth" method="post">
 			<div class="modalField">
 				<img src="/assets/images/common/email.svg" alt="click and write your E-mail" class="modalField__img">
 				<input class="modalCard__form_input" type="text" name="email" placeholder="E-mail" required>
