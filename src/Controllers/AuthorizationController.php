@@ -22,7 +22,7 @@ class AuthorizationController extends BaseController
 		{
 			$_SESSION['AdminId']=$user->id;
 			$_SESSION['AdminEmail']=$user->email;
-			header("Location: /admin/$user->id/");
+			header("Location: /admin/");
 			unset($_SESSION['AuthError']);
 		}
 		else
