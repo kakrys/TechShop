@@ -35,3 +35,4 @@
 		</form>
 	</div>
 </div>
+<div class="emptyForBlur"></div>

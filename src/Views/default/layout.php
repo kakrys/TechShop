@@ -57,12 +57,38 @@
 	</div>
 </header>
 
-<main>
+<main id="layoutMain">
 	<?= $page ?>
 </main>
-<footer>
-	<div class="wrapper footer">
-		ТУТ БУДЕТ ФУТЕР
+<footer class="footer">
+	<div class="wrapper footer__wrapper">
+		<div class="footer__container">
+			<div class="footer__info">
+				<ul class="company__list">
+					<li class="company__item">Company</li>
+					<li class="company__item">
+						<a href="/" class="company__link">about us</a>
+					</li>
+					<li class="company__item">
+						<a href="/catalog/all/1/" class="company__link">our products</a>
+					</li>
+					<li class="company__item">
+						<a href="/login/" class="company__link">account</a>
+					</li>
+				</ul>
+				<ul class="company__list">
+					<li class="company__item">Contact us</li>
+					<li class="company__item">
+						<a href="#" class="company__link">123 Main Street, Anytown,USA</a>
+					</li>
+					<li class="company__item">
+						<a href="#" class="company__link">+1 (555) 123-4567</a>
+					</li>
+					<li class="company__item">
+						<a href="#" class="company__link">TechShopSupport@gmail.com</a>
+					</li>
+				</ul>
+			</div>
 	</div>
 </footer>
 </body>

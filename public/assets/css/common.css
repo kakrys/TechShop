@@ -9,3 +9,7 @@ body, a, button, p, input{
     margin: 0 auto;
     padding: 0 95px;
 }
+
+body {
+    position: relative;
+}

@@ -1,3 +1,56 @@
 .footer{
     margin-top: 50px;
+    background: radial-gradient(at 50% 200%, #0951be 0%, #021736 60%);
+    color: #fff;
+    padding-top: 48px;
+    min-height: 150px;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+.footer__wrapper
+{
+    flex-direction: column;
+    min-height: 150px;
+}
+.footer__container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.footer__info {
+    display: flex;
+    gap: 100px;
+    align-items: flex-start;
+}
+
+.company__list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.company__item {
+    color: #FFF;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.company__link {
+    color: #CBCBCB;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 24px;
+}
+
+.footer a:hover, .footer a:active, .footer a:focus
+{
+    text-decoration: underline;
+    transition: 0.3s;
 }
