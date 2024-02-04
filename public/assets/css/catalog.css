@@ -71,7 +71,7 @@
     width: 90%;
     margin: 12px auto 0;
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: repeat(3, 290px);
     justify-content: space-between;
     gap: 24px;
 }
