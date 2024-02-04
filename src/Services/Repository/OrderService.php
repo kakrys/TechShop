@@ -6,6 +6,7 @@ namespace Up\Services\Repository;
 
 use Exception;
 use Core\DB\DbConnection;
+use Up\Models\Order;
 
 class OrderService
 {
@@ -17,12 +18,12 @@ class OrderService
 		try {
 			$errors = [];
 
-			$userName = $_POST['name'];
-			$userSurname = $_POST['surname'];
-			$userEmail = $_POST['email'];
-			$userAddress = $_POST['address'];
-			$productID = $_POST['productID'];
-			$productPrice = $_POST['productPrice'];
+			$userName = htmlspecialchars($_POST['name'], ENT_QUOTES);
+			$userSurname = htmlspecialchars($_POST['surname'],ENT_QUOTES);
+			$userEmail = htmlspecialchars($_POST['email'],ENT_QUOTES);
+			$userAddress = htmlspecialchars($_POST['address'],ENT_QUOTES);
+			$productID = htmlspecialchars($_POST['productID'],ENT_QUOTES);
+			$productPrice = htmlspecialchars($_POST['productPrice'],ENT_QUOTES);
 
 			$connection = DbConnection::get();
 			$userAddQuery = "INSERT INTO `USER` (`NAME`, `SURNAME`, `EMAIL`, `PASSWORD`, `ADDRESS`, `ROLE_ID`, `ENTITY_STATUS_ID`)"
@@ -57,5 +58,36 @@ class OrderService
 		{
 			return ['An error has occurred: ' . $e->getMessage()];
 		}
+	}
+
+	/**
+	 * @throws Exception
+	 */
+	public static function getOrderList(): array
+	{
+		$connection = DbConnection::get();
+
+		$query = "SELECT O.`ID`, O.`DATE_CREATE`, O.`PRICE`,"
+			." U.`NAME`, U.`SURNAME`, U.`EMAIL`, U.`ADDRESS`, P.`TITLE` "
+			." FROM `ORDER` O INNER JOIN `USER` U ON O.`USER_ID` = U.`ID`"
+			." INNER JOIN `PRODUCT_ORDER` PR ON O.`ID` = PR.`ORDER_ID`"
+			. "INNER JOIN `PRODUCT` P ON PR.PRODUCT_ID = P.ID";
+
+		$result = mysqli_query($connection, $query);
+
+		if (!$result)
+		{
+			throw new \RuntimeException(mysqli_error($connection));
+		}
+		$orders = [];
+
+		while ($row = mysqli_fetch_assoc($result))
+		{
+			$orders[] = new Order((int)$row['ID'], $row['DATE_CREATE'],
+								  (float)$row['PRICE'], $row['NAME'],
+								  $row['SURNAME'], $row['EMAIL'],
+								  $row['ADDRESS'], $row['TITLE']);
+		}
+		return $orders;
 	}
 }

@@ -8,6 +8,7 @@ use Exception;
 use Up\Models\Product;
 use Up\Services\AuthenticationService;
 use Up\Services\Repository\BrandService;
+use Up\Services\Repository\OrderService;
 use Up\Services\Repository\ProductService;
 use Up\Services\Repository\TagService;
 use Up\Services\Repository\UserService;
@@ -27,6 +28,7 @@ class AdminController extends BaseController
 			$user = UserService::getUserByEmail($_SESSION['AdminEmail']);
 			$tags = TagService::getTagList();
 			$brands = BrandService::getBrandList();
+			$orders = OrderService::getOrderList();
 
 			return $this->render('layout', [
 				'modal' => $this->render('/components/modals', []),
@@ -35,7 +37,7 @@ class AdminController extends BaseController
 					'adminEmail' => $user->email,
 					'productList' => $this->render('/components/admin-list', ['products' => $products]),
 					'adminEdit' => $this->render('/components/admin-edit', []),
-					'orders' => $this->render('/components/admin-orders', []),
+					'orders' => $this->render('/components/admin-orders', ['orders' => $orders]),
 					'users' => $this->render('/components/admin-users', []),
 					'create' => $this->render('/components/admin-create', ['tags' => $tags, 'brands' => $brands]),
 					'deleteData' => $this->render('/components/admin-clear', []),

@@ -4,12 +4,44 @@ namespace Up\Models;
 
 class Order
 {
-	private int $id;
-	private float $price;
-	private int $userId;
-	private array $productId;
-	private int $adress;
-	private int $statusId;
-	private int $entityStatusId;
+	readonly int $id;
+	readonly string $dataCreate;
+	readonly float $price;
+	readonly string $userName;
+	readonly string $userSurname;
+	readonly string $userEmail;
+	readonly string $userAddress;
+	readonly string $productTitle;
+
+	/**
+	 * @param int $id
+	 * @param string $dataCreate
+	 * @param float $price
+	 * @param string $userName
+	 * @param string $userSurname
+	 * @param string $userEmail
+	 * @param string $userAddress
+	 * @param string $productTitle
+	 */
+	public function __construct(
+		int    $id,
+		string $dataCreate,
+		float  $price,
+		string $userName,
+		string $userSurname,
+		string $userEmail,
+		string $userAddress,
+		string $productTitle
+	)
+	{
+		$this->id = $id;
+		$this->dataCreate = $dataCreate;
+		$this->price = $price;
+		$this->userName = $userName;
+		$this->userSurname = $userSurname;
+		$this->userEmail = $userEmail;
+		$this->userAddress = $userAddress;
+		$this->productTitle = $productTitle;
+	}
 
 }
