@@ -81,9 +81,13 @@ class AdminController extends BaseController
 						  ]);
 	}
 
-	public function addProductAction(): void
+	public function addProductAction()
 	{
-
+        return $this->render('layout', [
+            'modal' => $this->render('/components/modals', []),
+            'page' => $this->render('/pages/admin-create-product', [
+            ]),
+        ]);
 	}
 }
 

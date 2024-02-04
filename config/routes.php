@@ -13,6 +13,7 @@ Router::get('/order/:id/', [new Up\Controllers\OrderController(), 'orderAction']
 Router::post('/success/', [new Up\Controllers\OrderController(), 'successAction']);
 Router::post('/login/auth', [new Up\Controllers\AuthorizationController(), 'authAction']);
 Router::get('/login/logout', [new Up\Controllers\AuthorizationController(), 'logOutAction']);
+Router::post('/admin/create/product/', [new Up\Controllers\AdminController(), 'addProductAction']);
 
 //testing remove
 Router::post('/product/remove/',[new \Up\Controllers\AdminController(), 'removeAction']);
