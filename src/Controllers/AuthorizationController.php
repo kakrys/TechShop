@@ -22,7 +22,6 @@ class AuthorizationController extends BaseController
 		{
 			$_SESSION['AdminId']=$user->id;
 			$_SESSION['AdminEmail']=$user->email;
-			// header("Location: /admin/{$user->id}/");
 			header("Location: /admin/$user->id/");
 			unset($_SESSION['AuthError']);
 		}
@@ -31,6 +30,13 @@ class AuthorizationController extends BaseController
 			$_SESSION['AuthError'] = 'Invalid login or password';
 			header('Location: /login/');
 		}
+	}
+
+	public function logOutAction(): void
+	{
+		session_start();
+		session_unset();
+		header('Location: /');
 	}
 }
 
