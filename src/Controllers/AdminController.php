@@ -7,7 +7,9 @@ namespace Up\Controllers;
 use Exception;
 use Up\Models\Product;
 use Up\Services\AuthenticationService;
+use Up\Services\Repository\BrandService;
 use Up\Services\Repository\ProductService;
+use Up\Services\Repository\TagService;
 use Up\Services\Repository\UserService;
 use Core\Web\Json;
 
@@ -23,7 +25,8 @@ class AdminController extends BaseController
 		{
 			$products = ProductService::getProductListForAdmin();
 			$user = UserService::getUserByEmail($_SESSION['AdminEmail']);
-
+            $tags=TagService::getTagList();
+            $brands=BrandService::getBrandList();
 			return $this->render('layout', [
 				'modal' => $this->render('/components/modals', []),
 				'page' => $this->render('/pages/admin', [
@@ -34,7 +37,7 @@ class AdminController extends BaseController
 					'adminEdit' => $this->render('/components/admin-edit', []),
 					'orders' => $this->render('/components/admin-orders', []),
 					'users' => $this->render('/components/admin-users', []),
-					'create' => $this->render('/components/admin-create', []),
+					'create' => $this->render('/components/admin-create', ['tags'=>$tags,'brands'=>$brands]),
 					'deleteData' => $this->render('/components/admin-clear', []),
 				]),
 			]);
@@ -75,5 +78,9 @@ class AdminController extends BaseController
 			'result' => 'Y',
 		]);
 	}
+    public function addProductAction():void
+    {
+
+    }
 }
 
