@@ -51,6 +51,10 @@ class AdminController extends BaseController
 	public function loginAction()
 	{
 		session_start();
+		if (isset($_SESSION['AdminId']))
+		{
+			header("Location: /admin/{$_SESSION['AdminId']}/");
+		}
 		$error = $_SESSION['AuthError'] ?? '';
 		return $this->render('layout', [
 			'modal' => $this->render('/components/modals', []),
