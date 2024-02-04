@@ -28,7 +28,7 @@
 		<ul class="order__list">
 			<li class="order__item">
 				<div class="order__image">
-					<img src="../adminFolder/$img" alt="product image">
+					<img src="/assets/images/productImages/<?=$product->getCover()->getPath()?>" alt="product image">
 				</div>
 				<div class="order__description">
 					<h3 class="order__title"><?=$product->getTitle()?></h3>
