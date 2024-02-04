@@ -31,5 +31,12 @@ class AuthorizationController extends BaseController
 			header('Location: /login/');
 		}
 	}
+
+	public function logOutAction(): void
+	{
+		session_start();
+		session_unset();
+		header('Location: /');
+	}
 }
 

@@ -43,10 +43,10 @@
 					 class="account__img">
 				Security & access
 			</button>
-			<button class="account__sideBarBtn" style="color: #C91433;" data-tab-Index="5">
+			<a href="/login/logout" class="account__sideBarBtn" style="color: #C91433;" >
 				<img src="/assets/images/accountIcons/accountLogout.svg" alt="Log out button" class="account__img">
 				Log out
-			</button>
+			</a>
 			<div class="account__asideLine"></div>
 		</nav>
 	</aside>
