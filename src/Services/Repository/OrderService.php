@@ -12,9 +12,11 @@ class OrderService
 	/**
 	 * @throws Exception
 	 */
-	public static function addOrder(): void
+	public static function addOrder(): ?array
 	{
 		try {
+			$errors = [];
+
 			$userName = $_POST['name'];
 			$userSurname = $_POST['surname'];
 			$userEmail = $_POST['email'];
@@ -28,7 +30,7 @@ class OrderService
 
 			if (!$connection->query($userAddQuery))
 			{
-				throw new \RuntimeException('Error adding user: ' . $connection->error);
+				$errors[] = 'Error adding user: ' . $connection->error;
 			}
 
 			$userID = $connection->insert_id;
@@ -38,7 +40,7 @@ class OrderService
 
 			if (!$connection->query($orderQuery))
 			{
-				throw new \RuntimeException('Error adding an order: ' . $connection->error);
+				$errors[] = 'Error adding an order: ' . $connection->error;
 			}
 
 			$orderID = $connection->insert_id;
@@ -47,12 +49,13 @@ class OrderService
 
 			if (!$connection->query($productOrderQuery))
 			{
-				throw new \RuntimeException('Error adding a product/order link: ' . $connection->error);
+				$errors[] = 'Error adding a product/order link: ' . $connection->error;
 			}
+			return !empty($errors) ? $errors : null;
 		}
 		catch (Exception $e)
 		{
-			echo 'An error has occurred: ' . $e->getMessage();
+			return ['An error has occurred: ' . $e->getMessage()];
 		}
 	}
 }

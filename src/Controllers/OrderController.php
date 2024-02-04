@@ -32,11 +32,13 @@ class OrderController extends BaseController
 	 */
 	public function successAction(): string
 	{
-		OrderService::addOrder();
+		$order = OrderService::addOrder();
 
 		return $this->render('layout', [
 			'modal' => $this->render('/components/modals', []),
-			'page' => $this->render('/pages/success', []),
+			'page' => $this->render('/pages/success', [
+				'orderErrors' => $order
+			]),
 		]);
 	}
 }
