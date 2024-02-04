@@ -4,6 +4,7 @@ namespace Up\Services\Repository;
 
 use Core\DB\DbConnection;
 use Exception;
+use Up\Services\PaginationService;
 
 class ProductService
 {
@@ -169,7 +170,7 @@ class ProductService
 		}
 
 		$product_ID = $connection->insert_id;
-
+        PaginationService::updateCategory('all');
 		foreach ($tags as $tag)
 		{
 			$query = "INSERT INTO `PRODUCT_TAG`(`PRODUCT_ID`,`TAG_ID`)" . " VALUES ({$product_ID},$tag)";

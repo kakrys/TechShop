@@ -1,9 +1,10 @@
 <?php
 /**
  * @var \Up\Models\Product $products
- * @var $pageNumber
  * @var $tagName
+ *@var $pageArray
  */
+
 ?>
 <div class="mainSection">
 	<ul class="mainSection__list">
@@ -25,12 +26,12 @@
 	<div class="pagination">
 		<ul class="pagination__list">
 			<li class="pagination__item">
-				<a class="pagination__btn" href="/catalog/<?=$tagName?>/<?=(int)$pageNumber-1?>/">
+				<a class="pagination__btn" href="/catalog/<?=$tagName?>/<?=$pageArray[0]?>/">
 					Previous page
 				</a>
 			</li>
 			<li class="pagination__item">
-				<a class="pagination__btn" href="/catalog/<?=$tagName?>/<?=(int)$pageNumber+1?>/">
+				<a class="pagination__btn" href="/catalog/<?=$tagName?>/<?=$pageArray[1]?>/">
 					Next page
 				</a>
 			</li>
