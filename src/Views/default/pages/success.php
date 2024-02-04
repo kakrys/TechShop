@@ -7,3 +7,4 @@
 		<a href="/" class="orderModal__btn">Return To Main Page</a>
 	</div>
 </div>
+<div class="emptyForBlur"></div>
