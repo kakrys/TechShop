@@ -2,3 +2,4 @@
 config/local-config.php
 vendor/
 /config/dbtime-config.txt
+editorconfig
