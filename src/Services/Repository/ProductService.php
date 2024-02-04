@@ -153,6 +153,16 @@ class ProductService
 	 */
 	public static function addProduct():void
     {
+        $tagIds=[];
+
+        $tagNames=[];
+
+        foreach ($_POST['tags'] as $tagString)
+        {
+            $splitedString=explode(',', $tagString);
+            $tagIds[]=$splitedString['0'];
+            $tagNames[]=$splitedString['1'];
+        }
 		$title = $_POST['name'];
 		$description = $_POST["description"];
 		$price = $_POST["price"];
@@ -171,9 +181,14 @@ class ProductService
 
 		$product_ID = $connection->insert_id;
         PaginationService::updateCategory('all');
-		foreach ($tags as $tag)
+        var_dump($tagNames);
+        foreach ($tagNames as $tag)
+        {
+            PaginationService::updateCategory($tag);
+        }
+		foreach ($tagIds as $tagId)
 		{
-			$query = "INSERT INTO `PRODUCT_TAG`(`PRODUCT_ID`,`TAG_ID`)" . " VALUES ({$product_ID},$tag)";
+			$query = "INSERT INTO `PRODUCT_TAG`(`PRODUCT_ID`,`TAG_ID`)" . " VALUES ({$product_ID},$tagId)";
 
 			if (!$connection->query($query))
 			{

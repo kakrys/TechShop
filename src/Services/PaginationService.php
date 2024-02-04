@@ -7,7 +7,7 @@ class PaginationService
         $json_arr=json_decode(file_get_contents("../config/product-count.json"),true);
         $json_arr[$category] = ++$json_arr[$category];
         $json = json_encode($json_arr);
-        file_put_contents("../config/productCount.json", $json);
+        file_put_contents("../config/product-count.json", $json);
     }
     public static function getCategory(string $category):int
     {
