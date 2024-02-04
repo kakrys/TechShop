@@ -13,8 +13,7 @@ class CatalogController extends BaseController
 	 */
 	public function catalogAction(string $tagName,$pageNumber): string
 	{
-        var_dump($pageNumber);
-		$products = ProductService::getProductList($pageNumber);
+		$products = ProductService::getProductList($pageNumber, $tagName);
 		$tags = TagService::getTagList();
 
 		return $this->render('layout', [
