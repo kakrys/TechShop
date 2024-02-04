@@ -67,4 +67,4 @@
 		<?= $deleteData ?>
 	</main>
 </div>
-<script src="/assets/js/account.js"></script>
+<script src="/assets/js/admin.js"></script>

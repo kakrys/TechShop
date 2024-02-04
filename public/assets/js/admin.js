@@ -122,3 +122,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	showContainer();
 });
+
+//modal windows for db
+const closeDbDelete = document.getElementById("cancelDbDelete");
+const closeDbCreate = document.getElementById("cancelDbCreate");
+const dbModalDelete = document.getElementById("adminDbModalDelete");
+const dbModalCreate = document.getElementById("adminDbModalCreate");
+const openDbCreate = document.getElementById("openDbCreate");
+const openDbDelete = document.getElementById("openDbDelete");
+openDbCreate.addEventListener('click', function() {
+	dbModalCreate.style.display = 'block';
+	});
+closeDbCreate.addEventListener('click', function() {
+	dbModalCreate.style.display = 'none';
+});
+openDbDelete.addEventListener('click', function() {
+	dbModalDelete.style.display = 'block';
+});
+closeDbDelete.addEventListener('click', function() {
+	dbModalDelete.style.display = 'none';
+});

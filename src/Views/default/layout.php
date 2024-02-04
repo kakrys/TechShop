@@ -47,7 +47,7 @@
 						<li class="user__item">
 							<button class="user__link" id="LogIn">
 								<img src="/assets/images/accountIcons/log.svg" alt="" class="user__img">
-								<a href="/login/" class="user__text">Log In</a>
+								<a href="/login/" class="user__text">Account</a>
 							</button>
 						</li>
 					</ul>

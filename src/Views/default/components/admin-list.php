@@ -5,62 +5,6 @@
 ?>
 <div class="title__container">
 	<h2 class="account__title">Your Products</h2>
-	<ul class="account__toolbarList">
-		<li class="account__toolbarItem">
-			<button class="account__toolbarBtn">
-				<img src="/assets/images/tags/all.svg" alt="all category" class="toolbar__img">
-				All
-			</button>
-		</li>
-		<li class="account__toolbarItem">
-			<button class="account__toolbarBtn">
-				<img src="/assets/images/tags/1.svg" alt="all category" class="toolbar__img">
-				Mobile
-			</button>
-		</li>
-		<li class="account__toolbarItem">
-			<button class="account__toolbarBtn">
-				<img src="/assets/images/tags/2.svg" alt="all category" class="toolbar__img">
-				Laptop
-			</button>
-		</li>
-		<li class="account__toolbarItem">
-			<button class="account__toolbarBtn">
-				<img src="/assets/images/tags/3.svg" alt="all category" class="toolbar__img">
-				Tablet
-			</button>
-		</li>
-		<li class="account__toolbarItem">
-			<button class="account__toolbarBtn">
-				<img src="/assets/images/tags/4.svg" alt="all category" class="toolbar__img">
-				Wearable
-			</button>
-		</li>
-		<li class="account__toolbarItem">
-			<button class="account__toolbarBtn">
-				<img src="/assets/images/tags/5.svg" alt="all category" class="toolbar__img">
-				Audio
-			</button>
-		</li>
-		<li class="account__toolbarItem">
-			<button class="account__toolbarBtn">
-				<img src="/assets/images/tags/6.svg" alt="all category" class="toolbar__img">
-				Camera
-			</button>
-		</li>
-		<li class="account__toolbarItem">
-			<button class="account__toolbarBtn">
-				<img src="/assets/images/tags/7.svg" alt="all category" class="toolbar__img">
-				Gaming
-			</button>
-		</li>
-		<li class="account__toolbarItem">
-			<button class="account__toolbarBtn">
-				<img src="/assets/images/tags/9.svg" alt="all category" class="toolbar__img">
-				Accessories
-			</button>
-		</li>
-	</ul>
 </div>
 <ul class="admin admin__productList">
     <?php foreach($products as $product):?>
