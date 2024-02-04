@@ -30,6 +30,7 @@
 			<button id="logInButton" class="modalCard__btn" type="submit">Log In</button>
 			<div class="modalCard__availability">
 				<a href="/" class="modalCard__link">return to main</a>
+				<?=$_SESSION['AuthError']=''?>
 			</div>
 		</form>
 	</div>
