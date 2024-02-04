@@ -146,30 +146,43 @@ class ProductService
 		return $products;
 
 	}
-    public static function addProduct(string $title,string $description,float $price,array $tags,int $brand):void
+
+	/**
+	 * @throws Exception
+	 */
+	public static function addProduct():void
     {
-        $connection = DbConnection::get();
-        $query="INSERT INTO `PRODUCT`(`TITLE`,`DESCRIPTION`,`PRICE`,`ENTITY_STATUS_ID`,`SORT_ORDER`,`BRAND_ID`)"
-            ." VALUES('{$title}','{$description}','{$price}',1,1,'{$brand}')";
-        if (!$connection->query($query))
-        {
-            throw new \RuntimeException('Error adding an product: ' . $connection->error);
-        }
-        $product_ID=$connection->insert_id;;
-        foreach ($tags as $tag)
-        {
-            $query="INSERT INTO `PRODUCT_TAG`(`PRODUCT_ID`,`TAG_ID`)"
-                ." VALUES ({$product_ID},$tag)";
-            if (!$connection->query($query))
-            {
-                throw new \RuntimeException('Error adding an product: ' . $connection->error);
-            }
-        }
-        $query ="INSERT INTO IMAGE(`PRODUCT_ID`,`PATH`,`IS_COVER`)"
-            ."VALUES('{$product_ID}','undefined.jpg',1)";
-        if (!$connection->query($query))
-        {
-            throw new \RuntimeException('Error adding an product: ' . $connection->error);
-        }
-    }
+		$title = $_POST['name'];
+		$description = $_POST["description"];
+		$price = $_POST["price"];
+		$tags = $_POST["tags"];
+		$brand = $_POST["brand"];
+
+		$connection = DbConnection::get();
+
+		$query = "INSERT INTO `PRODUCT`(`TITLE`,`DESCRIPTION`,`PRICE`,`ENTITY_STATUS_ID`,`SORT_ORDER`,`BRAND_ID`)"
+			. " VALUES('{$title}','{$description}','{$price}',1,1,'{$brand}')";
+
+		if (!$connection->query($query))
+		{
+			throw new \RuntimeException('Error adding an product: ' . $connection->error);
+		}
+
+		$product_ID = $connection->insert_id;
+
+		foreach ($tags as $tag)
+		{
+			$query = "INSERT INTO `PRODUCT_TAG`(`PRODUCT_ID`,`TAG_ID`)" . " VALUES ({$product_ID},$tag)";
+
+			if (!$connection->query($query))
+			{
+				throw new \RuntimeException('Error adding an product: ' . $connection->error);
+			}
+		}
+		$query = "INSERT INTO IMAGE(`PRODUCT_ID`,`PATH`,`IS_COVER`)" . "VALUES('{$product_ID}','undefined.jpg',1)";
+		if (!$connection->query($query))
+		{
+			throw new \RuntimeException('Error adding an product: ' . $connection->error);
+		}
+	}
 }

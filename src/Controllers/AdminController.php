@@ -81,8 +81,12 @@ class AdminController extends BaseController
 						  ]);
 	}
 
-	public function addProductAction()
+	/**
+	 * @throws Exception
+	 */
+	public function addProductAction(): string
 	{
+		ProductService::addProduct();
         return $this->render('layout', [
             'modal' => $this->render('/components/modals', []),
             'page' => $this->render('/pages/admin-create-product', [
