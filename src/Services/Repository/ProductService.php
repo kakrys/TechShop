@@ -79,6 +79,7 @@ class ProductService
 		while ($row = mysqli_fetch_assoc($tags))
 		{
 			$tag = new \Up\Models\Tag(null, $row['TITLE'], null);
+
 			$product->addTag($tag);
 
 		}
@@ -131,4 +132,28 @@ class ProductService
 		return $products;
 
 	}
+    public static function addProduct(string $title,string $description,float $price,array $tags,int $brand):void
+        {
+            $connection = DbConnection::get();
+            $query="INSERT INTO `PRODUCT`(`TITLE`,`DESCRIPTION`,`PRICE`,`ENTITY_STATUS_ID`,`SORT_ORDER`,`BRAND_ID`)"
+            ."VALUES({$title},{$description},{$price},1,1,{$brand})";
+            if (!$connection->query($query))
+            {
+                throw new \RuntimeException('Error adding an product: ' . $connection->error);
+            }
+            $idQuery="SELECT LAST_INSERT_ID()";
+            $result = mysqli_query($connection, $idQuery);
+            $row = mysqli_fetch_assoc($result);
+            $product_ID=$row['ID'];
+            foreach ($tags as $tag)
+            {
+                $query="INSERT INTO `PRODUCT_TAG`(`PRODUCT_ID`,`TAG_ID`)"
+                    ."VALUES({$product_ID},$tag)";
+                if (!$connection->query($query))
+                {
+                    throw new \RuntimeException('Error adding an product: ' . $connection->error);
+                }
+            }
+        }
+
 }
