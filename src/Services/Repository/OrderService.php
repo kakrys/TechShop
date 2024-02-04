@@ -23,7 +23,6 @@ class OrderService
 			$productPrice = $_POST['productPrice'];
 
 			$connection = DbConnection::get();
-
 			$userAddQuery = "INSERT INTO `USER` (`NAME`, `SURNAME`, `EMAIL`, `PASSWORD`, `ADDRESS`, `ROLE_ID`, `ENTITY_STATUS_ID`)"
 				. " VALUES ('{$userName}', '{$userSurname}', '{$userEmail}', 'password', '{$userAddress}', 2, 1)";
 

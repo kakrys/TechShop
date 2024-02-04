@@ -22,7 +22,7 @@ class AuthenticationService
 			return false;
 		}
 
-		return ($user->email === $email && $password === $user->password && $roleID === $user->roleId);
+		return ($user->email === $email && password_verify($password,$user->password) && $roleID === $user->roleId);
 	}
 
 }
