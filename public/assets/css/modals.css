@@ -242,6 +242,14 @@
     font-weight: 500;
 }
 
+.orderStatus__text span {
+    margin-top: 5px;
+    color: #717171;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 10%;
+}
+
 .orderModal__btn {
     margin-top: 48px;
     padding: 16px;
