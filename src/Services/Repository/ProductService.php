@@ -14,27 +14,27 @@ class ProductService
 	public static function getProductList($pageNumber, $category): array
 	{
 		$connection = DbConnection::get();
-		$offset = ($pageNumber-1)*9;
+		$offset = ($pageNumber - 1) * 9;
 
 		if ($category === 'all')
 		{
 			$query = "SELECT `PRODUCT`.`ID`,`TITLE`,`PRICE`,`PATH` FROM `PRODUCT`"
-				."INNER JOIN `IMAGE`"
-				."ON `PRODUCT`.`ID`=`IMAGE`.`PRODUCT_ID`"
-				."WHERE `IS_COVER`=1"
-				." LIMIT 9 OFFSET {$offset}";
+				. "INNER JOIN `IMAGE`"
+				. "ON `PRODUCT`.`ID`=`IMAGE`.`PRODUCT_ID`"
+				. "WHERE `IS_COVER`=1"
+				. " LIMIT 9 OFFSET {$offset}";
 		}
 		else
 		{
 
 			$query = "SELECT `PRODUCT`.`ID`,`PRODUCT`.`TITLE`,`PRICE`,`PATH` FROM `PRODUCT`"
-				."INNER JOIN `IMAGE`"
-				."ON `PRODUCT`.`ID`=`IMAGE`.`PRODUCT_ID`"
-				."INNER JOIN `PRODUCT_TAG`"
-				."ON `PRODUCT`.`ID` = `PRODUCT_TAG`.`PRODUCT_ID`"
-				."INNER JOIN `TAG` ON `PRODUCT_TAG`.`TAG_ID`=`TAG`.`ID`"
-				."WHERE `IS_COVER`=1 AND TAG.TITLE='{$category}'"
-				." LIMIT 9 OFFSET {$offset}";
+				. "INNER JOIN `IMAGE`"
+				. "ON `PRODUCT`.`ID`=`IMAGE`.`PRODUCT_ID`"
+				. "INNER JOIN `PRODUCT_TAG`"
+				. "ON `PRODUCT`.`ID` = `PRODUCT_TAG`.`PRODUCT_ID`"
+				. "INNER JOIN `TAG` ON `PRODUCT_TAG`.`TAG_ID`=`TAG`.`ID`"
+				. "WHERE `IS_COVER`=1 AND TAG.TITLE='{$category}'"
+				. " LIMIT 9 OFFSET {$offset}";
 		}
 		$result = mysqli_query($connection, $query);
 
@@ -47,10 +47,15 @@ class ProductService
 
 		while ($row = mysqli_fetch_assoc($result))
 		{
-			$cover=new \Up\Models\Image(null,$row['ID'],$row['PATH'],1);
+			$cover = new \Up\Models\Image(null, $row['ID'], $row['PATH'], 1);
 			$product = new \Up\Models\Product(
-				$row['ID'], $row['TITLE'], null, $row['PRICE'], null,
-				null, null, null, null, null,$cover,[]);
+				$row['ID'], $row['TITLE'],
+				null, $row['PRICE'],
+				null, null,
+				null, null,
+				null, null,
+				$cover, []
+			);
 
 			$products[] = $product;
 		}
@@ -68,9 +73,9 @@ class ProductService
 
 		$query = "SELECT `PRODUCT`.`ID`,PRODUCT.`TITLE`,`PRICE`,`DESCRIPTION`,BRAND.`TITLE` as `BRAND`,`PATH`"
 			. "from `PRODUCT` INNER JOIN `BRAND` on PRODUCT.BRAND_ID=`BRAND`.`id` "
-			."inner join `IMAGE`"
-			."on `PRODUCT`.`ID`=`IMAGE`.`PRODUCT_ID`"
-			."WHERE PRODUCT.`ID`={$id} and `IS_COVER`= 1";
+			. "inner join `IMAGE`"
+			. "on `PRODUCT`.`ID`=`IMAGE`.`PRODUCT_ID`"
+			. "WHERE PRODUCT.`ID`={$id} and `IS_COVER`= 1";
 
 		$result = mysqli_query($connection, $query);
 
@@ -80,10 +85,20 @@ class ProductService
 		}
 
 		$row = mysqli_fetch_assoc($result);
-		$cover=new \Up\Models\Image(null,$row['ID'],$row['PATH'],1);
+		$cover = new \Up\Models\Image(null, $row['ID'], $row['PATH'], 1);
 		$product = new \Up\Models\Product(
-			$row['ID'], $row['TITLE'], $row['DESCRIPTION'], $row['PRICE'], null,
-			null, null, null, null, $row['BRAND'],$cover,null
+			$row['ID'],
+			$row['TITLE'],
+			$row['DESCRIPTION'],
+			$row['PRICE'],
+			null,
+			null,
+			null,
+			null,
+			null,
+			$row['BRAND'],
+			$cover,
+			null
 		);
 
 		$query = "SELECT `TITLE` from `TAG`inner join `PRODUCT_TAG`"
@@ -111,9 +126,9 @@ class ProductService
 
 		$query = "SELECT PRODUCT.`ID`,PRODUCT.`TITLE`,`PRICE`,`PATH`,`DESCRIPTION`,BRAND.`TITLE` as `BRAND`"
 			. "from `PRODUCT` INNER JOIN `BRAND` on PRODUCT.BRAND_ID=`BRAND`.`id` "
-			."inner join `IMAGE`"
-			."on `PRODUCT`.`ID`=`IMAGE`.`PRODUCT_ID`"
-			."WHERE `IS_COVER`=1";;
+			. "inner join `IMAGE`"
+			. "on `PRODUCT`.`ID`=`IMAGE`.`PRODUCT_ID`"
+			. "WHERE `IS_COVER`=1";
 		$result = mysqli_query($connection, $query);
 
 		if (!$result)
@@ -125,7 +140,7 @@ class ProductService
 
 		while ($row = mysqli_fetch_assoc($result))
 		{
-			$cover=new \Up\Models\Image(null,$row['ID'],$row['PATH'],1);
+			$cover = new \Up\Models\Image(null, $row['ID'], $row['PATH'], 1);
 			$product = new \Up\Models\Product(
 				$row['ID'],
 				$row['TITLE'],
@@ -151,18 +166,18 @@ class ProductService
 	/**
 	 * @throws Exception
 	 */
-	public static function addProduct():void
-    {
-        $tagIds=[];
+	public static function addProduct(): void
+	{
+		$tagIds = [];
 
-        $tagNames=[];
+		$tagNames = [];
 
-        foreach ($_POST['tags'] as $tagString)
-        {
-            $splitedString=explode(',', $tagString);
-            $tagIds[]=$splitedString['0'];
-            $tagNames[]=$splitedString['1'];
-        }
+		foreach ($_POST['tags'] as $tagString)
+		{
+			$splitedString = explode(',', $tagString);
+			$tagIds[] = $splitedString['0'];
+			$tagNames[] = $splitedString['1'];
+		}
 		$title = $_POST['name'];
 		$description = $_POST["description"];
 		$price = $_POST["price"];
@@ -180,12 +195,12 @@ class ProductService
 		}
 
 		$product_ID = $connection->insert_id;
-        PaginationService::updateCategory('all');
-        var_dump($tagNames);
-        foreach ($tagNames as $tag)
-        {
-            PaginationService::updateCategory($tag);
-        }
+		PaginationService::updateCategory('all');
+
+		foreach ($tagNames as $tag)
+		{
+			PaginationService::updateCategory($tag);
+		}
 		foreach ($tagIds as $tagId)
 		{
 			$query = "INSERT INTO `PRODUCT_TAG`(`PRODUCT_ID`,`TAG_ID`)" . " VALUES ({$product_ID},$tagId)";
