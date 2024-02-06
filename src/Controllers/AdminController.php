@@ -24,25 +24,16 @@ class AdminController extends BaseController
 		session_start();
 		if (isset($_SESSION['AdminEmail']))
 		{
-			$products = ProductService::getProductListForAdmin();
 			$user = UserService::getUserByEmail($_SESSION['AdminEmail']);
-			$tags = TagService::getTagList();
-			$brands = BrandService::getBrandList();
-			$orders = OrderService::getOrderList();
-
-			return $this->render('layout', [
-				'modal' => $this->render('/components/modals', []),
-				'page' => $this->render('/pages/admin', [
-					'adminFullName' => $user->name . ' ' . $user->surname,
-					'adminEmail' => $user->email,
-					'productList' => $this->render('/components/admin-list', ['products' => $products]),
-					'adminEdit' => $this->render('/components/admin-edit', []),
-					'orders' => $this->render('/components/admin-orders', ['orders' => $orders]),
-					'users' => $this->render('/components/admin-users', []),
-					'create' => $this->render('/components/admin-create', ['tags' => $tags, 'brands' => $brands]),
-					'deleteData' => $this->render('/components/admin-clear', []),
-				]),
-			]);
+			$params = [
+				'adminFullName' => $user->name . ' ' . $user->surname,
+				'adminEmail' => $user->email,
+				'tags' => TagService::getTagList(),
+				'brands' => BrandService::getBrandList(),
+				'orders' => OrderService::getOrderList(),
+				'products' => ProductService::getProductListForAdmin(),
+			];
+			return $this->render('admin', $params);
 		}
 
 		header('Location: /login/');
@@ -62,13 +53,7 @@ class AdminController extends BaseController
 		}
 		$error = $_SESSION['AuthError'] ?? '';
 
-		return $this->render('layout', [
-			'modal' => $this->render('/components/modals', []),
-			'page' => $this->render('/pages/login', [
-				'error' => $error,
-			]),
-		]);
-
+		return $this->render('login', ['error' => $error,]);
 	}
 
 	public function removeAction(): void
@@ -79,8 +64,8 @@ class AdminController extends BaseController
 		//'result' => $delete > 0 ? 'Y' : 'N',
 		//]);
 		echo Json::encode([
-							  'result' => 'Y',
-						  ]);
+			'result' => 'Y',
+		]);
 	}
 
 	/**
@@ -89,11 +74,7 @@ class AdminController extends BaseController
 	public function addProductAction(): string
 	{
 		ProductService::addProduct();
-        return $this->render('layout', [
-            'modal' => $this->render('/components/modals', []),
-            'page' => $this->render('/pages/admin-create-product', [
-            ]),
-        ]);
+		return $this->render('admin-create-product', []);
 	}
 }
 

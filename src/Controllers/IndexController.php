@@ -6,13 +6,9 @@ class IndexController extends BaseController
 {
 	public function indexAction(): string
 	{
-
-		return $this->render('layout', [
-			'modal' => $this->render('/components/modals', []),
-			'page' => $this->render('/pages/main', [
-				'toolbar' => $this->render('/components/toolbar', []),
-                'addProducts'=>[9,10]
-			]),
-		]);
+		$params = [
+			'addProducts'=>[9,10],
+		];
+		return $this->render('main', $params);
 	}
 }
