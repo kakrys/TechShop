@@ -39,6 +39,21 @@
 		</nav>
 		<div class="accountNav">
 			<ul class="accountNav__list">
+				<li class="accountNav__item search">
+					<button class="accountNav__btn search-btn">
+						<img src="/assets/images/common/search.svg" alt="search icon" class="account__img">
+					</button>
+					<div class="search__container">
+						<div class="search__wrapper">
+							<form class="search__form" action="">
+								<input class="search__input" type="text" placeholder="What can we help you to find ?">
+								<button class="search__btn" type="submit">
+									<img src="/assets/images/common/search.svg" alt="search icon" class="search__img">
+								</button>
+							</form>
+						</div>
+					</div>
+				</li>
 				<li class="accountNav__item user">
 					<button class="accountNav__btn user__btn">
 						<img src="/assets/images/common/user.svg" alt="user icon" class="account__img">

@@ -51,7 +51,7 @@
 }
 
 /*account items styles start*/
-.user{
+.user, .search, .search__wrapper, .search__form {
     position: relative;
 }
 
@@ -66,6 +66,44 @@
     border-radius: 0px 0px 8px 8px;
     background: #FFF;
     display: none;
+}
+
+.search__container {
+    z-index: 2;
+    min-width: 600px;
+    position: absolute;
+    top: 61px;
+    right: 30px;
+    padding: 16px;
+    border-radius: 0px 0px 8px 8px;
+    background: #FFF;
+    display: none;
+}
+
+.search__closeImg {
+    position: absolute;
+    top: 10px;
+    right: -140px;
+}
+
+
+.search__input {
+    min-width: 430px;
+    padding: 8px 15px;
+    border: 1px solid #0C0C0C;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 24px;
+    color: #717171;
+}
+
+.search__btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 2;
+    background-color: #fff;
 }
 
 .user__item

@@ -9,8 +9,8 @@ use Up\Models\Order;
 ?>
 <h2 class="account__title">Your Orders</h2>
 <div class="account__ordersContainer">
+	<?php foreach ($orders as $order):?>
 	<div class="adminOrder">
-		<?php foreach ($orders as $order):?>
 		<ul class="account__ordersInfoList">
 			<li class="account__ordersInfoItem">
 				<h4 class="account__ordersInfoTitle">order code</h4>
@@ -25,6 +25,10 @@ use Up\Models\Order;
 				<p class="account__ordersInfoSubtitle">$<?=$order->price?></p>
 			</li>
 			<li class="account__ordersInfoItem">
+				<h4 class="account__ordersInfoTitle">Product Name</h4>
+				<p class="account__ordersInfoSubtitle"><?=$order->productTitle?></p>
+			</li>
+			<li class="account__ordersInfoItem">
 				<h4 class="account__ordersInfoTitle">Sent to</h4>
 				<p class="account__ordersInfoSubtitle"><?=$order->userName . ' ' . $order->userSurname?></p>
 			</li>
@@ -36,17 +40,11 @@ use Up\Models\Order;
 				<h4 class="account__ordersInfoTitle">Address</h4>
 				<p class="account__ordersInfoSubtitle"><?=$order->userAddress?></p>
 			</li>
-		</ul>
-		<ul class="account__ordersProductInfo">
-			<li class="account__ordersInfoItem">
-				<h4 class="account__ordersInfoTitle">Product Name</h4>
-				<p class="account__ordersInfoSubtitle"><?=$order->productTitle?></p>
-			</li>
 			<li class="account__ordersInfoItem">
 				<h4 class="account__ordersInfoTitle">Quantity</h4>
 				<p class="account__ordersInfoSubtitle">1</p>
 			</li>
 		</ul>
-		<?php endforeach;?>
 	</div>
+	<?php endforeach;?>
 </div>
