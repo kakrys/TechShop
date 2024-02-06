@@ -4,26 +4,71 @@ declare(strict_types=1);
 
 namespace Up\Controllers;
 
+use http\Exception;
+
 class BaseController
 {
-	public function render(string $path, array $variables = []): string
+	protected function renderView($view, $params):string|\Exception
 	{
-		if (!preg_match('/^[0-9A-Za-z\/_-]+$/', $path))
+		$absolutePath = $this->getViewPath($view);
+		if (!file_exists($absolutePath))
+		{
+			throw new \RuntimeException("Layout content '$view' not found.");
+		}
+
+		extract($params);
+		ob_start();
+		include_once $absolutePath;
+		return ob_get_clean();
+	}
+
+	protected function getViewPath($view):string|\Exception
+	{
+		$viewPath = ROOT . "/src/Views/default/pages/$view.php";
+		if (!preg_match('/^[0-9A-Za-z\/_-]+$/', $view))
 		{
 			throw new \RuntimeException('Invalid template path');
 		}
-		$absolutePath = ROOT . "/src/Views/default/$path.php";
 
-		if (!file_exists($absolutePath))
+		return $viewPath;
+	}
+
+	public function render($view, $params = []):string
+	{
+		$layoutContent = $this->setLayout();
+		$viewContent = $this->renderView($view, $params);
+		return str_replace('{{content}}', $viewContent, $layoutContent);
+	}
+
+	protected function setLayout()
+	{
+		ob_start();
+		include_once ROOT . "/src/Views/default/layout.php";
+		return ob_get_clean();
+	}
+
+	protected function renderComponent($component, $params = []):string|\Exception
+	{
+		$componentPath = $this->getComponentPath($component);
+		if (!file_exists($componentPath))
 		{
-			throw new \RuntimeException('Template not found');
+			throw new \RuntimeException("Component '$component' not found.");
 		}
 
-		extract($variables);
+		extract($params);
 		ob_start();
-
-		require $absolutePath;
-
+		include_once $componentPath;
 		return ob_get_clean();
+	}
+
+	protected function getComponentPath($component):string|\Exception
+	{
+		$componentPath = ROOT . "/src/Views/default/components/$component.php";
+		if (!preg_match('/^[0-9A-Za-z\/_-]+$/', $component))
+		{
+			throw new \RuntimeException('Invalid template path');
+		}
+
+		return $componentPath;
 	}
 }

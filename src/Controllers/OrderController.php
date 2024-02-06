@@ -15,16 +15,11 @@ class OrderController extends BaseController
 	 */
 	public function orderAction($id): string
 	{
-		$product = ProductService::getProductInfoByID((int)$id);
-
-		return $this->render('layout', [
-			'modal' => $this->render('/components/modals', []),
-			'page' => $this->render('/pages/order', [
-				'id' => $id,
-				'product' => $product,
-
-			]),
-		]);
+		$params = [
+			'id' => $id,
+			'product' => ProductService::getProductInfoByID((int)$id),
+		];
+		return $this->render('order', $params);
 	}
 
 	/**
@@ -32,13 +27,9 @@ class OrderController extends BaseController
 	 */
 	public function successAction(): string
 	{
-		$order = OrderService::addOrder();
-
-		return $this->render('layout', [
-			'modal' => $this->render('/components/modals', []),
-			'page' => $this->render('/pages/success', [
-				'orderErrors' => $order
-			]),
-		]);
+		$params = [
+			'orderErrors' => OrderService::addOrder(),
+		];
+		return $this->render('success', $params);
 	}
 }

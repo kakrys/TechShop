@@ -1,14 +1,11 @@
 <?php
 /**
- * @var $id
- * @var $productList
- * @var $adminEdit
  * @var $adminEmail
  * @var $adminFullName
  * @var $orders
- * @var $users
- * @var $create
- * @var $deleteData
+ * @var $products
+ * @var $tags
+ * @var $brands
  */
 ?>
 <div class="wrapper account">
@@ -51,20 +48,20 @@
 		</nav>
 	</aside>
 	<main class="account__main" id="adminProductContainer" data-admin-cont="0">
-		<?= $productList ?>
-		<?= $adminEdit ?>
+		<?= $this->renderComponent('admin-list', ['products' => $products]) ?>
+		<?= $this->renderComponent('admin-edit', []) ?>
 	</main>
 	<main class="account__main" id="adminUserContainer" data-admin-cont="1">
-		<?= $users ?>
+		<?= $this->renderComponent('admin-users', []) ?>
 	</main>
 	<main class="account__main" id="adminOrderContainer" data-admin-cont="2">
-		<?= $orders ?>
+		<?= $this->renderComponent('admin-orders', ['orders' => $orders]) ?>
 	</main>
 	<main class="account__main" id="adminCreateContainer" data-admin-cont="3">
-		<?= $create ?>
+		<?= $this->renderComponent('admin-create', ['tags' => $tags, 'brands' => $brands]) ?>
 	</main>
 	<main class="account__main" id="adminDeleteContainer" data-admin-cont="4">
-		<?= $deleteData ?>
+		<?= $this->renderComponent('admin-clear', []) ?>
 	</main>
 </div>
 <script src="/assets/js/admin.js"></script>

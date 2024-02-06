@@ -56,9 +56,8 @@
 		</div>
 	</div>
 </header>
-
 <main id="layoutMain">
-	<?= $page ?>
+	{{content}}
 </main>
 <footer class="footer">
 	<div class="wrapper footer__wrapper">
