@@ -64,11 +64,11 @@
 /*PRODUCT LIST STYLES START*/
 .mainSection{
     max-width: 1200px;
-    margin: 50px auto;
+    margin: 0 auto;
 }
 .mainSection__list
 {
-    width: 90%;
+    width: 100%;
     margin: 12px auto 0;
     display: grid;
     grid-template-columns: repeat(3, 290px);
@@ -139,4 +139,199 @@
     font-size: 16px;
     padding: 10px;
     color: rgba(12, 104, 244, 1);
+}
+
+.productSection{
+    margin-top: 60px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+}
+/*filters styles start*/
+
+.filter
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 288px;
+}
+.filter__title{
+    color: #0C0C0C;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: normal;
+}
+.categorySection__clear{
+    color: #0C68F4;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: normal;
+    padding: 20px;
+    text-align: center;
+}
+.categorySection{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    border-bottom: 1px solid #9E9E9E;
+    padding: 20px 0px;
+}
+.categorySection--open .categorySection__bottom {
+    display: block;
+}
+.categorySection--open .categorySection__toogle::before {
+    display: none;
+}
+
+.categorySection__toogle{
+    width: 15px;
+    height: 15px;
+    position: relative;
+    color: #444;
+    cursor: pointer;
+}
+.categorySection__toogle::before{
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    height: 100%;
+    width: 2px;
+    background-color: #444;
+}
+.categorySection__toogle::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 2px;
+    width: 100%;
+    background-color: #444;
+}
+.categorySection__top{
+    width: 100%;
+}
+.categorySection__caption{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.categorySection__title{
+    color:  #0C0C0C;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 28px;
+}
+
+.categorySection__bottom {
+    width: 100%;
+    display: none;
+}
+
+
+.categorySection__list {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.categorySection__item {
+}
+
+.customCheckbox {
+    display: inline-block;
+    cursor: pointer;
+    user-select: none;
+}
+.customCheckbox__input{
+    display: none;
+}
+.customCheckbox__input:checked + span {
+    font-weight: 400;
+}
+.customCheckbox__input:checked + span::before {
+    background-color: rgba(12, 104, 244, 1);
+}
+.customCheckbox__text {
+    position: relative;
+    color: #0C0C0C;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 28px;
+    padding-left: 26px;
+}
+.customCheckbox__text::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 2px;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(80, 80, 80, 1);
+    border-radius: 5px;
+}
+.customCheckbox__text::after{
+    content: "\2713";
+    position: absolute;
+    color: #fff;
+    bottom: -3px;
+    left: 2px;
+}
+.customCheckbox__text sup{
+    padding-left: 3px;
+    font-size: 12px;
+}
+
+/*switch button styles start*/
+.customCheckbox input[type=checkbox], .categorySection__caption input[type=checkbox] {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+}
+
+.switchLabel {
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 70px;
+    height: 35px;
+    background: grey;
+    display: block;
+    border-radius: 100px;
+    position: relative;
+}
+
+.switchLabel:after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 25px;
+    height: 25px;
+    background: #fff;
+    border-radius: 90px;
+    transition: 0.3s;
+}
+
+.categorySection__caption input:checked + label {
+    background: rgba(12, 104, 244, 1);
+}
+
+.categorySection__caption input:checked + .switchLabel:after {
+    left: calc(100% - 5px);
+    transform: translateX(-100%);
+}
+
+.switchLabel:active:after {
+    width: 20px;
 }

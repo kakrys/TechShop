@@ -90,10 +90,10 @@
     align-items: flex-start;
     justify-content: space-between;
     gap: 20px;
+    max-width: 1100px;
 }
 
 .adminOrder {
-    border: 1px solid rgba(12, 104, 244, 0.2);
     border-radius: 6px;
     margin-bottom: 5px;
 }
@@ -106,10 +106,28 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+.admin__usersInfoList {
+    width: 100%;
+    padding: 16px;
+    border-radius: 4px;
+    background: #F6F6F6;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     justify-content: space-between;
 }
 
 .account__ordersInfoItem {
+    max-width: 240px;
+    width: 100%;
+}
+
+.account__userInfoItem {
     max-width: 260px;
     width: 100%;
     position: relative;
@@ -123,11 +141,13 @@
 }
 
 .account__ordersInfoSubtitle {
+    width: 100%;
+    text-wrap: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     color: #0C0C0C;
     text-align: center;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 300;
     margin-top: 10px;
 }
@@ -230,10 +250,12 @@
 .admin__createForm{
     padding: 20px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 30px;
     align-items: flex-start;
     justify-content: flex-start;
+    max-width: 930px;
+    flex-wrap: wrap;
 }
 
 .admin__createLabel {
@@ -256,5 +278,111 @@
     padding: 8px 10px;
     font-size: 16px;
     font-weight: 400;
-    color: #0C68F4;
+    color: #FFFFFF;
+    background-color: #0C68F4;
+    margin-top: 25px;
+    width: 30%;
 }
+
+/*input styles*/
+.admin__createForm_container {
+    height: 350px;
+    width: 430px;
+}
+
+.admin__createForm_wrapper {
+    position: relative;
+    height: 350px;
+    width: 100%;
+    border: 2px dashed #0C68F4;
+    border-radius: 10px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.active-wrapper {
+    border: none;
+}
+
+.admin__createForm_image {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin__createForm_image img {
+    display: none;
+    height: 72%;
+    max-width: 430px;
+    object-fit: cover;
+    background-color: #fff;
+}
+
+.admin__createForm_icon img{
+    display: block;
+    width: 200px;
+}
+
+.admin__createForm_text {
+    font-size: 20px;
+    font-weight: 500;
+    color: #444444;
+    margin-top: 20px;
+}
+
+.admin__createForm_content {
+}
+
+#admin__createForm_cancelBtn, #admin__createForm_fileName {
+    position: absolute;
+}
+
+#admin__createForm_cancelBtn {
+    right: 15px;
+    top: 15px;
+    cursor: pointer;
+    display: none;
+}
+
+.active-wrapper:hover #admin__createForm_cancelBtn {
+    display: block;
+}
+
+#admin__createForm_fileName {
+    bottom: 0;
+    background: #0951be;
+    color: #FFFFFF;
+    padding: 10px 0;
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+    display: none;
+}
+
+.active-wrapper:hover #admin__createForm_fileName {
+    display: block;
+}
+
+#customBtn {
+    margin-top: 30px;
+    width: 100%;
+    height: 50px;
+    display: block;
+    background: #FFFFFF;
+    color: #0C68F4;
+    border: 1px solid #0C68F4;
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    outline: none;
+}
+
+

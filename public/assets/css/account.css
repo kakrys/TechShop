@@ -1,11 +1,16 @@
 .account {
     width: 100%;
-    padding: 48px 160px 82px 0;
+    padding: 48px 160px 82px 30px;
     margin: 0 auto;
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
     gap: 24px;
+    max-width: 1500px;
+}
+
+#user {
+    padding: 48px 160px 82px 30px;
 }
 
 .account__sidebar {
@@ -67,13 +72,11 @@ nav .account__asideLine {
     transition: all 0.3s;
 }
 
-/*ADMIN CONTENT STYLES START*/
+/*MAIN CONTENT STYLES START*/
 .account__main {
    max-width: 1400px;
 }
-.admin {
 
-}
 .title__container {
     width: 950px;
 }
@@ -102,4 +105,108 @@ nav .account__asideLine {
     gap: 10px;
 }
 
+/*profile container styles start*/
+.account__editData {
+    margin-top: 23px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+    max-width: 850px;
+}
 
+.editData__title {
+    color: #717171;
+    font-size: 14px;
+    font-weight: 300;
+    padding-left: 19px;
+}
+
+.editData__form {
+    padding: 4px 16px;
+    width: 392px;
+    min-height: 72px;
+    border-radius: 8px;
+    border: 1px solid #F6F6F6;
+    background: #F9F9F9;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.editData__input {
+    width: 298px;
+    padding-left: 4px;
+    overflow: hidden;
+    color: #717171;
+    text-overflow: ellipsis;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 24px;
+    background-color: inherit;
+}
+
+/*order container styles start*/
+.userOrder {
+    padding: 16px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.user__ordersInfoList {
+    width: 100%;
+    padding: 16px;
+    border-radius: 4px;
+    background: #F6F6F6;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.user__ordersInfoItem {
+    max-width: 170px;
+    width: 100%;
+}
+
+.user__ordersInfoTitle {
+    color: #0C0C0C;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.user__ordersInfoSubtitle {
+    color: #0C0C0C;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 300;
+    margin-top: 24px;
+}
+
+.user__ordersImagesList {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+.user__ordersImagesItem {
+    max-width: 109px;
+    width: 100%;
+    height: 116px;
+}
+
+.user__ordersImage {
+    display: block;
+    width: 108px;
+    height: 100%;
+}

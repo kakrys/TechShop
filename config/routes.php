@@ -13,5 +13,8 @@ Router::post('/login/auth', [new Up\Controllers\AuthorizationController(), 'auth
 Router::get('/login/logout', [new Up\Controllers\AuthorizationController(), 'logOutAction']);
 Router::post('/admin/create/product/', [new Up\Controllers\AdminController(), 'addProductAction']);
 
+//new =)
+Router::get('/account/', [new \Up\Controllers\UserController(), 'userAction']);
+
 //testing remove
 Router::post('/product/remove/',[new \Up\Controllers\AdminController(), 'removeAction']);
