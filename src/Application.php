@@ -6,9 +6,13 @@ namespace Up;
 
 use Core\DB\Migrator;
 use Core\Routing\Router;
+use Exception;
 
 class Application
 {
+	/**
+	 * @throws Exception
+	 */
 	public function run(): void
 	{
 		Migrator::executeMigrations();
