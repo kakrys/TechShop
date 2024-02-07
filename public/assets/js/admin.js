@@ -181,3 +181,70 @@ function defaultBtnActive()
 		}
 	});
 }
+
+//execute migrations
+const submitDbExecute = document.getElementById('submitDbExecute');
+function executeDb(title)
+{
+	const executeParams = {
+		title: title,
+	};
+
+	fetch('/migrations/execute/',
+		{
+			method: 'POST',
+			headers:{
+				'Content-Type': 'application/json;charset=utf-8',
+			},
+			body: JSON.stringify(executeParams)
+		}
+	)
+		.then((response) => {
+			console.log('cool execute =)');
+			dbModalCreate.style.display = 'none';
+			return response.json();
+		})
+		.then((response) => {
+			if (response.result !== 'Y')
+			{
+				console.log('error while execute db');
+			}
+		})
+		.catch((error) => {
+			console.log('execute error:' + error);
+		})
+}
+
+//dropDB
+const submitDbDelete = document.getElementById('submitDbDelete');
+
+submitDbDelete.addEventListener("click", function (title = 'submitDbDelete'){
+
+	const deleteParams = {
+		title: title,
+	};
+
+	fetch('/database/delete/',
+		{
+			method: 'POST',
+			headers:{
+				'Content-Type': 'application/json;charset=utf-8',
+			},
+			body: JSON.stringify(deleteParams)
+		}
+	)
+		.then((response) => {
+			console.log('cool delete =)');
+			dbModalDelete.style.display = 'none';
+			return response.json();
+		})
+		.then((response) => {
+			if (response.result !== 'Y')
+			{
+				console.log('error while delete db');
+			}
+		})
+		.catch((error) => {
+			console.log('delete error:' + error);
+		})
+});

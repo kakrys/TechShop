@@ -16,5 +16,7 @@ Router::post('/admin/create/product/', [new Up\Controllers\AdminController(), 'a
 //new =)
 Router::get('/account/', [new \Up\Controllers\UserController(), 'userAction']);
 
-//testing remove
+//fetch-api
 Router::post('/product/remove/',[new \Up\Controllers\AdminController(), 'removeAction']);
+Router::post('/migrations/execute/', [new \Up\Controllers\AdminController(), 'executeAction']);
+Router::post('/database/delete/', [new \Up\Controllers\AdminController(), 'dbAction']);
