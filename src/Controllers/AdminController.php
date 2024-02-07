@@ -54,6 +54,10 @@ class AdminController extends BaseController
 		{
 			header("Location: /admin/");
 		}
+		if (isset($_SESSION['UserId']))
+		{
+			header("Location: /account/");
+		}
 		$authError = $_SESSION['AuthError'] ?? '';
 		$registerError = $_SESSION['registerError'] ?? '';
 

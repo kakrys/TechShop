@@ -1,9 +1,15 @@
+<?php
+/**
+ * @var $userFullName
+ * @var $userEmail
+ */
+?>
 <div class="account" id="user">
 	<aside class="account__sidebar">
 		<div class="account_userContainer">
 			<div class="account__userImg"></div>
-			<p class="account__userName">Jimmy Smith</p>
-			<p class="account__userName">JimmySmith007@gmail.com</p>
+			<p class="account__userName"><?=$userFullName?></p>
+			<p class="account__userName"><?=$userEmail?></p>
 		</div>
 		<nav class="account__nav">
 			<button class="account__sideBarBtn active-btn" data-tab-Index="0" id="loadProfile" data-tab-content="accountProfileContainer">
