@@ -14,13 +14,17 @@ class CatalogController extends BaseController
 	 */
 	public function catalogAction(string $tagName, $pageNumber): string
 	{
+		$productArray = ProductService::getProductList($pageNumber, $tagName);
+		$pageArray = PaginationService::determinePage($pageNumber,$productArray);
+		$productArray = PaginationService::trimProductArray($productArray);
+
 		$params = [
 			'tags' => TagService::getTagList(),
 			'tag' => $tagName,
 			'pageNumber' => $pageNumber,
-			'products' => ProductService::getProductList($pageNumber, $tagName),
+			'products' => $productArray,
 			'tagName'=> $tagName,
-			'pageArray'=> PaginationService::determinePage($pageNumber,$tagName)
+			'pageArray'=> $pageArray
 		];
 		return $this->render('catalog', $params);
 	}

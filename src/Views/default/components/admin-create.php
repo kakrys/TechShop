@@ -40,7 +40,7 @@
 					<?php foreach($tags as $tag):?>
 						<div class="selectTag">
 							<label for="tagMobile" class="admin__createLabel createCheckboxLabel">
-								<input name="tags[]" type="checkbox" class="admin__createInput createCheckboxInput" value="<?=$tag->getId().",".$tag->getTitle()?>">
+								<input name="tags[]" type="checkbox" class="admin__createInput createCheckboxInput" value="<?=$tag->getId()?>">
 								<?=$tag->getTitle()?>
 								<span class="createCheckboxSpan"></span>
 							</label>

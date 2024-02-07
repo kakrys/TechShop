@@ -22,7 +22,7 @@ class ProductService
 				. "INNER JOIN `IMAGE`"
 				. "ON `PRODUCT`.`ID`=`IMAGE`.`PRODUCT_ID`"
 				. "WHERE `IS_COVER`=1"
-				. " LIMIT 9 OFFSET {$offset}";
+				. " LIMIT 10 OFFSET {$offset}";
 		}
 		else
 		{
@@ -34,7 +34,7 @@ class ProductService
 				. "ON `PRODUCT`.`ID` = `PRODUCT_TAG`.`PRODUCT_ID`"
 				. "INNER JOIN `TAG` ON `PRODUCT_TAG`.`TAG_ID`=`TAG`.`ID`"
 				. "WHERE `IS_COVER`=1 AND TAG.TITLE='{$category}'"
-				. " LIMIT 9 OFFSET {$offset}";
+				. " LIMIT 10 OFFSET {$offset}";
 		}
 		$result = mysqli_query($connection, $query);
 
@@ -168,22 +168,12 @@ class ProductService
 	 */
 	public static function addProduct(): void
 	{
-		$tagIds = [];
-
-		$tagNames = [];
-
-		foreach ($_POST['tags'] as $tagString)
-		{
-			$splitedString = explode(',', $tagString);
-			$tagIds[] = $splitedString['0'];
-			$tagNames[] = $splitedString['1'];
-		}
 		$title = $_POST['name'];
 		$description = $_POST["description"];
 		$price = $_POST["price"];
 		$tags = $_POST["tags"];
 		$brand = $_POST["brand"];
-
+		var_dump($tags);
 		$connection = DbConnection::get();
 
 		$query = "INSERT INTO `PRODUCT`(`TITLE`,`DESCRIPTION`,`PRICE`,`ENTITY_STATUS_ID`,`SORT_ORDER`,`BRAND_ID`)"
@@ -195,13 +185,7 @@ class ProductService
 		}
 
 		$product_ID = $connection->insert_id;
-		PaginationService::updateCategory('all');
-
-		foreach ($tagNames as $tag)
-		{
-			PaginationService::updateCategory($tag);
-		}
-		foreach ($tagIds as $tagId)
+		foreach ($tags as $tagId)
 		{
 			$query = "INSERT INTO `PRODUCT_TAG`(`PRODUCT_ID`,`TAG_ID`)" . " VALUES ({$product_ID},$tagId)";
 
