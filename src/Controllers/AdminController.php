@@ -70,6 +70,48 @@ class AdminController extends BaseController
 						  ]);
 	}
 
+	public function dbAction()
+	{
+		header('Content-Type: application/json');
+		$input = file_get_contents('php://input');
+		$data = Json::decode($input);
+
+		if (isset($data['title']))
+		{
+			echo Json::encode([
+				'result' => 'Y',
+			]);
+		}
+		else
+		{
+			echo Json::encode([
+				'result' => 'N',
+				'error' => 'deleteDb not provided',
+			]);
+		}
+	}
+
+	public function executeAction()
+	{
+		header('Content-Type: application/json');
+		$input = file_get_contents('php://input');
+		$data = Json::decode($input);
+
+		if (isset($data['title']))
+		{
+			echo Json::encode([
+				'result' => 'Y',
+			]);
+		}
+		else
+		{
+			echo Json::encode([
+				'result' => 'N',
+				'error' => 'executeDb not provided',
+			]);
+		}
+	}
+
 	/**
 	 * @throws Exception
 	 */

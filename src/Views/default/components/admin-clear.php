@@ -21,21 +21,21 @@
 </div>
 
 <div id="adminDbModalDelete">
-	<form action="" method="post" class="admin__DbForm">
+	<div class="admin__DbForm">
 		<p class="adminDbModalText">Are you sure you want to delete the database?</p>
 		<div class="admin__DbForm_btnContainer">
 			<button type="button" class="adminDbFormCancel" id="cancelDbDelete">Cancel</button>
-			<button type="submit" class="adminDbFormBtn">Submit</button>
+			<button type="submit" class="adminDbFormBtn" id="submitDbDelete">Submit</button>
 		</div>
-	</form>
+	</div>
 </div>
 <div id="adminDbModalCreate">
-	<form action="" method="post" class="admin__DbForm">
+	<div class="admin__DbForm">
 		<p class="adminDbModalText">If you want to create migrations click on the submit button</p>
 		<div class="admin__DbForm_btnContainer">
 			<button type="button" class="adminDbFormCancel" id="cancelDbCreate">Cancel</button>
-			<button type="submit" class="adminDbFormBtn">Submit</button>
+			<button onclick="executeDb('executeDb')" type="submit" class="adminDbFormBtn" id="submitDbExecute">Submit</button>
 		</div>
-	</form>
+	</div>
 </div>
 
