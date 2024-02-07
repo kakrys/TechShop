@@ -173,7 +173,6 @@ class ProductService
 		$price = $_POST["price"];
 		$tags = $_POST["tags"];
 		$brand = $_POST["brand"];
-		var_dump($tags);
 		$connection = DbConnection::get();
 
 		$query = "INSERT INTO `PRODUCT`(`TITLE`,`DESCRIPTION`,`PRICE`,`ENTITY_STATUS_ID`,`SORT_ORDER`,`BRAND_ID`)"
@@ -194,10 +193,7 @@ class ProductService
 				throw new \RuntimeException('Error adding an product: ' . $connection->error);
 			}
 		}
-		$query = "INSERT INTO IMAGE(`PRODUCT_ID`,`PATH`,`IS_COVER`)" . "VALUES('{$product_ID}','undefined.jpg',1)";
-		if (!$connection->query($query))
-		{
-			throw new \RuntimeException('Error adding an product: ' . $connection->error);
-		}
+		ImageService::insertImageInFolder();
+		ImageService::insertImageInDatabase($product_ID);
 	}
 }
