@@ -20,10 +20,10 @@ class User
 		string $name,
 		string $surname,
 		string $email,
-		string $password,
 		string $address,
-		int    $roleId,
-		int    $entityStatusId
+		int    $roleId = 2,
+		int    $entityStatusId = 1,
+		string $password = ''
 	)
 	{
 		$this->id = $id;

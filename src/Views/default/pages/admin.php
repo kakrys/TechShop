@@ -6,6 +6,7 @@
  * @var $products
  * @var $tags
  * @var $brands
+ * @var $users
  */
 ?>
 <div class="wrapper account">
@@ -52,7 +53,7 @@
 		<?= $this->renderComponent('admin-edit', []) ?>
 	</main>
 	<main class="account__main" id="adminUserContainer" data-admin-cont="1">
-		<?= $this->renderComponent('admin-users', []) ?>
+		<?= $this->renderComponent('admin-users', ['users' => $users]) ?>
 	</main>
 	<main class="account__main" id="adminOrderContainer" data-admin-cont="2">
 		<?= $this->renderComponent('admin-orders', ['orders' => $orders]) ?>

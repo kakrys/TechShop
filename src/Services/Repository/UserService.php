@@ -42,10 +42,41 @@ class UserService
 			$row['NAME'],
 			$row['SURNAME'],
 			$row['EMAIL'],
-			$row['PASSWORD'],
 			$row['ADDRESS'],
 			$row['ROLE_ID'],
-			$row['ENTITY_STATUS_ID']
+			$row['ENTITY_STATUS_ID'],
+			$row['PASSWORD'],
 		);
+	}
+
+	/**
+	 * @throws Exception
+	 */
+	public static function getUserList(): ?array
+	{
+		$connection = DbConnection::get();
+
+		$query = "SELECT `ID`, `NAME`, `SURNAME`, `ADDRESS`, `EMAIL` FROM `USER` WHERE `ROLE_ID`=2";
+
+		$result = mysqli_query($connection, $query);
+
+		if (!$result) {
+			throw new \RuntimeException(mysqli_error($connection));
+		}
+
+		$users = [];
+
+		while ($row = mysqli_fetch_assoc($result)) {
+			$user = new User(
+				$row['ID'],
+				$row['NAME'],
+				$row['SURNAME'],
+				$row['EMAIL'],
+				$row['ADDRESS'],
+			);
+			$users[] = $user;
+		}
+
+		return $users;
 	}
 }

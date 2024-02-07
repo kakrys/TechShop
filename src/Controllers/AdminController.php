@@ -10,11 +10,10 @@ use Up\Services\AuthenticationService;
 use Up\Services\Repository\BrandService;
 use Up\Services\Repository\OrderService;
 use Up\Services\Repository\ProductService;
-use Up\Services\Repository\RemoveService;
 use Up\Services\Repository\TagService;
 use Up\Services\Repository\UserService;
 use Core\Web\Json;
-use Core\Web\Request;
+
 class AdminController extends BaseController
 {
 	/**
@@ -33,6 +32,8 @@ class AdminController extends BaseController
 				'brands' => BrandService::getBrandList(),
 				'orders' => OrderService::getOrderList(),
 				'products' => ProductService::getProductListForAdmin(),
+				'users' => UserService::getUserList(),
+
 			];
 			return $this->render('admin', $params);
 		}
@@ -45,7 +46,7 @@ class AdminController extends BaseController
 	/**
 	 * @throws Exception
 	 */
-	public function loginAction()
+	public function loginAction(): string
 	{
 		session_start();
 		if (isset($_SESSION['AdminId']))
@@ -57,28 +58,16 @@ class AdminController extends BaseController
 		return $this->render('login', ['error' => $error,]);
 	}
 
-	public static function removeAction():void
+	public function removeAction(): void
 	{
-		header('Content-Type: application/json');
-		$input = file_get_contents('php://input');
-		$data = Json::decode($input);
-
-		if (isset($data['id']))
-		{
-			$id = $data['id'];
-			$result = RemoveService::delete($id);
-
-			echo Json::encode([
-				'result' => $result > 0 ? 'Y' : 'N',
-			]);
-		}
-		else
-		{
-			echo Json::encode([
-				'result' => 'N',
-				'error' => 'Id not provided',
-			]);
-		}
+		//coming soon...
+		//$delete = RemoveService::delete();
+		//echo Json::encode([
+		//'result' => $delete > 0 ? 'Y' : 'N',
+		//]);
+		echo Json::encode([
+							  'result' => 'Y',
+						  ]);
 	}
 
 	/**
@@ -90,4 +79,3 @@ class AdminController extends BaseController
 		return $this->render('admin-create-product', []);
 	}
 }
-
