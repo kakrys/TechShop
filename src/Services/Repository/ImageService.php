@@ -9,19 +9,22 @@ class ImageService
 {
 	private static string $uploadDir = __DIR__ . "/../../../public/assets/images/productImages/";
 
-	public static function insertImageInDatabase(int $productId)
+	/**
+	 * @throws Exception
+	 */
+	public static function insertImageInDatabase(int $productId, string $filename): void
 	{
 		$connection = DbConnection::get();
-		$query = "INSERT INTO IMAGE(`PRODUCT_ID`,`PATH`,`IS_COVER`)" . "VALUES('{$productId}','{$_FILES['image']['name']}',1)";
+		$query = "INSERT INTO IMAGE(`PRODUCT_ID`,`PATH`,`IS_COVER`)" . "VALUES('{$productId}','{$filename}',1)";
+
 		if (!$connection->query($query))
 		{
 			throw new \RuntimeException('Error adding an image: ' . $connection->error);
 		}
 	}
 
-	public static function insertImageInFolder()
+	public static function insertImageInFolder(string $filename): void
 	{
-		$filename = $_FILES["image"]["name"];
 
 		$ext = pathinfo($filename, PATHINFO_EXTENSION);
 		if ($ext !== 'png' && $ext !== 'jpg')
@@ -30,9 +33,18 @@ class ImageService
 		}
 		$target_file = self::$uploadDir . $filename;
 
-		if (move_uploaded_file($_FILES["image"]['tmp_name'], $target_file))
+		if (!move_uploaded_file($_FILES["image"]['tmp_name'], $target_file))
 		{
-			echo "File is valid, and was successfully uploaded.\n";
+			throw new \RuntimeException('Error adding an image: ' . "Файл не найден");
 		}
+	}
+
+	public static function renameImage(): string
+	{
+		$originalFilename = $_FILES["image"]["name"];
+
+		$ext = pathinfo($originalFilename, PATHINFO_EXTENSION);
+
+		return md5(time() . $originalFilename) . "." . $ext;
 	}
 }

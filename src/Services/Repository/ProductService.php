@@ -193,7 +193,7 @@ class ProductService
 				throw new \RuntimeException('Error adding an product: ' . $connection->error);
 			}
 		}
-		ImageService::insertImageInFolder();
-		ImageService::insertImageInDatabase($product_ID);
+		ImageService::insertImageInFolder(ImageService::renameImage());
+		ImageService::insertImageInDatabase($product_ID, ImageService::renameImage());
 	}
 }
