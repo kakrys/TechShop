@@ -27,7 +27,7 @@ $tags = $product->getTags();
 					</li>
 					<?php foreach ($tags as $tag):?>
 						<li class="detail__brandItem">
-							<a href="#" class="detail__brandLink"><?=$tag->getTitle()?></a>
+							<a href="/catalog/<?=$tag->getTitle()?>/1/" class="detail__brandLink"><?=$tag->getTitle()?></a>
 						</li>
 					<?php endforeach;?>
 				</ul>
