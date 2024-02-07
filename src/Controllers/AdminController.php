@@ -33,7 +33,6 @@ class AdminController extends BaseController
 				'orders' => OrderService::getOrderList(),
 				'products' => ProductService::getProductListForAdmin(),
 				'users' => UserService::getUserList(),
-
 			];
 			return $this->render('admin', $params);
 		}
@@ -46,16 +45,18 @@ class AdminController extends BaseController
 	/**
 	 * @throws Exception
 	 */
-	public function loginAction(): string
+
+	public function loginAction()
 	{
 		session_start();
 		if (isset($_SESSION['AdminId']))
 		{
 			header("Location: /admin/");
 		}
-		$error = $_SESSION['AuthError'] ?? '';
+		$authError = $_SESSION['AuthError'] ?? '';
+		$registerError = $_SESSION['registerError'] ?? '';
 
-		return $this->render('login', ['error' => $error,]);
+		return $this->render('login', ['authError' => $authError,'registerError' => $registerError]);
 	}
 
 	public function removeAction(): void

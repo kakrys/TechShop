@@ -79,4 +79,22 @@ class UserService
 
 		return $users;
 	}
+
+	public static function addUser():bool
+	{
+		$userName=$_POST['userName'];
+		$userSurname = $_POST['userSurname'];
+		$userEmail = $_POST['email'];
+		$userPassword = $_POST['password'];
+		$userAddress = $_POST['userAddress'];
+		$connection = DbConnection::get();
+		$userPassword = password_hash($userPassword,PASSWORD_DEFAULT);
+		$userAddQuery = "INSERT INTO `USER` (`NAME`, `SURNAME`, `EMAIL`, `PASSWORD`,`ADDRESS`,`ROLE_ID`, `ENTITY_STATUS_ID`)"
+			. " VALUES ('{$userName}', '{$userSurname}','{$userEmail}','{$userPassword}','{$userAddress}',2, 1)";
+		if (!$connection->query($userAddQuery))
+		{
+			return false;
+		}
+		return true;
+	}
 }
