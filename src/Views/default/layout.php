@@ -46,7 +46,7 @@
 					<div class="search__container">
 						<div class="search__wrapper">
 							<form class="search__form" action="">
-								<input class="search__input" type="text" placeholder="What can we help you to find ?">
+								<input class="search__input" type="text" placeholder="What can we help you to find ?" pattern="^[^\s]+(\s.*)?$" required>
 								<button class="search__btn" type="submit">
 									<img src="/assets/images/common/search.svg" alt="search icon" class="search__img">
 								</button>

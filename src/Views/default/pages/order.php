@@ -11,13 +11,13 @@
 	<div class="order__formContainer">
 		<form class="order__form" action="/success/" method="post">
 			<label class="order__label" for="userName">Name</label>
-			<input class="order__input" id="userName" type="text" name="name" placeholder="Input Your Name" required>
+			<input class="order__input" id="userName" type="text" name="name" placeholder="Input Your Name" pattern="^[^\s]+(\s.*)?$" required>
 			<label class="order__label" for="userSurname">Surname</label>
-			<input class="order__input" id="userSurname" type="text" name="surname" placeholder="Input Your Surname" required>
+			<input class="order__input" id="userSurname" type="text" name="surname" placeholder="Input Your Surname" pattern="^[^\s]+(\s.*)?$" required>
 			<label class="order__label" for="userEmail">E-mail</label>
-			<input class="order__input" id="userEmail" type="text" name="email" placeholder="Input Your E-mail" required>
+			<input class="order__input" id="userEmail" type="text" name="email" placeholder="Input Your E-mail" pattern="^[^\s]+(\s.*)?$" required>
 			<label class="order__label" for="userAddress">Ship to</label>
-			<input class="order__input" id="userAddress" type="text" name="address" placeholder="Input Your Address" required>
+			<input class="order__input" id="userAddress" type="text" name="address" placeholder="Input Your Address" pattern="^[^\s]+(\s.*)?$" required>
 			<input name="productID" type="hidden" value="<?=$product->getId()?>">
 			<input name="productPrice" type="hidden" value="<?=$product->getPrice()?>">
 			<button class="order__addOrder" type="submit">Submit & Order</button>

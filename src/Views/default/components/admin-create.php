@@ -10,11 +10,11 @@
 		<div class="admin__createForm_container">
 			<div class="admin__createContainer">
 				<label for="name" class="admin__createLabel">Name</label>
-				<input id="name" name="name" type="text" class="admin__createInput">
+				<input id="name" name="name" type="text" class="admin__createInput" pattern="^[^\s]+(\s.*)?$" required>
 			</div>
 			<div class="admin__createContainer">
 				<label for="description" class="admin__createLabel">Description</label>
-				<input id="description" name="description" type="text" class="admin__createInput">
+				<input id="description" name="description" type="text" class="admin__createInput" pattern="^[^\s]+(\s.*)?$" required>
 			</div>
 			<div class="admin__createContainer">
 				<label for="price" class="admin__createLabel">Price</label>

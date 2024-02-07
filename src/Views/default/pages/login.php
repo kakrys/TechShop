@@ -28,7 +28,7 @@
 				<img src="/assets/images/common/hide.svg" alt="show your password in the screen" class="modalField__eye">
 			</div>
 			<label for="keepLog" class="keepLog">
-				<input id="keepLog" type="checkbox" class="keepLog__input">
+				<input id="keepLog" type="checkbox" class="keepLog__input" pattern="^[^\s]+(\s.*)?$" required>
 				Keep me logged in
 			</label>
 			<button id="logInButton" class="modalCard__btn" type="submit">Log In</button>
@@ -57,23 +57,23 @@
 		<form class="modalCard__form" action="/registration/" method="post">
 			<div class="modalField">
 				<img src="/assets/images/common/modalUser.svg" alt="click and write your Full name" class="modalField__img">
-				<input class="modalCard__form_input" type="text" name="userName" placeholder="Name" required>
+				<input class="modalCard__form_input" type="text" name="userName" placeholder="Name" pattern="^[^\s]+(\s.*)?$" required>
 			</div>
 			<div class="modalField">
 				<img src="/assets/images/common/modalUser.svg" alt="click and write your Full name" class="modalField__img">
-				<input class="modalCard__form_input" type="text" name="userSurname" placeholder="Surname" required>
+				<input class="modalCard__form_input" type="text" name="userSurname" placeholder="Surname" pattern="^[^\s]+(\s.*)?$" required>
 			</div>
 			<div class="modalField">
 				<img src="/assets/images/common/modalUser.svg" alt="click and write your Full name" class="modalField__img">
-				<input class="modalCard__form_input" type="text" name="userAddress" placeholder="Address" required>
+				<input class="modalCard__form_input" type="text" name="userAddress" placeholder="Address" pattern="^[^\s]+(\s.*)?$" required>
 			</div>
 			<div class="modalField">
 				<img src="/assets/images/common/email.svg" alt="click and write your E-mail" class="modalField__img">
-				<input class="modalCard__form_input" type="text" name="email" placeholder="E-mail" required>
+				<input class="modalCard__form_input" type="text" name="email" placeholder="E-mail" pattern="^[^\s]+(\s.*)?$" required>
 			</div>
 			<div class="modalField">
 				<img src="/assets/images/common/key.svg" alt="click and write your Password" class="modalField__img">
-				<input class="modalCard__form_input password" type="password" name="password" placeholder="Password" required>
+				<input class="modalCard__form_input password" type="password" name="password" placeholder="Password" pattern="^[^\s]+(\s.*)?$" required>
 				<img src="/assets/images/common/hide.svg" alt="show your password in the screen" class="modalField__eye">
 			</div>
 			<label for="keepLog2" class="keepLog">
