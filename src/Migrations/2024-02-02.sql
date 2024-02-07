@@ -13,7 +13,7 @@ VALUES (1, 1, '1.jpg', 1),
        (10, 10, '10.png', 1);
 
 INSERT INTO `STATUS` (`ID`, `TITLE`)
-VALUE (1, 'Заказ оформлен');
+VALUE (1, 'Новый заказ');
 
 CREATE INDEX index_product_brand_id ON PRODUCT (BRAND_ID);
 CREATE INDEX index_product_tag_id ON PRODUCT_TAG (TAG_ID);
