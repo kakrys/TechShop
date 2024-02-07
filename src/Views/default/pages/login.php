@@ -28,7 +28,7 @@
 				<img src="/assets/images/common/hide.svg" alt="show your password in the screen" class="modalField__eye">
 			</div>
 			<label for="keepLog" class="keepLog">
-				<input id="keepLog" type="checkbox" class="keepLog__input" pattern="^[^\s]+(\s.*)?$" required>
+				<input id="keepLog" type="checkbox" class="keepLog__input">
 				Keep me logged in
 			</label>
 			<button id="logInButton" class="modalCard__btn" type="submit">Log In</button>
