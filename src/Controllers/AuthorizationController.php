@@ -25,8 +25,14 @@ class AuthorizationController extends BaseController
 			header("Location: /admin/");
 			unset($_SESSION['AuthError']);
 		}
-		else
-		{
+		if (AuthenticationService::authenticateUser($user,$_POST['email'],$_POST['password'],false))
+			{
+				$_SESSION['UserId']=$user->id;
+				$_SESSION['UserEmail']=$user->email;
+				header("Location: /account/");
+				unset($_SESSION['AuthError']);
+			}
+		else{
 			$_SESSION['AuthError'] = 'Invalid login or password';
 			header('Location: /login/');
 		}

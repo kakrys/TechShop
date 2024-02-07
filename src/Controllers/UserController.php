@@ -4,12 +4,26 @@ declare(strict_types=1);
 namespace Up\Controllers;
 
 use Exception;
+use Up\Services\Repository\UserService;
 
 class UserController extends BaseController
 {
+	/**
+	 * @throws Exception
+	 */
 	public function userAction():string
 	{
-		$params = [];
-		return $this->render('account', $params);
+		session_start();
+		if (isset($_SESSION['UserEmail']))
+		{
+			$user = UserService::getUserByEmail($_SESSION['UserEmail']);
+			$params = [
+				'userEmail' => $user->email,
+				'userFullName' => $user->name . ' ' . $user->surname,
+			];
+			return $this->render('account', $params);
+		}
+
+		header('Location: /login/');
 	}
 }
