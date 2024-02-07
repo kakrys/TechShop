@@ -13,11 +13,8 @@ class Json
 		return json_encode($data, $options);
 	}
 
-	/**
-	 * @throws \JsonException
-	 */
 	public static function decode($data): mixed
 	{
-		return json_decode($data, true, 512,JSON_THROW_ON_ERROR);
+		return json_decode($data, true);
 	}
 }

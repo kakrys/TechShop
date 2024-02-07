@@ -10,10 +10,11 @@ use Up\Services\AuthenticationService;
 use Up\Services\Repository\BrandService;
 use Up\Services\Repository\OrderService;
 use Up\Services\Repository\ProductService;
+use Up\Services\Repository\RemoveService;
 use Up\Services\Repository\TagService;
 use Up\Services\Repository\UserService;
 use Core\Web\Json;
-
+use Core\Web\Request;
 class AdminController extends BaseController
 {
 	/**
@@ -56,16 +57,28 @@ class AdminController extends BaseController
 		return $this->render('login', ['error' => $error,]);
 	}
 
-	public function removeAction(): void
+	public static function removeAction():void
 	{
-		//coming soon...
-		//$delete = RemoveService::delete();
-		//echo Json::encode([
-		//'result' => $delete > 0 ? 'Y' : 'N',
-		//]);
-		echo Json::encode([
-			'result' => 'Y',
-		]);
+		header('Content-Type: application/json');
+		$input = file_get_contents('php://input');
+		$data = Json::decode($input);
+
+		if (isset($data['id']))
+		{
+			$id = $data['id'];
+			$result = RemoveService::delete($id);
+
+			echo Json::encode([
+				'result' => $result > 0 ? 'Y' : 'N',
+			]);
+		}
+		else
+		{
+			echo Json::encode([
+				'result' => 'N',
+				'error' => 'Id not provided',
+			]);
+		}
 	}
 
 	/**
