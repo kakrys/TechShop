@@ -69,11 +69,14 @@
 }
 
 .search__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     z-index: 2;
     min-width: 600px;
     position: absolute;
     top: 61px;
-    right: 30px;
+    right: 300px;
     padding: 16px;
     border-radius: 0px 0px 8px 8px;
     background: #FFF;

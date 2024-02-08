@@ -10,6 +10,7 @@ const searchBlock = document.querySelector('.search__container');
 
 search.addEventListener('click', () => {
 	searchBlock.classList.toggle('shadow');
+	searchBlock.style.alignItems = 'center';
 });
 
 const forms = document.querySelector(".modal"),

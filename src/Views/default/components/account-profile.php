@@ -68,16 +68,4 @@
 			</button>
 		</form>
 	</li>
-	<li class="editData__item">
-		<h2 class="editData__title">Postal code</h2>
-		<form action="" class="editData__form">
-			<img src="/assets/images/accountIcons/accountPost.svg" alt="edit postal code"
-				 class="editData__img">
-			<input class="editData__input" type="text" placeholder="Postal code" disabled>
-			<button class="editData__btn" type="button" id="accountEditPostCode">
-				<img src="/assets/images/accountIcons/accountEditBtn.svg" alt="submit your edits"
-					 class="editData__btnImg">
-			</button>
-		</form>
-	</li>
 </ul>
