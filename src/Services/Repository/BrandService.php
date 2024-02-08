@@ -4,6 +4,7 @@ namespace Up\Services\Repository;
 
 use Core\DB\DbConnection;
 use Exception;
+use Up\Services\SecurityService;
 
 class BrandService
 {
@@ -14,16 +15,10 @@ class BrandService
 	 */
 	public static function getBrandList(): array
 	{
-		$connection = DbConnection::get();
-
 		$query = "SELECT `ID`,`Title` from BRAND";
 
-		$result = mysqli_query($connection, $query);
+		$result = SecurityService::safeQuery($query);
 
-		if (!$result)
-		{
-			throw new \RuntimeException(mysqli_error($connection));
-		}
 		$brands = [];
 
 		while ($row = mysqli_fetch_assoc($result))

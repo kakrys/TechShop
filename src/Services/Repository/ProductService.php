@@ -5,43 +5,45 @@ namespace Up\Services\Repository;
 use Core\DB\DbConnection;
 use Exception;
 use Up\Services\PaginationService;
+use Up\Services\SecurityService;
 
 class ProductService
 {
 	/**
 	 * @throws Exception
 	 */
-	public static function getProductList($pageNumber, $category): array
+	public static function getProductList(int $pageNumber, string $category): array
 	{
-		$connection = DbConnection::get();
-		$offset = ($pageNumber - 1) * 9;
+		$perPage = 10;
+		$offset = ($pageNumber - 1) * $perPage;
 
 		if ($category === 'all')
 		{
-			$query = "SELECT `PRODUCT`.`ID`,`TITLE`,`PRICE`,`PATH` FROM `PRODUCT`"
-				. "INNER JOIN `IMAGE`"
-				. "ON `PRODUCT`.`ID`=`IMAGE`.`PRODUCT_ID`"
-				. "WHERE `IS_COVER`=1"
-				. " LIMIT 10 OFFSET {$offset}";
+			$query = "SELECT PRODUCT.ID, TITLE, PRICE, PATH FROM PRODUCT "
+				. "INNER JOIN IMAGE "
+				. "ON PRODUCT.ID = IMAGE.PRODUCT_ID "
+				. "WHERE IS_COVER=? "
+				. "LIMIT ? OFFSET ?";
+
+			$bindValue = 'iii';
+			$params = [1, $perPage, $offset];
 		}
 		else
 		{
+			$query = "SELECT PRODUCT.ID, PRODUCT.TITLE, PRICE, PATH FROM PRODUCT "
+				. "INNER JOIN IMAGE "
+				. "ON PRODUCT.ID = IMAGE.PRODUCT_ID "
+				. "INNER JOIN PRODUCT_TAG "
+				. "ON PRODUCT.ID = PRODUCT_TAG.PRODUCT_ID "
+				. "INNER JOIN TAG ON PRODUCT_TAG.TAG_ID = TAG.ID "
+				. "WHERE IS_COVER=? AND TAG.TITLE=? "
+				. "LIMIT ? OFFSET ?";
 
-			$query = "SELECT `PRODUCT`.`ID`,`PRODUCT`.`TITLE`,`PRICE`,`PATH` FROM `PRODUCT`"
-				. "INNER JOIN `IMAGE`"
-				. "ON `PRODUCT`.`ID`=`IMAGE`.`PRODUCT_ID`"
-				. "INNER JOIN `PRODUCT_TAG`"
-				. "ON `PRODUCT`.`ID` = `PRODUCT_TAG`.`PRODUCT_ID`"
-				. "INNER JOIN `TAG` ON `PRODUCT_TAG`.`TAG_ID`=`TAG`.`ID`"
-				. "WHERE `IS_COVER`=1 AND TAG.TITLE='{$category}'"
-				. " LIMIT 10 OFFSET {$offset}";
+			$bindValue = 'isii';
+			$params = [1, $category, $perPage, $offset];
 		}
-		$result = mysqli_query($connection, $query);
 
-		if (!$result)
-		{
-			throw new \RuntimeException(mysqli_error($connection));
-		}
+		$result = SecurityService::safeQuery($query, $params, $bindValue);
 
 		$products = [];
 
