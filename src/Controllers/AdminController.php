@@ -50,11 +50,11 @@ class AdminController extends BaseController
 	public function loginAction()
 	{
 		session_start();
-		if (isset($_SESSION['AdminId']))
+		if (isset($_SESSION['AdminEmail']))
 		{
 			header("Location: /admin/");
 		}
-		if (isset($_SESSION['UserId']))
+		if (isset($_SESSION['UserEmail']))
 		{
 			header("Location: /account/");
 		}
