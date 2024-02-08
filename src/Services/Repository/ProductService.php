@@ -196,14 +196,16 @@ class ProductService
 		ImageService::insertImageInFolder(ImageService::renameImage());
 		ImageService::insertImageInDatabase($product_ID, ImageService::renameImage());
 	}
-	public static function getProductsByTitle($productTitle): array
+	public static function getProductsByTitle($pageNumber,$productTitle): array
 	{
+		$offset = ($pageNumber - 1) * 9;
 		$connection = DbConnection::get();
 		$escapedProductTitle = mysqli_real_escape_string($connection, $productTitle);
 		$query = "SELECT TITLE, `PRODUCT`.`ID`,`PRICE`, DESCRIPTION, `PATH` FROM `PRODUCT` "
 			."INNER JOIN `IMAGE`"
 			. "ON `PRODUCT`.`ID`=`IMAGE`.`PRODUCT_ID`"
-			. " WHERE TITLE LIKE '%{$escapedProductTitle}%' AND `IS_COVER`=1";
+			. " WHERE TITLE LIKE '%{$escapedProductTitle}%' AND `IS_COVER`=1"
+			." LIMIT 10 OFFSET {$offset}";;
 		$result = mysqli_query($connection, $query);
 
 		if (!$result) {

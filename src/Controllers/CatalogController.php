@@ -17,7 +17,6 @@ class CatalogController extends BaseController
 		$productArray = ProductService::getProductList($pageNumber, $tagName);
 		$pageArray = PaginationService::determinePage($pageNumber,$productArray);
 		$productArray = PaginationService::trimProductArray($productArray);
-
 		$params = [
 			'tags' => TagService::getTagList(),
 			'tag' => $tagName,
@@ -31,18 +30,18 @@ class CatalogController extends BaseController
 	public function searchAction(string $tagName, $pageNumber,$mask): string
 	{
 		$productTitle = $_GET['search'];
-		$productArray = ProductService::getProductsByTitle($productTitle);
+		$productArray = ProductService::getProductsByTitle($pageNumber,$productTitle);
 		$pageArray = PaginationService::determinePage($pageNumber,$productArray);
 		$productArray = PaginationService::trimProductArray($productArray);
-
 		$params = [
 			'tags' => TagService::getTagList(),
 			'tag' => $tagName,
 			'pageNumber' => $pageNumber,
 			'products' => $productArray,
 			'tagName'=> $tagName,
-			'pageArray'=> $pageArray
+			'pageArray'=> $pageArray,
+			'productTitle'=>$productTitle
 		];
-		return $this->render('catalog', $params);
+		return $this->render('search-catalog', $params);
 	}
 }
