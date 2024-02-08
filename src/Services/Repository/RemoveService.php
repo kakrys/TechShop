@@ -13,7 +13,7 @@ class RemoveService
 	public static function delete(int $id)
 	{
 		self::$connection = DbConnection::get();
-
+		ImageService::deleteImage($id);
 		// Удаление изображений
 		$deleteImageQuery = "DELETE FROM `IMAGE` WHERE `IMAGE`.`PRODUCT_ID` = ?;";
 		$stmt = self::$connection->prepare($deleteImageQuery);

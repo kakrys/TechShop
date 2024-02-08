@@ -4,6 +4,7 @@ namespace Up\Services\Repository;
 
 use Core\DB\DbConnection;
 use Exception;
+use Up\Models\Image;
 
 class ImageService
 {
@@ -46,5 +47,26 @@ class ImageService
 		$ext = pathinfo($originalFilename, PATHINFO_EXTENSION);
 
 		return md5(time() . $originalFilename) . "." . $ext;
+	}
+	public static function deleteImage(int $productId):void
+	{
+		$connection = DbConnection::get();
+		$query="SELECT `PATH`,`PRODUCT_ID` FROM `IMAGE`"
+			." WHERE `PRODUCT_ID`=?";
+		$stmt = $connection->prepare($query);
+		$stmt->bind_param("s", $productId);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		if (!$result)
+		{
+			throw new \RuntimeException(mysqli_error($connection));
+		}
+
+		while ($row = mysqli_fetch_assoc($result))
+		{
+			$image=new Image(null,null,$row['PATH'],null);
+			unlink(self::$uploadDir.$image->getPath());
+		}
+
 	}
 }
