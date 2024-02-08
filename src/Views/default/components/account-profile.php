@@ -1,13 +1,19 @@
+<?php
+/**
+ * @var $user
+ */
+?>
+
 <div class="title__container">
 	<h1 class="account__title">Identification</h1>
 	<p class="account__subtitle">Verify your identity</p>
 </div>
 <ul class="account__editData">
 	<li class="editData__item">
-		<h2 class="editData__title">Full name</h2>
+		<h2 class="editData__title">Name</h2>
 		<form action="" class="editData__form">
-			<img src="/assets/images/accountIcons/accountUser.svg" alt="edit full name" class="editData__img">
-			<input class="editData__input" type="text" placeholder="Jimmy Smith" disabled>
+			<img src="/assets/images/accountIcons/accountUser.svg" alt="edit name" class="editData__img">
+			<input class="editData__input" type="text" placeholder="<?=$user->name?>" disabled>
 			<button class="editData__btn" type="button" id="accountEditName">
 				<img src="/assets/images/accountIcons/accountEditBtn.svg" alt="submit your edits"
 					 class="editData__btnImg">
@@ -19,7 +25,7 @@
 		<form action="" class="editData__form">
 			<img src="/assets/images/accountIcons/accountEmail.svg" alt="edit e-mail address"
 				 class="editData__img">
-			<input class="editData__input" type="text" placeholder="Jimmy.smith1996@gmail.com" disabled>
+			<input class="editData__input" type="text" placeholder="<?=$user->email?>" disabled>
 			<button class="editData__btn" type="button" id="accountEditEmail">
 				<img src="/assets/images/accountIcons/accountEditBtn.svg" alt="submit your edits"
 					 class="editData__btnImg">
@@ -27,12 +33,12 @@
 		</form>
 	</li>
 	<li class="editData__item">
-		<h2 class="editData__title">Phone number</h2>
+		<h2 class="editData__title">Surname</h2>
 		<form action="" class="editData__form">
-			<img src="/assets/images/accountIcons/accountPhone.svg" alt="edit phone number"
+			<img src="/assets/images/accountIcons/accountUser.svg" alt="edit surname"
 				 class="editData__img">
-			<input class="editData__input" type="text" placeholder="+12345678910" disabled>
-			<button class="editData__btn" type="button" id="accountEditPhone">
+			<input class="editData__input" type="text" placeholder="<?=$user->surname?>" disabled>
+			<button class="editData__btn" type="button" id="accountEditSurname">
 				<img src="/assets/images/accountIcons/accountEditBtn.svg" alt="submit your edits"
 					 class="editData__btnImg">
 			</button>
@@ -55,7 +61,7 @@
 		<form action="" class="editData__form">
 			<img src="/assets/images/accountIcons/accountAddress.svg" alt="edit address"
 				 class="editData__img">
-			<input class="editData__input" type="text" placeholder="HubSpot, 25 First Street, Cambridge MA 02141, United States" disabled>
+			<input class="editData__input" type="text" placeholder="<?=$user->address?>" disabled>
 			<button class="editData__btn" type="button" id="accountEditAddress">
 				<img src="/assets/images/accountIcons/accountEditBtn.svg" alt="submit your edits"
 					 class="editData__btnImg">

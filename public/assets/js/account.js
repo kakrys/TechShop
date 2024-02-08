@@ -72,13 +72,13 @@ document.getElementById('accountCloseEmailModal').addEventListener('click', func
 	document.getElementById('accountEmailModal').style.display = 'none';
 });
 
-//phone modal
-document.getElementById('accountEditPhone').addEventListener('click', function() {
-	document.getElementById('accountPhoneModal').style.display = 'block';
+//surname modal
+document.getElementById('accountEditSurname').addEventListener('click', function() {
+	document.getElementById('accountSurnameModal').style.display = 'block';
 });
 
-document.getElementById('accountClosePhoneModal').addEventListener('click', function() {
-	document.getElementById('accountPhoneModal').style.display = 'none';
+document.getElementById('accountCloseSurnameModal').addEventListener('click', function() {
+	document.getElementById('accountSurnameModal').style.display = 'none';
 });
 
 //password modal

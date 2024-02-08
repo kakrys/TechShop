@@ -1,7 +1,12 @@
+<?php
+/**
+ * @var $user
+ */
+?>
 <div id="accountNameModal">
 	<div class="accountModal__window">
 		<div class="accountModal__titleContainer">
-			<h2 class="accountModal__title">Full Name</h2>
+			<h2 class="accountModal__title">Name</h2>
 			<button class="accountModal__btn" id="accountCloseModal">
 				<img src="/assets/images/accountIcons/accountModalCross.svg" alt="close modal window" class="accountModal__img">
 			</button>
@@ -9,7 +14,7 @@
 		<form class="accountModal__form" action="" method="post">
 			<div class="accountModal__formContainer">
 				<label class="accountModal__label" for="oldName">Old Name</label>
-				<input class="accountModal__input" id="oldName" type="text" placeholder="Jimmy Smith" disabled>
+				<input class="accountModal__input" id="oldName" type="text" placeholder="<?=$user->name?>" disabled>
 			</div>
 			<div class="accountModal__formContainer">
 				<label class="accountModal__label" for="newName">New Name</label>
@@ -31,7 +36,7 @@
 		<form class="accountModal__form" action="" method="post">
 			<div class="accountModal__formContainer">
 				<label class="accountModal__label" for="oldEmail">Old E-mail</label>
-				<input class="accountModal__input" id="oldEmail" type="text" placeholder="Jimmy.smith1996@gmail.com" disabled>
+				<input class="accountModal__input" id="oldEmail" type="text" placeholder="<?=$user->email?>" disabled>
 			</div>
 			<div class="accountModal__formContainer">
 				<label class="accountModal__label" for="newEmail">New E-mail</label>
@@ -42,22 +47,22 @@
 		</form>
 	</div>
 </div>
-<div id="accountPhoneModal">
+<div id="accountSurnameModal">
 	<div class="accountModal__window">
 		<div class="accountModal__titleContainer">
-			<h2 class="accountModal__title">Phone number</h2>
-			<button class="accountModal__btn" id="accountClosePhoneModal">
+			<h2 class="accountModal__title">Surname</h2>
+			<button class="accountModal__btn" id="accountCloseSurnameModal">
 				<img src="/assets/images/accountIcons/accountModalCross.svg" alt="close modal window" class="accountModal__img">
 			</button>
 		</div>
 		<form class="accountModal__form" action="" method="post">
 			<div class="accountModal__formContainer">
-				<label class="accountModal__label" for="oldPhone">Old Phone</label>
-				<input class="accountModal__input" id="oldPhone" type="text" placeholder="+12345678910" disabled>
+				<label class="accountModal__label" for="oldSurname">Old Surname</label>
+				<input class="accountModal__input" id="oldSurname" type="text" placeholder="<?=$user->surname?>" disabled>
 			</div>
 			<div class="accountModal__formContainer">
-				<label class="accountModal__label" for="newPhone">New Phone</label>
-				<input class="accountModal__input" id="newPhone" type="text" placeholder="Enter new phone">
+				<label class="accountModal__label" for="newSurname">New Surname</label>
+				<input class="accountModal__input" id="newSurname" type="text" placeholder="Enter new surname">
 			</div>
 
 			<button class="accountModal__submitBtn" type="submit">save</button>
@@ -75,7 +80,7 @@
 		<form class="accountModal__form" action="" method="post">
 			<div class="accountModal__formContainer">
 				<label class="accountModal__label" for="oldPassword">Old Password</label>
-				<input class="accountModal__input" id="oldPassword" type="text" placeholder="12345678910" disabled>
+				<input class="accountModal__input" id="oldPassword" type="text" placeholder="*********" disabled>
 			</div>
 			<div class="accountModal__formContainer">
 				<label class="accountModal__label" for="newPassword">New Password</label>
@@ -97,7 +102,7 @@
 		<form class="accountModal__form" action="" method="post">
 			<div class="accountModal__formContainer">
 				<label class="accountModal__label" for="oldAddress">Old Address</label>
-				<input class="accountModal__input" id="oldAddress" type="text" placeholder="HubSpot, 25 First Street, Cambridge MA 02141, United States" disabled>
+				<input class="accountModal__input" id="oldAddress" type="text" placeholder="<?=$user->address?>" disabled>
 			</div>
 			<div class="accountModal__formContainer">
 				<label class="accountModal__label" for="newAddress">New Address</label>
