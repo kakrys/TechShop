@@ -196,4 +196,38 @@ class ProductService
 		ImageService::insertImageInFolder(ImageService::renameImage());
 		ImageService::insertImageInDatabase($product_ID, ImageService::renameImage());
 	}
+	public static function getProductsByTitle($productTitle): array
+	{
+		$connection = DbConnection::get();
+		$escapedProductTitle = mysqli_real_escape_string($connection, $productTitle);
+		$query = "SELECT TITLE, `PRODUCT`.`ID`,`PRICE`, DESCRIPTION, `PATH` FROM `PRODUCT` "
+			."INNER JOIN `IMAGE`"
+			. "ON `PRODUCT`.`ID`=`IMAGE`.`PRODUCT_ID`"
+			. " WHERE TITLE LIKE '%{$escapedProductTitle}%' AND `IS_COVER`=1";
+		$result = mysqli_query($connection, $query);
+
+		if (!$result) {
+			throw new \RuntimeException(mysqli_error($connection));
+		}
+
+		$products = [];
+
+		while ($row = mysqli_fetch_assoc($result)) {
+			$cover = new \Up\Models\Image(null, $row['ID'], $row['PATH'], 1);
+			$product = new \Up\Models\Product(
+				$row['ID'],
+				$row['TITLE'],
+				$row['DESCRIPTION'],
+				$row['PRICE'],
+				null, null,
+				null, null,
+				null, null,
+				$cover, []
+			);
+
+			$products[] = $product;
+		}
+
+		return $products;
+	}
 }

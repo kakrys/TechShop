@@ -28,4 +28,21 @@ class CatalogController extends BaseController
 		];
 		return $this->render('catalog', $params);
 	}
+	public function searchAction(string $tagName, $pageNumber,$mask): string
+	{
+		$productTitle = $_GET['search'];
+		$productArray = ProductService::getProductsByTitle($productTitle);
+		$pageArray = PaginationService::determinePage($pageNumber,$productArray);
+		$productArray = PaginationService::trimProductArray($productArray);
+
+		$params = [
+			'tags' => TagService::getTagList(),
+			'tag' => $tagName,
+			'pageNumber' => $pageNumber,
+			'products' => $productArray,
+			'tagName'=> $tagName,
+			'pageArray'=> $pageArray
+		];
+		return $this->render('catalog', $params);
+	}
 }

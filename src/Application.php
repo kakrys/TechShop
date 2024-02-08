@@ -28,6 +28,7 @@ class Application
 		{
 			http_response_code(404);
 			echo 'Page not found';
+			var_dump($_SERVER['REQUEST_METHOD']);
 			exit;
 		}
 	}
