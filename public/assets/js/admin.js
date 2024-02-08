@@ -63,7 +63,7 @@ function removeItem(id, title)
 		id: id,
 	};
 
-	fetch('/product/remove/',
+	fetch('/remove/',
 		{
 			method: 'POST',
 			headers:{
