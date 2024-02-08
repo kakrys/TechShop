@@ -58,10 +58,8 @@ class AdminController extends BaseController
 		{
 			header("Location: /account/");
 		}
-		$authError = $_SESSION['AuthError'] ?? '';
-		$registerError = $_SESSION['registerError'] ?? '';
 
-		return $this->render('login', ['authError' => $authError,'registerError' => $registerError]);
+		return $this->render('login', []);
 	}
 
 	public function removeAction(): void

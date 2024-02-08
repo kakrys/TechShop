@@ -14,7 +14,7 @@ class AuthorizationController extends BaseController
 	/**
 	 * @throws Exception
 	 */
-	public function authAction(): void
+	public function authAction()
 	{
 		session_start();
 		$user = UserService::getUserByEmail($_POST['email']);
@@ -23,18 +23,15 @@ class AuthorizationController extends BaseController
 			$_SESSION['AdminId']=$user->id;
 			$_SESSION['AdminEmail']=$user->email;
 			header("Location: /admin/");
-			unset($_SESSION['AuthError']);
 		}
 		if (AuthenticationService::authenticateUser($user,$_POST['email'],$_POST['password'],false))
 			{
 				$_SESSION['UserId']=$user->id;
 				$_SESSION['UserEmail']=$user->email;
 				header("Location: /account/");
-				unset($_SESSION['AuthError']);
 			}
 		else{
-			$_SESSION['AuthError'] = 'Invalid login or password';
-			header('Location: /login/');
+			return $this->render('login', ['authError' => 'Invalid login or password']);
 		}
 	}
 
