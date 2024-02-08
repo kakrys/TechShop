@@ -30,6 +30,8 @@
 	<section class="productSection">
 		<?= $this->renderComponent('catalog-filters', []) ?>
 		<div class="mainSection">
+			<?php if (isset($products)): ?>
+			<?php if (count($products) > 0): ?>
 			<ul class="mainSection__list">
 				<?php foreach($products as $product):?>
 					<li class="mainSection__item">
@@ -59,8 +61,19 @@
 					</li>
 				</ul>
 			</div>
+				<?php else: ?>
+					<div class="mainSection__noResults">
+						<img src="/assets/images/common/no-results.svg" alt="No Results in Tech Shop">
+						<p>No Results in Tech Shop</p>
+					</div>
+				<?php endif; ?>
+			<?php else: ?>
+				<p>No found</p>
+			<?php endif; ?>
 		</div>
 	</section>
 </div>
+
+
 <script src="/assets/js/catalog.js"></script>
 

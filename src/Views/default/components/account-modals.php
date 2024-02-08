@@ -113,25 +113,3 @@
 		</form>
 	</div>
 </div>
-<div id="accountPostalCodeModal">
-	<div class="accountModal__window">
-		<div class="accountModal__titleContainer">
-			<h2 class="accountModal__title">Postal code</h2>
-			<button class="accountModal__btn" id="accountClosePostalCodeModal">
-				<img src="/assets/images/accountIcons/accountModalCross.svg" alt="close modal window" class="accountModal__img">
-			</button>
-		</div>
-		<form class="accountModal__form" action="" method="post">
-			<div class="accountModal__formContainer">
-				<label class="accountModal__label" for="oldPostalCode">Old Postal code</label>
-				<input class="accountModal__input" id="oldPostalCode" type="text" placeholder="-" disabled>
-			</div>
-			<div class="accountModal__formContainer">
-				<label class="accountModal__label" for="newPostalCode">New Postal code</label>
-				<input class="accountModal__input" id="newPostalCode" type="password" placeholder="Enter new postal code">
-			</div>
-
-			<button class="accountModal__submitBtn" type="submit">save</button>
-		</form>
-	</div>
-</div>

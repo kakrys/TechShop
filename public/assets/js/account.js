@@ -98,12 +98,3 @@ document.getElementById('accountEditAddress').addEventListener('click', function
 document.getElementById('accountCloseAddressModal').addEventListener('click', function() {
 	document.getElementById('accountAddressModal').style.display = 'none';
 });
-
-//postalCode modal
-document.getElementById('accountEditPostCode').addEventListener('click', function() {
-	document.getElementById('accountPostalCodeModal').style.display = 'block';
-});
-
-document.getElementById('accountClosePostalCodeModal').addEventListener('click', function() {
-	document.getElementById('accountPostalCodeModal').style.display = 'none';
-});
