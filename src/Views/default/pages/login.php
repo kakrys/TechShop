@@ -1,7 +1,7 @@
 <?php
 /**
- * @var $authError
- * @var $registerError
+ * @var ?$authError
+ * @var ?$registerError
  */
 ?>
 
@@ -16,7 +16,7 @@
 			</li>
 		</ul>
 		<h2 class="modalCard__title">Log in to Tech Shop</h2>
-		<div class="modalResponse <?= !empty($authError) ? 'invalidField' : '' ?>"><?=$authError?></div>
+		<div class="modalResponse <?= !empty($authError) ? 'invalidField' : '' ?>"><?=$authError ?? ''?></div>
 		<form class="modalCard__form" action="/login/auth" method="post">
 			<div class="modalField">
 				<img src="/assets/images/common/email.svg" alt="click and write your E-mail" class="modalField__img">
@@ -38,7 +38,6 @@
 			</div>
 			<div class="modalCard__availability">
 				<a href="/" class="modalCard__link">return to main</a>
-				<?=$_SESSION['AuthError']=''?>
 			</div>
 		</form>
 	</div>
@@ -53,7 +52,7 @@
 			</li>
 		</ul>
 		<h2 class="modalCard__title">Create your account</h2>
-		<div class="modalResponse <?= !empty($registerError) ? 'invalidField' : '' ?>"><?=$registerError?></div>
+		<div class="modalResponse <?= !empty($registerError) ? 'invalidField' : '' ?>"><?=$registerError ?? ''?></div>
 		<form class="modalCard__form" action="/registration/" method="post">
 			<div class="modalField">
 				<img src="/assets/images/common/modalUser.svg" alt="click and write your Full name" class="modalField__img">
@@ -88,7 +87,6 @@
 		</div>
 		<div class="modalCard__availability">
 			<a href="/" class="modalCard__link">return to main</a>
-			<?=$_SESSION['registerError']=''?>
 		</div>
 	</div>
 </div>
