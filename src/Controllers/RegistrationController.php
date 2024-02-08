@@ -22,6 +22,7 @@ class RegistrationController extends BaseController
 		else
 		{
 			UserService::addUser();
+			UserService::getUserByEmail($_POST['email']);
 			$_SESSION['UserEmail'] = $_POST['email'];
 			header('Location: /account/');
 		}
