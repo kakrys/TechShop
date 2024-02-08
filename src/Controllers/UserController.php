@@ -19,6 +19,7 @@ class UserController extends BaseController
 			$user = UserService::getUserByEmail($_SESSION['UserEmail']);
 			$params = [
 				'userEmail' => $user->email,
+				'user' => $user,
 				'userFullName' => $user->name . ' ' . $user->surname,
 			];
 			return $this->render('account', $params);

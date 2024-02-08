@@ -391,7 +391,7 @@
 }
 
 /*account modal windows styles start*/
-#accountNameModal, #accountEmailModal, #accountPhoneModal,
+#accountNameModal, #accountEmailModal, #accountSurnameModal,
 #accountPasswordModal, #accountAddressModal, #accountPostalCodeModal{
     display: none;
     width: 392px;

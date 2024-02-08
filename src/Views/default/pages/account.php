@@ -2,6 +2,7 @@
 /**
  * @var $userFullName
  * @var $userEmail
+ * @var \Up\Models\Product $user
  */
 ?>
 <div class="account" id="user">
@@ -29,11 +30,11 @@
 		</nav>
 	</aside>
 	<main class="account__main" id="accountProfileContainer" data-user-cont="0">
-		<?= $this->renderComponent('account-profile', []) ?>
+		<?= $this->renderComponent('account-profile', ['user' => $user, 'userEmail' => $userEmail]) ?>
 	</main>
 	<main class="account__main" id="accountOrderContainer" data-user-cont="1">
 		<?= $this->renderComponent('account-orders', []) ?>
 	</main>
 </div>
-<?= $this->renderComponent('account-modals', []) ?>
+<?= $this->renderComponent('account-modals', ['user' => $user]) ?>
 <script src="/assets/js/account.js"></script>
