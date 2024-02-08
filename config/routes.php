@@ -18,7 +18,7 @@ Router::get('/account/', [new \Up\Controllers\UserController(), 'userAction']);
 Router::post('/registration/', [new Up\Controllers\RegistrationController(), 'registrationAction']);
 
 //fetch-api
-Router::post('/product/remove/',[new \Up\Controllers\AdminController(), 'removeAction']);
+Router::post('/remove/',[new \Up\Controllers\AdminController(), 'removeAction']);
 Router::post('/migrations/execute/', [new \Up\Controllers\AdminController(), 'executeAction']);
 Router::post('/database/delete/', [new \Up\Controllers\AdminController(), 'dbAction']);
 Router::get('/catalog/:tag/:id/:search/', [new Up\Controllers\CatalogController(), 'searchAction']);
