@@ -4,6 +4,7 @@ namespace Up\Services\Repository;
 
 use Core\DB\DbConnection;
 use Exception;
+use http\Exception\RuntimeException;
 use Up\Services\PaginationService;
 use Up\Services\SecurityService;
 
@@ -123,9 +124,13 @@ class ProductService
 			. "on `PRODUCT`.`ID`=`IMAGE`.`PRODUCT_ID`"
 			. "WHERE `IS_COVER`=? "
 			. "LIMIT ? OFFSET ?";
+
 		$perPage = 9;
+		$isCover = 1;
+		$limit = 10;
 		$offset = ($pageNumber - 1) * $perPage;
-		$result = SecurityService::safeSelectQuery($query, [1, 10, $offset]);
+
+		$result = SecurityService::safeSelectQuery($query, [$isCover, $limit, $offset]);
 
 		$products = [];
 
@@ -164,28 +169,38 @@ class ProductService
 		$price = $_POST["price"];
 		$tags = $_POST["tags"];
 		$brand = $_POST["brand"];
-		$connection = DbConnection::get();
 
-		$query = "INSERT INTO `PRODUCT`(`TITLE`,`DESCRIPTION`,`PRICE`,`ENTITY_STATUS_ID`,`SORT_ORDER`,`BRAND_ID`)"
-			. " VALUES('{$title}','{$description}','{$price}',1,1,'{$brand}')";
+		$productData = [
+			'TITLE' => $title,
+			'DESCRIPTION' => $description,
+			'PRICE' => $price,
+			'ENTITY_STATUS_ID' => 1,
+			'SORT_ORDER' => 1,
+			'BRAND_ID' => $brand
+		];
 
-		if (!$connection->query($query))
+		if (!SecurityService::safeInsertQuery('PRODUCT', $productData))
 		{
-			throw new \RuntimeException('Error adding an product: ' . $connection->error);
+			throw new RuntimeException('Error adding an product:  ' . DbConnection::get()->error);
 		}
 
-		$product_ID = $connection->insert_id;
+		$product_ID = DbConnection::get()->insert_id;
+
 		foreach ($tags as $tagId)
 		{
-			$query = "INSERT INTO `PRODUCT_TAG`(`PRODUCT_ID`,`TAG_ID`)" . " VALUES ({$product_ID},$tagId)";
-
-			if (!$connection->query($query))
+			$productTagData = [
+				'PRODUCT_ID' => $product_ID,
+				'TAG_ID' => $tagId
+			];
+			if (!SecurityService::safeInsertQuery('PRODUCT_TAG', $productTagData))
 			{
-				throw new \RuntimeException('Error adding an product: ' . $connection->error);
+				throw new RuntimeException('Error adding an product:  ' . DbConnection::get()->error);
 			}
 		}
-		ImageService::insertImageInFolder(ImageService::renameImage());
-		ImageService::insertImageInDatabase($product_ID, ImageService::renameImage());
+
+		$imageName = ImageService::renameImage();
+		ImageService::insertImageInFolder($imageName);
+		ImageService::insertImageInDatabase($product_ID, $imageName);
 	}
 
 	/**

@@ -5,6 +5,7 @@ namespace Up\Services\Repository;
 use Core\DB\DbConnection;
 use Exception;
 use Up\Models\Image;
+use Up\Services\SecurityService;
 
 class ImageService
 {
@@ -15,12 +16,15 @@ class ImageService
 	 */
 	public static function insertImageInDatabase(int $productId, string $filename): void
 	{
-		$connection = DbConnection::get();
-		$query = "INSERT INTO IMAGE(`PRODUCT_ID`,`PATH`,`IS_COVER`)" . "VALUES('{$productId}','{$filename}',1)";
+		$imageData = [
+			'PRODUCT_ID' => $productId,
+			'PATH' => $filename,
+			'IS_COVER' => 1,
+		];
 
-		if (!$connection->query($query))
+		if (!SecurityService::safeInsertQuery('IMAGE', $imageData))
 		{
-			throw new \RuntimeException('Error adding an image: ' . $connection->error);
+			throw new \RuntimeException('Error adding an image: ' . DbConnection::get()->error);
 		}
 	}
 
