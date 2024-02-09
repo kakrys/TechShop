@@ -17,7 +17,7 @@ class BrandService
 	{
 		$query = "SELECT `ID`,`Title` from BRAND";
 
-		$result = SecurityService::safeQuery($query);
+		$result = SecurityService::safeSelectQuery($query);
 
 		$brands = [];
 
