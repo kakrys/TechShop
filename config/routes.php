@@ -16,10 +16,12 @@ Router::post('/admin/create/product/', [new Up\Controllers\AdminController(), 'a
 //new =)
 Router::get('/account/', [new \Up\Controllers\UserController(), 'userAction']);
 Router::post('/registration/', [new Up\Controllers\RegistrationController(), 'registrationAction']);
+Router::get('/catalog/:tag/:id/:search/', [new Up\Controllers\CatalogController(), 'searchAction']);
 
 //fetch-api
 Router::post('/remove/',[new \Up\Controllers\AdminController(), 'removeAction']);
 Router::post('/migrations/execute/', [new \Up\Controllers\AdminController(), 'executeAction']);
 Router::post('/database/delete/', [new \Up\Controllers\AdminController(), 'dbAction']);
-Router::get('/catalog/:tag/:id/:search/', [new Up\Controllers\CatalogController(), 'searchAction']);
+Router::post('/update/product/', [new \Up\Controllers\AdminController(), 'updateProductAction']);
+
 

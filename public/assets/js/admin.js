@@ -25,22 +25,21 @@ accountButtons.forEach(button => {
 //modal window for edit
 document.querySelectorAll('.admin__productEdit').forEach(button => {
 	button.addEventListener('click', function() {
-		const productId = this.getAttribute('data-id');
+		const productId = this.parentElement.querySelector('.admin__productId').getAttribute('data-id');
 		const productTitle = this.parentElement.querySelector('.admin__productTitle').getAttribute('data-title');
 		const productPrice = this.parentElement.querySelector('.admin__productCost').getAttribute('data-price');
 		const productDescription = this.parentElement.querySelector('.admin__productDescription').getAttribute('data-description');
-		const productBrand = this.parentElement.querySelector('.admin__productBrand').getAttribute('data-brand');
 
 		const modal = document.querySelector('.admin__edit');
 		const productNameInput = modal.querySelector('#productName');
 		const productPriceInput = modal.querySelector('#productPrice');
 		const productDescriptionTextarea = modal.querySelector('#productDescription');
-		const productBrandInput = modal.querySelector('#productBrand');
+		const productIdInput = modal.querySelector('#productId');
 
 		productNameInput.value = productTitle;
 		productPriceInput.value = productPrice;
 		productDescriptionTextarea.value = productDescription;
-		productBrandInput.value = productBrand;
+		productIdInput.value = productId;
 
 		modal.style.display = 'block';
 	});
@@ -242,6 +241,60 @@ submitDbDelete.addEventListener("click", function (title = 'submitDbDelete'){
 			if (response.result !== 'Y')
 			{
 				console.log('error while delete db');
+			}
+		})
+		.catch((error) => {
+			console.log('delete error:' + error);
+		})
+});
+
+//update product info
+const updateId = document.getElementById('productId');
+const updateTitle = document.getElementById('productName');
+const updateDescription = document.getElementById('productDescription');
+const updatePrice = document.getElementById( 'productPrice');
+
+const updateBtn = document.querySelector('.admin__editUpdateBtn');
+const modal = document.querySelector('.admin__edit');
+
+updateBtn.addEventListener('click', function () {
+
+
+	const updateParams = {
+		title: updateTitle.value,
+		id: updateId.value,
+		description: updateDescription.value,
+		price: updatePrice.value,
+	};
+
+	fetch('/update/product/',
+		{
+			method: 'POST',
+			headers:{
+				'Content-Type': 'application/json;charset=utf-8',
+			},
+			body: JSON.stringify(updateParams)
+		}
+	)
+		.then((response) => {
+			console.log('cool update =)');
+			modal.style.display = 'none';
+			const successModal = document.querySelector('#successUpdateModal');
+			successModal.style.display = 'block';
+			const closeSuccessModal = document.querySelector('.successUpdateModal__close');
+			closeSuccessModal.addEventListener('click', () => {
+				successModal.style.display = 'none';
+			})
+			const refreshButton = document.querySelector('.successUpdateModal__refresh');
+			refreshButton.addEventListener('click', () => {
+				window.location.reload();
+			});
+			return response.json();
+		})
+		.then((response) => {
+			if (response.result !== 'Y')
+			{
+				console.log('error while updating');
 			}
 		})
 		.catch((error) => {
