@@ -97,4 +97,65 @@ class UserService
 		}
 		return true;
 	}
+
+	public static function updateUserName():bool
+	{
+		$userNewName=$_POST['newName'];
+		$connection = DbConnection::get();
+		$query = "UPDATE USER SET NAME = '{$userNewName}' where EMAIL = '{$_SESSION['UserEmail']}'";
+		if (!$connection->query($query))
+		{
+			return false;
+		}
+		return true;
+	}
+
+	public static function updateUserSurname():bool
+	{
+		$userNewSurname=$_POST['newSurname'];
+		$connection = DbConnection::get();
+		$query = "UPDATE USER SET SURNAME = '{$userNewSurname}' where EMAIL = '{$_SESSION['UserEmail']}'";
+		if (!$connection->query($query))
+		{
+			return false;
+		}
+		return true;
+	}
+
+	public static function updateUserEmail():bool
+	{
+		$userNewEmail=$_POST['newEmail'];
+		$connection = DbConnection::get();
+		$query = "UPDATE USER SET EMAIL = '{$userNewEmail}' where EMAIL = '{$_SESSION['UserEmail']}'";
+		if (!$connection->query($query))
+		{
+			return false;
+		}
+		$_SESSION['UserEmail'] = $userNewEmail;
+		return true;
+	}
+
+	public static function updateUserAddress():bool
+	{
+		$userNewAddress=$_POST['newAddress'];
+		$connection = DbConnection::get();
+		$query = "UPDATE USER SET ADDRESS = '{$userNewAddress}' where EMAIL = '{$_SESSION['UserEmail']}'";
+		if (!$connection->query($query))
+		{
+			return false;
+		}
+		return true;
+	}
+
+	public static function updateUserPassword():bool
+	{
+		$userNewPassword=password_hash($_POST['newPassword'],PASSWORD_DEFAULT);
+		$connection = DbConnection::get();
+		$query = "UPDATE USER SET PASSWORD = '{$userNewPassword}' where EMAIL = '{$_SESSION['UserEmail']}'";
+		if (!$connection->query($query))
+		{
+			return false;
+		}
+		return true;
+	}
 }
