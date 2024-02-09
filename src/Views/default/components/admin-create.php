@@ -8,21 +8,21 @@
 <div class="admin__create">
 	<form action="/admin/create/product/" method="post" class="admin__createForm" enctype="multipart/form-data">
 		<div class="admin__createForm_container">
-			<div class="admin__createContainer">
-				<label for="name" class="admin__createLabel">Name</label>
-				<input id="name" name="name" type="text" class="admin__createInput" pattern="^[^\s]+(\s.*)?$" required>
+			<div class="admin__createContainer admin__createTextarea">
+				<label for="name" class="admin__textareaLabel">Name</label>
+				<input id="name" name="name" type="text" class="admin__createInput" placeholder="Input Product Name" pattern="^[^\s]+(\s.*)?$" required>
+			</div>
+			<div class="admin__createContainer admin__createTextarea">
+				<label for="description" class="admin__textareaLabel">Description</label>
+				<input id="description" name="description" type="text" class="admin__createInput" placeholder="Input Product Description" pattern="^[^\s]+(\s.*)?$" required>
+			</div>
+			<div class="admin__createContainer admin__createTextarea">
+				<label for="price" class="admin__textareaLabel">Price</label>
+				<input id="price" name="price" type="number" placeholder="Input Product Price" class="admin__createInput" required>
 			</div>
 			<div class="admin__createContainer">
-				<label for="description" class="admin__createLabel">Description</label>
-				<input id="description" name="description" type="text" class="admin__createInput" pattern="^[^\s]+(\s.*)?$" required>
-			</div>
-			<div class="admin__createContainer">
-				<label for="price" class="admin__createLabel">Price</label>
-				<input id="price" name="price" type="number" class="admin__createInput" required>
-			</div>
-			<div class="admin__createContainer">
-				<fieldset>
-					<legend>Choose brand</legend>
+				<fieldset class="admin__createFieldset">
+					<legend class="admin__createLegend">Choose Brand</legend>
 					<?php foreach($brands as $brand):?>
 						<div class="selectTag">
 							<label for="tagApple" class="admin__createLabel createRadioLabel">
@@ -35,8 +35,8 @@
 				</fieldset>
 			</div>
 			<div class="admin__createContainer">
-				<fieldset>
-					<legend>Choose tags</legend>
+				<fieldset class="admin__createFieldset">
+					<legend class="admin__createLegend">Choose Tags</legend>
 					<?php foreach($tags as $tag):?>
 						<div class="selectTag">
 							<label for="tagMobile" class="admin__createLabel createCheckboxLabel">

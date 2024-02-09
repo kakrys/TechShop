@@ -244,7 +244,7 @@
 
 /*admin create styles*/
 .admin__create {
-    margin-top: 30px;
+    /*margin-top: 30px;*/
 }
 
 .admin__createForm{
@@ -259,8 +259,8 @@
 }
 
 .admin__createLabel {
-    font-size: 17px;
-    font-weight: 500;
+    font-size: 16px;
+    font-weight: 400;
 }
 
 .admin__createForm #name, .admin__createForm #description, .admin__createForm #price{
@@ -268,7 +268,7 @@
     border: 1px solid rgba(12, 104, 244, 0.4);
     padding: 5px;
     font-size: 16px;
-    width: 320px;
+    width: 410px;
     color: #0C0C0C;
 }
 
@@ -280,7 +280,7 @@
     font-weight: 400;
     color: #FFFFFF;
     background-color: #0C68F4;
-    margin-top: 25px;
+    margin-top: 52px;
     width: 30%;
 }
 
@@ -336,7 +336,33 @@
     margin-top: 20px;
 }
 
-.admin__createForm_content {
+.admin__createTextarea {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.admin__textareaLabel {
+    padding-left: 10px;
+    font-size: 14px;
+}
+
+.admin__createFieldset {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 17px 10px;
+    max-width: 410px;
+    margin-top: 15px;
+}
+
+.selectTag {
+    flex: 1 1 30%;
+    max-width: 120px;
 }
 
 #admin__createForm_cancelBtn, #admin__createForm_fileName {

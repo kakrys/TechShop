@@ -13,3 +13,13 @@ body, a, button, p, input{
 body {
     position: relative;
 }
+
+fieldset {
+    border: 2px solid #063A88;
+    border-radius: 5px;
+}
+legend {
+    text-align: center;
+    color: #063A88;
+    font-weight: 500;
+}

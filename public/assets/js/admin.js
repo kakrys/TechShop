@@ -53,7 +53,7 @@ document.querySelector('.closeModal').addEventListener('click', function() {
 const deleteBtn = document.getElementById('dangerBtn');
 function removeItem(id, title)
 {
-	const shouldRemove = confirm(`Are you sure you want to delete this product: ${title}, ${id}`);
+	const shouldRemove = confirm(`Are you sure you want to delete this product: ${title}`);
 	if (!shouldRemove)
 	{
 		return;
@@ -83,6 +83,7 @@ function removeItem(id, title)
 			if (productItem)
 			{
 				productItem.remove();
+				window.location.reload();
 			}
 
 		})
