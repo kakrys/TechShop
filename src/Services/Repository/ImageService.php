@@ -3,6 +3,7 @@
 namespace Up\Services\Repository;
 
 use Core\DB\DbConnection;
+use Core\Http\Request;
 use Exception;
 use Up\Models\Image;
 use Up\Services\SecurityService;
@@ -30,6 +31,7 @@ class ImageService
 
 	public static function insertImageInFolder(string $filename): void
 	{
+		$files = Request::getFiles();
 
 		$ext = pathinfo($filename, PATHINFO_EXTENSION);
 		if ($ext !== 'png' && $ext !== 'jpg')
@@ -38,7 +40,7 @@ class ImageService
 		}
 		$target_file = self::$uploadDir . $filename;
 
-		if (!move_uploaded_file($_FILES["image"]['tmp_name'], $target_file))
+		if (!move_uploaded_file($files["image"]['tmp_name'], $target_file))
 		{
 			throw new \RuntimeException('Error adding an image: ' . "Файл не найден");
 		}
@@ -46,7 +48,9 @@ class ImageService
 
 	public static function renameImage(): string
 	{
-		$originalFilename = $_FILES["image"]["name"];
+		$files = Request::getFiles();
+
+		$originalFilename = $files["image"]["name"];
 
 		$ext = pathinfo($originalFilename, PATHINFO_EXTENSION);
 

@@ -2,6 +2,7 @@
 
 namespace Up\Controllers;
 
+use Core\Http\Request;
 use Exception;
 use Up\Services\PaginationService;
 use Up\Services\Repository\ProductService;
@@ -29,7 +30,9 @@ class CatalogController extends BaseController
 	}
 	public function searchAction(string $tagName, $pageNumber,$mask): string
 	{
-		$productTitle = $_GET['search'];
+		$request = Request::getBody();
+
+		$productTitle = $request['search'];
 		$productArray = ProductService::getProductsByTitle($pageNumber,$productTitle);
 		$pageArray = PaginationService::determinePage($pageNumber,$productArray);
 		$productArray = PaginationService::trimProductArray($productArray);

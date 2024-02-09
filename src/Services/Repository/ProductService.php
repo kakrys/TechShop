@@ -3,6 +3,7 @@
 namespace Up\Services\Repository;
 
 use Core\DB\DbConnection;
+use Core\Http\Request;
 use Exception;
 use http\Exception\RuntimeException;
 use Up\Services\PaginationService;
@@ -164,11 +165,13 @@ class ProductService
 	 */
 	public static function addProduct(): void
 	{
-		$title = $_POST['name'];
-		$description = $_POST["description"];
-		$price = $_POST["price"];
-		$tags = $_POST["tags"];
-		$brand = $_POST["brand"];
+		$request = Request::getBody();
+
+		$title = $request['name'];
+		$description = $request["description"];
+		$price = $request["price"];
+		$tags = $request["tags"];
+		$brand = $request["brand"];
 
 		$productData = [
 			'TITLE' => $title,

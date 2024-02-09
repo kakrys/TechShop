@@ -2,6 +2,7 @@
 
 namespace Up\Controllers;
 
+use Core\Http\Request;
 use Exception;
 use Up\Services\Repository\UserService;
 
@@ -10,20 +11,22 @@ class RegistrationController extends BaseController
 	public function registrationAction()
 	{
 		session_start();
-		if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL))
+		$request = Request::getBody();
+
+		if (!filter_var($request['email'], FILTER_VALIDATE_EMAIL))
 		{
 			return $this->render('login', ['registerError' => 'Invalid Email']);
 		}
 
-		if ($user = UserService::getUserByEmail($_POST['email']))
+		if ($user = UserService::getUserByEmail($request['email']))
 		{
 			return $this->render('login', ['registerError' => 'User already exists']);
 		}
 		else
 		{
 			UserService::addUser();
-			UserService::getUserByEmail($_POST['email']);
-			$_SESSION['UserEmail'] = $_POST['email'];
+			UserService::getUserByEmail($request['email']);
+			$_SESSION['UserEmail'] = $request['email'];
 			header('Location: /account/');
 		}
 	}

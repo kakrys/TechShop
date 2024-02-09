@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Up\Controllers;
 
+use Core\Http\Request;
 use Exception;
 use Up\Services\AuthenticationService;
 use Up\Services\Repository\ProductService;
@@ -17,20 +18,23 @@ class AuthorizationController extends BaseController
 	public function authAction()
 	{
 		session_start();
-		$user = UserService::getUserByEmail($_POST['email']);
-		if (AuthenticationService::authenticateUser($user,$_POST['email'],$_POST['password'],true))
+
+		$request = Request::getBody();
+		$user = UserService::getUserByEmail($request['email']);
+		if (AuthenticationService::authenticateUser($user, $request['email'], $request['password'],true))
 		{
-			$_SESSION['AdminId']=$user->id;
-			$_SESSION['AdminEmail']=$user->email;
+			$_SESSION['AdminId'] = $user->id;
+			$_SESSION['AdminEmail'] = $user->email;
 			header("Location: /admin/1/");
 		}
-		if (AuthenticationService::authenticateUser($user,$_POST['email'],$_POST['password'],false))
+		if (AuthenticationService::authenticateUser($user, $request['email'], $request['password'],false))
 			{
-				$_SESSION['UserId']=$user->id;
-				$_SESSION['UserEmail']=$user->email;
+				$_SESSION['UserId'] = $user->id;
+				$_SESSION['UserEmail'] = $user->email;
 				header("Location: /account/");
 			}
-		else{
+		else
+		{
 			return $this->render('login', ['authError' => 'Invalid login or password']);
 		}
 	}

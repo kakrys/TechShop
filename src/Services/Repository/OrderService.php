@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Up\Services\Repository;
 
+use Core\Http\Request;
 use Exception;
 use Core\DB\DbConnection;
 use Up\Models\Order;
@@ -16,15 +17,16 @@ class OrderService
 	 */
 	public static function addOrder(): ?array
 	{
+		$request = Request::getBody();
 		try {
 			$errors = [];
 
-			$userName = SecurityService::safeString($_POST['name']);
-			$userSurname = SecurityService::safeString($_POST['surname']);
-			$userEmail = SecurityService::safeString($_POST['email']);
-			$userAddress = SecurityService::safeString($_POST['address']);
-			$productID = SecurityService::safeString($_POST['productID']);
-			$productPrice = SecurityService::safeString($_POST['productPrice']);
+			$userName = SecurityService::safeString($request['name']);
+			$userSurname = SecurityService::safeString($request['surname']);
+			$userEmail = SecurityService::safeString($request['email']);
+			$userAddress = SecurityService::safeString($request['address']);
+			$productID = SecurityService::safeString($request['productID']);
+			$productPrice = SecurityService::safeString($request['productPrice']);
 
 			$userData = [
 				'NAME' => $userName,
@@ -103,12 +105,13 @@ class OrderService
 	}
 	public static function addOrderUnregistered(): ?array
 	{
+		$request = Request::getBody();
 		try {
 			$errors = [];
-			$userEmail = htmlspecialchars($_POST['email'],ENT_QUOTES);
-			$userAddress = htmlspecialchars($_POST['address'],ENT_QUOTES);
-			$productID = htmlspecialchars($_POST['productID'],ENT_QUOTES);
-			$productPrice = htmlspecialchars($_POST['productPrice'],ENT_QUOTES);
+			$userEmail = htmlspecialchars($request['email'],ENT_QUOTES);
+			$userAddress = htmlspecialchars($request['address'],ENT_QUOTES);
+			$productID = htmlspecialchars($request['productID'],ENT_QUOTES);
+			$productPrice = htmlspecialchars($request['productPrice'],ENT_QUOTES);
 
 			$connection = DbConnection::get();
 
