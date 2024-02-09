@@ -52,7 +52,9 @@ class UserService
 
 		$query = "SELECT `ID`, `NAME`, `SURNAME`, `ADDRESS`, `EMAIL` FROM `USER` WHERE `ROLE_ID`= ?";
 
-		$result = SecurityService::safeSelectQuery($query, [2]);
+		$roleID = 2;
+
+		$result = SecurityService::safeSelectQuery($query, [$roleID]);
 
 		$users = [];
 

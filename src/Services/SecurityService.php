@@ -21,23 +21,7 @@ class SecurityService
 		if (!empty($params))
 		{
 			$stmt = $connection->prepare($query);
-
-			$types = '';
-			foreach ($params as $param)
-			{
-				if (is_int($param))
-				{
-					$types .= 'i';
-				}
-				elseif (is_float($param))
-				{
-					$types .= 'd';
-				}
-				else
-				{
-					$types .= 's';
-				}
-			}
+			$types = QueryHelperService::getBindTypes($params);
 
 			$stmt->bind_param($types, ...$params);
 			$stmt->execute();
@@ -54,6 +38,38 @@ class SecurityService
 		}
 
 		return $result;
+	}
+
+	/**
+	 * @throws Exception
+	 */
+	public static function safeInsertQuery(string $table, array $data): bool
+	{
+		$connection = DbConnection::get();
+
+		$columns = implode(', ', array_keys($data));
+		$placeholders = rtrim(str_repeat('?, ', count($data)), ', ');
+		$values = array_values($data);
+
+		$query = "INSERT INTO $table ($columns) VALUES ($placeholders)";
+		$stmt = $connection->prepare($query);
+
+		if (!$stmt)
+		{
+			throw new \RuntimeException(mysqli_error($connection));
+		}
+
+		$types = QueryHelperService::getBindTypes($values);
+
+		$stmt->bind_param($types, ...$values);
+		$result = $stmt->execute();
+
+		if (!$result)
+		{
+			throw new \RuntimeException(mysqli_error($connection));
+		}
+
+		return true;
 	}
 
 	public static function safeString(string $value): string
