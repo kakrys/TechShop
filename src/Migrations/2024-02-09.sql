@@ -1,0 +1,3 @@
+ALTER TABLE `ORDER`
+    MODIFY USER_ID int NULL,
+    ADD EMAIL varchar(255);

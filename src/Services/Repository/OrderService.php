@@ -85,4 +85,40 @@ class OrderService
 		}
 		return $orders;
 	}
+	public static function addOrderUnregistered(): ?array
+	{
+		try {
+			$errors = [];
+			$userEmail = htmlspecialchars($_POST['email'],ENT_QUOTES);
+			$userAddress = htmlspecialchars($_POST['address'],ENT_QUOTES);
+			$productID = htmlspecialchars($_POST['productID'],ENT_QUOTES);
+			$productPrice = htmlspecialchars($_POST['productPrice'],ENT_QUOTES);
+
+			$connection = DbConnection::get();
+
+
+
+			$orderQuery = "INSERT INTO `ORDER` (`PRICE`, `USER_ID`, `PRODUCT_ID`,`EMAIL`, `ADDRESS`, `STATUS_ID`, `ENTITY_STATUS_ID`, `DATE_CREATE`)"
+				. " VALUES ('{$productPrice}', null, '{$productID}',$userAddress, '{$userAddress}', 1, 1, NOW())";
+
+			if (!$connection->query($orderQuery))
+			{
+				$errors[] = 'Error adding an order: ' . $connection->error;
+			}
+
+			$orderID = $connection->insert_id;
+
+			$productOrderQuery = "INSERT INTO `PRODUCT_ORDER` (`PRODUCT_ID`, `ORDER_ID`) VALUES ('{$productID}', {$orderID})";
+
+			if (!$connection->query($productOrderQuery))
+			{
+				$errors[] = 'Error adding a product/order link: ' . $connection->error;
+			}
+			return !empty($errors) ? $errors : null;
+		}
+		catch (Exception $e)
+		{
+			return ['An error has occurred: ' . $e->getMessage()];
+		}
+	}
 }
