@@ -13,7 +13,7 @@ class SecurityService
 	/**
 	 * @throws Exception
 	 */
-	public static function safeQuery(string $query, array $params = null, string $bindValue = null): mysqli_result
+	public static function safeSelectQuery(string $query, array $params = null, string $bindValue = null): mysqli_result
 	{
 		$connection = DbConnection::get();
 		$escapedQuery = mysqli_real_escape_string($connection, $query);

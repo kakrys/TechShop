@@ -14,7 +14,7 @@ class ProductService
 	 */
 	public static function getProductList(int $pageNumber, string $category): array
 	{
-		$perPage = 10;
+		$perPage = 9;
 		$offset = ($pageNumber - 1) * $perPage;
 
 		if ($category === 'all')
@@ -26,7 +26,7 @@ class ProductService
 				. "LIMIT ? OFFSET ?";
 
 			$bindValue = 'iii';
-			$params = [1, $perPage, $offset];
+			$params = [1, 10, $offset];
 		}
 		else
 		{
@@ -40,10 +40,10 @@ class ProductService
 				. "LIMIT ? OFFSET ?";
 
 			$bindValue = 'isii';
-			$params = [1, $category, $perPage, $offset];
+			$params = [1, $category, 10, $offset];
 		}
 
-		$result = SecurityService::safeQuery($query, $params, $bindValue);
+		$result = SecurityService::safeSelectQuery($query, $params, $bindValue);
 
 		$products = [];
 
@@ -71,20 +71,16 @@ class ProductService
 	 */
 	public static function getProductInfoByID(int $id): \Up\Models\Product
 	{
-		$connection = DbConnection::get();
-
 		$query = "SELECT `PRODUCT`.`ID`,PRODUCT.`TITLE`,`PRICE`,`DESCRIPTION`,BRAND.`TITLE` as `BRAND`,`PATH`"
 			. "from `PRODUCT` INNER JOIN `BRAND` on PRODUCT.BRAND_ID=`BRAND`.`id` "
 			. "inner join `IMAGE`"
 			. "on `PRODUCT`.`ID`=`IMAGE`.`PRODUCT_ID`"
-			. "WHERE PRODUCT.`ID`={$id} and `IS_COVER`= 1";
+			. "WHERE PRODUCT.`ID`=? and `IS_COVER`= ?";
 
-		$result = mysqli_query($connection, $query);
+		$bindValue = 'ii';
+		$params = [$id, 1];
 
-		if (!$result)
-		{
-			throw new \RuntimeException(mysqli_error($connection));
-		}
+		$result = SecurityService::safeSelectQuery($query, $params, $bindValue);
 
 		$row = mysqli_fetch_assoc($result);
 		$cover = new \Up\Models\Image(null, $row['ID'], $row['PATH'], 1);
@@ -105,9 +101,9 @@ class ProductService
 
 		$query = "SELECT `TITLE` from `TAG`inner join `PRODUCT_TAG`"
 			. " on `TAG`.ID = `PRODUCT_TAG`.TAG_ID"
-			. " WHERE PRODUCT_ID={$id}";
+			. " WHERE PRODUCT_ID=?";
 
-		$tags = mysqli_query($connection, $query);
+		$tags = SecurityService::safeSelectQuery($query, [$id], 'i');
 
 		while ($row = mysqli_fetch_assoc($tags))
 		{
@@ -124,19 +120,13 @@ class ProductService
 	 */
 	public static function getProductListForAdmin(): array
 	{
-		$connection = DbConnection::get();
-
 		$query = "SELECT PRODUCT.`ID`,PRODUCT.`TITLE`,`PRICE`,`PATH`,`DESCRIPTION`,BRAND.`TITLE` as `BRAND`"
 			. "from `PRODUCT` INNER JOIN `BRAND` on PRODUCT.BRAND_ID=`BRAND`.`id` "
 			. "inner join `IMAGE`"
 			. "on `PRODUCT`.`ID`=`IMAGE`.`PRODUCT_ID`"
-			. "WHERE `IS_COVER`=1";
-		$result = mysqli_query($connection, $query);
+			. "WHERE `IS_COVER`=?";
 
-		if (!$result)
-		{
-			throw new \RuntimeException(mysqli_error($connection));
-		}
+		$result = SecurityService::safeSelectQuery($query, [1], 'i');
 
 		$products = [];
 
@@ -198,21 +188,23 @@ class ProductService
 		ImageService::insertImageInFolder(ImageService::renameImage());
 		ImageService::insertImageInDatabase($product_ID, ImageService::renameImage());
 	}
-	public static function getProductsByTitle($pageNumber,$productTitle): array
+
+	/**
+	 * @throws Exception
+	 */
+	public static function getProductsByTitle($pageNumber, $productTitle): array
 	{
 		$offset = ($pageNumber - 1) * 9;
-		$connection = DbConnection::get();
-		$escapedProductTitle = mysqli_real_escape_string($connection, $productTitle);
-		$query = "SELECT TITLE, `PRODUCT`.`ID`,`PRICE`, DESCRIPTION, `PATH` FROM `PRODUCT` "
+
+		$query = "SELECT `TITLE`, `PRODUCT`.`ID`,`PRICE`, DESCRIPTION, `PATH` FROM `PRODUCT` "
 			."INNER JOIN `IMAGE`"
 			. "ON `PRODUCT`.`ID`=`IMAGE`.`PRODUCT_ID`"
-			. " WHERE TITLE LIKE '%{$escapedProductTitle}%' AND `IS_COVER`=1"
-			." LIMIT 10 OFFSET {$offset}";;
-		$result = mysqli_query($connection, $query);
+			. " WHERE `TITLE` LIKE ? AND `IS_COVER`=?"
+			." LIMIT ? OFFSET ?";
 
-		if (!$result) {
-			throw new \RuntimeException(mysqli_error($connection));
-		}
+		$params = ["%{$productTitle}%", 1, 10, $offset];
+
+		$result = SecurityService::safeSelectQuery($query, $params, 'siii');
 
 		$products = [];
 
