@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Up\Services;
 
 use Exception;
+use mysqli_result;
 use mysqli_stmt;
 use Core\DB\DbConnection;
 class QueryHelperService
@@ -48,7 +49,7 @@ class QueryHelperService
 	/**
 	 * @throws Exception
 	 */
-	public static function executePreparedStatement(string $query, array $params): bool
+	public static function executePreparedStatement(string $query, array $params, bool $isSelect = false): bool|mysqli_result
 	{
 		$connection = DbConnection::get();
 		$stmt = $connection->prepare($query);
@@ -61,6 +62,12 @@ class QueryHelperService
 		$types = self::getBindTypes($params);
 		$stmt->bind_param($types, ...$params);
 
-		return self::executeStatement($stmt);
+		if (!$isSelect)
+		{
+			return self::executeStatement($stmt);
+		}
+		$stmt->execute();
+		return $stmt->get_result();
+
 	}
 }

@@ -15,20 +15,14 @@ class SecurityService
 	 */
 	public static function safeSelectQuery(string $query, array $params = null): mysqli_result
 	{
-		$connection = DbConnection::get();
-		$escapedQuery = mysqli_real_escape_string($connection, $query);
-
 		if (!empty($params))
 		{
-			$stmt = $connection->prepare($query);
-			$types = QueryHelperService::getBindTypes($params);
-
-			$stmt->bind_param($types, ...$params);
-			$stmt->execute();
-			$result = $stmt->get_result();
+			$result = QueryHelperService::executePreparedStatement($query, $params, true);
 		}
 		else
 		{
+			$connection = DbConnection::get();
+			$escapedQuery = mysqli_real_escape_string($connection, $query);
 			$result = mysqli_query($connection, $escapedQuery);
 		}
 
