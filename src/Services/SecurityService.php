@@ -45,31 +45,23 @@ class SecurityService
 	 */
 	public static function safeInsertQuery(string $table, array $data): bool
 	{
-		$connection = DbConnection::get();
-
 		$columns = implode(', ', array_keys($data));
 		$placeholders = rtrim(str_repeat('?, ', count($data)), ', ');
 		$values = array_values($data);
 
 		$query = "INSERT INTO $table ($columns) VALUES ($placeholders)";
-		$stmt = $connection->prepare($query);
 
-		if (!$stmt)
-		{
-			throw new \RuntimeException(mysqli_error($connection));
-		}
+		return QueryHelperService::executePreparedStatement($query, $values);
+	}
 
-		$types = QueryHelperService::getBindTypes($values);
+	/**
+	 * @throws Exception
+	 */
+	public static function safeDeleteQuery(string $table, string $condition, array $params): bool
+	{
+		$query = "DELETE FROM $table WHERE $condition";
 
-		$stmt->bind_param($types, ...$values);
-		$result = $stmt->execute();
-
-		if (!$result)
-		{
-			throw new \RuntimeException(mysqli_error($connection));
-		}
-
-		return true;
+		return QueryHelperService::executePreparedStatement($query, $params);
 	}
 
 	public static function safeString(string $value): string
