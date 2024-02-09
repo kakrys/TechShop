@@ -24,7 +24,7 @@ class UserService
 
 		$query = "SELECT * from USER where EMAIL = ?";
 
-		$result = SecurityService::safeSelectQuery($query, [$email], 's');
+		$result = SecurityService::safeSelectQuery($query, [$email]);
 
 		$row = mysqli_fetch_assoc($result);
 		if (!$row)
@@ -52,7 +52,7 @@ class UserService
 
 		$query = "SELECT `ID`, `NAME`, `SURNAME`, `ADDRESS`, `EMAIL` FROM `USER` WHERE `ROLE_ID`= ?";
 
-		$result = SecurityService::safeSelectQuery($query, [2], 'i');
+		$result = SecurityService::safeSelectQuery($query, [2]);
 
 		$users = [];
 

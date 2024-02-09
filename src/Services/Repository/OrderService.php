@@ -19,12 +19,12 @@ class OrderService
 		try {
 			$errors = [];
 
-			$userName = htmlspecialchars($_POST['name'], ENT_QUOTES);
-			$userSurname = htmlspecialchars($_POST['surname'],ENT_QUOTES);
-			$userEmail = htmlspecialchars($_POST['email'],ENT_QUOTES);
-			$userAddress = htmlspecialchars($_POST['address'],ENT_QUOTES);
-			$productID = htmlspecialchars($_POST['productID'],ENT_QUOTES);
-			$productPrice = htmlspecialchars($_POST['productPrice'],ENT_QUOTES);
+			$userName = SecurityService::safeString($_POST['name']);
+			$userSurname = SecurityService::safeString($_POST['surname']);
+			$userEmail = SecurityService::safeString($_POST['email']);
+			$userAddress = SecurityService::safeString($_POST['address']);
+			$productID = SecurityService::safeString($_POST['productID']);
+			$productPrice = SecurityService::safeString($_POST['productPrice']);
 
 			$connection = DbConnection::get();
 			$userAddQuery = "INSERT INTO `USER` (`NAME`, `SURNAME`, `EMAIL`, `PASSWORD`, `ADDRESS`, `ROLE_ID`, `ENTITY_STATUS_ID`)"

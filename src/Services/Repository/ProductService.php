@@ -25,7 +25,6 @@ class ProductService
 				. "WHERE IS_COVER=? "
 				. "LIMIT ? OFFSET ?";
 
-			$bindValue = 'iii';
 			$params = [1, 10, $offset];
 		}
 		else
@@ -39,11 +38,10 @@ class ProductService
 				. "WHERE IS_COVER=? AND TAG.TITLE=? "
 				. "LIMIT ? OFFSET ?";
 
-			$bindValue = 'isii';
 			$params = [1, $category, 10, $offset];
 		}
 
-		$result = SecurityService::safeSelectQuery($query, $params, $bindValue);
+		$result = SecurityService::safeSelectQuery($query, $params);
 
 		$products = [];
 
@@ -77,10 +75,9 @@ class ProductService
 			. "on `PRODUCT`.`ID`=`IMAGE`.`PRODUCT_ID`"
 			. "WHERE PRODUCT.`ID`=? and `IS_COVER`= ?";
 
-		$bindValue = 'ii';
 		$params = [$id, 1];
 
-		$result = SecurityService::safeSelectQuery($query, $params, $bindValue);
+		$result = SecurityService::safeSelectQuery($query, $params);
 
 		$row = mysqli_fetch_assoc($result);
 		$cover = new \Up\Models\Image(null, $row['ID'], $row['PATH'], 1);
@@ -103,7 +100,7 @@ class ProductService
 			. " on `TAG`.ID = `PRODUCT_TAG`.TAG_ID"
 			. " WHERE PRODUCT_ID=?";
 
-		$tags = SecurityService::safeSelectQuery($query, [$id], 'i');
+		$tags = SecurityService::safeSelectQuery($query, [$id]);
 
 		while ($row = mysqli_fetch_assoc($tags))
 		{
@@ -128,7 +125,7 @@ class ProductService
 			. "LIMIT ? OFFSET ?";
 		$perPage = 9;
 		$offset = ($pageNumber - 1) * $perPage;
-		$result = SecurityService::safeSelectQuery($query, [1, 10, $offset], 'iii');
+		$result = SecurityService::safeSelectQuery($query, [1, 10, $offset]);
 
 		$products = [];
 
@@ -206,7 +203,7 @@ class ProductService
 
 		$params = ["%{$productTitle}%", 1, 10, $offset];
 
-		$result = SecurityService::safeSelectQuery($query, $params, 'siii');
+		$result = SecurityService::safeSelectQuery($query, $params);
 
 		$products = [];
 
