@@ -18,7 +18,7 @@
 			</div>
 			<div class="admin__createContainer">
 				<label for="price" class="admin__createLabel">Price</label>
-				<input id="price" name="price" type="number" class="admin__createInput">
+				<input id="price" name="price" type="number" class="admin__createInput" required>
 			</div>
 			<div class="admin__createContainer">
 				<fieldset>
@@ -65,7 +65,7 @@
 				</div>
 				<div id="admin__createForm_fileName">File name here</div>
 			</div>
-			<input type="file" name="image" id="defaultBtn" hidden>
+			<input type="file" name="image" id="defaultBtn" hidden required>
 			<button onclick="defaultBtnActive()" type="button" id="customBtn">Upload Image</button>
 		</div>
 		<button class="admin__createBtn" type="submit">Create!</button>
