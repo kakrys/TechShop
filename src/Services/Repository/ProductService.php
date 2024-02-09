@@ -118,15 +118,17 @@ class ProductService
 	/**
 	 * @throws Exception
 	 */
-	public static function getProductListForAdmin(): array
+	public static function getProductListForAdmin(int $pageNumber): array
 	{
 		$query = "SELECT PRODUCT.`ID`,PRODUCT.`TITLE`,`PRICE`,`PATH`,`DESCRIPTION`,BRAND.`TITLE` as `BRAND`"
 			. "from `PRODUCT` INNER JOIN `BRAND` on PRODUCT.BRAND_ID=`BRAND`.`id` "
 			. "inner join `IMAGE`"
 			. "on `PRODUCT`.`ID`=`IMAGE`.`PRODUCT_ID`"
-			. "WHERE `IS_COVER`=?";
-
-		$result = SecurityService::safeSelectQuery($query, [1], 'i');
+			. "WHERE `IS_COVER`=? "
+			. "LIMIT ? OFFSET ?";
+		$perPage = 9;
+		$offset = ($pageNumber - 1) * $perPage;
+		$result = SecurityService::safeSelectQuery($query, [1,10,$offset], 'iii');
 
 		$products = [];
 

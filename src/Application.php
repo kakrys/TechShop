@@ -21,7 +21,6 @@ class Application
 		{
 			$action = $route->action;
 			$variables = $route->getVariables();
-
 			echo $action(...$variables);
 		}
 		else

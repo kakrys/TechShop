@@ -7,6 +7,7 @@
  * @var $tags
  * @var $brands
  * @var $users
+ * @var $pageArray
  */
 ?>
 <div class="wrapper account">
@@ -49,7 +50,7 @@
 		</nav>
 	</aside>
 	<main class="account__main" id="adminProductContainer" data-admin-cont="0">
-		<?= $this->renderComponent('admin-list', ['products' => $products]) ?>
+		<?= $this->renderComponent('admin-list', ['products' => $products,'pageArray'=>$pageArray]) ?>
 		<?= $this->renderComponent('admin-edit', []) ?>
 	</main>
 	<main class="account__main" id="adminUserContainer" data-admin-cont="1">

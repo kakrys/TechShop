@@ -7,6 +7,7 @@ namespace Up\Controllers;
 use Exception;
 use Up\Models\Product;
 use Up\Services\AuthenticationService;
+use Up\Services\PaginationService;
 use Up\Services\Repository\BrandService;
 use Up\Services\Repository\OrderService;
 use Up\Services\Repository\ProductService;
@@ -20,11 +21,15 @@ class AdminController extends BaseController
 	/**
 	 * @throws Exception
 	 */
-	public function adminAction(): string
+	public function adminAction($pageNumber): string
 	{
 		session_start();
+		$pageNumber = (int)$pageNumber;
 		if (isset($_SESSION['AdminEmail']))
 		{
+			$productArray = ProductService::getProductListForAdmin($pageNumber);
+			$pageArray = PaginationService::determinePage($pageNumber,$productArray);
+			$productArray = PaginationService::trimProductArray($productArray);
 			$user = UserService::getUserByEmail($_SESSION['AdminEmail']);
 			$params = [
 				'adminFullName' => $user->name . ' ' . $user->surname,
@@ -32,8 +37,9 @@ class AdminController extends BaseController
 				'tags' => TagService::getTagList(),
 				'brands' => BrandService::getBrandList(),
 				'orders' => OrderService::getOrderList(),
-				'products' => ProductService::getProductListForAdmin(),
+				'products' => $productArray,
 				'users' => UserService::getUserList(),
+				'pageArray'=> $pageArray
 			];
 			return $this->render('admin', $params);
 		}
@@ -52,7 +58,7 @@ class AdminController extends BaseController
 		session_start();
 		if (isset($_SESSION['AdminEmail']))
 		{
-			header("Location: /admin/");
+			header("Location: /admin/1/");
 		}
 		if (isset($_SESSION['UserEmail']))
 		{

@@ -22,7 +22,7 @@ class AuthorizationController extends BaseController
 		{
 			$_SESSION['AdminId']=$user->id;
 			$_SESSION['AdminEmail']=$user->email;
-			header("Location: /admin/");
+			header("Location: /admin/1/");
 		}
 		if (AuthenticationService::authenticateUser($user,$_POST['email'],$_POST['password'],false))
 			{
