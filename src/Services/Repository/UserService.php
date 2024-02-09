@@ -5,6 +5,7 @@ namespace Up\Services\Repository;
 use Core\DB\DbConnection;
 use Exception;
 use Up\Models\User;
+use Up\Services\SecurityService;
 
 class UserService
 {
@@ -20,17 +21,11 @@ class UserService
 		{
 			return null;
 		}
-		$connection = DbConnection::get();
 
-		$query = "SELECT * from USER where EMAIL = '{$email}'";
+		$query = "SELECT * from USER where EMAIL = ?";
 
-		$result = mysqli_query($connection, $query);
+		$result = SecurityService::safeSelectQuery($query, [$email], 's');
 
-
-		if (!$result)
-		{
-			throw new \RuntimeException(mysqli_error($connection));
-		}
 		$row = mysqli_fetch_assoc($result);
 		if (!$row)
 		{
@@ -54,15 +49,10 @@ class UserService
 	 */
 	public static function getUserList(): ?array
 	{
-		$connection = DbConnection::get();
 
-		$query = "SELECT `ID`, `NAME`, `SURNAME`, `ADDRESS`, `EMAIL` FROM `USER` WHERE `ROLE_ID`=2";
+		$query = "SELECT `ID`, `NAME`, `SURNAME`, `ADDRESS`, `EMAIL` FROM `USER` WHERE `ROLE_ID`= ?";
 
-		$result = mysqli_query($connection, $query);
-
-		if (!$result) {
-			throw new \RuntimeException(mysqli_error($connection));
-		}
+		$result = SecurityService::safeSelectQuery($query, [2], 'i');
 
 		$users = [];
 

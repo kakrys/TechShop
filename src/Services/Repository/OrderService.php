@@ -7,6 +7,7 @@ namespace Up\Services\Repository;
 use Exception;
 use Core\DB\DbConnection;
 use Up\Models\Order;
+use Up\Services\SecurityService;
 
 class OrderService
 {
@@ -65,20 +66,14 @@ class OrderService
 	 */
 	public static function getOrderList(): array
 	{
-		$connection = DbConnection::get();
-
 		$query = "SELECT O.`ID`, O.`DATE_CREATE`, O.`PRICE`,"
 			." U.`NAME`, U.`SURNAME`, U.`EMAIL`, U.`ADDRESS`, P.`TITLE` "
 			." FROM `ORDER` O INNER JOIN `USER` U ON O.`USER_ID` = U.`ID`"
 			." INNER JOIN `PRODUCT_ORDER` PR ON O.`ID` = PR.`ORDER_ID`"
 			. "INNER JOIN `PRODUCT` P ON PR.PRODUCT_ID = P.ID";
 
-		$result = mysqli_query($connection, $query);
+		$result = SecurityService::safeSelectQuery($query);
 
-		if (!$result)
-		{
-			throw new \RuntimeException(mysqli_error($connection));
-		}
 		$orders = [];
 
 		while ($row = mysqli_fetch_assoc($result))

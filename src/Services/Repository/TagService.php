@@ -4,6 +4,7 @@ namespace Up\Services\Repository;
 
 use Core\DB\DbConnection;
 use Exception;
+use Up\Services\SecurityService;
 
 class TagService
 {
@@ -13,16 +14,11 @@ class TagService
 	 */
 	public static function getTagList(): array
 	{
-		$connection = DbConnection::get();
 
 		$query = "SELECT `ID`,`Title` from TAG";
 
-		$result = mysqli_query($connection, $query);
+		$result = SecurityService::safeSelectQuery($query);
 
-		if (!$result)
-		{
-			throw new \RuntimeException(mysqli_error($connection));
-		}
 		$tags = [];
 
 		while ($row = mysqli_fetch_assoc($result))

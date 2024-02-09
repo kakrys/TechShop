@@ -128,7 +128,7 @@ class ProductService
 			. "LIMIT ? OFFSET ?";
 		$perPage = 9;
 		$offset = ($pageNumber - 1) * $perPage;
-		$result = SecurityService::safeSelectQuery($query, [1,10,$offset], 'iii');
+		$result = SecurityService::safeSelectQuery($query, [1, 10, $offset], 'iii');
 
 		$products = [];
 
