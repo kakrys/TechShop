@@ -26,32 +26,48 @@ class OrderService
 			$productID = SecurityService::safeString($_POST['productID']);
 			$productPrice = SecurityService::safeString($_POST['productPrice']);
 
-			$connection = DbConnection::get();
-			$userAddQuery = "INSERT INTO `USER` (`NAME`, `SURNAME`, `EMAIL`, `PASSWORD`, `ADDRESS`, `ROLE_ID`, `ENTITY_STATUS_ID`)"
-				. " VALUES ('{$userName}', '{$userSurname}', '{$userEmail}', 'password', '{$userAddress}', 2, 1)";
+			$userData = [
+				'NAME' => $userName,
+				'SURNAME' => $userSurname,
+				'EMAIL' => $userEmail,
+				'PASSWORD' => 'password',
+				'ADDRESS' => $userAddress,
+				'ROLE_ID' => 2,
+				'ENTITY_STATUS_ID' => 1,
+			];
 
-			if (!$connection->query($userAddQuery))
+			if (!SecurityService::safeInsertQuery('USER', $userData))
 			{
-				$errors[] = 'Error adding user: ' . $connection->error;
+				$errors[] = 'Error adding user: ' . DbConnection::get()->error;
 			}
 
-			$userID = $connection->insert_id;
+			$userID = DbConnection::get()->insert_id;
 
-			$orderQuery = "INSERT INTO `ORDER` (`PRICE`, `USER_ID`, `PRODUCT_ID`, `ADDRESS`, `STATUS_ID`, `ENTITY_STATUS_ID`, `DATE_CREATE`)"
-				. " VALUES ('{$productPrice}', {$userID}, '{$productID}', '{$userAddress}', 1, 1, NOW())";
+			$orderData = [
+				'PRICE' => $productPrice,
+				'USER_ID' => $userID,
+				'PRODUCT_ID' => $productID,
+				'ADDRESS' => $userAddress,
+				'STATUS_ID' => 1,
+				'ENTITY_STATUS_ID' => 1,
+				'DATE_CREATE' =>  date('Y-m-d H:i:s'),
+			];
 
-			if (!$connection->query($orderQuery))
+			if (!SecurityService::safeInsertQuery('`ORDER`', $orderData))
 			{
-				$errors[] = 'Error adding an order: ' . $connection->error;
+				$errors[] = 'Error adding an order: ' . DbConnection::get()->error;
 			}
 
-			$orderID = $connection->insert_id;
+			$orderID = DbConnection::get()->insert_id;
 
-			$productOrderQuery = "INSERT INTO `PRODUCT_ORDER` (`PRODUCT_ID`, `ORDER_ID`) VALUES ('{$productID}', {$orderID})";
+			$productOrderData = [
+				'PRODUCT_ID' => $productID,
+				'ORDER_ID' => $orderID,
+			];
 
-			if (!$connection->query($productOrderQuery))
+			if (!SecurityService::safeInsertQuery('`PRODUCT_ORDER`', $productOrderData))
 			{
-				$errors[] = 'Error adding a product/order link: ' . $connection->error;
+				$errors[] = 'Error adding a product/order link: ' . DbConnection::get()->error;
 			}
 			return !empty($errors) ? $errors : null;
 		}

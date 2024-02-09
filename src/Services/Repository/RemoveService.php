@@ -4,34 +4,35 @@ namespace Up\Services\Repository;
 
 use Core\DB\DbConnection;
 use Exception;
-
+use RuntimeException;
+use Up\Services\SecurityService;
 
 class RemoveService
 {
-	private static $connection;
 
-	public static function delete(int $id)
+	/**
+	 * @throws Exception
+	 */
+	public static function delete(int $id): void
 	{
-		self::$connection = DbConnection::get();
 		ImageService::deleteImage($id);
+
 		// Удаление изображений
-		$deleteImageQuery = "DELETE FROM `IMAGE` WHERE `IMAGE`.`PRODUCT_ID` = ?;";
-		$stmt = self::$connection->prepare($deleteImageQuery);
-		$stmt->bind_param("i", $id);
-		$stmt->execute();
+		if (!SecurityService::safeDeleteQuery('`IMAGE`','`IMAGE`.`PRODUCT_ID` = ?', [$id]))
+		{
+			throw new RuntimeException('Error delete image:  ' . DbConnection::get()->error);
+		}
 
 		// Удаление тегов
-		$deleteTagQuery = "DELETE FROM `PRODUCT_TAG` WHERE `PRODUCT_TAG`.`PRODUCT_ID` = ?;";
-		$stmt = self::$connection->prepare($deleteTagQuery);
-		$stmt->bind_param("i", $id);
-		$stmt->execute();
+		if (!SecurityService::safeDeleteQuery('`PRODUCT_TAG`','`PRODUCT_TAG`.`PRODUCT_ID` = ?', [$id]))
+		{
+			throw new RuntimeException('Error delete product_tag:  ' . DbConnection::get()->error);
+		}
 
 		// Удаление продукта
-		$deleteProductQuery = "DELETE FROM `PRODUCT` WHERE `PRODUCT`.`ID` = ?;";
-		$stmt = self::$connection->prepare($deleteProductQuery);
-		$stmt->bind_param("i", $id);
-		$stmt->execute();
-
-		return $stmt->affected_rows;
+		if (!SecurityService::safeDeleteQuery('`PRODUCT`','`PRODUCT`.`ID` = ?', [$id]))
+		{
+			throw new RuntimeException('Error delete product:  ' . DbConnection::get()->error);
+		}
 	}
 }

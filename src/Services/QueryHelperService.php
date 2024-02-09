@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Up\Services;
 
+use Exception;
+use mysqli_stmt;
+use Core\DB\DbConnection;
 class QueryHelperService
 {
 	public static function getBindTypes(array $params): string
@@ -30,5 +33,34 @@ class QueryHelperService
 		}
 
 		return $types;
+	}
+
+	public static function executeStatement(mysqli_stmt $stmt): bool
+	{
+		$result = $stmt->execute();
+		if (!$result)
+		{
+			throw new \RuntimeException($stmt->error);
+		}
+		return true;
+	}
+
+	/**
+	 * @throws Exception
+	 */
+	public static function executePreparedStatement(string $query, array $params): bool
+	{
+		$connection = DbConnection::get();
+		$stmt = $connection->prepare($query);
+
+		if (!$stmt)
+		{
+			throw new \RuntimeException(mysqli_error($connection));
+		}
+
+		$types = self::getBindTypes($params);
+		$stmt->bind_param($types, ...$params);
+
+		return self::executeStatement($stmt);
 	}
 }
