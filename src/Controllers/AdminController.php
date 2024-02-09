@@ -13,6 +13,7 @@ use Up\Services\Repository\OrderService;
 use Up\Services\Repository\ProductService;
 use Up\Services\Repository\RemoveService;
 use Up\Services\Repository\TagService;
+use Up\Services\Repository\UpdateProductService;
 use Up\Services\Repository\UserService;
 use Core\Web\Json;
 
@@ -141,5 +142,33 @@ class AdminController extends BaseController
 	{
 		ProductService::addProduct();
 		return $this->render('admin-create-product', []);
+	}
+
+	public function updateProductAction()
+	{
+		header('Content-Type: application/json');
+
+		$input = file_get_contents('php://input');
+		$data = Json::decode($input);
+
+		if (isset($data['id']))
+		{
+			$id = (int)$data['id'];
+			$title = (string)$data['title'];
+			$price = (float)$data['price'];
+			$description = (string)$data['description'];
+
+			$result = UpdateProductService::update($id, $title,  $price, $description);
+			echo Json::encode([
+				'result' => $result > 0 ? 'Y' : 'N',
+			]);
+		}
+		else
+		{
+			echo Json::encode([
+				'result' => 'N',
+				'error' => 'Some problems'
+			]);
+		}
 	}
 }

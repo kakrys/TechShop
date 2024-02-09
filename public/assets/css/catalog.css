@@ -95,6 +95,10 @@
     min-height: 150px;
 }
 
+.product__cost {
+    color: #063A88;
+}
+
 .mainSection__img {
     display: block;
     max-width: 218px;
