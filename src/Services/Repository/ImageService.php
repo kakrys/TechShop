@@ -52,24 +52,20 @@ class ImageService
 
 		return md5(time() . $originalFilename) . "." . $ext;
 	}
-	public static function deleteImage(int $productId):void
+
+	/**
+	 * @throws Exception
+	 */
+	public static function deleteImage(int $productId): void
 	{
-		$connection = DbConnection::get();
-		$query="SELECT `PATH`,`PRODUCT_ID` FROM `IMAGE`"
-			." WHERE `PRODUCT_ID`=?";
-		$stmt = $connection->prepare($query);
-		$stmt->bind_param("s", $productId);
-		$stmt->execute();
-		$result = $stmt->get_result();
-		if (!$result)
-		{
-			throw new \RuntimeException(mysqli_error($connection));
-		}
+		$query = "SELECT `PATH`,`PRODUCT_ID` FROM `IMAGE` WHERE `PRODUCT_ID`=?";
+
+		$result = SecurityService::safeSelectQuery($query, [$productId]);
 
 		while ($row = mysqli_fetch_assoc($result))
 		{
-			$image=new Image(null,null,$row['PATH'],null);
-			unlink(self::$uploadDir.$image->getPath());
+			$image = new Image(null, null, $row['PATH'], null);
+			unlink(self::$uploadDir . $image->getPath());
 		}
 
 	}

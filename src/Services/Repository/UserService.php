@@ -72,18 +72,30 @@ class UserService
 		return $users;
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	public static function addUser():bool
 	{
-		$userName=$_POST['userName'];
+		$userName = $_POST['userName'];
 		$userSurname = $_POST['userSurname'];
 		$userEmail = $_POST['email'];
 		$userPassword = $_POST['password'];
 		$userAddress = $_POST['userAddress'];
-		$connection = DbConnection::get();
+
 		$userPassword = password_hash($userPassword,PASSWORD_DEFAULT);
-		$userAddQuery = "INSERT INTO `USER` (`NAME`, `SURNAME`, `EMAIL`, `PASSWORD`,`ADDRESS`,`ROLE_ID`, `ENTITY_STATUS_ID`)"
-			. " VALUES ('{$userName}', '{$userSurname}','{$userEmail}','{$userPassword}','{$userAddress}',2, 1)";
-		if (!$connection->query($userAddQuery))
+
+		$userData = [
+			'NAME' => $userName,
+			'SURNAME' => $userSurname,
+			'EMAIL' => $userEmail,
+			'PASSWORD' => $userPassword,
+			'ADDRESS' => $userAddress,
+			'ROLE_ID' => 2,
+			'ENTITY_STATUS_ID' => 1,
+		];
+
+		if (!SecurityService::safeInsertQuery('USER', $userData))
 		{
 			return false;
 		}
@@ -129,7 +141,7 @@ class UserService
 
 	public static function updateUserAddress():bool
 	{
-		$userNewAddress=$_POST['newAddress'];
+		$userNewAddress = $_POST['newAddress'];
 		$connection = DbConnection::get();
 		$query = "UPDATE USER SET ADDRESS = '{$userNewAddress}' where EMAIL = '{$_SESSION['UserEmail']}'";
 		if (!$connection->query($query))
@@ -141,7 +153,7 @@ class UserService
 
 	public static function updateUserPassword():bool
 	{
-		$userNewPassword=password_hash($_POST['newPassword'],PASSWORD_DEFAULT);
+		$userNewPassword = password_hash($_POST['newPassword'],PASSWORD_DEFAULT);
 		$connection = DbConnection::get();
 		$query = "UPDATE USER SET PASSWORD = '{$userNewPassword}' where EMAIL = '{$_SESSION['UserEmail']}'";
 		if (!$connection->query($query))
