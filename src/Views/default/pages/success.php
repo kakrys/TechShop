@@ -4,6 +4,7 @@
 */
 
 ?>
+
 <div class="orderModal" data-field-message="CODE:200" >
 	<div class="orderModal__container">
 		<div class="orderStatus">
@@ -15,4 +16,4 @@
 		<a href="/" class="orderModal__btn">Return To Main Page</a>
 	</div>
 </div>
-<div class="emptyForBlur"></div>
+<!--<div class="emptyForBlur"></div>-->
