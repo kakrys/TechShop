@@ -9,6 +9,11 @@ class Request
 		return $_SERVER['REQUEST_METHOD'];
 	}
 
+	public static function uri(): string
+	{
+		return $_SERVER['REQUEST_URI'];
+	}
+
 	public static function getBody(): array|null
 	{
 		$data = [];
