@@ -5,6 +5,8 @@
 ?>
 <h2 class="account__title">Your Users</h2>
 <div class="account__ordersContainer">
+	<?php if (isset($users)): ?>
+	<?php if (count($users) > 0): ?>
 	<?php foreach ($users as $user):?>
 		<div class="adminUser">
 			<ul class="admin__usersInfoList">
@@ -32,4 +34,13 @@
 			</ul>
 		</div>
 	<?php endforeach;?>
+		<?php else: ?>
+			<div class="adminSection__noResults">
+				<img src="/assets/images/common/no-results.svg" alt="No Results in Tech Shop">
+				<p>Your User List is Empty now</p>
+			</div>
+		<?php endif; ?>
+	<?php else: ?>
+		<p>No found</p>
+	<?php endif; ?>
 </div>

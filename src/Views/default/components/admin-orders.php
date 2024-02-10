@@ -9,6 +9,8 @@ use Up\Models\Order;
 ?>
 <h2 class="account__title">Your Orders</h2>
 <div class="account__ordersContainer">
+	<?php if (isset($orders)): ?>
+	<?php if (count($orders) > 0): ?>
 	<?php foreach ($orders as $order):?>
 	<div class="adminOrder">
 		<ul class="account__ordersInfoList">
@@ -47,4 +49,13 @@ use Up\Models\Order;
 		</ul>
 	</div>
 	<?php endforeach;?>
+		<?php else: ?>
+			<div class="adminSection__noResults">
+				<img src="/assets/images/common/no-results.svg" alt="No Results in Tech Shop">
+				<p>Your Order List is Empty now</p>
+			</div>
+		<?php endif; ?>
+	<?php else: ?>
+		<p>No found</p>
+	<?php endif; ?>
 </div>
