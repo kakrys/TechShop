@@ -111,6 +111,7 @@ class UserService
 		$session = Request::getSession();
 
 		$userNewName=$request['newName'];
+
 		$connection = DbConnection::get();
 		$query = "UPDATE USER SET NAME = '{$userNewName}' where EMAIL = '{$session['UserEmail']}'";
 		if (!$connection->query($query))
@@ -139,15 +140,18 @@ class UserService
 	{
 		$request = Request::getBody();
 		$session = Request::getSession();
-
 		$userNewEmail = $request['newEmail'];
+		if (!filter_var($userNewEmail,FILTER_VALIDATE_EMAIL) || UserService::getUserByEmail($userNewEmail))
+		{
+			return false;
+		}
 		$connection = DbConnection::get();
 		$query = "UPDATE USER SET EMAIL = '{$userNewEmail}' where EMAIL = '{$session['UserEmail']}'";
 		if (!$connection->query($query))
 		{
 			return false;
 		}
-		$session['UserEmail'] = $userNewEmail;
+		$_SESSION['UserEmail'] = $userNewEmail;
 		return true;
 	}
 
