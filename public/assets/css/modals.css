@@ -199,25 +199,25 @@
 /*order modal styles start*/
 .orderModal {
     overflow: hidden;
-    position: fixed;
+    /*position: fixed;*/
     top: 30%;
     left: 39%;
     z-index: 3;
     border-radius: 8px;
-    border: 1px solid #EDEDED;
+    /*border: 1px solid #EDEDED;*/
     background: #FFF;
-    box-shadow: 0 0 0 9999px rgba(0,0,0, 0.7);
+    /*box-shadow: 0 0 0 9999px rgba(0,0,0, 0.7);*/
 }
 .orderModalSuccess {
     overflow: hidden;
-    position: fixed;
+    /*position: fixed;*/
     top: 30%;
     left: 35%;
     z-index: 3;
     border-radius: 8px;
-    border: 1px solid #EDEDED;
+    /*border: 1px solid #EDEDED;*/
     background: #FFF;
-    box-shadow: 0 0 0 9999px rgba(0,0,0, 0.7);
+    /*box-shadow: 0 0 0 9999px rgba(0,0,0, 0.7);*/
 }
 
 .orderModal__container {
@@ -226,6 +226,7 @@
     align-items: center;
     justify-content: center;
     padding: 38px 24px;
+    margin-top: 28px;
 }
 
 .orderStatus {

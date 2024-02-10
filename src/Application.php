@@ -7,6 +7,7 @@ namespace Up;
 use Core\DB\Migrator;
 use Core\Routing\Router;
 use Exception;
+use Core\Http\Request;
 
 class Application
 {
@@ -16,7 +17,7 @@ class Application
 	public function run(): void
 	{
 		Migrator::executeMigrations();
-		$route = Router::find($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
+		$route = Router::find(Request::method(), Request::uri());
 		if ($route)
 		{
 			$action = $route->action;
@@ -26,8 +27,7 @@ class Application
 		else
 		{
 			http_response_code(404);
-			echo 'Page not found';
-			var_dump($_SERVER['REQUEST_METHOD']);
+			include_once "Views/default/pages/_404.php";
 			exit;
 		}
 	}
