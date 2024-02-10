@@ -28,7 +28,7 @@ class UserController extends BaseController
 
 		header('Location: /login/');
 	}
-	public function updateInfoAction()
+	public function updateInfoAction(): void
 	{
 		session_start();
 		$request = Request::getBody();

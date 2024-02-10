@@ -114,7 +114,7 @@ class UserService
 
 		$connection = DbConnection::get();
 		$query = "UPDATE USER SET NAME = '{$userNewName}' where EMAIL = '{$session['UserEmail']}'";
-		if (!$connection->query($query))
+		if (empty($userNewName) || !$connection->query($query))
 		{
 			return false;
 		}
@@ -129,7 +129,7 @@ class UserService
 		$userNewSurname=$request['newSurname'];
 		$connection = DbConnection::get();
 		$query = "UPDATE USER SET SURNAME = '{$userNewSurname}' where EMAIL = '{$session['UserEmail']}'";
-		if (!$connection->query($query))
+		if (empty($userNewSurname) || !$connection->query($query))
 		{
 			return false;
 		}
@@ -141,7 +141,7 @@ class UserService
 		$request = Request::getBody();
 		$session = Request::getSession();
 		$userNewEmail = $request['newEmail'];
-		if (!filter_var($userNewEmail,FILTER_VALIDATE_EMAIL) || UserService::getUserByEmail($userNewEmail))
+		if (empty($userNewEmail) || !filter_var($userNewEmail,FILTER_VALIDATE_EMAIL) || UserService::getUserByEmail($userNewEmail))
 		{
 			return false;
 		}
@@ -163,7 +163,7 @@ class UserService
 		$userNewAddress = $request['newAddress'];
 		$connection = DbConnection::get();
 		$query = "UPDATE USER SET ADDRESS = '{$userNewAddress}' where EMAIL = '{$session['UserEmail']}'";
-		if (!$connection->query($query))
+		if (empty($userNewAddress) || !$connection->query($query))
 		{
 			return false;
 		}
@@ -178,7 +178,7 @@ class UserService
 		$userNewPassword = password_hash($request['newPassword'],PASSWORD_DEFAULT);
 		$connection = DbConnection::get();
 		$query = "UPDATE USER SET PASSWORD = '{$userNewPassword}' where EMAIL = '{$session['UserEmail']}'";
-		if (!$connection->query($query))
+		if (empty($userNewPassword) || !$connection->query($query))
 		{
 			return false;
 		}
