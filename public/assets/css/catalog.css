@@ -13,11 +13,14 @@
     justify-content: space-between;
     position: relative;
     --active-tab: 0;
+    overflow-x: auto;
+    white-space: nowrap;
 }
 
 .toolbar__item {
     padding: 5px;
     width: 125px;
+    display: inline-block;
 }
 
 .toolbar__btn {

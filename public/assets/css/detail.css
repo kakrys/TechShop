@@ -49,6 +49,8 @@
     justify-content: center;
     gap: 10px;
     width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
 }
 
 .detail__slider_img {
