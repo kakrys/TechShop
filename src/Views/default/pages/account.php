@@ -2,7 +2,8 @@
 /**
  * @var $userFullName
  * @var $userEmail
- * @var \Up\Models\Product $user
+ * @var \Up\Models\User $user
+ * @var \Up\Models\Order $orders
  */
 ?>
 <div class="account" id="user">
@@ -33,7 +34,7 @@
 		<?= $this->renderComponent('account-profile', ['user' => $user, 'userEmail' => $userEmail]) ?>
 	</main>
 	<main class="account__main" id="accountOrderContainer" data-user-cont="1">
-		<?= $this->renderComponent('account-orders', []) ?>
+		<?= $this->renderComponent('account-orders', ['orders' => $orders]) ?>
 	</main>
 </div>
 <?= $this->renderComponent('account-modals', ['user' => $user]) ?>

@@ -55,6 +55,7 @@ class OrderService
 			{
 				$errors[] = 'Error adding a product/order link: ' . DbConnection::get()->error;
 			}
+
 			return !empty($errors) ? $errors : null;
 		}
 		catch (Exception $e)
@@ -66,7 +67,7 @@ class OrderService
 	/**
 	 * @throws Exception
 	 */
-	public static function getOrderList(): array
+	public static function getOrderList($userEmail = null): array
 	{
 		$query = "SELECT O.`ID`, O.`DATE_CREATE`, O.`PRICE`,"
 			. " U.`NAME`, U.`SURNAME`, U.`EMAIL`, U.`ADDRESS`, P.`TITLE` "
@@ -74,17 +75,33 @@ class OrderService
 			. " INNER JOIN `PRODUCT_ORDER` PR ON O.`ID` = PR.`ORDER_ID`"
 			. "INNER JOIN `PRODUCT` P ON PR.PRODUCT_ID = P.ID";
 
-		$result = SecurityService::safeSelectQuery($query);
-
+		if ($userEmail !== null)
+		{
+			$query .= " WHERE U.EMAIL=?";
+			$params = [$userEmail];
+			$result = SecurityService::safeSelectQuery($query, $params);
+		}
+		else
+		{
+			$result = SecurityService::safeSelectQuery($query);
+		}
+		
 		$orders = [];
 
 		while ($row = mysqli_fetch_assoc($result))
 		{
-			$orders[] = new Order((int)$row['ID'], $row['DATE_CREATE'],
-				(float)$row['PRICE'], $row['NAME'],
-				$row['SURNAME'], $row['EMAIL'],
-				$row['ADDRESS'], $row['TITLE']);
+			$orders[] = new Order(
+				(int)$row['ID'],
+				$row['DATE_CREATE'],
+				(float)$row['PRICE'],
+				$row['NAME'],
+				$row['SURNAME'],
+				$row['EMAIL'],
+				$row['ADDRESS'],
+				$row['TITLE']
+			);
 		}
+
 		return $orders;
 	}
 
@@ -110,7 +127,6 @@ class OrderService
 				'DATE_CREATE' => date('Y-m-d H:i:s'),
 			];
 
-
 			if (!SecurityService::safeInsertQuery('`ORDER`', $orderData))
 			{
 				$errors[] = 'Error adding an order: ' . DbConnection::get()->error;
@@ -127,6 +143,7 @@ class OrderService
 			{
 				$errors[] = 'Error adding a product/order link: ' . DbConnection::get()->error;
 			}
+
 			return !empty($errors) ? $errors : null;
 		}
 		catch (Exception $e)
