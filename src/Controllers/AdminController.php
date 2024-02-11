@@ -29,7 +29,7 @@ class AdminController extends BaseController
 		if (isset($_SESSION['AdminEmail']))
 		{
 			$productArray = ProductService::getProductListForAdmin($pageNumber);
-			$pageArray = PaginationService::determinePage($pageNumber,$productArray);
+			$pageArray = PaginationService::determinePage($pageNumber, $productArray);
 			$productArray = PaginationService::trimProductArray($productArray);
 			$user = UserService::getUserByEmail($_SESSION['AdminEmail']);
 			$params = [
@@ -40,8 +40,9 @@ class AdminController extends BaseController
 				'orders' => OrderService::getOrderList(),
 				'products' => $productArray,
 				'users' => UserService::getUserList(),
-				'pageArray'=> $pageArray
+				'pageArray' => $pageArray,
 			];
+
 			return $this->render('admin', $params);
 		}
 
@@ -54,7 +55,7 @@ class AdminController extends BaseController
 	 * @throws Exception
 	 */
 
-	public function loginAction()
+	public function loginAction(): string
 	{
 		session_start();
 		if (isset($_SESSION['AdminEmail']))
@@ -69,6 +70,9 @@ class AdminController extends BaseController
 		return $this->render('login', []);
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	public function removeAction(): void
 	{
 		header('Content-Type: application/json');
@@ -81,19 +85,19 @@ class AdminController extends BaseController
 			$result = RemoveService::delete($id);
 
 			echo Json::encode([
-				'result' => $result > 0 ? 'Y' : 'N',
-			]);
+								  'result' => $result > 0 ? 'Y' : 'N',
+							  ]);
 		}
 		else
 		{
 			echo Json::encode([
-				'result' => 'N',
-				'error' => 'Id not provided',
-			]);
+								  'result' => 'N',
+								  'error' => 'Id not provided',
+							  ]);
 		}
 	}
 
-	public function dbAction()
+	public function dbAction(): void
 	{
 		header('Content-Type: application/json');
 		$input = file_get_contents('php://input');
@@ -102,19 +106,19 @@ class AdminController extends BaseController
 		if (isset($data['title']))
 		{
 			echo Json::encode([
-				'result' => 'Y',
-			]);
+								  'result' => 'Y',
+							  ]);
 		}
 		else
 		{
 			echo Json::encode([
-				'result' => 'N',
-				'error' => 'deleteDb not provided',
-			]);
+								  'result' => 'N',
+								  'error' => 'deleteDb not provided',
+							  ]);
 		}
 	}
 
-	public function executeAction()
+	public function executeAction(): void
 	{
 		header('Content-Type: application/json');
 		$input = file_get_contents('php://input');
@@ -123,15 +127,15 @@ class AdminController extends BaseController
 		if (isset($data['title']))
 		{
 			echo Json::encode([
-				'result' => 'Y',
-			]);
+								  'result' => 'Y',
+							  ]);
 		}
 		else
 		{
 			echo Json::encode([
-				'result' => 'N',
-				'error' => 'executeDb not provided',
-			]);
+								  'result' => 'N',
+								  'error' => 'executeDb not provided',
+							  ]);
 		}
 	}
 
@@ -141,10 +145,11 @@ class AdminController extends BaseController
 	public function addProductAction(): string
 	{
 		ProductService::addProduct();
+
 		return $this->render('admin-create-product', []);
 	}
 
-	public function updateProductAction()
+	public function updateProductAction(): void
 	{
 		header('Content-Type: application/json');
 
@@ -158,17 +163,17 @@ class AdminController extends BaseController
 			$price = (float)$data['price'];
 			$description = (string)$data['description'];
 
-			$result = UpdateProductService::update($id, $title,  $price, $description);
+			$result = UpdateProductService::update($id, $title, $price, $description);
 			echo Json::encode([
-				'result' => $result > 0 ? 'Y' : 'N',
-			]);
+								  'result' => $result > 0 ? 'Y' : 'N',
+							  ]);
 		}
 		else
 		{
 			echo Json::encode([
-				'result' => 'N',
-				'error' => 'Some problems'
-			]);
+								  'result' => 'N',
+								  'error' => 'Some problems',
+							  ]);
 		}
 	}
 }

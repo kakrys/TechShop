@@ -8,6 +8,7 @@ use Exception;
 use mysqli_result;
 use mysqli_stmt;
 use Core\DB\DbConnection;
+
 class QueryHelperService
 {
 	public static function getBindTypes(array $params): string
@@ -29,7 +30,7 @@ class QueryHelperService
 			}
 			else
 			{
-				$types .='b';
+				$types .= 'b';
 			}
 		}
 
@@ -43,13 +44,19 @@ class QueryHelperService
 		{
 			throw new \RuntimeException($stmt->error);
 		}
+
 		return true;
 	}
 
 	/**
 	 * @throws Exception
+	 *
 	 */
-	public static function executePreparedStatement(string $query, array $params, bool $isSelect = false): bool|mysqli_result
+	public static function executePreparedStatement(
+		string $query,
+		array  $params,
+		bool   $isSelect = false
+	): bool|mysqli_result
 	{
 		$connection = DbConnection::get();
 		$stmt = $connection->prepare($query);
@@ -67,6 +74,7 @@ class QueryHelperService
 			return self::executeStatement($stmt);
 		}
 		$stmt->execute();
+
 		return $stmt->get_result();
 
 	}

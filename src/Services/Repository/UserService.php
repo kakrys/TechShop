@@ -2,7 +2,6 @@
 
 namespace Up\Services\Repository;
 
-use Core\DB\DbConnection;
 use Core\Http\Request;
 use Exception;
 use Up\Models\User;
@@ -59,13 +58,10 @@ class UserService
 
 		$users = [];
 
-		while ($row = mysqli_fetch_assoc($result)) {
+		while ($row = mysqli_fetch_assoc($result))
+		{
 			$user = new User(
-				$row['ID'],
-				$row['NAME'],
-				$row['SURNAME'],
-				$row['EMAIL'],
-				$row['ADDRESS'],
+				$row['ID'], $row['NAME'], $row['SURNAME'], $row['EMAIL'], $row['ADDRESS'],
 			);
 			$users[] = $user;
 		}
@@ -76,7 +72,7 @@ class UserService
 	/**
 	 * @throws Exception
 	 */
-	public static function addUser():bool
+	public static function addUser(): bool
 	{
 		$request = Request::getBody();
 
@@ -86,7 +82,7 @@ class UserService
 		$userPassword = $request['password'];
 		$userAddress = $request['userAddress'];
 
-		$userPassword = password_hash($userPassword,PASSWORD_DEFAULT);
+		$userPassword = password_hash($userPassword, PASSWORD_DEFAULT);
 
 		$userData = [
 			'NAME' => $userName,
@@ -102,86 +98,127 @@ class UserService
 		{
 			return false;
 		}
+
 		return true;
 	}
 
-	public static function updateUserName():bool
+	/**
+	 * @throws Exception
+	 */
+	public static function updateUserName(): bool
 	{
 		$request = Request::getBody();
 		$session = Request::getSession();
 
-		$userNewName=$request['newName'];
+		$userNewName = $request['newName'];
 
-		$connection = DbConnection::get();
-		$query = "UPDATE USER SET NAME = '{$userNewName}' where EMAIL = '{$session['UserEmail']}'";
-		if (empty(trim($userNewName)) || !$connection->query($query))
+		$table = 'USER';
+		$data = ['NAME' => $userNewName];
+		$condition = 'EMAIL = ?';
+		$params = [$session['UserEmail']];
+
+		if (empty(trim($userNewName)))
 		{
 			return false;
 		}
-		return true;
+
+		return SecurityService::safeUpdateQuery($table, $data, $condition, $params);
 	}
 
-	public static function updateUserSurname():bool
+	/**
+	 * @throws Exception
+	 */
+	public static function updateUserSurname(): bool
 	{
 		$request = Request::getBody();
 		$session = Request::getSession();
 
-		$userNewSurname=$request['newSurname'];
-		$connection = DbConnection::get();
-		$query = "UPDATE USER SET SURNAME = '{$userNewSurname}' where EMAIL = '{$session['UserEmail']}'";
-		if (empty(trim($userNewSurname)) || !$connection->query($query))
+		$userNewSurname = $request['newSurname'];
+
+		$table = 'USER';
+		$data = ['SURNAME' => $userNewSurname];
+		$condition = 'EMAIL = ?';
+		$params = [$session['UserEmail']];
+
+		if (empty(trim($userNewSurname)))
 		{
 			return false;
 		}
-		return true;
+
+		return SecurityService::safeUpdateQuery($table, $data, $condition, $params);
 	}
 
-	public static function updateUserEmail():bool
+	/**
+	 * @throws Exception
+	 */
+	public static function updateUserEmail(): bool
 	{
 		$request = Request::getBody();
 		$session = Request::getSession();
+
 		$userNewEmail = $request['newEmail'];
-		if (empty(trim($userNewEmail)) || !filter_var($userNewEmail,FILTER_VALIDATE_EMAIL) || UserService::getUserByEmail($userNewEmail))
-		{
-			return false;
-		}
-		$connection = DbConnection::get();
-		$query = "UPDATE USER SET EMAIL = '{$userNewEmail}' where EMAIL = '{$session['UserEmail']}'";
-		if (!$connection->query($query))
+
+		$table = 'USER';
+		$data = ['EMAIL' => $userNewEmail];
+		$condition = 'EMAIL = ?';
+		$params = [$session['UserEmail']];
+
+		if (
+			empty(trim($userNewEmail))
+			|| !filter_var($userNewEmail, FILTER_VALIDATE_EMAIL)
+			|| self::getUserByEmail($userNewEmail)
+		)
 		{
 			return false;
 		}
 		$_SESSION['UserEmail'] = $userNewEmail;
-		return true;
+
+		return SecurityService::safeUpdateQuery($table, $data, $condition, $params);
 	}
 
-	public static function updateUserAddress():bool
+	/**
+	 * @throws Exception
+	 */
+	public static function updateUserAddress(): bool
 	{
 		$request = Request::getBody();
 		$session = Request::getSession();
 
 		$userNewAddress = $request['newAddress'];
-		$connection = DbConnection::get();
-		$query = "UPDATE USER SET ADDRESS = '{$userNewAddress}' where EMAIL = '{$session['UserEmail']}'";
-		if (empty(trim($userNewAddress)) || !$connection->query($query))
+
+		$table = 'USER';
+		$data = ['ADDRESS' => $userNewAddress];
+		$condition = 'EMAIL = ?';
+		$params = [$session['UserEmail']];
+
+		if (empty(trim($userNewAddress)))
 		{
 			return false;
 		}
-		return true;
+
+		return SecurityService::safeUpdateQuery($table, $data, $condition, $params);
 	}
 
-	public static function updateUserPassword():bool
+	/**
+	 * @throws Exception
+	 */
+	public static function updateUserPassword(): bool
 	{
 		$request = Request::getBody();
 		$session = Request::getSession();
 
-		$userNewPassword = password_hash($request['newPassword'],PASSWORD_DEFAULT);
-		$connection = DbConnection::get();
-		$query = "UPDATE USER SET PASSWORD = '{$userNewPassword}' where EMAIL = '{$session['UserEmail']}'";
-		if (empty(trim($userNewPassword)) || !$connection->query($query))
+		$userNewPassword = password_hash($request['newPassword'], PASSWORD_DEFAULT);
+
+		$table = 'USER';
+		$data = ['PASSWORD' => $userNewPassword];
+		$condition = 'EMAIL = ?';
+		$params = [$session['UserEmail']];
+
+		if (empty(trim($userNewPassword)))
 		{
 			return false;
 		}
-		return true;
+
+		return SecurityService::safeUpdateQuery($table, $data, $condition, $params);
 	}
 }

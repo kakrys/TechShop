@@ -4,22 +4,25 @@ namespace Up\Services\Repository;
 
 use Core\DB\DbConnection;
 use Exception;
+use Up\Services\SecurityService;
+
 class UpdateProductService
 {
-	private static $connection;
-	public static function update(int $id, string $title, float $price, string $description):void
+	/**
+	 * @throws Exception
+	 */
+	public static function update(int $id, string $title, float $price, string $description): bool
 	{
-		self::$connection = DbConnection::get();
+		$table = 'PRODUCT';
+		$data = [
+			'TITLE' => $title,
+			'DESCRIPTION' => $description,
+			'PRICE' => $price,
+			'DATE_UPDATE' => date('Y-m-d H:i:s'),
+		];
+		$condition = '`ID` = ?';
+		$params = [$id];
 
-		$updateQuery = "UPDATE `PRODUCT`
-						SET `TITLE` = COALESCE(?, `TITLE`),
-						`DESCRIPTION` = COALESCE(?, `DESCRIPTION`),
-						`PRICE` = COALESCE(?, `PRICE`),
-						`DATE_UPDATE` = CURRENT_TIME()
-						WHERE `ID` = ?;";
-
-		$stmt = self::$connection->prepare($updateQuery);
-		$stmt->bind_param('ssdi', $title, $description, $price, $id);
-		$stmt->execute();
+		return SecurityService::safeUpdateQuery($table, $data, $condition, $params);
 	}
 }

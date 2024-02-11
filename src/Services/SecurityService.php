@@ -24,11 +24,11 @@ class SecurityService
 			$connection = DbConnection::get();
 			$escapedQuery = mysqli_real_escape_string($connection, $query);
 			$result = mysqli_query($connection, $escapedQuery);
-		}
 
-		if (!$result)
-		{
-			throw new \RuntimeException(mysqli_error($connection));
+			if (!$result)
+			{
+				throw new \RuntimeException(mysqli_error($connection));
+			}
 		}
 
 		return $result;
@@ -56,6 +56,20 @@ class SecurityService
 		$query = "DELETE FROM $table WHERE $condition";
 
 		return QueryHelperService::executePreparedStatement($query, $params);
+	}
+
+	/**
+	 * @throws Exception
+	 */
+	public static function safeUpdateQuery(string $table, array $data, string $condition, array $params): bool
+	{
+		$columns = array_keys($data);
+		$placeholders = implode(' = ?, ', $columns) . ' = ?';
+		$query = "UPDATE $table SET $placeholders WHERE $condition";
+
+		$values = array_merge(array_values($data), $params);
+
+		return QueryHelperService::executePreparedStatement($query, $values);
 	}
 
 	public static function safeString(string $value): string
