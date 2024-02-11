@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Up\Controllers;
 
+use Core\DB\Migrator;
 use Exception;
 use Core\Web\Json;
 use Up\Services\PaginationService;
@@ -123,8 +124,9 @@ class AdminController extends BaseController
 
 		if (isset($data['title']))
 		{
+			$result=Migrator::executeMigrations();
 			echo Json::encode([
-								  'result' => 'Y',
+								'result' => $result > 0 ? 'Y' : 'N',
 							  ]);
 		}
 		else

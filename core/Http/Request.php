@@ -28,7 +28,15 @@ class Request
 		{
 			foreach ($_POST as $key => $value)
 			{
-				$data[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS);
+				if(is_array($value))
+				{
+					$data[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS,FILTER_REQUIRE_ARRAY);
+				}
+				else
+				{
+					$data[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS);
+				}
+
 			}
 		}
 		return $data;
