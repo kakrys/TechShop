@@ -5,17 +5,14 @@ declare(strict_types=1);
 namespace Up\Controllers;
 
 use Exception;
-use Up\Models\Product;
-use Up\Services\AuthenticationService;
+use Core\Web\Json;
 use Up\Services\PaginationService;
 use Up\Services\Repository\BrandService;
 use Up\Services\Repository\OrderService;
 use Up\Services\Repository\ProductService;
-use Up\Services\Repository\RemoveService;
 use Up\Services\Repository\TagService;
-use Up\Services\Repository\UpdateProductService;
 use Up\Services\Repository\UserService;
-use Core\Web\Json;
+
 
 class AdminController extends BaseController
 {
@@ -82,7 +79,7 @@ class AdminController extends BaseController
 		if (isset($data['id']))
 		{
 			$id = $data['id'];
-			$result = RemoveService::delete($id);
+			$result = ProductService::deleteProductByID($id);
 
 			echo Json::encode([
 								  'result' => $result > 0 ? 'Y' : 'N',
@@ -163,7 +160,7 @@ class AdminController extends BaseController
 			$price = (float)$data['price'];
 			$description = (string)$data['description'];
 
-			$result = UpdateProductService::update($id, $title, $price, $description);
+			$result = ProductService::updateProductByID($id, $title, $price, $description);
 			echo Json::encode([
 								  'result' => $result > 0 ? 'Y' : 'N',
 							  ]);

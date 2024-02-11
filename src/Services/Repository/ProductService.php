@@ -2,11 +2,10 @@
 
 namespace Up\Services\Repository;
 
-use Core\DB\DbConnection;
-use Core\Http\Request;
 use Exception;
-use http\Exception\RuntimeException;
-use Up\Services\PaginationService;
+use RuntimeException;
+use Core\Http\Request;
+use Core\DB\DbConnection;
 use Up\Services\SecurityService;
 
 class ProductService
@@ -166,12 +165,15 @@ class ProductService
 	public static function addProduct(): void
 	{
 		$request = Request::getBody();
-
 		$title = $request['name'];
 		$description = $request["description"];
 		$price = $request["price"];
 		$tags = $request["tags"];
 		$brand = $request["brand"];
+
+		//!!!
+		var_dump($_POST);
+		var_dump($tags);
 
 		$productData = [
 			'TITLE' => $title,
@@ -242,5 +244,49 @@ class ProductService
 		}
 
 		return $products;
+	}
+
+	/**
+	 * @throws Exception
+	 */
+	public static function updateProductByID(int $id, string $title, float $price, string $description): bool
+	{
+		$table = 'PRODUCT';
+		$data = [
+			'TITLE' => $title,
+			'DESCRIPTION' => $description,
+			'PRICE' => $price,
+			'DATE_UPDATE' => date('Y-m-d H:i:s'),
+		];
+		$condition = '`ID` = ?';
+		$params = [$id];
+
+		return SecurityService::safeUpdateQuery($table, $data, $condition, $params);
+	}
+
+	/**
+	 * @throws Exception
+	 */
+	public static function deleteProductByID(int $id): void
+	{
+		ImageService::deleteImage($id);
+
+		// Удаление изображений
+		if (!SecurityService::safeDeleteQuery('`IMAGE`','`IMAGE`.`PRODUCT_ID` = ?', [$id]))
+		{
+			throw new RuntimeException('Error delete image:  ' . DbConnection::get()->error);
+		}
+
+		// Удаление тегов
+		if (!SecurityService::safeDeleteQuery('`PRODUCT_TAG`','`PRODUCT_TAG`.`PRODUCT_ID` = ?', [$id]))
+		{
+			throw new RuntimeException('Error delete product_tag:  ' . DbConnection::get()->error);
+		}
+
+		// Удаление продукта
+		if (!SecurityService::safeDeleteQuery('`PRODUCT`','`PRODUCT`.`ID` = ?', [$id]))
+		{
+			throw new RuntimeException('Error delete product:  ' . DbConnection::get()->error);
+		}
 	}
 }
