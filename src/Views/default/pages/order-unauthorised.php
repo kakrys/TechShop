@@ -2,7 +2,6 @@
 /**
  * @var $id
  * @var \Up\Models\Product $product
- * @var \Up\Models\User $user
  */
 ?>
 <div class="wrapper orderTitleContainer">
@@ -11,11 +10,10 @@
 <div class="wrapper order">
 	<div class="order__formContainer">
 		<form class="order__form" action="/success/" method="post">
-            <input class="order__input" id="userName" type="hidden" name="id" value=<?=$user->id?> pattern="^[^\s]+(\s.*)?$" required>
 			<label class="order__label" for="userEmail">E-mail</label>
-			<input class="order__input" id="userEmail" type="email" name="email" value=<?=$user->email?> pattern="^[^\s]+(\s.*)?$" required>
+			<input class="order__input" id="userEmail" type="email" name="email" placeholder="Input Your E-mail" pattern="^[^\s]+(\s.*)?$" required>
 			<label class="order__label" for="userAddress">Ship to</label>
-			<input class="order__input" id="userAddress" type="text" name="address" value=<?=$user->address?> pattern="^[^\s]+(\s.*)?$" required>
+			<input class="order__input" id="userAddress" type="text" name="address" placeholder="Input Your Address" pattern="^[^\s]+(\s.*)?$" required>
 			<input name="productID" type="hidden" value="<?=$product->getId()?>">
 			<input name="productPrice" type="hidden" value="<?=$product->getPrice()?>">
 			<button class="order__addOrder" type="submit">Submit & Order</button>
