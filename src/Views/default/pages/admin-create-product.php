@@ -7,4 +7,4 @@
 		<a href="/admin/1/" class="orderModal__btn">Return To Admin Page</a>
 	</div>
 </div>
-<div class="emptyForBlur"></div>
+

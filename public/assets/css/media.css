@@ -288,6 +288,10 @@
         margin: 0 auto;
         justify-content: center;
     }
+    .adminSection__noResults {
+        top: 0;
+        left: 0;
+    }
 }
 
 @media (max-width: 1024px) {
