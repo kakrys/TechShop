@@ -3,6 +3,9 @@
  * @var $id
  * @var \Up\Models\Product $product
  */
+
+use Up\Services\SecurityService;
+
 ?>
 <div class="wrapper orderTitleContainer">
 	<h1 class="orderTitle">Tech Shop</h1>
@@ -14,8 +17,8 @@
 			<input class="order__input" id="userEmail" type="email" name="email" placeholder="Input Your E-mail" pattern="^[^\s]+(\s.*)?$" required>
 			<label class="order__label" for="userAddress">Ship to</label>
 			<input class="order__input" id="userAddress" type="text" name="address" placeholder="Input Your Address" pattern="^[^\s]+(\s.*)?$" required>
-			<input name="productID" type="hidden" value="<?=$product->getId()?>">
-			<input name="productPrice" type="hidden" value="<?=$product->getPrice()?>">
+			<input name="productID" type="hidden" value="<?=SecurityService::safeString($product->getId())?>">
+			<input name="productPrice" type="hidden" value="<?=SecurityService::safeString($product->getPrice())?>">
 			<button class="order__addOrder" type="submit">Submit & Order</button>
 		</form>
 	</div>

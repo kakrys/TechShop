@@ -22,7 +22,7 @@ class OrderService
 		{
 			$errors = [];
 
-			$userID = SecurityService::safeString($request['id']);
+			$userID = $request['id'];
 			$userEmail = SecurityService::safeString($request['email']);
 			$userAddress = SecurityService::safeString($request['address']);
 			$productID = SecurityService::safeString($request['productID']);
@@ -85,7 +85,7 @@ class OrderService
 		{
 			$result = SecurityService::safeSelectQuery($query);
 		}
-		
+
 		$orders = [];
 
 		while ($row = mysqli_fetch_assoc($result))
@@ -111,10 +111,10 @@ class OrderService
 		try
 		{
 			$errors = [];
-			$userEmail = htmlspecialchars($request['email'], ENT_QUOTES);
-			$userAddress = htmlspecialchars($request['address'], ENT_QUOTES);
-			$productID = htmlspecialchars($request['productID'], ENT_QUOTES);
-			$productPrice = htmlspecialchars($request['productPrice'], ENT_QUOTES);
+			$userEmail = $request['email'];
+			$userAddress = $request['address'];
+			$productID = $request['productID'];
+			$productPrice = $request['productPrice'];
 
 			$orderData = [
 				'PRICE' => $productPrice,

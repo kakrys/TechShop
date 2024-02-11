@@ -1,5 +1,3 @@
-<?php
-?>
 <div class="admin__databaseCont">
 	<h2 class="account__title">Danger Zone</h2>
 	<ul class="admin__databaseList">

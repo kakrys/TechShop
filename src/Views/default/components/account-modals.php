@@ -2,6 +2,9 @@
 /**
  * @var $user
  */
+
+use Up\Services\SecurityService;
+
 ?>
 <div id="accountNameModal">
 	<div class="accountModal__window">
@@ -14,7 +17,7 @@
 		<form class="accountModal__form" action="/updateInfo/" method="post">
 			<div class="accountModal__formContainer">
 				<label class="accountModal__label" for="oldName">Old Name</label>
-				<input class="accountModal__input" id="oldName" type="text" placeholder="<?=$user->name?>" disabled>
+				<input class="accountModal__input" id="oldName" type="text" placeholder="<?=SecurityService::safeString($user->name)?>" disabled>
 			</div>
 			<div class="accountModal__formContainer">
 				<label class="accountModal__label" for="newName">New Name</label>
@@ -36,7 +39,7 @@
 		<form class="accountModal__form" action="/updateInfo/" method="post">
 			<div class="accountModal__formContainer">
 				<label class="accountModal__label" for="oldEmail">Old E-mail</label>
-				<input class="accountModal__input" id="oldEmail" type="text" placeholder="<?=$user->email?>" disabled>
+				<input class="accountModal__input" id="oldEmail" type="text" placeholder="<?=SecurityService::safeString($user->email)?>" disabled>
 			</div>
 			<div class="accountModal__formContainer">
 				<label class="accountModal__label" for="newEmail">New E-mail</label>
@@ -58,7 +61,7 @@
 		<form class="accountModal__form" action="/updateInfo/" method="post">
 			<div class="accountModal__formContainer">
 				<label class="accountModal__label" for="oldSurname">Old Surname</label>
-				<input class="accountModal__input" id="oldSurname" type="text" placeholder="<?=$user->surname?>" disabled>
+				<input class="accountModal__input" id="oldSurname" type="text" placeholder="<?=SecurityService::safeString($user->surname)?>" disabled>
 			</div>
 			<div class="accountModal__formContainer">
 				<label class="accountModal__label" for="newSurname">New Surname</label>
@@ -102,7 +105,7 @@
 		<form class="accountModal__form" action="/updateInfo/" method="post">
 			<div class="accountModal__formContainer">
 				<label class="accountModal__label" for="oldAddress">Old Address</label>
-				<input class="accountModal__input" id="oldAddress" type="text" placeholder="<?=$user->address?>" disabled>
+				<input class="accountModal__input" id="oldAddress" type="text" placeholder="<?=SecurityService::safeString($user->address)?>" disabled>
 			</div>
 			<div class="accountModal__formContainer">
 				<label class="accountModal__label" for="newAddress">New Address</label>
