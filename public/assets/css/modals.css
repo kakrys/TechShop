@@ -363,8 +363,8 @@
 
 .admin__DbForm {
     position: absolute;
-    top: 25%;
-    left: 32%;
+    top: 50%;
+    left: 50%;
     z-index: 4;
     width: 600px;
     display: flex;
@@ -373,6 +373,7 @@
     border-radius: 8px;
     background: #FFF;
     box-shadow: 0 0 0 9999px rgba(0,0,0, 0.5);
+    transform: translate(-50%, -50%);
 }
 
 .admin__DbForm_btnContainer {
