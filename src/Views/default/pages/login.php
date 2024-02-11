@@ -91,3 +91,4 @@
 	</div>
 </div>
 <div class="emptyForBlur"></div>
+<script src="/assets/js/login.js"></script>
