@@ -21,6 +21,15 @@
     .order {
         margin-bottom: 427px;
     }
+    .account {
+        margin: 50px auto 323px;
+    }
+    .nav-container .hamburger-lines {
+        display: none;
+    }
+    .account__sideBarBtn img {
+        display: block;
+    }
 }
 
 @media (max-width: 1680px) {
@@ -42,6 +51,9 @@
     }
     .order {
         margin-bottom: 111px;
+    }
+    .account {
+        margin: 50px auto 129px;
     }
 }
 
@@ -71,6 +83,16 @@
     .modalResponse {
         margin-bottom: 5px;
     }
+    .account__ordersContainer {
+        max-width: 900px;
+    }
+    .adminOrder {
+        max-width: 580px;
+        width: 100%;
+    }
+    .account__ordersInfoList {
+        justify-content: space-evenly;
+    }
 }
 
 @media (max-width: 1366px) {
@@ -94,7 +116,37 @@
     .productSection {
         flex-direction: column;
     }
-
+    .account__main {
+        max-width: 778px;
+    }
+    .admin__productList {
+        grid-template-columns: repeat(3, 250px);
+        gap: 14px;
+    }
+    .admin__createForm_container{
+        height: auto;
+    }
+    .admin__createFieldset {
+        max-width: 100%;
+    }
+    .admin__createForm #name, .admin__createForm #description, .admin__createForm #price {
+        width: 100%;
+    }
+    .selectTag {
+        flex: 1 1 25%;
+        max-width: 99px;
+        text-wrap: nowrap;
+    }
+    .admin__createForm {
+        flex-direction: column;
+    }
+    .admin__createBtn {
+        width: 100%;
+        margin-top: 12px;
+        min-height: 50px;
+        font-size: 20px;
+        text-transform: uppercase;
+    }
 }
 
 @media (max-width: 1280px) {
@@ -114,6 +166,16 @@
     }
     .search__container {
         right: 175px;
+    }
+    .account__sidebar {
+        width: 188px;
+    }
+    .account__sideBarBtn {
+        gap: 10px;
+        font-size: 16px;
+    }
+    .account__sideBarBtn img {
+        display: none;
     }
 }
 
@@ -183,6 +245,37 @@
     .order__input {
         width: 450px;
     }
+    .account__sidebar {
+        display: none;
+    }
+    .nav-container .hamburger-lines {
+        display: flex;
+    }
+    .account__sideBarBtn img {
+        display: block;
+    }
+    .account__main {
+        max-width: 1000px;
+        margin: 0 auto;
+        width: 100%;
+    }
+    .adminUser {
+        max-width: 100%;
+    }
+    .adminOrder {
+        margin: 0 auto;
+        max-width: 900px;
+    }
+    .account__ordersInfoList {
+        justify-content: flex-start;
+    }
+    .admin__createForm {
+        justify-content: center;
+        align-items: center;
+    }
+    .admin__createForm_container {
+        width: 100%;
+    }
 }
 
 @media (max-width: 1024px) {
@@ -242,6 +335,29 @@
         width: 100%;
         order: -1;
     }
+    .admin__productList  {
+        grid-template-columns: repeat(3, 200px);
+        gap: 10px;
+    }
+    .admin__productTitle {
+        width: 170px;
+    }
+    .title__container {
+        width: 100%;
+    }
+    .admin__usersInfoList {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 30px;
+    }
+    .account__userInfoItem {
+        max-width: 175px;
+    }
+    .admin__edit {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
 }
 
 @media (max-width: 765px) {
@@ -253,6 +369,13 @@
     }
     .detail__infoContainer {
         align-items: center;
+    }
+    .admin__databaseCont {
+        min-width: 100%;
+    }
+    .admin__productList {
+        grid-template-columns: repeat(2, 250px);
+        gap: 20px 30px;
     }
 }
 
@@ -335,6 +458,16 @@
     .modalCard__availability {
         margin: 5px auto;
     }
+    .admin__productList {
+        grid-template-columns: repeat(2, 200px);
+        gap: 20px;
+    }
+    .account__ordersInfoList {
+        justify-content: center;
+    }
+    .admin__DbForm {
+        width: 350px;
+    }
 }
 
 @media (max-width: 534px) {
@@ -405,6 +538,32 @@
     .order__input {
         width: 290px;
     }
+    .admin__usersInfoList {
+        justify-content: center;
+    }
+    .admin__productList {
+        grid-template-columns: repeat(2, 165px);
+        gap: 20px;
+    }
+    .admin__productImage {
+        max-width: 140px;
+    }
+    .admin__productTextContainer {
+        max-width: 95%;
+    }
+    .admin__productTitle {
+        width: 142px;
+    }
+    .admin__productItem {
+        min-height: 270px;
+    }
+    .admin__productEdit {
+        font-size: 14px;
+        padding: 8px 6px;
+    }
+    .admin__editInput {
+        width: 360px;
+    }
 }
 
 @media (max-width: 430px) {
@@ -460,6 +619,27 @@
     }
     .modalCard {
         height: 100%;
+    }
+    .admin__productList {
+        grid-template-columns: repeat(2, 150px);
+        gap: 15px;
+    }
+    .admin__productImage {
+        max-width: 110px;
+    }
+    .admin__productTitle {
+        width: 125px;
+    }
+    .admin__databaseCont {
+        padding: 20px;
+    }
+    .admin__databaseList {
+        margin-left: 0;
+    }
+    .admin__databaseBtn {
+        padding: 5px;
+        gap: 0;
+        font-size: 14px;
     }
 }
 
