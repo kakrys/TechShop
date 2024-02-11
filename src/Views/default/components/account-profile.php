@@ -7,7 +7,7 @@ use Up\Services\SecurityService;
 
 ?>
 
-<div class="title__container">
+<div class="title__container user__titleContainer">
 	<h1 class="account__title">Identification</h1>
 	<p class="account__subtitle">Verify your identity</p>
 </div>

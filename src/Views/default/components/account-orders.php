@@ -8,6 +8,8 @@
 	<h1 class="account__title">Order History</h1>
 </div>
 <div class="user__ordersContainer">
+	<?php if (isset($orders)): ?>
+	<?php if (count($orders) > 0): ?>
 	<?php foreach ($orders as $order):?>
 	<div class="userOrder">
 		<ul class="user__ordersInfoList">
@@ -34,4 +36,13 @@
 		</ul>
 	</div>
 	<?php endforeach;?>
+		<?php else: ?>
+			<div class="userSection__noResults">
+				<img src="/assets/images/common/no-results.svg" alt="No Results in Tech Shop">
+				<p>Your Order List is Empty now</p>
+			</div>
+		<?php endif; ?>
+	<?php else: ?>
+		<p>No found</p>
+	<?php endif; ?>
 </div>
