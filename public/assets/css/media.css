@@ -177,6 +177,9 @@
     .account__sideBarBtn img {
         display: none;
     }
+    #user {
+        padding: 28px 30px 82px;
+    }
 }
 
 @media (max-width: 1180px) {
@@ -276,6 +279,15 @@
     .admin__createForm_container {
         width: 100%;
     }
+    .account__editData {
+        margin: 23px auto 0;
+    }
+    .title__container {
+        max-width: 850px;
+        width: 100%;
+        margin: 0 auto;
+        justify-content: center;
+    }
 }
 
 @media (max-width: 1024px) {
@@ -358,6 +370,13 @@
         left: 50%;
         transform: translate(-50%, -50%);
     }
+    .account__editData {
+        justify-content: center;
+    }
+    .user__titleContainer {
+        width: 50%;
+        margin: 0 auto;
+    }
 }
 
 @media (max-width: 765px) {
@@ -376,6 +395,14 @@
     .admin__productList {
         grid-template-columns: repeat(2, 250px);
         gap: 20px 30px;
+    }
+    .user__ordersInfoList {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 11px;
+    }
+    .user__ordersInfoItem {
+        max-width: 206px;
     }
 }
 
@@ -467,6 +494,17 @@
     }
     .admin__DbForm {
         width: 350px;
+    }
+    .user__titleContainer {
+        width: 80%;
+    }
+    .user__ordersInfoList {
+        justify-content: center;
+        gap: 15px;
+    }
+    .user__ordersInfoSubtitle {
+        margin-top: 20px;
+        font-size: 17px;
     }
 }
 
@@ -640,6 +678,12 @@
         padding: 5px;
         gap: 0;
         font-size: 14px;
+    }
+    .editData__form {
+        width: 330px;
+    }
+    #user {
+        padding: 12px 30px;
     }
 }
 
