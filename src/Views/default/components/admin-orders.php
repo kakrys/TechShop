@@ -31,10 +31,6 @@ use Up\Models\Order;
 				<p class="account__ordersInfoSubtitle"><?=$order->productTitle?></p>
 			</li>
 			<li class="account__ordersInfoItem">
-				<h4 class="account__ordersInfoTitle">Sent to</h4>
-				<p class="account__ordersInfoSubtitle"><?=$order->userName . ' ' . $order->userSurname?></p>
-			</li>
-			<li class="account__ordersInfoItem">
 				<h4 class="account__ordersInfoTitle">E-mail address</h4>
 				<p class="account__ordersInfoSubtitle"><?=$order->userEmail?></p>
 			</li>
@@ -46,6 +42,14 @@ use Up\Models\Order;
 				<h4 class="account__ordersInfoTitle">Quantity</h4>
 				<p class="account__ordersInfoSubtitle">1</p>
 			</li>
+			<?php if (isset($order->userName)): ?>
+				<li class="account__ordersInfoItem">
+					<h4 class="account__ordersInfoTitle">Sent to</h4>
+					<p class="account__ordersInfoSubtitle"><?=$order->userName . ' ' . $order->userSurname?></p>
+				</li>
+			<?php else: ?>
+				<li class="account__ordersInfoItem" style="display: none"></li>
+			<?php endif; ?>
 		</ul>
 	</div>
 	<?php endforeach;?>
