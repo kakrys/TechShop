@@ -150,7 +150,7 @@ const customBtn = document.querySelector('#customBtn');
 const image = document.querySelector(".admin__createForm_img");
 const cancelBtn = document.querySelector("#admin__createForm_cancelBtn");
 
-let regExp = /[0-9a-zA-z\^\&\'\@\{\}\[\]\,\$\=\!\-\#\(\)\.\%\+\~\_ ]+$/;
+let regExp = /.:\\.+\\/;
 
 function defaultBtnActive()
 {
@@ -176,7 +176,7 @@ function defaultBtnActive()
 		}
 		if (this.value)
 		{
-			let valueStorage = this.value.match(regExp);
+			let valueStorage = this.value.replace(regExp, ' ');
 			fileName.textContent = valueStorage;
 		}
 	});

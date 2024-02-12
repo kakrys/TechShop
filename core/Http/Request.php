@@ -65,7 +65,3 @@ class Request
 		return $files;
 	}
 }
-
-//Example How To Use
-//$request = Request::getBody();
-//var_dump($request['name']);

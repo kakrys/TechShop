@@ -171,10 +171,6 @@ class ProductService
 		$tags = $request["tags"];
 		$brand = $request["brand"];
 
-		//!!!
-		var_dump($_POST);
-		var_dump($tags);
-
 		$productData = [
 			'TITLE' => $title,
 			'DESCRIPTION' => $description,
