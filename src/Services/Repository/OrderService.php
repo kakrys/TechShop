@@ -70,14 +70,14 @@ class OrderService
 	public static function getOrderList($userEmail = null): array
 	{
 		$query = "SELECT O.`ID`, O.`DATE_CREATE`, O.`PRICE`,"
-			. " U.`NAME`, U.`SURNAME`, U.`EMAIL`, U.`ADDRESS`, P.`TITLE` "
-			. " FROM `ORDER` O INNER JOIN `USER` U ON O.`USER_ID` = U.`ID`"
+			. " U.`NAME`, U.`SURNAME`, O.`EMAIL`, O.`ADDRESS`, P.`TITLE` "
+			. " FROM `ORDER` O left JOIN `USER` U ON O.`USER_ID` = U.`ID`"
 			. " INNER JOIN `PRODUCT_ORDER` PR ON O.`ID` = PR.`ORDER_ID`"
 			. "INNER JOIN `PRODUCT` P ON PR.PRODUCT_ID = P.ID";
 
 		if ($userEmail !== null)
 		{
-			$query .= " WHERE U.EMAIL=?";
+			$query .= " WHERE O.EMAIL=?";
 			$params = [$userEmail];
 			$result = SecurityService::safeSelectQuery($query, $params);
 		}

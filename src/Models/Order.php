@@ -7,8 +7,8 @@ class Order
 	readonly int $id;
 	readonly string $dataCreate;
 	readonly float $price;
-	readonly string $userName;
-	readonly string $userSurname;
+	readonly ?string $userName;
+	readonly ?string $userSurname;
 	readonly string $userEmail;
 	readonly string $userAddress;
 	readonly string $productTitle;
@@ -27,8 +27,8 @@ class Order
 		int    $id,
 		string $dataCreate,
 		float  $price,
-		string $userName,
-		string $userSurname,
+		?string $userName,
+		?string $userSurname,
 		string $userEmail,
 		string $userAddress,
 		string $productTitle
@@ -37,8 +37,8 @@ class Order
 		$this->id = $id;
 		$this->dataCreate = $dataCreate;
 		$this->price = $price;
-		$this->userName = $userName;
-		$this->userSurname = $userSurname;
+		$this->userName = $userName??null;
+		$this->userSurname = $userSurname??null;
 		$this->userEmail = $userEmail;
 		$this->userAddress = $userAddress;
 		$this->productTitle = $productTitle;
