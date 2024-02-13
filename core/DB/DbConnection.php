@@ -16,10 +16,7 @@ class DbConnection
 
 	private function __clone(){}
 
-	public function __wakeup()
-	{
-		throw new \RuntimeException("Cannot unserialize singleton");
-	}
+	private function __wakeup(){}
 
 	/**
 	 * @return mysqli
