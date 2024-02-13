@@ -14,7 +14,7 @@ class UserController extends BaseController
 	/**
 	 * @throws Exception
 	 */
-	public function userAction(): string
+	public function userAction(): string|null
 	{
 		session_start();
 		if (isset($_SESSION['UserEmail']))
@@ -33,38 +33,33 @@ class UserController extends BaseController
 		}
 
 		header('Location: /login/');
+		return null;
 	}
 
-	public function updateInfoAction(): void
+	public function updateInfoAction(): string
 	{
 		session_start();
 		$request = Request::getBody();
 		$arrayKey = array_key_first($request);
 		$updateField = mb_substr($arrayKey, 3);
 		$funcName = 'updateUser' . $updateField;
-		UserService::$funcName();
-		header('Location: /account/');
+
+		if (!UserService::$funcName())
+		{
+			$warning = "Invalid " . $updateField;
+		}
+
+		$user = UserService::getUserByEmail($_SESSION['UserEmail']);
+		$orders = OrderService::getOrderList($_SESSION['UserEmail']);
+		$params = [
+			'userEmail' => $user->email,
+			'user' => $user,
+			'userFullName' => $user->name . ' ' . $user->surname,
+			'orders' => $orders,
+			'warning' => $warning ?? '',
+		];
+
+		return $this->render('account', $params);
+		// header('Location: /account/');
 	}
 }
-
-// if (isset($request['newName']))
-// {
-// 	UserService::updateUserName();
-// }
-// if (isset($request['newSurname']))
-// {
-// 	UserService::updateUserSurname();
-// }
-// if (isset($request['newAddress']))
-// {
-// 	UserService::updateUserAddress();
-// }
-// if (isset($request['newPassword']))
-// {
-// 	UserService::updateUserPassword();
-// }
-// if (isset($request['newEmail']))
-// {
-// 	UserService::updateUserEmail();
-//
-// }

@@ -4,6 +4,7 @@
  * @var $userEmail
  * @var \Up\Models\User $user
  * @var \Up\Models\Order $orders
+ * @var $warning
  */
 ?>
 <div class="navbar">
@@ -64,7 +65,7 @@
 		</nav>
 	</aside>
 	<main class="account__main" id="accountProfileContainer" data-user-cont="0">
-		<?= $this->renderComponent('account-profile', ['user' => $user, 'userEmail' => $userEmail]) ?>
+		<?= $this->renderComponent('account-profile', ['user' => $user, 'userEmail' => $userEmail, 'warning' => $warning ?? '']) ?>
 	</main>
 	<main class="account__main" id="accountOrderContainer" data-user-cont="1">
 		<?= $this->renderComponent('account-orders', ['orders' => $orders]) ?>

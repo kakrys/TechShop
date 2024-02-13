@@ -117,7 +117,7 @@ class UserService
 		$condition = 'EMAIL = ?';
 		$params = [$session['UserEmail']];
 
-		if (empty(trim($userNewName)))
+		if (!preg_match('/^[a-zа-яёA-ZА-ЯЁ]+$/u', $userNewName) || empty(trim($userNewName)))
 		{
 			return false;
 		}
@@ -140,7 +140,7 @@ class UserService
 		$condition = 'EMAIL = ?';
 		$params = [$session['UserEmail']];
 
-		if (empty(trim($userNewSurname)))
+		if (!preg_match('/^[a-zа-яёA-ZА-ЯЁ]+$/u', $userNewSurname) || empty(trim($userNewSurname)))
 		{
 			return false;
 		}

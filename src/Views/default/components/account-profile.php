@@ -1,7 +1,9 @@
 <?php
 /**
  * @var $user
+ * @var $warning
  */
+
 
 use Up\Services\SecurityService;
 
@@ -74,7 +76,7 @@ use Up\Services\SecurityService;
 	<li class="editData__item">
 		<h2 class="editData__title">Warning</h2>
 		<div style="background-color: #FFD580;" class="editData__form">
-			<p class="editData__text">Your Warning is here</p>
+			<p class="editData__text"><?= $warning ?? '' ?></p>
 		</div>
 	</li>
 </ul>
