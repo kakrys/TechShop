@@ -29,7 +29,7 @@ class Request
 				$filteredArray[$key]=filter_var($arrayElement, FILTER_SANITIZE_SPECIAL_CHARS);
 			}
 		}
-		return $filteredArray ;
+		return $filteredArray;
 	}
 
 	public static function getBody(): array|null
@@ -37,27 +37,10 @@ class Request
 		$data = [];
 		if (self::method() === 'GET')
 		{
-//			foreach ($_GET as $key => $value)
-//			{
-//				$data[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_SPECIAL_CHARS);
-//			}
 			$data=self::filterArray($_GET);
-//			var_dump($_GET);
-//			var_dump($data);
 		}
 		if (self::method() === 'POST')
 		{
-//			foreach ($_POST as $key => $value)
-//			{
-//				if(is_array($value))
-//				{
-//					$data[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS,FILTER_REQUIRE_ARRAY);
-//				}
-//				else
-//				{
-//					$data[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS);
-//				}
-//			}
 			$data=self::filterArray($_POST);
 		}
 		return $data;
