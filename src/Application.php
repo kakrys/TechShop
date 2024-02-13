@@ -27,7 +27,7 @@ class Application
 		else
 		{
 			http_response_code(404);
-			include_once "Views/default/pages/_404.php";
+			require_once "Views/default/pages/_404.php";
 			exit;
 		}
 	}

@@ -6,8 +6,6 @@ namespace Up\Services;
 
 class PaginationService
 {
-
-
 	public static function determinePage(int $pageNumber, array $productArray): array
 	{
 		$pageArray = [];

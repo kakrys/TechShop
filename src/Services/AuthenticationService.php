@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Up\Services;
 
 use Up\Models\User;
-use Up\Services\Repository\UserService;
+
 class AuthenticationService
 {
 	/**

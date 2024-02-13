@@ -23,10 +23,10 @@ class OrderService
 			$errors = [];
 
 			$userID = $request['id'];
-			$userEmail = SecurityService::safeString($request['email']);
-			$userAddress = SecurityService::safeString($request['address']);
-			$productID = SecurityService::safeString($request['productID']);
-			$productPrice = SecurityService::safeString($request['productPrice']);
+			$userEmail = $request['email'];
+			$userAddress = $request['address'];
+			$productID = $request['productID'];
+			$productPrice = $request['productPrice'];
 
 			$orderData = [
 				'PRICE' => $productPrice,

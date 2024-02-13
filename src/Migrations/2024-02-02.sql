@@ -9,7 +9,7 @@ VALUES (1, 1, '1.jpg', 1),
        (6, 6, '6.png', 1),
        (7, 7, '7.webp', 1),
        (8, 8, '8.webp', 1),
-       (9, 9, '9.jpg', 1),
+       (9, 9, '9.png', 1),
        (10, 10, '10.png', 1);
 
 INSERT INTO `STATUS` (`ID`, `TITLE`)
