@@ -7,6 +7,7 @@ namespace Up\Controllers;
 use Core\DB\Migrator;
 use Exception;
 use Core\Web\Json;
+use Up\Cache\FileCache;
 use Up\Services\PaginationService;
 use Up\Services\Repository\BrandService;
 use Up\Services\Repository\OrderService;
