@@ -19,7 +19,7 @@
 		</article>
 	</section>
 </div>
-<aside class="margin">
+<aside>
 	<div class="wrapper">
 		<ul class="aside__list">
 			<li class="aside__item">
@@ -63,6 +63,63 @@
 </aside>
 <section>
 	<div class="wrapper">
+		<div class="product__container">
+			<div class="product__header">
+				<h3 class="product__title">New Products</h3>
+				<a href="/catalog/newProducts" class="products__link">View all <img src="/assets/images/common/blackArrow.svg"
+																					alt="View all new products"></a>
+			</div>
+			<ul class="productSection__list">
+				<li class="mainSection__item">
+					<a href="/detail/id=?" class="mainSection__link">
+						<img src="/assets/images/adminFolder/macbook12.png" alt="product Image" class="mainSection__img">
+						<div class="description__section">
+							<p class="description__title">Apple MacBook Air 15" w/ Touch ID (2023) - Space Grey (Apple M2 Chip / 256GB SSD / 8GB RAM) - French</p>
+							<div class="product__footer_container">
+								<p class="product__cost">$1018.00</p>
+							</div>
+						</div>
+					</a>
+				</li>
+				<li class="mainSection__item">
+					<a href="/detail/id=?" class="mainSection__link">
+						<img src="/assets/images/adminFolder/macbook12.png" alt="product Image" class="mainSection__img">
+						<div class="description__section">
+							<p class="description__title">Apple MacBook Air 15" w/ Touch ID (2023) - Space Grey (Apple M2 Chip / 256GB SSD / 8GB RAM) - French</p>
+							<div class="product__footer_container">
+								<p class="product__cost">$1018.00</p>
+							</div>
+						</div>
+					</a>
+				</li>
+				<li class="mainSection__item">
+					<a href="/detail/id=?" class="mainSection__link">
+						<img src="/assets/images/adminFolder/macbook12.png" alt="product Image" class="mainSection__img">
+						<div class="description__section">
+							<p class="description__title">Apple MacBook Air 15" w/ Touch ID (2023) - Space Grey (Apple M2 Chip / 256GB SSD / 8GB RAM) - French</p>
+							<div class="product__footer_container">
+								<p class="product__cost">$1018.00</p>
+							</div>
+						</div>
+					</a>
+				</li>
+				<li class="mainSection__item">
+					<a href="/detail/id=?" class="mainSection__link">
+						<img src="/assets/images/adminFolder/macbook12.png" alt="product Image" class="mainSection__img">
+						<div class="description__section">
+							<p class="description__title">Apple MacBook Air 15" w/ Touch ID (2023) - Space Grey (Apple M2 Chip / 256GB SSD / 8GB RAM) - French</p>
+							<div class="product__footer_container">
+								<p class="product__cost">$1018.00</p>
+							</div>
+						</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</section>
+<section>
+	<div class="wrapper">
 		<div class="banners-section">
 			<a href="/product/<?=$addProducts[0]?>/" class="banner__link">
 				<img src="/assets/images/common/banner3.jpg" alt="Iphone 15 Series banner">
@@ -73,5 +130,4 @@
 		</div>
 	</div>
 </section>
-
 

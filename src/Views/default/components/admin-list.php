@@ -17,6 +17,7 @@
 			<p class="admin__productDescription" data-description="<?=$product->getDescription()?>"></p>
 			<p class="admin__productCost" data-price="<?=$product->getPrice()?>" >$<?=$product->getPrice()?></p>
 			<button class="admin__productEdit">Edit Product</button>
+			<button class="admin__productStatus activeStatus" onclick="toggleButton(this)">Active</button>
 			<button onclick="removeItem(<?=$product->getId()?>, '<?=$product->getTitle()?>')" id="dangerBtn" class="admin__productDelete"><img src="/assets/images/common/bin.svg" alt="delete product" class="deleteImg"></button>
 		</div>
 	</li>
