@@ -74,7 +74,21 @@
     color: #FFFFFF;
     transition: 0.3s;
 }
-
+.admin__productStatus {
+    width: 90px;
+}
+.activeStatus {
+    padding: 5px;
+    font-size: 15px;
+    font-weight: 400;
+    color: #146C43;
+}
+.non-activeStatus {
+    padding: 5px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #C91433;
+}
 /*admin order content styles start*/
 .account__ordersContainer {
     margin-top: 24px;

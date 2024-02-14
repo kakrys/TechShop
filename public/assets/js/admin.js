@@ -349,3 +349,19 @@ updateBtn.addEventListener('click', async function () {
 		console.log('update error:' + error);
 	}
 });
+
+//toggle btn for product Status
+function toggleButton(btn) {
+	if (btn.classList.contains('activeStatus'))
+	{
+		btn.classList.remove('activeStatus');
+		btn.classList.add('non-activeStatus');
+		btn.textContent = 'Non-Active';
+	}
+	else
+	{
+		btn.classList.remove('non-activeStatus');
+		btn.classList.add('activeStatus');
+		btn.textContent = 'Active';
+	}
+}
