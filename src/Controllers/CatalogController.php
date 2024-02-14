@@ -4,6 +4,7 @@ namespace Up\Controllers;
 
 use Core\Http\Request;
 use Exception;
+use Up\Cache\FileCache;
 use Up\Services\PaginationService;
 use Up\Services\Repository\ProductService;
 use Up\Services\Repository\TagService;
@@ -18,8 +19,12 @@ class CatalogController extends BaseController
 		$productArray = ProductService::getProductList($pageNumber, $tagName);
 		$pageArray = PaginationService::determinePage($pageNumber,$productArray);
 		$productArray = PaginationService::trimProductArray($productArray);
+		$cache = new FileCache();
+		$tags = $cache->remember('tags', 3600,function(){
+			return TagService::getTagList();
+		});
 		$params = [
-			'tags' => TagService::getTagList(),
+			'tags' => $tags['data'] ?? $tags,
 			'tag' => $tagName,
 			'pageNumber' => $pageNumber,
 			'products' => $productArray,
@@ -36,8 +41,12 @@ class CatalogController extends BaseController
 		$productArray = ProductService::getProductsByTitle($pageNumber,$productTitle);
 		$pageArray = PaginationService::determinePage($pageNumber,$productArray);
 		$productArray = PaginationService::trimProductArray($productArray);
+		$cache = new FileCache();
+		$tags = $cache->remember('tags', 3600,function(){
+			return TagService::getTagList();
+		});
 		$params = [
-			'tags' => TagService::getTagList(),
+			'tags' => $tags['data'] ?? $tags,
 			'tag' => $tagName,
 			'pageNumber' => $pageNumber,
 			'products' => $productArray,

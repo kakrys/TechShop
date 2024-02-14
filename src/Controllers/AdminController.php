@@ -31,10 +31,14 @@ class AdminController extends BaseController
 			$pageArray = PaginationService::determinePage($pageNumber, $productArray);
 			$productArray = PaginationService::trimProductArray($productArray);
 			$user = UserService::getUserByEmail($_SESSION['AdminEmail']);
+			$cache = new FileCache();
+			$tags = $cache->remember('tags', 3600,function(){
+				return TagService::getTagList();
+			});
 			$params = [
 				'adminFullName' => $user->name . ' ' . $user->surname,
 				'adminEmail' => $user->email,
-				'tags' => TagService::getTagList(),
+				'tags' => $tags['data'] ,
 				'brands' => BrandService::getBrandList(),
 				'orders' => OrderService::getOrderList(),
 				'products' => $productArray,
