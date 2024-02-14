@@ -73,7 +73,7 @@ use Up\Services\SecurityService;
 			</button>
 		</form>
 	</li>
-	<li class="editData__item">
+	<li class="editData__item" <?= !empty($warning) ? ' ' : 'style = "display:none;" ' ?>>
 		<h2 class="editData__title">Warning</h2>
 		<div style="background-color: #FFD580;" class="editData__form">
 			<p class="editData__text"><?= $warning ?? '' ?></p>
