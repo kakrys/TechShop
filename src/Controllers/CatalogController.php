@@ -25,7 +25,9 @@ class CatalogController extends BaseController
 		$tags = $cache->remember('tags', 3600,function(){
 			return TagService::getTagList();
 		});
-		$brandArray=BrandService::getBrandList();
+		$brands = $cache->remember('brands', 3600,function(){
+			return BrandService::getBrandList();
+		});
 		$params = [
 			'tags' => $tags['data'] ?? $tags,
 			'tag' => $tagName,
@@ -33,7 +35,7 @@ class CatalogController extends BaseController
 			'products' => $productArray,
 			'tagName'=> $tagName,
 			'pageArray'=> $pageArray,
-			'brandArray'=>$brandArray,
+			'brandArray'=>$brands['data'] ?? $brands,
 			'activeBrands'=>$request['activeBrands']??null
 		];
 		return $this->render('catalog', $params);
