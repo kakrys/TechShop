@@ -31,7 +31,7 @@ class FileCache
 			return null;
 		}
 
-		$data = unserialize(file_get_contents($path), ['allowed_classes' => false]);
+		$data = unserialize(file_get_contents($path), ['allowed_classes' => [Tag::class]]);
 		$ttl = $data['ttl'];
 
 		if (time() > $ttl)
