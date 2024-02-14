@@ -4,6 +4,8 @@
  * @var $tagName
  * @var $pageArray
  * @var $tags
+ * @var $brandArray
+ * @var $activeBrands
  */
 ?>
 <div class="wrapper main">
@@ -27,7 +29,7 @@
 		</ul>
 	</nav>
 	<section class="productSection">
-		<?= $this->renderComponent('catalog-filters', []) ?>
+		<?= $this->renderComponent('catalog-filters', ['brandArray'=>$brandArray,'activeBrands'=>$activeBrands]) ?>
 		<div class="mainSection">
 			<ul class="mainSection__list">
 				<?php foreach($products as $product):?>

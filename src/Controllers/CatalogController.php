@@ -6,6 +6,7 @@ use Core\Http\Request;
 use Exception;
 use Up\Cache\FileCache;
 use Up\Services\PaginationService;
+use Up\Services\Repository\BrandService;
 use Up\Services\Repository\ProductService;
 use Up\Services\Repository\TagService;
 
@@ -20,16 +21,20 @@ class CatalogController extends BaseController
 		$pageArray = PaginationService::determinePage($pageNumber,$productArray);
 		$productArray = PaginationService::trimProductArray($productArray);
 		$cache = new FileCache();
+		$request=Request::getBody();
 		$tags = $cache->remember('tags', 3600,function(){
 			return TagService::getTagList();
 		});
+		$brandArray=BrandService::getBrandList();
 		$params = [
 			'tags' => $tags['data'] ?? $tags,
 			'tag' => $tagName,
 			'pageNumber' => $pageNumber,
 			'products' => $productArray,
 			'tagName'=> $tagName,
-			'pageArray'=> $pageArray
+			'pageArray'=> $pageArray,
+			'brandArray'=>$brandArray,
+			'activeBrands'=>$request['activeBrands']??null
 		];
 		return $this->render('catalog', $params);
 	}
