@@ -20,7 +20,8 @@ Router::get('/catalog/:tag/:id/:search/', [new Up\Controllers\CatalogController(
 Router::post('/updateInfo/', [new \Up\Controllers\UserController(), 'updateInfoAction']);
 
 //fetch-api
-Router::post('/remove/',[new \Up\Controllers\AdminController(), 'removeAction']);
+Router::post('/remove/', [new \Up\Controllers\AdminController(), 'removeProductAction']);
+Router::post('/removeUser/', [new \Up\Controllers\AdminController(), 'removeUserAction']);
 Router::post('/migrations/execute/', [new \Up\Controllers\AdminController(), 'executeAction']);
 Router::post('/database/delete/', [new \Up\Controllers\AdminController(), 'dbAction']);
 Router::post('/update/product/', [new \Up\Controllers\AdminController(), 'updateProductAction']);

@@ -72,7 +72,7 @@ class AdminController extends BaseController
 	/**
 	 * @throws Exception
 	 */
-	public function removeAction(): void
+	public function removeProductAction(): void
 	{
 		header('Content-Type: application/json');
 		$input = file_get_contents('php://input');
@@ -95,6 +95,34 @@ class AdminController extends BaseController
 							  ]);
 		}
 	}
+
+	/**
+	 * @throws Exception
+	 */
+	public function removeUserAction(): void
+	{
+		header('Content-Type: application/json');
+		$input = file_get_contents('php://input');
+		$data = Json::decode($input);
+
+		if (isset($data['id']))
+		{
+			$id = $data['id'];
+			$result = UserService::deleteUserByID($id);
+
+			echo Json::encode([
+								  'result' => $result > 0 ? 'Y' : 'N',
+							  ]);
+		}
+		else
+		{
+			echo Json::encode([
+								  'result' => 'N',
+								  'error' => 'Id not provided',
+							  ]);
+		}
+	}
+
 
 	public function dbAction(): void
 	{

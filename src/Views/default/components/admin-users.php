@@ -12,7 +12,7 @@
 			<ul class="admin__usersInfoList">
 				<li class="account__userInfoItem">
 					<h4 class="account__ordersInfoTitle">User code</h4>
-					<p class="account__ordersInfoSubtitle">#<?=$user->id?></p>
+					<p class="account__ordersInfoSubtitle" data-id="<?=$user->id?>">#<?=$user->id?></p>
 				</li>
 				<li class="account__userInfoItem">
 					<h4 class="account__ordersInfoTitle">User Name</h4>
@@ -27,7 +27,7 @@
 					<p class="account__ordersInfoSubtitle"><?=$user->address?></p>
 				</li>
 				<li class="account__userInfoItem admin__userDelete">
-					<button id="dangerBtn">
+					<button id="dangerBtn" onclick="removeUser(<?=$user->id?>, '<?=$user->name . ' ' . $user->surname?>')">
 						<img src="/assets/images/common/bin.svg" alt="delete user" class="deleteImg">
 					</button>
 				</li>
