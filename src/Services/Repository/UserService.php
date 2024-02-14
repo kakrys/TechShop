@@ -2,18 +2,17 @@
 
 namespace Up\Services\Repository;
 
-use Core\DB\DbConnection;
-use Core\Http\Request;
 use Exception;
-use RuntimeException;
 use Up\Models\User;
-use Up\Services\SecurityService;
+use RuntimeException;
+use Core\Http\Request;
+use Core\DB\DbConnection;
+use Core\DB\SafeQueryBuilder;
 
 class UserService
 {
 	/**
 	 * @param string|null $email
-	 *
 	 * @return User|null
 	 * @throws Exception
 	 */
@@ -26,7 +25,7 @@ class UserService
 
 		$query = "SELECT * from USER where EMAIL = ?";
 
-		$result = SecurityService::safeSelectQuery($query, [$email]);
+		$result = SafeQueryBuilder::Select($query, [$email]);
 
 		$row = mysqli_fetch_assoc($result);
 		if (!$row)
@@ -56,7 +55,7 @@ class UserService
 
 		$roleID = 2;
 
-		$result = SecurityService::safeSelectQuery($query, [$roleID]);
+		$result = SafeQueryBuilder::Select($query, [$roleID]);
 
 		$users = [];
 
@@ -96,7 +95,7 @@ class UserService
 			'ENTITY_STATUS_ID' => 1,
 		];
 
-		if (!SecurityService::safeInsertQuery('USER', $userData))
+		if (!SafeQueryBuilder::Insert('USER', $userData))
 		{
 			return false;
 		}
@@ -124,7 +123,7 @@ class UserService
 			return false;
 		}
 
-		return SecurityService::safeUpdateQuery($table, $data, $condition, $params);
+		return SafeQueryBuilder::Update($table, $data, $condition, $params);
 	}
 
 	/**
@@ -147,7 +146,7 @@ class UserService
 			return false;
 		}
 
-		return SecurityService::safeUpdateQuery($table, $data, $condition, $params);
+		return SafeQueryBuilder::Update($table, $data, $condition, $params);
 	}
 
 	/**
@@ -175,7 +174,7 @@ class UserService
 		}
 		$_SESSION['UserEmail'] = $userNewEmail;
 
-		return SecurityService::safeUpdateQuery($table, $data, $condition, $params);
+		return SafeQueryBuilder::Update($table, $data, $condition, $params);
 	}
 
 	/**
@@ -198,7 +197,7 @@ class UserService
 			return false;
 		}
 
-		return SecurityService::safeUpdateQuery($table, $data, $condition, $params);
+		return SafeQueryBuilder::Update($table, $data, $condition, $params);
 	}
 
 	/**
@@ -221,7 +220,7 @@ class UserService
 			return false;
 		}
 
-		return SecurityService::safeUpdateQuery($table, $data, $condition, $params);
+		return SafeQueryBuilder::Update($table, $data, $condition, $params);
 	}
 
 	/**
@@ -229,7 +228,7 @@ class UserService
 	 */
 	public static function deleteUserByID(int $id): void
 	{
-		if (!SecurityService::safeDeleteQuery('`USER`','`USER`.`ID` = ?', [$id]))
+		if (!SafeQueryBuilder::Delete('`USER`','`USER`.`ID` = ?', [$id]))
 		{
 			throw new RuntimeException('Error delete user:  ' . DbConnection::get()->error);
 		}

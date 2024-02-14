@@ -2,11 +2,12 @@
 
 namespace Up\Services\Repository;
 
-use Core\DB\DbConnection;
-use Core\Http\Request;
 use Exception;
 use Up\Models\Image;
-use Up\Services\SecurityService;
+use Core\Http\Request;
+use Core\DB\DbConnection;
+use Core\DB\SafeQueryBuilder;
+
 
 class ImageService
 {
@@ -23,7 +24,7 @@ class ImageService
 			'IS_COVER' => 1,
 		];
 
-		if (!SecurityService::safeInsertQuery('IMAGE', $imageData))
+		if (!SafeQueryBuilder::Insert('IMAGE', $imageData))
 		{
 			throw new \RuntimeException('Error adding an image: ' . DbConnection::get()->error);
 		}
@@ -64,7 +65,7 @@ class ImageService
 	{
 		$query = "SELECT `PATH`,`PRODUCT_ID` FROM `IMAGE` WHERE `PRODUCT_ID`=?";
 
-		$result = SecurityService::safeSelectQuery($query, [$productId]);
+		$result = SafeQueryBuilder::Select($query, [$productId]);
 
 		while ($row = mysqli_fetch_assoc($result))
 		{

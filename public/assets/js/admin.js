@@ -91,7 +91,7 @@ async function removeItem(id, title)
 
 async function removeUser(id, fullName)
 {
-	const shouldRemove = confirm(`Are you sure you want to delete this product: ${fullName}`);
+	const shouldRemove = confirm(`Are you sure you want to delete this user: ${fullName}`);
 	if (!shouldRemove)
 	{
 		return;

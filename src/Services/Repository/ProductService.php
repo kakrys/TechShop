@@ -6,7 +6,7 @@ use Exception;
 use RuntimeException;
 use Core\Http\Request;
 use Core\DB\DbConnection;
-use Up\Services\SecurityService;
+use Core\DB\SafeQueryBuilder;
 
 class ProductService
 {
@@ -42,7 +42,7 @@ class ProductService
 			$params = [1, $category, 10, $offset];
 		}
 
-		$result = SecurityService::safeSelectQuery($query, $params);
+		$result = SafeQueryBuilder::Select($query, $params);
 
 		$products = [];
 
@@ -78,7 +78,7 @@ class ProductService
 
 		$params = [$id, 1];
 
-		$result = SecurityService::safeSelectQuery($query, $params);
+		$result = SafeQueryBuilder::Select($query, $params);
 
 		$row = mysqli_fetch_assoc($result);
 		$cover = new \Up\Models\Image(null, $row['ID'], $row['PATH'], 1);
@@ -101,7 +101,7 @@ class ProductService
 			. " on `TAG`.ID = `PRODUCT_TAG`.TAG_ID"
 			. " WHERE PRODUCT_ID=?";
 
-		$tags = SecurityService::safeSelectQuery($query, [$id]);
+		$tags = SafeQueryBuilder::Select($query, [$id]);
 
 		while ($row = mysqli_fetch_assoc($tags))
 		{
@@ -130,7 +130,7 @@ class ProductService
 		$limit = 10;
 		$offset = ($pageNumber - 1) * $perPage;
 
-		$result = SecurityService::safeSelectQuery($query, [$isCover, $limit, $offset]);
+		$result = SafeQueryBuilder::Select($query, [$isCover, $limit, $offset]);
 
 		$products = [];
 
@@ -180,7 +180,7 @@ class ProductService
 			'BRAND_ID' => $brand
 		];
 
-		if (!SecurityService::safeInsertQuery('PRODUCT', $productData))
+		if (!SafeQueryBuilder::Insert('PRODUCT', $productData))
 		{
 			throw new RuntimeException('Error adding an product:  ' . DbConnection::get()->error);
 		}
@@ -193,7 +193,7 @@ class ProductService
 				'PRODUCT_ID' => $product_ID,
 				'TAG_ID' => $tagId
 			];
-			if (!SecurityService::safeInsertQuery('PRODUCT_TAG', $productTagData))
+			if (!SafeQueryBuilder::Insert('PRODUCT_TAG', $productTagData))
 			{
 				throw new RuntimeException('Error adding an product:  ' . DbConnection::get()->error);
 			}
@@ -219,7 +219,7 @@ class ProductService
 
 		$params = ["%{$productTitle}%", 1, 10, $offset];
 
-		$result = SecurityService::safeSelectQuery($query, $params);
+		$result = SafeQueryBuilder::Select($query, $params);
 
 		$products = [];
 
@@ -257,7 +257,7 @@ class ProductService
 		$condition = '`ID` = ?';
 		$params = [$id];
 
-		return SecurityService::safeUpdateQuery($table, $data, $condition, $params);
+		return SafeQueryBuilder::Update($table, $data, $condition, $params);
 	}
 
 	/**
@@ -268,19 +268,19 @@ class ProductService
 		ImageService::deleteImage($id);
 
 		// Удаление изображений
-		if (!SecurityService::safeDeleteQuery('`IMAGE`','`IMAGE`.`PRODUCT_ID` = ?', [$id]))
+		if (!SafeQueryBuilder::Delete('`IMAGE`','`IMAGE`.`PRODUCT_ID` = ?', [$id]))
 		{
 			throw new RuntimeException('Error delete image:  ' . DbConnection::get()->error);
 		}
 
 		// Удаление тегов
-		if (!SecurityService::safeDeleteQuery('`PRODUCT_TAG`','`PRODUCT_TAG`.`PRODUCT_ID` = ?', [$id]))
+		if (!SafeQueryBuilder::Delete('`PRODUCT_TAG`','`PRODUCT_TAG`.`PRODUCT_ID` = ?', [$id]))
 		{
 			throw new RuntimeException('Error delete product_tag:  ' . DbConnection::get()->error);
 		}
 
 		// Удаление продукта
-		if (!SecurityService::safeDeleteQuery('`PRODUCT`','`PRODUCT`.`ID` = ?', [$id]))
+		if (!SafeQueryBuilder::Delete('`PRODUCT`','`PRODUCT`.`ID` = ?', [$id]))
 		{
 			throw new RuntimeException('Error delete product:  ' . DbConnection::get()->error);
 		}
