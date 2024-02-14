@@ -2,8 +2,10 @@
 
 namespace Up\Services\Repository;
 
+use Core\DB\DbConnection;
 use Core\Http\Request;
 use Exception;
+use RuntimeException;
 use Up\Models\User;
 use Up\Services\SecurityService;
 
@@ -220,5 +222,16 @@ class UserService
 		}
 
 		return SecurityService::safeUpdateQuery($table, $data, $condition, $params);
+	}
+
+	/**
+	 * @throws Exception
+	 */
+	public static function deleteUserByID(int $id): void
+	{
+		if (!SecurityService::safeDeleteQuery('`USER`','`USER`.`ID` = ?', [$id]))
+		{
+			throw new RuntimeException('Error delete user:  ' . DbConnection::get()->error);
+		}
 	}
 }

@@ -89,6 +89,44 @@ async function removeItem(id, title)
 	}
 }
 
+async function removeUser(id, fullName)
+{
+	const shouldRemove = confirm(`Are you sure you want to delete this product: ${fullName}`);
+	if (!shouldRemove)
+	{
+		return;
+	}
+	const removeParams = {
+		id: id,
+	};
+
+	try {
+		const response = await fetch('/removeUser/',
+			{
+				method: 'POST',
+				headers:{
+					'Content-Type': 'application/json;charset=utf-8',
+				},
+				body: JSON.stringify(removeParams)
+			}
+		);
+		const responseJson = await response.json();
+		if (responseJson.result !== 'Y')
+		{
+			console.log('error while deleting user :(');
+		}
+		const userItem = document.querySelector(`[data-id="${id}"]`);
+		if (userItem)
+		{
+			userItem.remove();
+		}
+	}
+	catch (error)
+	{
+		console.log('error while deleting user:' + error);
+	}
+}
+
 document.addEventListener('DOMContentLoaded', function() {
 	const buttons = document.querySelectorAll('.account__sideBarBtn');
 	const containers = document.querySelectorAll('.account__main');
