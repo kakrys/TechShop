@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Up\Services\Repository;
 
-use Core\Http\Request;
+
 use Exception;
-use Core\DB\DbConnection;
 use Up\Models\Order;
-use Up\Services\SecurityService;
+use Core\Http\Request;
+use Core\DB\DbConnection;
+use Core\DB\SafeQueryBuilder;
 
 class OrderService
 {
@@ -39,7 +40,7 @@ class OrderService
 				'DATE_CREATE' => date('Y-m-d H:i:s'),
 			];
 
-			if (!SecurityService::safeInsertQuery('`ORDER`', $orderData))
+			if (!SafeQueryBuilder::Insert('`ORDER`', $orderData))
 			{
 				$errors[] = 'Error adding an order: ' . DbConnection::get()->error;
 			}
@@ -51,7 +52,7 @@ class OrderService
 				'ORDER_ID' => $orderID,
 			];
 
-			if (!SecurityService::safeInsertQuery('`PRODUCT_ORDER`', $productOrderData))
+			if (!SafeQueryBuilder::Insert('`PRODUCT_ORDER`', $productOrderData))
 			{
 				$errors[] = 'Error adding a product/order link: ' . DbConnection::get()->error;
 			}
@@ -79,11 +80,11 @@ class OrderService
 		{
 			$query .= " WHERE O.EMAIL=?";
 			$params = [$userEmail];
-			$result = SecurityService::safeSelectQuery($query, $params);
+			$result = SafeQueryBuilder::Select($query, $params);
 		}
 		else
 		{
-			$result = SecurityService::safeSelectQuery($query);
+			$result = SafeQueryBuilder::Select($query);
 		}
 
 		$orders = [];
@@ -127,7 +128,7 @@ class OrderService
 				'DATE_CREATE' => date('Y-m-d H:i:s'),
 			];
 
-			if (!SecurityService::safeInsertQuery('`ORDER`', $orderData))
+			if (!SafeQueryBuilder::Insert('`ORDER`', $orderData))
 			{
 				$errors[] = 'Error adding an order: ' . DbConnection::get()->error;
 			}
@@ -139,7 +140,7 @@ class OrderService
 				'ORDER_ID' => $orderID,
 			];
 
-			if (!SecurityService::safeInsertQuery('`PRODUCT_ORDER`', $productOrderData))
+			if (!SafeQueryBuilder::Insert('`PRODUCT_ORDER`', $productOrderData))
 			{
 				$errors[] = 'Error adding a product/order link: ' . DbConnection::get()->error;
 			}
