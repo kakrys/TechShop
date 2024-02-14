@@ -354,3 +354,14 @@
 .switchLabel:active:after {
     width: 20px;
 }
+
+#filterBtn {
+    width: 100%;
+    padding: 10px;
+    background: rgba(12, 104, 244, 1);
+    color: #FFFFFF;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 20px;
+    border-radius: 8px;
+}
