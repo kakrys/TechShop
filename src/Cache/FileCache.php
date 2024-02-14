@@ -3,6 +3,9 @@
 namespace Up\Cache;
 
 
+use Up\Models\Brand;
+use Up\Models\Image;
+use Up\Models\Product;
 use Up\Models\Tag;
 
 class FileCache
@@ -31,7 +34,7 @@ class FileCache
 			return null;
 		}
 
-		$data = unserialize(file_get_contents($path), ['allowed_classes' => [Tag::class]]);
+		$data = unserialize(file_get_contents($path), ['allowed_classes' => [Tag::class,Brand::class,Product::class,Image::class]]);
 		$ttl = $data['ttl'];
 
 		if (time() > $ttl)

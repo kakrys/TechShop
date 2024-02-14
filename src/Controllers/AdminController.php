@@ -35,11 +35,17 @@ class AdminController extends BaseController
 			$tags = $cache->remember('tags', 3600,function(){
 				return TagService::getTagList();
 			});
+			$brands = $cache->remember('brands', 3600,function(){
+				return BrandService::getBrandList();
+			});
+
+
+
 			$params = [
 				'adminFullName' => $user->name . ' ' . $user->surname,
 				'adminEmail' => $user->email,
-				'tags' => $tags['data'] ,
-				'brands' => BrandService::getBrandList(),
+				'tags' => $tags['data'] ?? $tags ,
+				'brands' => $brands['data'] ?? $brands,
 				'orders' => OrderService::getOrderList(),
 				'products' => $productArray,
 				'users' => UserService::getUserList(),
