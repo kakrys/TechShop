@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var \Up\Models\Brand[] $brandArray
+ * @var array $activeBrands
+ */
+?>
 <form action="" method="post">
 	<aside class="categorySections">
 		<div class="filter btn-reset">
@@ -13,42 +19,32 @@
 			</div>
 			<div class="categorySection__bottom">
 				<ul class="categorySection__list">
+					<?php foreach($brandArray as $brand):?>
+					<?php if (isset($activeBrands)): ?>
+					<?php if (in_array($brand->getId(),$activeBrands)): ?>
 					<li class="categorySection__item">
 						<label class="customCheckbox">
-							<input type="checkbox" class="customCheckbox__input">
-							<span class="customCheckbox__text">Apple<sup>10</sup></span>
+							<input type="checkbox" name=activeBrands[] value="<?=$brand->getId()?>" checked class="customCheckbox__input">
+							<span class="customCheckbox__text"><?=$brand->getTitle()?><sup>23</sup></span>
 						</label>
 					</li>
-					<li class="categorySection__item">
-						<label class="customCheckbox">
-							<input type="checkbox" class="customCheckbox__input">
-							<span class="customCheckbox__text">Samsung<sup>23</sup></span>
-						</label>
-					</li>
-					<li class="categorySection__item">
-						<label class="customCheckbox">
-							<input type="checkbox" class="customCheckbox__input">
-							<span class="customCheckbox__text">Dell<sup>8</sup></span>
-						</label>
-					</li>
-					<li class="categorySection__item">
-						<label class="customCheckbox">
-							<input type="checkbox" class="customCheckbox__input">
-							<span class="customCheckbox__text">Nintendo<sup>53</sup></span>
-						</label>
-					</li>
-					<li class="categorySection__item">
-						<label class="customCheckbox">
-							<input type="checkbox" class="customCheckbox__input">
-							<span class="customCheckbox__text">Canon<sup>13</sup></span>
-						</label>
-					</li>
-					<li class="categorySection__item">
-						<label class="customCheckbox">
-							<input type="checkbox" class="customCheckbox__input">
-							<span class="customCheckbox__text">Sony<sup>5</sup></span>
-						</label>
-					</li>
+							<?php else: ?>
+                                <li class="categorySection__item">
+                                    <label class="customCheckbox">
+                                        <input type="checkbox" name=activeBrands[] value="<?=$brand->getId()?>"  class="customCheckbox__input">
+                                        <span class="customCheckbox__text"><?=$brand->getTitle()?><sup>23</sup></span>
+                                    </label>
+                                </li>
+							<?php endif; ?>
+						<?php else: ?>
+                            <li class="categorySection__item">
+                                <label class="customCheckbox">
+                                    <input type="checkbox" name=activeBrands[] value="<?=$brand->getId()?>" class="customCheckbox__input">
+                                    <span class="customCheckbox__text"><?=$brand->getTitle()?><sup>23</sup></span>
+                                </label>
+                            </li>
+						<?php endif; ?>
+					<?php endforeach;?>
 				</ul>
 			</div>
 		</div>
