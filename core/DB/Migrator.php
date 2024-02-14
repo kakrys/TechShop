@@ -3,8 +3,6 @@
 namespace Core\DB;
 
 use Exception;
-use Core\DB\DbConnection;
-use Up\Services\ConfigurationService;
 
 class Migrator
 {

@@ -3,12 +3,13 @@
 namespace Up\Services\Repository;
 
 use Exception;
-use Up\Services\SecurityService;
+use Up\Models\Tag;
+use Core\DB\SafeQueryBuilder;
 
 class TagService
 {
 	/**
-	 * @return \Up\Models\Tag[]
+	 * @return Tag[]
 	 * @throws Exception
 	 */
 	public static function getTagList(): array
@@ -16,13 +17,13 @@ class TagService
 
 		$query = "SELECT `ID`,`Title` from TAG";
 
-		$result = SecurityService::safeSelectQuery($query);
+		$result = SafeQueryBuilder::Select($query);
 
 		$tags = [];
 
 		while ($row = mysqli_fetch_assoc($result))
 		{
-			$tags[] = new \Up\Models\Tag($row['ID'], $row['Title'], null);
+			$tags[] = new Tag($row['ID'], $row['Title'], null);
 		}
 
 		return $tags;

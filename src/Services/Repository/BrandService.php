@@ -3,26 +3,27 @@
 namespace Up\Services\Repository;
 
 use Exception;
-use Up\Services\SecurityService;
+use Up\Models\Brand;
+use Core\DB\SafeQueryBuilder;
 
 class BrandService
 {
 
 	/**
-	 * @return \Up\Models\Brand[]
+	 * @return Brand[]
 	 * @throws Exception
 	 */
 	public static function getBrandList(): array
 	{
 		$query = "SELECT `ID`,`Title` from BRAND";
 
-		$result = SecurityService::safeSelectQuery($query);
+		$result = SafeQueryBuilder::Select($query);
 
 		$brands = [];
 
 		while ($row = mysqli_fetch_assoc($result))
 		{
-			$brands[] = new \Up\Models\Brand($row['ID'], $row['Title'], null);
+			$brands[] = new Brand($row['ID'], $row['Title'], null);
 		}
 
 		return $brands;
