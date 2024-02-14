@@ -51,7 +51,7 @@ document.querySelector('.closeModal').addEventListener('click', function() {
 
 //delete product
 const deleteBtn = document.getElementById('dangerBtn');
-function removeItem(id, title)
+async function removeItem(id, title)
 {
 	const shouldRemove = confirm(`Are you sure you want to delete this product: ${title}`);
 	if (!shouldRemove)
@@ -62,34 +62,31 @@ function removeItem(id, title)
 		id: id,
 	};
 
-	fetch('/remove/',
+	try {
+		const response = await fetch('/remove/',
+			{
+				method: 'POST',
+				headers:{
+					'Content-Type': 'application/json;charset=utf-8',
+				},
+				body: JSON.stringify(removeParams)
+			}
+		);
+		const responseJson = await response.json();
+		if (responseJson.result !== 'Y')
 		{
-			method: 'POST',
-			headers:{
-				'Content-Type': 'application/json;charset=utf-8',
-			},
-			body: JSON.stringify(removeParams)
+			console.log('error while deleting item :(');
 		}
-	)
-		.then((response) => {
-			return response.json();
-		})
-		.then((response) => {
-			if (response.result !== 'Y')
-			{
-				console.log('error while deleting item :(');
-			}
-			const productItem = document.querySelector(`[data-id="${id}"]`);
-			if (productItem)
-			{
-				productItem.remove();
-				window.location.reload();
-			}
-
-		})
-		.catch((error) => {
-			console.log('error while deleting item:' + error);
-		})
+		const productItem = document.querySelector(`[data-id="${id}"]`).closest('.admin__productItem');
+		if (productItem)
+		{
+			productItem.remove();
+		}
+	}
+	catch (error)
+	{
+		console.log('error while deleting item:' + error);
+	}
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -258,7 +255,7 @@ const updatePrice = document.getElementById( 'productPrice');
 const updateBtn = document.querySelector('.admin__editUpdateBtn');
 const modal = document.querySelector('.admin__edit');
 
-updateBtn.addEventListener('click', function () {
+updateBtn.addEventListener('click', async function () {
 
 
 	const updateParams = {
@@ -267,38 +264,50 @@ updateBtn.addEventListener('click', function () {
 		description: updateDescription.value,
 		price: updatePrice.value,
 	};
-
-	fetch('/update/product/',
-		{
+	try {
+		// Отправка запроса на обновление продукта
+		const response = await fetch('/update/product/', {
 			method: 'POST',
-			headers:{
+			headers: {
 				'Content-Type': 'application/json;charset=utf-8',
 			},
-			body: JSON.stringify(updateParams)
-		}
-	)
-		.then((response) => {
-			console.log('cool update =)');
+			body: JSON.stringify(updateParams),
+		});
+
+		// Обработка ответа от сервера
+		const responseJson = await response.json();
+
+		if (responseJson.result !== 'Y') {
+			console.log('error while updating');
+		} else {
+			// Обновление элемента на странице
+			const productItem = document.querySelector(`[data-id="${updateId.value}"]`).closest('.admin__productItem');
+			productItem.querySelector('.admin__productTitle').innerText = updateTitle.value;
+			productItem.querySelector('.admin__productDescription').innerText = updateDescription.value;
+			productItem.querySelector('.admin__productCost').innerText = '$' + updatePrice.value;
+
+			// Скрытие модального окна обновления
 			modal.style.display = 'none';
+
+			// Отображение модального окна успешного обновления
 			const successModal = document.querySelector('#successUpdateModal');
 			successModal.style.display = 'block';
+
+			// Обработчик события нажатия на кнопку закрытия модального окна
 			const closeSuccessModal = document.querySelector('.successUpdateModal__close');
 			closeSuccessModal.addEventListener('click', () => {
 				successModal.style.display = 'none';
-			})
+			});
+
+			// Обработчик события нажатия на кнопку обновления страницы
 			const refreshButton = document.querySelector('.successUpdateModal__refresh');
 			refreshButton.addEventListener('click', () => {
-				window.location.reload();
+				location.reload();
 			});
-			return response.json();
-		})
-		.then((response) => {
-			if (response.result !== 'Y')
-			{
-				console.log('error while updating');
-			}
-		})
-		.catch((error) => {
-			console.log('delete error:' + error);
-		})
+		}
+	}
+	catch (error)
+	{
+		console.log('update error:' + error);
+	}
 });
