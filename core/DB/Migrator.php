@@ -3,6 +3,7 @@
 namespace Core\DB;
 
 use Exception;
+use RuntimeException;
 
 class Migrator
 {
@@ -52,13 +53,9 @@ class Migrator
 
 			}
 		}
-		if ($queries !== "")
+		if (($queries !== "") && !mysqli_multi_query($connection, $queries))
 		{
-			if (!mysqli_multi_query($connection, $queries))
-			{
-				throw new \RuntimeException(mysqli_error($connection));
-			}
-
+			throw new RuntimeException(mysqli_error($connection));
 		}
 	}
 
@@ -76,7 +73,7 @@ class Migrator
 		$query = file_get_contents(__DIR__ . "/../../install/uninstall-structure.sql");
 		if (!mysqli_multi_query($connection, $query))
 		{
-			throw new \RuntimeException(mysqli_error($connection));
+			throw new RuntimeException(mysqli_error($connection));
 		}
 
 	}

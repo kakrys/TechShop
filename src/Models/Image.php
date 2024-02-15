@@ -12,8 +12,8 @@ class Image
 	/**
 	 * @param int|null $id
 	 * @param int|null $productId
-	 * @param string $path
-	 * @param int $isCover
+	 * @param string|null $path
+	 * @param int|null $isCover
 	 */
 	public function __construct(?int $id, ?int $productId, ?string $path, ?int $isCover)
 	{

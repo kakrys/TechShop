@@ -4,16 +4,17 @@ declare(strict_types=1);
 
 namespace Up\Controllers;
 
-use http\Exception;
+use Exception;
+use RuntimeException;
 
 class BaseController
 {
-	protected function renderView($view, $params):string|\Exception
+	protected function renderView($view, $params):string|Exception
 	{
 		$absolutePath = $this->getViewPath($view);
 		if (!file_exists($absolutePath))
 		{
-			throw new \RuntimeException("Layout content '$view' not found.");
+			throw new RuntimeException("Layout content '$view' not found.");
 		}
 
 		extract($params);
@@ -22,12 +23,12 @@ class BaseController
 		return ob_get_clean();
 	}
 
-	protected function getViewPath($view):string|\Exception
+	protected function getViewPath($view):string|Exception
 	{
 		$viewPath = ROOT . "/src/Views/default/pages/$view.php";
 		if (!preg_match('/^[0-9A-Za-z\/_-]+$/', $view))
 		{
-			throw new \RuntimeException('Invalid template path');
+			throw new RuntimeException('Invalid template path');
 		}
 
 		return $viewPath;
@@ -40,19 +41,19 @@ class BaseController
 		return str_replace('{{content}}', $viewContent, $layoutContent);
 	}
 
-	protected function setLayout()
+	protected function setLayout(): bool|string
 	{
 		ob_start();
 		include_once ROOT . "/src/Views/default/layout.php";
 		return ob_get_clean();
 	}
 
-	protected function renderComponent($component, $params = []):string|\Exception
+	protected function renderComponent($component, $params = []):string|Exception
 	{
 		$componentPath = $this->getComponentPath($component);
 		if (!file_exists($componentPath))
 		{
-			throw new \RuntimeException("Component '$component' not found.");
+			throw new RuntimeException("Component '$component' not found.");
 		}
 
 		extract($params);
@@ -61,12 +62,12 @@ class BaseController
 		return ob_get_clean();
 	}
 
-	protected function getComponentPath($component):string|\Exception
+	protected function getComponentPath($component):string|Exception
 	{
 		$componentPath = ROOT . "/src/Views/default/components/$component.php";
 		if (!preg_match('/^[0-9A-Za-z\/_-]+$/', $component))
 		{
-			throw new \RuntimeException('Invalid template path');
+			throw new RuntimeException('Invalid template path');
 		}
 
 		return $componentPath;

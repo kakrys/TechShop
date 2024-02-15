@@ -3,6 +3,7 @@
 namespace Up\Services\Repository;
 
 use Exception;
+use RuntimeException;
 use Up\Models\Image;
 use Core\Http\Request;
 use Core\DB\DbConnection;
@@ -26,7 +27,7 @@ class ImageService
 
 		if (!SafeQueryBuilder::Insert('IMAGE', $imageData))
 		{
-			throw new \RuntimeException('Error adding an image: ' . DbConnection::get()->error);
+			throw new RuntimeException('Error adding an image: ' . DbConnection::get()->error);
 		}
 	}
 
@@ -37,13 +38,13 @@ class ImageService
 		$ext = pathinfo($filename, PATHINFO_EXTENSION);
 		if ($ext !== 'png' && $ext !== 'jpg')
 		{
-			throw new \RuntimeException('Error adding an image: ' . "Недопустимое расширение");
+			throw new RuntimeException('Error adding an image: ' . "Недопустимое расширение");
 		}
 		$target_file = self::$uploadDir . $filename;
 
 		if (!move_uploaded_file($files["image"]['tmp_name'], $target_file))
 		{
-			throw new \RuntimeException('Error adding an image: ' . "Файл не найден");
+			throw new RuntimeException('Error adding an image: ' . "Файл не найден");
 		}
 	}
 

@@ -26,6 +26,7 @@
 
 	],
 	"require": {
-		"ext-mysqli": "*"
+		"ext-mysqli": "*",
+		"ext-mbstring": "*"
 	}
 }

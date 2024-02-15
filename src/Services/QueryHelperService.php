@@ -8,6 +8,7 @@ use Exception;
 use mysqli_result;
 use mysqli_stmt;
 use Core\DB\DbConnection;
+use RuntimeException;
 
 class QueryHelperService
 {
@@ -42,7 +43,7 @@ class QueryHelperService
 		$result = $stmt->execute();
 		if (!$result)
 		{
-			throw new \RuntimeException($stmt->error);
+			throw new RuntimeException($stmt->error);
 		}
 
 		return true;
@@ -63,7 +64,7 @@ class QueryHelperService
 
 		if (!$stmt)
 		{
-			throw new \RuntimeException(mysqli_error($connection));
+			throw new RuntimeException(mysqli_error($connection));
 		}
 
 		$types = self::getBindTypes($params);

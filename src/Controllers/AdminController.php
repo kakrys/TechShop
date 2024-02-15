@@ -7,6 +7,7 @@ namespace Up\Controllers;
 use Core\DB\Migrator;
 use Exception;
 use Core\Web\Json;
+use JsonException;
 use Up\Cache\FileCache;
 use Up\Services\PaginationService;
 use Up\Services\Repository\BrandService;
@@ -14,7 +15,6 @@ use Up\Services\Repository\OrderService;
 use Up\Services\Repository\ProductService;
 use Up\Services\Repository\TagService;
 use Up\Services\Repository\UserService;
-
 
 class AdminController extends BaseController
 {
@@ -32,19 +32,17 @@ class AdminController extends BaseController
 			$productArray = PaginationService::trimProductArray($productArray);
 			$user = UserService::getUserByEmail($_SESSION['AdminEmail']);
 			$cache = new FileCache();
-			$tags = $cache->remember('tags', 3600,function(){
+			$tags = $cache->remember('tags', 3600, function() {
 				return TagService::getTagList();
 			});
-			$brands = $cache->remember('brands', 3600,function(){
+			$brands = $cache->remember('brands', 3600, function() {
 				return BrandService::getBrandList();
 			});
-
-
 
 			$params = [
 				'adminFullName' => $user->name . ' ' . $user->surname,
 				'adminEmail' => $user->email,
-				'tags' => $tags['data'] ?? $tags ,
+				'tags' => $tags['data'] ?? $tags,
 				'brands' => $brands['data'] ?? $brands,
 				'orders' => OrderService::getOrderList(),
 				'products' => $productArray,
@@ -133,7 +131,9 @@ class AdminController extends BaseController
 		}
 	}
 
-
+	/**
+	 * @throws JsonException
+	 */
 	public function dbAction(): void
 	{
 		header('Content-Type: application/json');
@@ -155,6 +155,10 @@ class AdminController extends BaseController
 		}
 	}
 
+	/**
+	 * @throws JsonException
+	 * @throws Exception
+	 */
 	public function executeAction(): void
 	{
 		header('Content-Type: application/json');
@@ -163,9 +167,9 @@ class AdminController extends BaseController
 
 		if (isset($data['title']))
 		{
-			$result=Migrator::executeMigrations();
+			$result = Migrator::executeMigrations();
 			echo Json::encode([
-								'result' => $result > 0 ? 'Y' : 'N',
+								  'result' => $result > 0 ? 'Y' : 'N',
 							  ]);
 		}
 		else
@@ -187,6 +191,10 @@ class AdminController extends BaseController
 		return $this->render('admin-create-product', []);
 	}
 
+	/**
+	 * @throws JsonException
+	 * @throws Exception
+	 */
 	public function updateProductAction(): void
 	{
 		header('Content-Type: application/json');

@@ -36,6 +36,9 @@ class UserController extends BaseController
 		return null;
 	}
 
+	/**
+	 * @throws Exception
+	 */
 	public function updateInfoAction(): string
 	{
 		session_start();

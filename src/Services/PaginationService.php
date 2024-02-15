@@ -41,6 +41,7 @@ class PaginationService
 		{
 			array_pop($productArray);
 		}
+
 		return $productArray;
 	}
 }
