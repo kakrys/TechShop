@@ -23,7 +23,7 @@ $tags = $product->getTags();
 			<div class="detail__brandContainer">
 				<ul class="detail__brandList">
 					<li class="detail__brandItem">
-						<a href="/catalog/all/1/search/?search=<?=$product->getBrand()?>" class="detail__brandLink"><?=$product->getBrand()?></a>
+						<a href="/catalog/all/1/?search=<?=$product->getBrand()?>" class="detail__brandLink"><?=$product->getBrand()?></a>
 					</li>
 					<?php foreach ($tags as $tag):?>
 						<li class="detail__brandItem">

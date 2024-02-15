@@ -2,29 +2,38 @@
 
 use Core\Routing\Router;
 
-Router::get('/', [new Up\Controllers\IndexController(), 'indexAction']);
-Router::get('/catalog/:tag/:id/', [new Up\Controllers\CatalogController(), 'catalogAction']);
-Router::get('/product/:id/', [new Up\Controllers\DetailController(), 'detailsAction']);
-Router::get('/login/', [new Up\Controllers\AdminController(), 'loginAction']);
-Router::get('/admin/:pageNumber/', [new Up\Controllers\AdminController(), 'adminAction']);
-Router::get('/order/:id/', [new Up\Controllers\OrderController(), 'orderAction']);
-Router::post('/success/', [new Up\Controllers\OrderController(), 'successAction']);
-Router::post('/login/auth', [new Up\Controllers\AuthorizationController(), 'authAction']);
-Router::get('/login/logout', [new Up\Controllers\AuthorizationController(), 'logOutAction']);
-Router::post('/admin/create/product/', [new Up\Controllers\AdminController(), 'addProductAction']);
+use Up\Controllers\UserController;
+use Up\Controllers\AdminController;
+use Up\Controllers\OrderController;
+use Up\Controllers\IndexController;
+use Up\Controllers\DetailController;
+use Up\Controllers\CatalogController;
+use Up\Controllers\RegistrationController;
+use Up\Controllers\AuthorizationController;
+
+Router::get('/', [new IndexController(), 'indexAction']);
+Router::get('/catalog/:tag/:id/', [new CatalogController(), 'catalogAction']);
+Router::get('/product/:id/', [new DetailController(), 'detailsAction']);
+Router::get('/login/', [new AdminController(), 'loginAction']);
+Router::get('/admin/:pageNumber/', [new AdminController(), 'adminAction']);
+Router::get('/order/:id/', [new OrderController(), 'orderAction']);
+Router::post('/success/', [new OrderController(), 'successAction']);
+Router::post('/login/auth', [new AuthorizationController(), 'authAction']);
+Router::get('/login/logout', [new AuthorizationController(), 'logOutAction']);
+Router::post('/admin/create/product/', [new AdminController(), 'addProductAction']);
 
 //new =)
-Router::get('/account/', [new \Up\Controllers\UserController(), 'userAction']);
-Router::post('/registration/', [new Up\Controllers\RegistrationController(), 'registrationAction']);
-Router::get('/catalog/:tag/:id/', [new Up\Controllers\CatalogController(), 'searchAction']);
-Router::post('/updateInfo/', [new \Up\Controllers\UserController(), 'updateInfoAction']);
-Router::post('/catalog/:tag/:id/', [new Up\Controllers\CatalogController(), 'catalogAction']);
+Router::get('/account/', [new UserController(), 'userAction']);
+Router::post('/registration/', [new RegistrationController(), 'registrationAction']);
+Router::get('/catalog/:tag/:id/', [new CatalogController(), 'searchAction']);
+Router::post('/updateInfo/', [new UserController(), 'updateInfoAction']);
+Router::post('/catalog/:tag/:id/', [new CatalogController(), 'catalogAction']);
 
 //fetch-api
-Router::post('/remove/', [new \Up\Controllers\AdminController(), 'removeProductAction']);
-Router::post('/removeUser/', [new \Up\Controllers\AdminController(), 'removeUserAction']);
-Router::post('/migrations/execute/', [new \Up\Controllers\AdminController(), 'executeAction']);
-Router::post('/database/delete/', [new \Up\Controllers\AdminController(), 'dbAction']);
-Router::post('/update/product/', [new \Up\Controllers\AdminController(), 'updateProductAction']);
+Router::post('/remove/', [new AdminController(), 'removeProductAction']);
+Router::post('/removeUser/', [new AdminController(), 'removeUserAction']);
+Router::post('/migrations/execute/', [new AdminController(), 'executeAction']);
+Router::post('/database/delete/', [new AdminController(), 'dbAction']);
+Router::post('/update/product/', [new AdminController(), 'updateProductAction']);
 
 
