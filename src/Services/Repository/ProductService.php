@@ -3,6 +3,7 @@
 namespace Up\Services\Repository;
 
 use Exception;
+use mysqli_result;
 use RuntimeException;
 
 use Up\Models\Tag;
@@ -48,19 +49,7 @@ class ProductService
 
 		$result = SafeQueryBuilder::Select($query, $params);
 
-		$products = [];
-
-		while ($row = mysqli_fetch_assoc($result))
-		{
-			$cover = new Image(null, $row['ID'], $row['PATH'], 1);
-			$product = new Product(
-				$row['ID'], $row['TITLE'], null, $row['PRICE'], null, null, null, null, null, null, $cover, []
-			);
-
-			$products[] = $product;
-		}
-
-		return $products;
+		return self::fetchProductsFromResult($result);
 	}
 
 	/**
@@ -130,31 +119,7 @@ class ProductService
 
 		$result = SafeQueryBuilder::Select($query, [$isCover, $limit, $offset]);
 
-		$products = [];
-
-		while ($row = mysqli_fetch_assoc($result))
-		{
-			$cover = new Image(null, $row['ID'], $row['PATH'], 1);
-			$product = new Product(
-				$row['ID'],
-				$row['TITLE'],
-				$row['DESCRIPTION'],
-				$row['PRICE'],
-				null,
-				null,
-				null,
-				null,
-				null,
-				$row['BRAND'],
-				$cover,
-				null
-			);
-
-			$products[] = $product;
-		}
-
-		return $products;
-
+		return self::fetchProductsFromResult($result, true, true);
 	}
 
 	/**
@@ -240,30 +205,7 @@ class ProductService
 
 		$result = SafeQueryBuilder::Select($query, $params);
 
-		$products = [];
-
-		while ($row = mysqli_fetch_assoc($result))
-		{
-			$cover = new Image(null, $row['ID'], $row['PATH'], 1);
-			$product = new Product(
-				$row['ID'],
-				$row['TITLE'],
-				$row['DESCRIPTION'],
-				$row['PRICE'],
-				null,
-				null,
-				null,
-				null,
-				null,
-				null,
-				$cover,
-				[]
-			);
-
-			$products[] = $product;
-		}
-
-		return $products;
+		return self::fetchProductsFromResult($result, true);
 	}
 
 	/**
@@ -326,15 +268,33 @@ class ProductService
 
 		$result = SafeQueryBuilder::Select($query, $params);
 
-		$products = [];
+		return self::fetchProductsFromResult($result);
+	}
 
+	private static function fetchProductsFromResult(
+		mysqli_result $result,
+		bool          $includeDescription = false,
+		bool          $includeBrand = false
+	): array
+	{
+		$products = [];
 		while ($row = mysqli_fetch_assoc($result))
 		{
 			$cover = new Image(null, $row['ID'], $row['PATH'], 1);
 			$product = new Product(
-				$row['ID'], $row['TITLE'], null, $row['PRICE'], null, null, null, null, null, null, $cover, []
+				$row['ID'],
+				$row['TITLE'],
+				$includeDescription ? $row['DESCRIPTION'] : null,
+				$row['PRICE'],
+				null,
+				null,
+				null,
+				null,
+				null,
+				$includeBrand ? $row['BRAND'] : null,
+				$cover,
+				[]
 			);
-
 			$products[] = $product;
 		}
 
