@@ -6,6 +6,7 @@ namespace Core\DB;
 
 use Exception;
 use mysqli_result;
+use RuntimeException;
 use Up\Services\QueryHelperService;
 
 class SafeQueryBuilder
@@ -27,7 +28,7 @@ class SafeQueryBuilder
 
 			if (!$result)
 			{
-				throw new \RuntimeException(mysqli_error($connection));
+				throw new RuntimeException(mysqli_error($connection));
 			}
 		}
 

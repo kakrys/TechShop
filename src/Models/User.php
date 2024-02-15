@@ -1,7 +1,6 @@
 <?php
 
 namespace Up\Models;
-use Up\Services\Repository\UserService;
 
 class User
 {

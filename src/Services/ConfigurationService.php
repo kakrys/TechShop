@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Up\Services;
 
+use RuntimeException;
+
 class ConfigurationService
 {
 	public static function option(string $name, $defaultValue = null)
@@ -36,6 +38,6 @@ class ConfigurationService
 			return $defaultValue;
 		}
 
-		throw new \RuntimeException("Configuration option {$name} not found");
+		throw new RuntimeException("Configuration option $name not found");
 	}
 }

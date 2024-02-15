@@ -17,8 +17,8 @@ class Order
 	 * @param int $id
 	 * @param string $dataCreate
 	 * @param float $price
-	 * @param string $userName
-	 * @param string $userSurname
+	 * @param string|null $userName
+	 * @param string|null $userSurname
 	 * @param string $userEmail
 	 * @param string $userAddress
 	 * @param string $productTitle

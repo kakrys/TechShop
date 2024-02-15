@@ -7,7 +7,6 @@ namespace Up\Controllers;
 use Core\Http\Request;
 use Exception;
 use Up\Services\AuthenticationService;
-use Up\Services\Repository\ProductService;
 use Up\Services\Repository\UserService;
 
 class AuthorizationController extends BaseController
@@ -27,7 +26,7 @@ class AuthorizationController extends BaseController
 			$_SESSION['AdminEmail'] = $user->email;
 			header("Location: /admin/1/");
 		}
-		if (AuthenticationService::authenticateUser($user, $request['email'], $request['password'],false))
+		if (AuthenticationService::authenticateUser($user, $request['email'], $request['password']))
 			{
 				$_SESSION['UserId'] = $user->id;
 				$_SESSION['UserEmail'] = $user->email;

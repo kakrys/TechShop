@@ -16,7 +16,7 @@ class UserService
 	 * @return User|null
 	 * @throws Exception
 	 */
-	public static function getUserByEmail(?string $email): ?\Up\Models\User
+	public static function getUserByEmail(?string $email): ?User
 	{
 		if ($email === '')
 		{
@@ -33,7 +33,7 @@ class UserService
 			return null;
 		}
 
-		return new \Up\Models\User(
+		return new User(
 			$row['ID'],
 			$row['NAME'],
 			$row['SURNAME'],

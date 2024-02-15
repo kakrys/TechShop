@@ -8,6 +8,9 @@ use Up\Services\Repository\UserService;
 
 class RegistrationController extends BaseController
 {
+	/**
+	 * @throws Exception
+	 */
 	public function registrationAction()
 	{
 		session_start();
@@ -18,16 +21,14 @@ class RegistrationController extends BaseController
 			return $this->render('login', ['registerError' => 'Invalid Email']);
 		}
 
-		if ($user = UserService::getUserByEmail($request['email']))
+		if (UserService::getUserByEmail($request['email']))
 		{
 			return $this->render('login', ['registerError' => 'User already exists']);
 		}
-		else
-		{
-			UserService::addUser();
-			UserService::getUserByEmail($request['email']);
-			$_SESSION['UserEmail'] = $request['email'];
-			header('Location: /account/');
-		}
+
+		UserService::addUser();
+		UserService::getUserByEmail($request['email']);
+		$_SESSION['UserEmail'] = $request['email'];
+		header('Location: /account/');
 	}
 }

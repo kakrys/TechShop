@@ -2,10 +2,10 @@
 
 namespace Up\Cache;
 
-
+use Closure;
+use Up\Models\Product;
 use Up\Models\Brand;
 use Up\Models\Image;
-use Up\Models\Product;
 use Up\Models\Tag;
 
 class FileCache
@@ -45,7 +45,7 @@ class FileCache
 		return $data;
 	}
 
-	public function remember(string $key, int $ttl, \Closure $fetcher)
+	public function remember(string $key, int $ttl, Closure $fetcher)
 	{
 		$data = $this->get($key);
 

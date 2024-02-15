@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Up\Services\Repository;
 
-
 use Exception;
 use Up\Models\Order;
 use Core\Http\Request;

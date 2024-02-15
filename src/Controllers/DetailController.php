@@ -14,8 +14,9 @@ class DetailController extends BaseController
 	{
 		$params = [
 			'product' => ProductService::getProductInfoByID($id),
-			'id' => $id
+			'id' => $id,
 		];
+
 		return $this->render('detail', $params);
 	}
 }
