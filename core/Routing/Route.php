@@ -2,14 +2,16 @@
 
 namespace Core\Routing;
 
+use Closure;
+
 class Route
 {
 	private array $variables = [];
 	public string $method;
 	public string $uri;
-	public \Closure $action;
+	public Closure $action;
 
-	public function __construct(string $method, string $uri, \Closure $action)
+	public function __construct(string $method, string $uri, Closure $action)
 	{
 		$this->method = $method;
 		$this->uri = $uri;
