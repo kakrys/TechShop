@@ -4,6 +4,11 @@ namespace Up\Services\Repository;
 
 use Exception;
 use RuntimeException;
+
+use Up\Models\Tag;
+use Up\Models\Image;
+use Up\Models\Product;
+
 use Core\Http\Request;
 use Core\DB\DbConnection;
 use Core\DB\SafeQueryBuilder;
@@ -17,64 +22,28 @@ class ProductService
 	{
 		$perPage = 9;
 		$offset = ($pageNumber - 1) * $perPage;
+		$brandCondition = $brands !== null ? "AND PRODUCT.BRAND_ID IN (" . implode(",", $brands) . ")" : "";
+
 		if ($category === 'all')
 		{
-			if($brands !== null)
-			{
-				$brandList="(".implode(",",$brands).")";
+			$query = "SELECT PRODUCT.ID, TITLE, PRICE, PATH FROM PRODUCT "
+				. "INNER JOIN IMAGE "
+				. "ON PRODUCT.ID = IMAGE.PRODUCT_ID "
+				. "WHERE IS_COVER=? $brandCondition LIMIT ? OFFSET ?";
 
-				$query = "SELECT PRODUCT.ID, TITLE, PRICE, PATH FROM PRODUCT "
-					. "INNER JOIN IMAGE "
-					. "ON PRODUCT.ID = IMAGE.PRODUCT_ID "
-					. "WHERE IS_COVER=? "
-					."AND PRODUCT.BRAND_ID IN $brandList "
-					. "LIMIT ? OFFSET ?";
-
-				$params = [1, 10, $offset];
-			}
-			else
-			{
-
-				$query = "SELECT PRODUCT.ID, TITLE, PRICE, PATH FROM PRODUCT "
-					. "INNER JOIN IMAGE "
-					. "ON PRODUCT.ID = IMAGE.PRODUCT_ID "
-					. "WHERE IS_COVER=? "
-					. "LIMIT ? OFFSET ?";
-
-				$params = [1, 10, $offset];
-			}
-
+			$params = [1, 10, $offset];
 		}
 		else
 		{
-			if($brands !== null)
-			{
-				$brandList="(".implode(",",$brands).")";
-				$query = "SELECT PRODUCT.ID, PRODUCT.TITLE, PRICE, PATH FROM PRODUCT "
-					. "INNER JOIN IMAGE "
-					. "ON PRODUCT.ID = IMAGE.PRODUCT_ID "
-					. "INNER JOIN PRODUCT_TAG "
-					. "ON PRODUCT.ID = PRODUCT_TAG.PRODUCT_ID "
-					. "INNER JOIN TAG ON PRODUCT_TAG.TAG_ID = TAG.ID "
-					. "WHERE IS_COVER=? AND TAG.TITLE=? "
-					."AND PRODUCT.BRAND_ID IN $brandList "
-					. "LIMIT ? OFFSET ?";
+			$query = "SELECT PRODUCT.ID, PRODUCT.TITLE, PRICE, PATH FROM PRODUCT "
+				. "INNER JOIN IMAGE "
+				. "ON PRODUCT.ID = IMAGE.PRODUCT_ID "
+				. "INNER JOIN PRODUCT_TAG "
+				. "ON PRODUCT.ID = PRODUCT_TAG.PRODUCT_ID "
+				. "INNER JOIN TAG ON PRODUCT_TAG.TAG_ID = TAG.ID "
+				. "WHERE IS_COVER=? AND TAG.TITLE=? $brandCondition LIMIT ? OFFSET ?";
 
-			}
-			else
-			{
-				$query = "SELECT PRODUCT.ID, PRODUCT.TITLE, PRICE, PATH FROM PRODUCT "
-					. "INNER JOIN IMAGE "
-					. "ON PRODUCT.ID = IMAGE.PRODUCT_ID "
-					. "INNER JOIN PRODUCT_TAG "
-					. "ON PRODUCT.ID = PRODUCT_TAG.PRODUCT_ID "
-					. "INNER JOIN TAG ON PRODUCT_TAG.TAG_ID = TAG.ID "
-					. "WHERE IS_COVER=? AND TAG.TITLE=? "
-					. "LIMIT ? OFFSET ?";
-
-			}
 			$params = [1, $category, 10, $offset];
-
 		}
 
 		$result = SafeQueryBuilder::Select($query, $params);
@@ -83,27 +52,21 @@ class ProductService
 
 		while ($row = mysqli_fetch_assoc($result))
 		{
-			$cover = new \Up\Models\Image(null, $row['ID'], $row['PATH'], 1);
-			$product = new \Up\Models\Product(
-				$row['ID'], $row['TITLE'],
-				null, $row['PRICE'],
-				null, null,
-				null, null,
-				null, null,
-				$cover, []
+			$cover = new Image(null, $row['ID'], $row['PATH'], 1);
+			$product = new Product(
+				$row['ID'], $row['TITLE'], null, $row['PRICE'], null, null, null, null, null, null, $cover, []
 			);
 
 			$products[] = $product;
 		}
 
 		return $products;
-
 	}
 
 	/**
 	 * @throws Exception
 	 */
-	public static function getProductInfoByID(int $id): \Up\Models\Product
+	public static function getProductInfoByID(int $id): Product
 	{
 		$query = "SELECT `PRODUCT`.`ID`,PRODUCT.`TITLE`,`PRICE`,`DESCRIPTION`,BRAND.`TITLE` as `BRAND`,`PATH`"
 			. "from `PRODUCT` INNER JOIN `BRAND` on PRODUCT.BRAND_ID=`BRAND`.`id` "
@@ -116,8 +79,8 @@ class ProductService
 		$result = SafeQueryBuilder::Select($query, $params);
 
 		$row = mysqli_fetch_assoc($result);
-		$cover = new \Up\Models\Image(null, $row['ID'], $row['PATH'], 1);
-		$product = new \Up\Models\Product(
+		$cover = new Image(null, $row['ID'], $row['PATH'], 1);
+		$product = new Product(
 			$row['ID'],
 			$row['TITLE'],
 			$row['DESCRIPTION'],
@@ -140,7 +103,7 @@ class ProductService
 
 		while ($row = mysqli_fetch_assoc($tags))
 		{
-			$tag = new \Up\Models\Tag(null, $row['TITLE'], null);
+			$tag = new Tag(null, $row['TITLE'], null);
 			$product->addTag($tag);
 
 		}
@@ -171,8 +134,8 @@ class ProductService
 
 		while ($row = mysqli_fetch_assoc($result))
 		{
-			$cover = new \Up\Models\Image(null, $row['ID'], $row['PATH'], 1);
-			$product = new \Up\Models\Product(
+			$cover = new Image(null, $row['ID'], $row['PATH'], 1);
+			$product = new Product(
 				$row['ID'],
 				$row['TITLE'],
 				$row['DESCRIPTION'],
@@ -212,7 +175,7 @@ class ProductService
 			'PRICE' => $price,
 			'ENTITY_STATUS_ID' => 1,
 			'SORT_ORDER' => 1,
-			'BRAND_ID' => $brand
+			'BRAND_ID' => $brand,
 		];
 
 		if (!SafeQueryBuilder::Insert('PRODUCT', $productData))
@@ -226,7 +189,7 @@ class ProductService
 		{
 			$productTagData = [
 				'PRODUCT_ID' => $product_ID,
-				'TAG_ID' => $tagId
+				'TAG_ID' => $tagId,
 			];
 			if (!SafeQueryBuilder::Insert('PRODUCT_TAG', $productTagData))
 			{
@@ -242,82 +205,59 @@ class ProductService
 	/**
 	 * @throws Exception
 	 */
-	public static function getProductsByTitle($pageNumber, $productTitle,string $category, ?array $brands): array
+	public static function getProductsByTitle(
+		$pageNumber,
+		?string $productTitle,
+		?string $category = null,
+		?array $brands = null
+	): array
 	{
 		$offset = ($pageNumber - 1) * 9;
+		$brandCondition = $brands !== null ? "AND PRODUCT.BRAND_ID IN (" . implode(",", $brands) . ")" : "";
+
 		if ($category === 'all')
 		{
-			if($brands !== null)
-			{
-				$brandList="(".implode(",",$brands).")";
-				$query = "SELECT `TITLE`, `PRODUCT`.`ID`,`PRICE`, DESCRIPTION, `PATH` FROM `PRODUCT` "
-					."INNER JOIN `IMAGE`"
-					. "ON `PRODUCT`.`ID`=`IMAGE`.`PRODUCT_ID`"
-					. " WHERE `TITLE` LIKE ? AND `IS_COVER`=? "
-					."AND PRODUCT.BRAND_ID IN $brandList "
-					." LIMIT ? OFFSET ?";
+			$query = "SELECT TITLE, PRODUCT.ID,PRICE, DESCRIPTION, PATH FROM PRODUCT "
+				. "INNER JOIN IMAGE "
+				. "ON PRODUCT.ID=IMAGE.PRODUCT_ID "
+				. "WHERE TITLE LIKE ? AND IS_COVER=? $brandCondition LIMIT ? OFFSET ?";
 
-				$params = ["%{$productTitle}%", 1, 10, $offset];
-			}
-			else
-			{
-				$query = "SELECT `TITLE`, `PRODUCT`.`ID`,`PRICE`, DESCRIPTION, `PATH` FROM `PRODUCT` "
-					."INNER JOIN `IMAGE`"
-					. "ON `PRODUCT`.`ID`=`IMAGE`.`PRODUCT_ID` "
-					. " WHERE `TITLE` LIKE ? AND `IS_COVER`=? "
-					." LIMIT ? OFFSET ?";
-				$params = ["%{$productTitle}%", 1, 10, $offset];
-			}
+			$params = ["%$productTitle%", 1, 10, $offset];
 		}
 		else
 		{
-			if($brands !== null)
-			{
-				$brandList="(".implode(",",$brands).")";
-				$query = "SELECT `TITLE`, `PRODUCT`.`ID`,`PRICE`, DESCRIPTION, `PATH` FROM `PRODUCT` "
-					."INNER JOIN `IMAGE`"
-					. "ON `PRODUCT`.`ID`=`IMAGE`.`PRODUCT_ID`"
-					. "INNER JOIN PRODUCT_TAG "
-					. "ON PRODUCT.ID = PRODUCT_TAG.PRODUCT_ID "
-					. "INNER JOIN TAG ON PRODUCT_TAG.TAG_ID = TAG.ID "
-					. " WHERE PRODUCT.`TITLE` LIKE ? AND `IS_COVER`=? "
-					." AND PRODUCT.BRAND_ID IN $brandList "
-					." AND TAG.TITLE=? "
-					." LIMIT ? OFFSET ?";
+			$query = "SELECT PRODUCT.TITLE, PRODUCT.ID,PRICE, DESCRIPTION, PATH FROM PRODUCT "
+				. "INNER JOIN IMAGE "
+				. "ON PRODUCT.ID=IMAGE.PRODUCT_ID "
+				. "INNER JOIN PRODUCT_TAG "
+				. "ON PRODUCT.ID = PRODUCT_TAG.PRODUCT_ID "
+				. "INNER JOIN TAG ON PRODUCT_TAG.TAG_ID = TAG.ID "
+				. "WHERE PRODUCT.TITLE LIKE ? AND IS_COVER=? "
+				. "AND TAG.TITLE=? $brandCondition LIMIT ? OFFSET ?";
 
-				$params = ["%{$productTitle}%", 1,$category, 10, $offset];
-			}
-			else
-			{
-				$query = "SELECT `TITLE`, `PRODUCT`.`ID`,`PRICE`, DESCRIPTION, `PATH` FROM `PRODUCT` "
-					."INNER JOIN `IMAGE`"
-					. "ON `PRODUCT`.`ID`=`IMAGE`.`PRODUCT_ID`"
-					. "INNER JOIN PRODUCT_TAG "
-					. "ON PRODUCT.ID = PRODUCT_TAG.PRODUCT_ID "
-					. "INNER JOIN TAG ON PRODUCT_TAG.TAG_ID = TAG.ID "
-					. " WHERE PRODUCT.`TITLE` LIKE ? AND `IS_COVER`=? "
-					."AND TAG.TITLE=? "
-					." LIMIT ? OFFSET ?";
-				$params = ["%{$productTitle}%", 1, $category,10, $offset];
-			}
+			$params = ["%$productTitle%", 1, $category, 10, $offset];
 		}
-
 
 		$result = SafeQueryBuilder::Select($query, $params);
 
 		$products = [];
 
-		while ($row = mysqli_fetch_assoc($result)) {
-			$cover = new \Up\Models\Image(null, $row['ID'], $row['PATH'], 1);
-			$product = new \Up\Models\Product(
+		while ($row = mysqli_fetch_assoc($result))
+		{
+			$cover = new Image(null, $row['ID'], $row['PATH'], 1);
+			$product = new Product(
 				$row['ID'],
 				$row['TITLE'],
 				$row['DESCRIPTION'],
 				$row['PRICE'],
-				null, null,
-				null, null,
-				null, null,
-				$cover, []
+				null,
+				null,
+				null,
+				null,
+				null,
+				null,
+				$cover,
+				[]
 			);
 
 			$products[] = $product;
@@ -352,19 +292,19 @@ class ProductService
 		ImageService::deleteImage($id);
 
 		// Удаление изображений
-		if (!SafeQueryBuilder::Delete('`IMAGE`','`IMAGE`.`PRODUCT_ID` = ?', [$id]))
+		if (!SafeQueryBuilder::Delete('`IMAGE`', '`IMAGE`.`PRODUCT_ID` = ?', [$id]))
 		{
 			throw new RuntimeException('Error delete image:  ' . DbConnection::get()->error);
 		}
 
 		// Удаление тегов
-		if (!SafeQueryBuilder::Delete('`PRODUCT_TAG`','`PRODUCT_TAG`.`PRODUCT_ID` = ?', [$id]))
+		if (!SafeQueryBuilder::Delete('`PRODUCT_TAG`', '`PRODUCT_TAG`.`PRODUCT_ID` = ?', [$id]))
 		{
 			throw new RuntimeException('Error delete product_tag:  ' . DbConnection::get()->error);
 		}
 
 		// Удаление продукта
-		if (!SafeQueryBuilder::Delete('`PRODUCT`','`PRODUCT`.`ID` = ?', [$id]))
+		if (!SafeQueryBuilder::Delete('`PRODUCT`', '`PRODUCT`.`ID` = ?', [$id]))
 		{
 			throw new RuntimeException('Error delete product:  ' . DbConnection::get()->error);
 		}
@@ -390,14 +330,9 @@ class ProductService
 
 		while ($row = mysqli_fetch_assoc($result))
 		{
-			$cover = new \Up\Models\Image(null, $row['ID'], $row['PATH'], 1);
-			$product = new \Up\Models\Product(
-				$row['ID'], $row['TITLE'],
-				null, $row['PRICE'],
-				null, null,
-				null, null,
-				null, null,
-				$cover, []
+			$cover = new Image(null, $row['ID'], $row['PATH'], 1);
+			$product = new Product(
+				$row['ID'], $row['TITLE'], null, $row['PRICE'], null, null, null, null, null, null, $cover, []
 			);
 
 			$products[] = $product;
