@@ -17,17 +17,38 @@ class CatalogController extends BaseController
 	 */
 	public function catalogAction(string $tagName, $pageNumber): string
 	{
-		$productArray = ProductService::getProductList($pageNumber, $tagName);
-		$pageArray = PaginationService::determinePage($pageNumber,$productArray);
-		$productArray = PaginationService::trimProductArray($productArray);
+		$request = Request::getBody();
+		$productTitle = $request['search']??null;
+
+		session_start();
+		if(Request::method() === 'GET')
+		{
+			$activeBrands = Request::getSession('activeBrands');
+		}
+		if(Request::method() === 'POST')
+		{
+			$activeBrands = $request['activeBrands'] ?? null;
+			$_SESSION['activeBrands']=$activeBrands;
+		}
+
 		$cache = new FileCache();
-		$request=Request::getBody();
 		$tags = $cache->remember('tags', 3600,function(){
 			return TagService::getTagList();
 		});
 		$brands = $cache->remember('brands', 3600,function(){
 			return BrandService::getBrandList();
 		});
+
+		if($productTitle !== null)
+		{
+			$productArray = ProductService::getProductsByTitle($pageNumber,$productTitle,$tagName,$activeBrands);
+		}
+		else
+		{
+			$productArray = ProductService::getProductList($pageNumber, $tagName,$activeBrands);
+		}
+		$pageArray = PaginationService::determinePage($pageNumber,$productArray);
+		$productArray = PaginationService::trimProductArray($productArray);
 		$params = [
 			'tags' => $tags['data'] ?? $tags,
 			'tag' => $tagName,
@@ -36,9 +57,11 @@ class CatalogController extends BaseController
 			'tagName'=> $tagName,
 			'pageArray'=> $pageArray,
 			'brandArray'=>$brands['data'] ?? $brands,
-			'activeBrands'=>$request['activeBrands']??null
+			'productTitle'=>$productTitle,
+			'activeBrands'=>$activeBrands
 		];
 		return $this->render('catalog', $params);
+
 	}
 	public function searchAction(string $tagName, $pageNumber,$mask): string
 	{

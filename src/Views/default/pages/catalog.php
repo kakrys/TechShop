@@ -29,7 +29,7 @@
 		</ul>
 	</nav>
 	<section class="productSection">
-		<?= $this->renderComponent('catalog-filters', ['brandArray'=>$brandArray,'activeBrands'=>$activeBrands]) ?>
+		<?= $this->renderComponent('catalog-filters', ['brandArray'=>$brandArray,'activeBrands'=>$activeBrands,'tagName'=>$tagName]) ?>
 		<div class="mainSection">
 			<ul class="mainSection__list">
 				<?php foreach($products as $product):?>

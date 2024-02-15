@@ -13,33 +13,68 @@ class ProductService
 	/**
 	 * @throws Exception
 	 */
-	public static function getProductList(int $pageNumber, string $category): array
+	public static function getProductList(int $pageNumber, string $category, ?array $brands): array
 	{
 		$perPage = 9;
 		$offset = ($pageNumber - 1) * $perPage;
-
 		if ($category === 'all')
 		{
-			$query = "SELECT PRODUCT.ID, TITLE, PRICE, PATH FROM PRODUCT "
-				. "INNER JOIN IMAGE "
-				. "ON PRODUCT.ID = IMAGE.PRODUCT_ID "
-				. "WHERE IS_COVER=? "
-				. "LIMIT ? OFFSET ?";
+			if($brands !== null)
+			{
+				$brandList="(".implode(",",$brands).")";
 
-			$params = [1, 10, $offset];
+				$query = "SELECT PRODUCT.ID, TITLE, PRICE, PATH FROM PRODUCT "
+					. "INNER JOIN IMAGE "
+					. "ON PRODUCT.ID = IMAGE.PRODUCT_ID "
+					. "WHERE IS_COVER=? "
+					."AND PRODUCT.BRAND_ID IN $brandList "
+					. "LIMIT ? OFFSET ?";
+
+				$params = [1, 10, $offset];
+			}
+			else
+			{
+
+				$query = "SELECT PRODUCT.ID, TITLE, PRICE, PATH FROM PRODUCT "
+					. "INNER JOIN IMAGE "
+					. "ON PRODUCT.ID = IMAGE.PRODUCT_ID "
+					. "WHERE IS_COVER=? "
+					. "LIMIT ? OFFSET ?";
+
+				$params = [1, 10, $offset];
+			}
+
 		}
 		else
 		{
-			$query = "SELECT PRODUCT.ID, PRODUCT.TITLE, PRICE, PATH FROM PRODUCT "
-				. "INNER JOIN IMAGE "
-				. "ON PRODUCT.ID = IMAGE.PRODUCT_ID "
-				. "INNER JOIN PRODUCT_TAG "
-				. "ON PRODUCT.ID = PRODUCT_TAG.PRODUCT_ID "
-				. "INNER JOIN TAG ON PRODUCT_TAG.TAG_ID = TAG.ID "
-				. "WHERE IS_COVER=? AND TAG.TITLE=? "
-				. "LIMIT ? OFFSET ?";
+			if($brands !== null)
+			{
+				$brandList="(".implode(",",$brands).")";
+				$query = "SELECT PRODUCT.ID, PRODUCT.TITLE, PRICE, PATH FROM PRODUCT "
+					. "INNER JOIN IMAGE "
+					. "ON PRODUCT.ID = IMAGE.PRODUCT_ID "
+					. "INNER JOIN PRODUCT_TAG "
+					. "ON PRODUCT.ID = PRODUCT_TAG.PRODUCT_ID "
+					. "INNER JOIN TAG ON PRODUCT_TAG.TAG_ID = TAG.ID "
+					. "WHERE IS_COVER=? AND TAG.TITLE=? "
+					."AND PRODUCT.BRAND_ID IN $brandList "
+					. "LIMIT ? OFFSET ?";
 
+			}
+			else
+			{
+				$query = "SELECT PRODUCT.ID, PRODUCT.TITLE, PRICE, PATH FROM PRODUCT "
+					. "INNER JOIN IMAGE "
+					. "ON PRODUCT.ID = IMAGE.PRODUCT_ID "
+					. "INNER JOIN PRODUCT_TAG "
+					. "ON PRODUCT.ID = PRODUCT_TAG.PRODUCT_ID "
+					. "INNER JOIN TAG ON PRODUCT_TAG.TAG_ID = TAG.ID "
+					. "WHERE IS_COVER=? AND TAG.TITLE=? "
+					. "LIMIT ? OFFSET ?";
+
+			}
 			$params = [1, $category, 10, $offset];
+
 		}
 
 		$result = SafeQueryBuilder::Select($query, $params);
@@ -207,17 +242,66 @@ class ProductService
 	/**
 	 * @throws Exception
 	 */
-	public static function getProductsByTitle($pageNumber, $productTitle): array
+	public static function getProductsByTitle($pageNumber, $productTitle,string $category, ?array $brands): array
 	{
 		$offset = ($pageNumber - 1) * 9;
+		if ($category === 'all')
+		{
+			if($brands !== null)
+			{
+				$brandList="(".implode(",",$brands).")";
+				$query = "SELECT `TITLE`, `PRODUCT`.`ID`,`PRICE`, DESCRIPTION, `PATH` FROM `PRODUCT` "
+					."INNER JOIN `IMAGE`"
+					. "ON `PRODUCT`.`ID`=`IMAGE`.`PRODUCT_ID`"
+					. " WHERE `TITLE` LIKE ? AND `IS_COVER`=? "
+					."AND PRODUCT.BRAND_ID IN $brandList "
+					." LIMIT ? OFFSET ?";
 
-		$query = "SELECT `TITLE`, `PRODUCT`.`ID`,`PRICE`, DESCRIPTION, `PATH` FROM `PRODUCT` "
-			."INNER JOIN `IMAGE`"
-			. "ON `PRODUCT`.`ID`=`IMAGE`.`PRODUCT_ID`"
-			. " WHERE `TITLE` LIKE ? AND `IS_COVER`=?"
-			." LIMIT ? OFFSET ?";
+				$params = ["%{$productTitle}%", 1, 10, $offset];
+			}
+			else
+			{
+				$query = "SELECT `TITLE`, `PRODUCT`.`ID`,`PRICE`, DESCRIPTION, `PATH` FROM `PRODUCT` "
+					."INNER JOIN `IMAGE`"
+					. "ON `PRODUCT`.`ID`=`IMAGE`.`PRODUCT_ID` "
+					. " WHERE `TITLE` LIKE ? AND `IS_COVER`=? "
+					." LIMIT ? OFFSET ?";
+				$params = ["%{$productTitle}%", 1, 10, $offset];
+			}
+		}
+		else
+		{
+			if($brands !== null)
+			{
+				$brandList="(".implode(",",$brands).")";
+				$query = "SELECT `TITLE`, `PRODUCT`.`ID`,`PRICE`, DESCRIPTION, `PATH` FROM `PRODUCT` "
+					."INNER JOIN `IMAGE`"
+					. "ON `PRODUCT`.`ID`=`IMAGE`.`PRODUCT_ID`"
+					. "INNER JOIN PRODUCT_TAG "
+					. "ON PRODUCT.ID = PRODUCT_TAG.PRODUCT_ID "
+					. "INNER JOIN TAG ON PRODUCT_TAG.TAG_ID = TAG.ID "
+					. " WHERE PRODUCT.`TITLE` LIKE ? AND `IS_COVER`=? "
+					." AND PRODUCT.BRAND_ID IN $brandList "
+					." AND TAG.TITLE=? "
+					." LIMIT ? OFFSET ?";
 
-		$params = ["%{$productTitle}%", 1, 10, $offset];
+				$params = ["%{$productTitle}%", 1,$category, 10, $offset];
+			}
+			else
+			{
+				$query = "SELECT `TITLE`, `PRODUCT`.`ID`,`PRICE`, DESCRIPTION, `PATH` FROM `PRODUCT` "
+					."INNER JOIN `IMAGE`"
+					. "ON `PRODUCT`.`ID`=`IMAGE`.`PRODUCT_ID`"
+					. "INNER JOIN PRODUCT_TAG "
+					. "ON PRODUCT.ID = PRODUCT_TAG.PRODUCT_ID "
+					. "INNER JOIN TAG ON PRODUCT_TAG.TAG_ID = TAG.ID "
+					. " WHERE PRODUCT.`TITLE` LIKE ? AND `IS_COVER`=? "
+					."AND TAG.TITLE=? "
+					." LIMIT ? OFFSET ?";
+				$params = ["%{$productTitle}%", 1, $category,10, $offset];
+			}
+		}
+
 
 		$result = SafeQueryBuilder::Select($query, $params);
 
