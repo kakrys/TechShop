@@ -369,4 +369,40 @@ class ProductService
 			throw new RuntimeException('Error delete product:  ' . DbConnection::get()->error);
 		}
 	}
+
+	/**
+	 * @throws Exception
+	 */
+	public static function getNewProducts(): array
+	{
+		$query = "SELECT PRODUCT.ID, TITLE, PRICE, PATH"
+			. " FROM PRODUCT INNER JOIN IMAGE"
+			. " ON PRODUCT.ID = IMAGE.PRODUCT_ID"
+			. " WHERE IS_COVER=?"
+			. " ORDER BY DATE_RELEASE DESC"
+			. " LIMIT ?";
+
+		$params = [1, 5];
+
+		$result = SafeQueryBuilder::Select($query, $params);
+
+		$products = [];
+
+		while ($row = mysqli_fetch_assoc($result))
+		{
+			$cover = new \Up\Models\Image(null, $row['ID'], $row['PATH'], 1);
+			$product = new \Up\Models\Product(
+				$row['ID'], $row['TITLE'],
+				null, $row['PRICE'],
+				null, null,
+				null, null,
+				null, null,
+				$cover, []
+			);
+
+			$products[] = $product;
+		}
+
+		return $products;
+	}
 }

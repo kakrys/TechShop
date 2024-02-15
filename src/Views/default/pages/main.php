@@ -2,7 +2,8 @@
 /**
  * @var $tag
  * @var $toolbar
- * @var  array $addProducts
+ * @var array $addProducts
+ * @var $newProducts
  */
 ?>
 <div class="wrapper main">
@@ -66,54 +67,22 @@
 		<div class="product__container">
 			<div class="product__header">
 				<h3 class="product__title">New Products</h3>
-				<a href="/catalog/newProducts" class="products__link">View all <img src="/assets/images/common/blackArrow.svg"
-																					alt="View all new products"></a>
+				<a href="/catalog/all/1/" class="products__link">View all <img src="/assets/images/common/blackArrow.svg" alt="View all new products"></a>
 			</div>
 			<ul class="productSection__list">
-				<li class="mainSection__item">
-					<a href="/detail/id=?" class="mainSection__link">
-						<img src="/assets/images/adminFolder/macbook12.png" alt="product Image" class="mainSection__img">
-						<div class="description__section">
-							<p class="description__title">Apple MacBook Air 15" w/ Touch ID (2023) - Space Grey (Apple M2 Chip / 256GB SSD / 8GB RAM) - French</p>
-							<div class="product__footer_container">
-								<p class="product__cost">$1018.00</p>
+				<?php foreach($newProducts as $newProduct):?>
+					<li class="mainSection__item">
+						<a href="/product/<?=$newProduct->getID()?>/" class="mainSection__link">
+							<img src="/assets/images/productImages/<?=$newProduct->getCover()->getPath()?>" alt="product Image" class="mainSection__img">
+							<div class="description__section">
+								<p class="description__title"><?=$newProduct->getTitle()?></p>
+								<div class="product__footer_container">
+									<p class="product__cost">$<?=$newProduct->getPrice()?></p>
+								</div>
 							</div>
-						</div>
-					</a>
-				</li>
-				<li class="mainSection__item">
-					<a href="/detail/id=?" class="mainSection__link">
-						<img src="/assets/images/adminFolder/macbook12.png" alt="product Image" class="mainSection__img">
-						<div class="description__section">
-							<p class="description__title">Apple MacBook Air 15" w/ Touch ID (2023) - Space Grey (Apple M2 Chip / 256GB SSD / 8GB RAM) - French</p>
-							<div class="product__footer_container">
-								<p class="product__cost">$1018.00</p>
-							</div>
-						</div>
-					</a>
-				</li>
-				<li class="mainSection__item">
-					<a href="/detail/id=?" class="mainSection__link">
-						<img src="/assets/images/adminFolder/macbook12.png" alt="product Image" class="mainSection__img">
-						<div class="description__section">
-							<p class="description__title">Apple MacBook Air 15" w/ Touch ID (2023) - Space Grey (Apple M2 Chip / 256GB SSD / 8GB RAM) - French</p>
-							<div class="product__footer_container">
-								<p class="product__cost">$1018.00</p>
-							</div>
-						</div>
-					</a>
-				</li>
-				<li class="mainSection__item">
-					<a href="/detail/id=?" class="mainSection__link">
-						<img src="/assets/images/adminFolder/macbook12.png" alt="product Image" class="mainSection__img">
-						<div class="description__section">
-							<p class="description__title">Apple MacBook Air 15" w/ Touch ID (2023) - Space Grey (Apple M2 Chip / 256GB SSD / 8GB RAM) - French</p>
-							<div class="product__footer_container">
-								<p class="product__cost">$1018.00</p>
-							</div>
-						</div>
-					</a>
-				</li>
+						</a>
+					</li>
+				<?php endforeach;?>
 			</ul>
 		</div>
 	</div>
