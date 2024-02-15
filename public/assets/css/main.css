@@ -151,3 +151,12 @@ h1 {
     gap: 24px;
     margin-top: 24px;
 }
+
+.productSection__item {
+    padding: 16px;
+    width: 230px;
+    position: relative;
+    border-radius: 8px;
+    background: #FFF;
+    box-shadow: -2px 2px 20px -1px rgba(113, 113, 113, 0.20);
+}

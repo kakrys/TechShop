@@ -21,11 +21,3 @@
 		<button class="admin__editUpdateBtn" type="submit">Update</button>
 	</div>
 </div>
-
-<div id="successUpdateModal">
-	<div class="successUpdateModal__wrapper">
-		<span class="successUpdateModal__close">&times;</span>
-		<p class="successUpdateModal__text">Your editing was successfully saved. <br> Refresh the page</p>
-		<button class="successUpdateModal__refresh">Refresh Page</button>
-	</div>
-</div>

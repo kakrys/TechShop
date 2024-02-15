@@ -71,7 +71,7 @@
 			</div>
 			<ul class="productSection__list">
 				<?php foreach($newProducts as $newProduct):?>
-					<li class="mainSection__item">
+					<li class="productSection__item">
 						<a href="/product/<?=$newProduct->getID()?>/" class="mainSection__link">
 							<img src="/assets/images/productImages/<?=$newProduct->getCover()->getPath()?>" alt="product Image" class="mainSection__img">
 							<div class="description__section">

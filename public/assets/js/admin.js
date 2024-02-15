@@ -1,4 +1,4 @@
-const tabs = document.querySelector('.account__nav');
+const tabs = document.querySelector('#descNav');
 const accountButtons = document.querySelectorAll('.account__sideBarBtn');
 
 tabs.addEventListener('click', (event) => {
@@ -302,8 +302,8 @@ updateBtn.addEventListener('click', async function () {
 		description: updateDescription.value,
 		price: updatePrice.value,
 	};
-	try {
-		// Отправка запроса на обновление продукта
+	try
+	{
 		const response = await fetch('/update/product/', {
 			method: 'POST',
 			headers: {
@@ -312,36 +312,21 @@ updateBtn.addEventListener('click', async function () {
 			body: JSON.stringify(updateParams),
 		});
 
-		// Обработка ответа от сервера
 		const responseJson = await response.json();
 
-		if (responseJson.result !== 'Y') {
+		if (responseJson.result !== 'Y')
+		{
 			console.log('error while updating');
-		} else {
+		}
+		else
+		{
 			// Обновление элемента на странице
 			const productItem = document.querySelector(`[data-id="${updateId.value}"]`).closest('.admin__productItem');
 			productItem.querySelector('.admin__productTitle').innerText = updateTitle.value;
 			productItem.querySelector('.admin__productDescription').innerText = updateDescription.value;
 			productItem.querySelector('.admin__productCost').innerText = '$' + updatePrice.value;
 
-			// Скрытие модального окна обновления
 			modal.style.display = 'none';
-
-			// Отображение модального окна успешного обновления
-			const successModal = document.querySelector('#successUpdateModal');
-			successModal.style.display = 'block';
-
-			// Обработчик события нажатия на кнопку закрытия модального окна
-			const closeSuccessModal = document.querySelector('.successUpdateModal__close');
-			closeSuccessModal.addEventListener('click', () => {
-				successModal.style.display = 'none';
-			});
-
-			// Обработчик события нажатия на кнопку обновления страницы
-			const refreshButton = document.querySelector('.successUpdateModal__refresh');
-			refreshButton.addEventListener('click', () => {
-				location.reload();
-			});
 		}
 	}
 	catch (error)
