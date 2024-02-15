@@ -25,7 +25,6 @@ Router::post('/admin/create/product/', [new AdminController(), 'addProductAction
 //new =)
 Router::get('/account/', [new UserController(), 'userAction']);
 Router::post('/registration/', [new RegistrationController(), 'registrationAction']);
-Router::get('/catalog/:tag/:id/', [new CatalogController(), 'searchAction']);
 Router::post('/updateInfo/', [new UserController(), 'updateInfoAction']);
 Router::post('/catalog/:tag/:id/', [new CatalogController(), 'catalogAction']);
 

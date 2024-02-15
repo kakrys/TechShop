@@ -64,33 +64,4 @@ class CatalogController extends BaseController
 		return $this->render('catalog', $params);
 
 	}
-
-	/**
-	 * @throws Exception
-	 */
-	public function searchAction(string $tagName, $pageNumber, $mask): string
-	{
-		$request = Request::getBody();
-
-		$productTitle = $request['search'];
-		$productArray = ProductService::getProductsByTitle($pageNumber, $productTitle);
-		$pageArray = PaginationService::determinePage($pageNumber, $productArray);
-		$productArray = PaginationService::trimProductArray($productArray);
-		$cache = new FileCache();
-		$tags = $cache->remember('tags', 3600, function()
-		{
-			return TagService::getTagList();
-		});
-		$params = [
-			'tags' => $tags['data'] ?? $tags,
-			'tag' => $tagName,
-			'pageNumber' => $pageNumber,
-			'products' => $productArray,
-			'tagName' => $tagName,
-			'pageArray' => $pageArray,
-			'productTitle' => $productTitle,
-		];
-
-		return $this->render('search-catalog', $params);
-	}
 }
