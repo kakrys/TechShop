@@ -19,18 +19,21 @@ class CatalogController extends BaseController
 	{
 		$request = Request::getBody();
 		$productTitle = $request['search'] ?? null;
-
 		session_start();
 		if (Request::method() === 'GET')
 		{
+			$sortBy=Request::getSession('sortBy');
 			$activeBrands = Request::getSession('activeBrands');
 		}
 		if (Request::method() === 'POST')
 		{
 			$activeBrands = $request['activeBrands'] ?? null;
 			$_SESSION['activeBrands'] = $activeBrands;
-		}
 
+			$sortBy = $request['sortBy'] ?? null;
+			$_SESSION['sortBy'] =$sortBy;
+
+		}
 		$cache = new FileCache();
 		$tags = $cache->remember('tags', 3600, function() {
 			return TagService::getTagList();
@@ -59,6 +62,7 @@ class CatalogController extends BaseController
 			'brandArray' => $brands['data'] ?? $brands,
 			'productTitle' => $productTitle,
 			'activeBrands' => $activeBrands,
+			'sortBy'=>$sortBy,
 		];
 
 		return $this->render('catalog', $params);

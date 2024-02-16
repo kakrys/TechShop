@@ -45,7 +45,7 @@ class Request
 		}
 		return $data;
 	}
-	public static function getSession($key = null): array|null
+	public static function getSession($key = null): mixed
 	{
 		if ($key)
 		{

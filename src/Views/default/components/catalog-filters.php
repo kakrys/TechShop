@@ -3,6 +3,7 @@
  * @var \Up\Models\Brand[] $brandArray
  * @var array $activeBrands
  * @var string $tagName
+ * @var $sortBy
  */
 ?>
 <form action="/catalog/<?=$tagName?>/1/" method="post">
@@ -68,25 +69,41 @@
 				<ul class="categorySection__list">
 					<li class="categorySection__item">
 						<label class="customCheckbox">
-							<input type="radio" name="sortBy" class="customCheckbox__input">
+                            <?php if($sortBy==1):?>
+							<input type="radio" name="sortBy" value="1" class="customCheckbox__input" checked>
+                            <?php else:?>
+                            <input type="radio" name="sortBy" value="1" class="customCheckbox__input">
+							<?php endif;?>
 							<span class="customCheckbox__text">Price: Low-High</span>
 						</label>
 					</li>
 					<li class="categorySection__item">
 						<label class="customCheckbox">
-							<input type="radio" name="sortBy" class="customCheckbox__input">
+							<?php if($sortBy==2):?>
+                                <input type="radio" name="sortBy" value="2" class="customCheckbox__input" checked>
+							<?php else:?>
+                                <input type="radio" name="sortBy" value="2" class="customCheckbox__input">
+							<?php endif;?>
 							<span class="customCheckbox__text">Price: High-Low</span>
 						</label>
 					</li>
 					<li class="categorySection__item">
 						<label class="customCheckbox">
-							<input type="radio" name="sortBy" class="customCheckbox__input">
+							<?php if($sortBy==3):?>
+                                <input type="radio" name="sortBy" value="3" class="customCheckbox__input" checked>
+							<?php else:?>
+                                <input type="radio" name="sortBy" value="3" class="customCheckbox__input">
+							<?php endif;?>
 							<span class="customCheckbox__text">Name: A-Z</span>
 						</label>
 					</li>
 					<li class="categorySection__item">
 						<label class="customCheckbox">
-							<input type="radio" name="sortBy" class="customCheckbox__input">
+							<?php if($sortBy==4):?>
+                                <input type="radio" name="sortBy" value="4" class="customCheckbox__input" checked>
+							<?php else:?>
+                                <input type="radio" name="sortBy" value="4" class="customCheckbox__input">
+							<?php endif;?>
 							<span class="customCheckbox__text">Name: Z-A</span>
 						</label>
 					</li>
