@@ -31,6 +31,10 @@
 					<img src="/assets/images/accountIcons/accountBag.svg" alt="show Orders button" class="account__img">
 					Orders
 				</button>
+				<button class="account__sideBarBtn" id="loadUserWishList" data-tab-content="accountWishListContainer">
+					<img src="/assets/images/accountIcons/accountHeart.svg" alt="show Wish List button" class="account__img">
+					Wish List
+				</button>
 				<a href="/login/logout" class="account__sideBarBtn" style="color: #C91433;" data-tab-Index="2">
 					<img src="/assets/images/accountIcons/accountLogout.svg" alt="Log out button" class="account__img">
 					Log out
