@@ -81,6 +81,7 @@
 								</div>
 							</div>
 						</a>
+						<button class="wishlist"><img src="/assets/images/accountIcons/heart.svg" alt="add to wish list" class="wishlist__icon"></button>
 					</li>
 				<?php endforeach;?>
 			</ul>

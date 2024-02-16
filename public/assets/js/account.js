@@ -1,4 +1,4 @@
-const tabs = document.querySelector('.account__nav');
+const tabs = document.querySelector('#descNav');
 tabs.addEventListener('click', (event) => {
 	const tab = event.target.closest('.account__sideBarBtn');
 	if (tab)

@@ -160,3 +160,17 @@ h1 {
     background: #FFF;
     box-shadow: -2px 2px 20px -1px rgba(113, 113, 113, 0.20);
 }
+
+.wishlist
+{
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    cursor: pointer;
+}
+
+.wishlist__icon {
+    display: block;
+    width: 24px;
+    height: 24px;
+}

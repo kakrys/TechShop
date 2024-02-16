@@ -221,3 +221,76 @@ nav .account__asideLine {
     align-items: center;
     justify-content: center;
 }
+
+/*wish list styles start*/
+.account__wishList {
+    margin-top: 24px;
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(3, 300px);
+    gap: 25px;
+}
+
+.account__wishItem {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 10px;
+    border-radius: 8px;
+    background: #FFF;
+    box-shadow: -2px 2px 20px -1px rgba(113, 113, 113, 0.20);
+    min-height: 300px;
+}
+
+.account__wishImg {
+    display: block;
+    max-width: 155px;
+    max-height: 160px;
+}
+
+.account__wishName {
+    max-width: 278px;
+    width: 100%;
+    overflow: hidden;
+    color: #063A88;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 16px;
+    font-weight: 300;
+    align-self: flex-start;
+    padding: 10px;
+}
+
+.account__wishFooter {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 10px;
+}
+
+.account__wishBuy {
+    border-radius: 8px;
+    border: 2px solid #0C68F4;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #0C68F4;
+}
+
+.account__wishBuy:hover, .account__wishBuy:active, .account__wishBuy:focus {
+    background-color: #0C68F4;
+    color: #FFFFFF;
+    transition: 0.4s;
+}
+
+.account__wishDelete {
+}
+
+.deleteImg {
+    display: block;
+    width: 20px;
+    height: 20px;
+}

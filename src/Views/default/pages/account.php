@@ -22,12 +22,12 @@
 				<p class="account__userName"><?=$userEmail?></p>
 			</div>
 			<nav class="account__nav">
-				<button class="account__sideBarBtn active-btn" data-tab-Index="0" id="loadProfile" data-tab-content="accountProfileContainer">
+				<button class="account__sideBarBtn active-btn" id="loadProfile" data-tab-content="accountProfileContainer">
 					<img src="/assets/images/accountIcons/accountUserEdit.svg" alt="edit Personal Data button"
 						 class="account__img">
 					Personal Data
 				</button>
-				<button class="account__sideBarBtn" data-tab-Index="1" id="loadUserOrders" data-tab-content="accountOrderContainer">
+				<button class="account__sideBarBtn" id="loadUserOrders" data-tab-content="accountOrderContainer">
 					<img src="/assets/images/accountIcons/accountBag.svg" alt="show Orders button" class="account__img">
 					Orders
 				</button>
@@ -35,7 +35,6 @@
 					<img src="/assets/images/accountIcons/accountLogout.svg" alt="Log out button" class="account__img">
 					Log out
 				</a>
-				<div class="account__asideLine"></div>
 			</nav>
 		</div>
 	</div>
@@ -47,7 +46,7 @@
 			<p class="account__userName"><?=$userFullName?></p>
 			<p class="account__userName"><?=$userEmail?></p>
 		</div>
-		<nav class="account__nav">
+		<nav class="account__nav" id="descNav">
 			<button class="account__sideBarBtn active-btn" data-tab-Index="0" id="loadProfile" data-tab-content="accountProfileContainer">
 				<img src="/assets/images/accountIcons/accountUserEdit.svg" alt="edit Personal Data button"
 					 class="account__img">
@@ -56,6 +55,10 @@
 			<button class="account__sideBarBtn" data-tab-Index="1" id="loadUserOrders" data-tab-content="accountOrderContainer">
 				<img src="/assets/images/accountIcons/accountBag.svg" alt="show Orders button" class="account__img">
 				Orders
+			</button>
+			<button class="account__sideBarBtn" data-tab-Index="2" id="loadUserWishList" data-tab-content="accountWishListContainer">
+				<img src="/assets/images/accountIcons/accountHeart.svg" alt="show Wish List button" class="account__img">
+				Wish List
 			</button>
 			<a href="/login/logout" class="account__sideBarBtn" style="color: #C91433;" data-tab-Index="2">
 				<img src="/assets/images/accountIcons/accountLogout.svg" alt="Log out button" class="account__img">
@@ -69,6 +72,9 @@
 	</main>
 	<main class="account__main" id="accountOrderContainer" data-user-cont="1">
 		<?= $this->renderComponent('account-orders', ['orders' => $orders]) ?>
+	</main>
+	<main class="account__main" id="accountWishListContainer" data-user-cont="2">
+		<?= $this->renderComponent('account-wishes', []) ?>
 	</main>
 </div>
 <?= $this->renderComponent('account-modals', ['user' => $user]) ?>
