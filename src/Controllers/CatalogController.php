@@ -97,16 +97,20 @@ class CatalogController extends BaseController
 		if (isset($data['id']))
 		{
 			$id = $data['id'];
+			$wishlist = &$_SESSION['wishList'];
 
-			if (!in_array($id, $_SESSION['wishList'], true))
+			if (in_array($id, $wishlist, true))
 			{
-				$_SESSION['wishList'][] = $id;
+				$wishlist = array_diff($wishlist, [$id]);
 			}
-
-			$result = $_SESSION['wishList'];
+			else
+			{
+				$wishlist[] = $id;
+			}
+			$result = $wishlist;
 
 			echo Json::encode([
-								  'result' => $result > 0 ? 'Y' : 'N',
+								  'result' => $result ? 'Y' : 'N',
 							  ]);
 		}
 		else
