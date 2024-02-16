@@ -44,11 +44,11 @@ class CatalogController extends BaseController
 
 		if ($productTitle !== null)
 		{
-			$productArray = ProductService::getProductsByTitle($pageNumber, $productTitle, $tagName, $activeBrands);
+			$productArray = ProductService::getProductsByTitle($pageNumber, $productTitle, $tagName, $activeBrands,$sortBy);
 		}
 		else
 		{
-			$productArray = ProductService::getProductList($pageNumber, $tagName, $activeBrands);
+			$productArray = ProductService::getProductList($pageNumber, $tagName, $activeBrands,$sortBy);
 		}
 		$pageArray = PaginationService::determinePage($pageNumber, $productArray);
 		$productArray = PaginationService::trimProductArray($productArray);
