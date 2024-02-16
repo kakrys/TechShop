@@ -22,7 +22,6 @@
 		</div>
 	</li>
     <?php endforeach;?>
-
 </ul>
 <div class="pagination">
 	<ul class="pagination__list">

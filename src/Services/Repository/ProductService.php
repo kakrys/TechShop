@@ -119,7 +119,7 @@ class ProductService
 
 		$result = SafeQueryBuilder::Select($query, [$isCover, $limit, $offset]);
 
-		return self::fetchProductsFromResult($result, true, true);
+		return self::fetchProductsFromResult($result, true, true,true);
 	}
 
 	/**
@@ -211,7 +211,7 @@ class ProductService
 	/**
 	 * @throws Exception
 	 */
-	public static function updateProductByID(int $id, string $title, float $price, string $description): bool
+	public static function updateProductByID(int $id, string $title, float $price, string $description,int $brandId, array $tags): bool
 	{
 		$table = 'PRODUCT';
 		$data = [
@@ -219,11 +219,28 @@ class ProductService
 			'DESCRIPTION' => $description,
 			'PRICE' => $price,
 			'DATE_UPDATE' => date('Y-m-d H:i:s'),
+			'BRAND_ID'=>$brandId,
 		];
 		$condition = '`ID` = ?';
 		$params = [$id];
+		if (!SafeQueryBuilder::Delete('`PRODUCT_TAG`', '`PRODUCT_TAG`.`PRODUCT_ID` = ?', [$id]))
+		{
+			throw new RuntimeException('Error delete product_tag:  ' . DbConnection::get()->error);
+		}
+		foreach ($tags as $tagId)
+		{
+			$productTagData = [
+				'PRODUCT_ID' => $id,
+				'TAG_ID' => $tagId,
+			];
+			if (!SafeQueryBuilder::Insert('PRODUCT_TAG', $productTagData))
+			{
+				throw new RuntimeException('Error adding an product:  ' . DbConnection::get()->error);
+			}
+		}
 
 		return SafeQueryBuilder::Update($table, $data, $condition, $params);
+
 	}
 
 	/**
@@ -274,7 +291,8 @@ class ProductService
 	private static function fetchProductsFromResult(
 		mysqli_result $result,
 		bool          $includeDescription = false,
-		bool          $includeBrand = false
+		bool          $includeBrand = false,
+		bool $includeTags=false
 	): array
 	{
 		$products = [];
@@ -295,9 +313,34 @@ class ProductService
 				$cover,
 				[]
 			);
+			if($includeTags)
+			{
+				$query = "SELECT `TAG`.ID as tagId, `TITLE` from `TAG`inner join `PRODUCT_TAG`"
+					. " on `TAG`.ID = `PRODUCT_TAG`.TAG_ID"
+					. " WHERE PRODUCT_ID=?";
+
+				$tags = SafeQueryBuilder::Select($query, [$row['ID']]);
+
+				while ($tagRow = mysqli_fetch_assoc($tags))
+				{
+					$tag = new Tag($tagRow['tagId'], $tagRow['TITLE'], null);
+					$product->addTag($tag);
+				}
+			}
 			$products[] = $product;
 		}
 
 		return $products;
+	}
+	public static function updateProductStatus(int $id, int $statusId)
+	{
+		$table = 'PRODUCT';
+		$data = [
+			'ENTITY_STATUS_ID' => $statusId
+		];
+		$condition = '`ID` = ?';
+		$params = [$id];
+
+		return SafeQueryBuilder::Update($table, $data, $condition, $params);
 	}
 }
