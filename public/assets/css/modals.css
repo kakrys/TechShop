@@ -305,7 +305,7 @@
 
 .admin__editInput {
     margin-top: 3px;
-    width: 428px;
+    width: 100%;
     padding: 4px;
     overflow: hidden;
     color: #717171;
@@ -321,6 +321,26 @@
     margin-top: 14px;
 }
 
+.admin__fieldsetContainer {
+    margin: 14px auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    max-width: 580px;
+    width: 100%;
+    gap: 20px;
+}
+
+.admin__editFieldset {
+    padding: 10px 0 10px 10px;
+    max-width: 250px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
 .admin__editUpdateBtn, .adminDbFormCancel, .adminDbFormBtn {
     margin-top: 14px;
     border-radius: 8px;
@@ -329,6 +349,10 @@
     font-size: 16px;
     font-weight: 400;
     color: #0C68F4;
+}
+
+.admin__editUpdateBtn {
+    width: 100%;
 }
 
 .admin__editUpdateBtn:hover, .adminDbFormCancel:hover, .adminDbFormBtn:hover {

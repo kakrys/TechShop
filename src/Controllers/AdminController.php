@@ -208,8 +208,10 @@ class AdminController extends BaseController
 			$title = (string)$data['title'];
 			$price = (float)$data['price'];
 			$description = (string)$data['description'];
+			$brandId  = (int)$data['brand'];
+			$tags = (array)$data['tags'];
 
-			$result = ProductService::updateProductByID($id, $title, $price, $description);
+			$result = ProductService::updateProductByID($id, $title, $price, $description, $brandId, $tags);
 			echo Json::encode([
 								  'result' => $result > 0 ? 'Y' : 'N',
 							  ]);
