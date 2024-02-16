@@ -22,17 +22,16 @@
 			<?php foreach($tags as $tag):?>
 				<li class="toolbar__item" data-tab-Index="1">
 					<?php if($productTitle !== null):?>
-                        <a href="/catalog/<?=$tag->getTitle()?>/1/?search=<?=$productTitle?>" class="toolbar__btn">
-                            <img src="/assets/images/tags/<?=$tag->getId()?>.svg" alt="mobile category" class="toolbar__img">
-                            <p class="toolbar__category"><?=$tag->getTitle()?></p>
-                        </a>
-                    <?php else:?>
-                        <a href="/catalog/<?=$tag->getTitle()?>/1/" class="toolbar__btn">
-                            <img src="/assets/images/tags/<?=$tag->getId()?>.svg" alt="mobile category" class="toolbar__img">
-                            <p class="toolbar__category"><?=$tag->getTitle()?></p>
-                        </a>
-                    <?php endif;?>
-
+						<a href="/catalog/<?=$tag->getTitle()?>/1/?search=<?=$productTitle?>" class="toolbar__btn">
+							<img src="/assets/images/tags/<?=$tag->getId()?>.svg" alt="mobile category" class="toolbar__img">
+							<p class="toolbar__category"><?=$tag->getTitle()?></p>
+						</a>
+					<?php else:?>
+						<a href="/catalog/<?=$tag->getTitle()?>/1/" class="toolbar__btn">
+							<img src="/assets/images/tags/<?=$tag->getId()?>.svg" alt="mobile category" class="toolbar__img">
+							<p class="toolbar__category"><?=$tag->getTitle()?></p>
+						</a>
+					<?php endif;?>
 				</li>
 			<?php endforeach;?>
 			<li class="toolbar__line"></li>
@@ -55,6 +54,9 @@
 								</div>
 							</div>
 						</a>
+						<button class="wishlist">
+							<img src="/assets/images/accountIcons/heart.svg" alt="add to wish list" class="wishlist__icon">
+						</button>
 					</li>
 				<?php endforeach;?>
 			</ul>
@@ -62,19 +64,19 @@
 				<ul class="pagination__list">
 					<li class="pagination__item">
 						<?php if($productTitle !== null):?>
-                        <a class="pagination__btn" href="/catalog/<?=$tagName?>/<?=$pageArray[0]?>/?search=<?=$productTitle?>">
+						<a class="pagination__btn" href="/catalog/<?=$tagName?>/<?=$pageArray[0]?>/?search=<?=$productTitle?>">
 							<?php else:?>
-                            <a class="pagination__btn" href="/catalog/<?=$tagName?>/<?=$pageArray[0]?>/">
+							<a class="pagination__btn" href="/catalog/<?=$tagName?>/<?=$pageArray[0]?>/">
 								<?php endif; ?>
 							Previous page
 						</a>
 					</li>
 					<li class="pagination__item">
-                        <?php if($productTitle !== null):?>
+						<?php if($productTitle !== null):?>
 						<a class="pagination__btn" href="/catalog/<?=$tagName?>/<?=$pageArray[1]?>/?search=<?=$productTitle?>">
-                        <?php else:?>
-                        <a class="pagination__btn" href="/catalog/<?=$tagName?>/<?=$pageArray[1]?>/">
-                        <?php endif; ?>
+						<?php else:?>
+						<a class="pagination__btn" href="/catalog/<?=$tagName?>/<?=$pageArray[1]?>/">
+						<?php endif; ?>
 							Next page
 						</a>
 					</li>
