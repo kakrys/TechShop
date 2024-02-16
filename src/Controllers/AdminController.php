@@ -116,10 +116,10 @@ class AdminController extends BaseController
 		if (isset($data['id']))
 		{
 			$id = $data['id'];
-			$result = UserService::deleteUserByID($id);
+			UserService::deleteUserByID($id);
 
 			echo Json::encode([
-								  'result' => $result > 0 ? 'Y' : 'N',
+								  'result' => 'Y',
 							  ]);
 		}
 		else
@@ -222,6 +222,30 @@ class AdminController extends BaseController
 								  'result' => 'N',
 								  'error' => 'Some problems',
 							  ]);
+		}
+	}
+
+	public function changeProductStatus():void
+	{
+		header('Content-Type: application/json');
+
+		$input = file_get_contents('php://input');
+		$data = Json::decode($input);
+		if (isset($data['id']))
+		{
+			$id = (int)$data['id'];
+			$status = (int)$data['status'];
+			$result = ProductService::updateProductStatus($id, $status);
+			echo Json::encode([
+				'result' => $result > 0 ? 'Y' : 'N',
+			]);
+		}
+		else
+		{
+			echo Json::encode([
+				'result' => 'N',
+				'error' => 'Some problems',
+			]);
 		}
 	}
 }

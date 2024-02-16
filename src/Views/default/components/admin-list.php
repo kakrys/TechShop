@@ -22,7 +22,7 @@
 			<p class="admin__productTag" data-tag="<?= $tag->getTitle() ?>" hidden></p>
 			<?php endforeach;?>
 			<button class="admin__productEdit">Edit Product</button>
-			<button class="admin__productStatus activeStatus" onclick="toggleButton(this)">Active</button>
+			<button class="admin__productStatus activeStatus" data-status="" onclick="toggleButton(this)">Active</button>
 			<button onclick="removeItem(<?=$product->getId()?>, '<?=$product->getTitle()?>')" id="dangerBtn" class="admin__productDelete">
 				<img src="/assets/images/common/bin.svg" alt="delete product" class="deleteImg">
 			</button>

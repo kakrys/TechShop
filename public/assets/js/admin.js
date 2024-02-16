@@ -193,7 +193,7 @@ async function removeUser(id, fullName)
 	{
 		return;
 	}
-	const removeParams = {
+	const removeUserParams = {
 		id: id,
 	};
 
@@ -204,19 +204,26 @@ async function removeUser(id, fullName)
 				headers:{
 					'Content-Type': 'application/json;charset=utf-8',
 				},
-				body: JSON.stringify(removeParams)
+				body: JSON.stringify(removeUserParams)
 			}
 		);
 		const responseJson = await response.json();
+
+		const userItem = document.querySelector(`[data-id="${id}"]`).closest('.account__userInfoItem');
+		const adminUser = userItem.closest('.adminUser');
 		if (responseJson.result !== 'Y')
 		{
 			console.log('error while deleting user :(');
 		}
-		const userItem = document.querySelector(`[data-id="${id}"]`);
-		if (userItem)
+		else
 		{
-			userItem.remove();
+			if (adminUser)
+			{
+				adminUser.remove();
+			}
+			console.log('success');
 		}
+
 	}
 	catch (error)
 	{
@@ -382,17 +389,35 @@ submitDbDelete.addEventListener("click", function (title = 'submitDbDelete'){
 });
 
 //toggle btn for product Status
-function toggleButton(btn) {
-	if (btn.classList.contains('activeStatus'))
-	{
-		btn.classList.remove('activeStatus');
-		btn.classList.add('non-activeStatus');
-		btn.textContent = 'Disabled';
-	}
-	else
-	{
-		btn.classList.remove('non-activeStatus');
-		btn.classList.add('activeStatus');
-		btn.textContent = 'Active';
+async function toggleButton(btn) {
+	const productId = btn.closest('.admin__productItem').querySelector('.admin__productId').getAttribute('data-id');
+	const status = parseInt(btn.getAttribute('data-status')) === 1 ? 0 : 1;
+	const changeParams = { id: productId, status };
+
+	btn.classList.toggle('activeStatus', status === 1);
+	btn.classList.toggle('non-activeStatus', status === 0);
+	btn.textContent = status === 1 ? 'Active' : 'Disabled';
+	btn.setAttribute('data-status', status);
+	console.log(status);
+
+	try {
+		const response = await fetch('/changeStatus/', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(changeParams)
+		});
+
+		const responseText = await response.text();
+		const json = JSON.parse(responseText);
+
+		console.log(json.result ? 'Status updated successfully' : 'Error updating status');
+	} catch (error) {
+		if (error instanceof SyntaxError) {
+			console.error('Invalid JSON response:', error.message);
+		} else {
+			console.error('Error:', error);
+		}
 	}
 }

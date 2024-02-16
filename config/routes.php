@@ -35,5 +35,6 @@ Router::post('/addWishItem/', [new CatalogController(), 'addWishItemAction']);
 Router::post('/migrations/execute/', [new AdminController(), 'executeAction']);
 Router::post('/database/delete/', [new AdminController(), 'dbAction']);
 Router::post('/update/product/', [new AdminController(), 'updateProductAction']);
+Router::post('/changeStatus/', [new AdminController(), 'changeProductStatus']);
 
 
