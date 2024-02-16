@@ -7,6 +7,7 @@
  * @var $brandArray
  * @var $activeBrands
  * @var $productTitle
+ * @var $sortBy
  */
 ?>
 <div class="wrapper main">
@@ -38,7 +39,7 @@
 		</ul>
 	</nav>
 	<section class="productSection">
-		<?= $this->renderComponent('catalog-filters', ['brandArray'=>$brandArray,'activeBrands'=>$activeBrands,'tagName'=>$tagName]) ?>
+		<?= $this->renderComponent('catalog-filters', ['brandArray'=>$brandArray,'activeBrands'=>$activeBrands,'tagName'=>$tagName,'sortBy'=>$sortBy]) ?>
 		<div class="mainSection">
 		<?php if (isset($products)): ?>
 		<?php if (count($products) > 0): ?>

@@ -19,18 +19,23 @@ class ProductService
 	/**
 	 * @throws Exception
 	 */
-	public static function getProductList(int $pageNumber, string $category, ?array $brands): array
+	public static function getProductList(
+		int $pageNumber,
+	  string $category,
+	  ?array $brands,
+	  ?string $sortBy=null): array
 	{
 		$perPage = 9;
 		$offset = ($pageNumber - 1) * $perPage;
 		$brandCondition = $brands !== null ? "AND PRODUCT.BRAND_ID IN (" . implode(",", $brands) . ")" : "";
+		$sortString=self::generateSortingOrder($sortBy);
 
 		if ($category === 'all')
 		{
 			$query = "SELECT PRODUCT.ID, TITLE, PRICE, PATH FROM PRODUCT "
 				. "INNER JOIN IMAGE "
 				. "ON PRODUCT.ID = IMAGE.PRODUCT_ID "
-				. "WHERE IS_COVER=? $brandCondition LIMIT ? OFFSET ?";
+				. "WHERE IS_COVER=? $brandCondition".$sortString ." LIMIT ? OFFSET ? ";
 
 			$params = [1, 10, $offset];
 		}
@@ -42,7 +47,7 @@ class ProductService
 				. "INNER JOIN PRODUCT_TAG "
 				. "ON PRODUCT.ID = PRODUCT_TAG.PRODUCT_ID "
 				. "INNER JOIN TAG ON PRODUCT_TAG.TAG_ID = TAG.ID "
-				. "WHERE IS_COVER=? AND TAG.TITLE=? $brandCondition LIMIT ? OFFSET ?";
+				. "WHERE IS_COVER=? AND TAG.TITLE=? $brandCondition ".$sortString." LIMIT ? OFFSET ? ";
 
 			$params = [1, $category, 10, $offset];
 		}
@@ -174,18 +179,22 @@ class ProductService
 		$pageNumber,
 		?string $productTitle,
 		?string $category = null,
-		?array $brands = null
+		?array $brands = null,
+		?string $sortBy=null
 	): array
 	{
 		$offset = ($pageNumber - 1) * 9;
 		$brandCondition = $brands !== null ? "AND PRODUCT.BRAND_ID IN (" . implode(",", $brands) . ")" : "";
+		$sortString=self::generateSortingOrder($sortBy);
 
 		if ($category === 'all')
 		{
 			$query = "SELECT TITLE, PRODUCT.ID,PRICE, DESCRIPTION, PATH FROM PRODUCT "
 				. "INNER JOIN IMAGE "
 				. "ON PRODUCT.ID=IMAGE.PRODUCT_ID "
-				. "WHERE TITLE LIKE ? AND IS_COVER=? $brandCondition LIMIT ? OFFSET ?";
+				. "WHERE TITLE LIKE ? AND IS_COVER=? $brandCondition"
+				.$sortString. " LIMIT ? OFFSET ? ";
+
 
 			$params = ["%$productTitle%", 1, 10, $offset];
 		}
@@ -198,7 +207,8 @@ class ProductService
 				. "ON PRODUCT.ID = PRODUCT_TAG.PRODUCT_ID "
 				. "INNER JOIN TAG ON PRODUCT_TAG.TAG_ID = TAG.ID "
 				. "WHERE PRODUCT.TITLE LIKE ? AND IS_COVER=? "
-				. "AND TAG.TITLE=? $brandCondition LIMIT ? OFFSET ?";
+				. "AND TAG.TITLE=? $brandCondition ".$sortString." LIMIT ? OFFSET ? ";
+
 
 			$params = ["%$productTitle%", 1, $category, 10, $offset];
 		}
@@ -342,5 +352,20 @@ class ProductService
 		$params = [$id];
 
 		return SafeQueryBuilder::Update($table, $data, $condition, $params);
+	}
+	public static function generateSortingOrder(int|null $sortBy):string
+	{
+		switch ($sortBy)
+		{
+			case 1:
+				return "ORDER BY PRICE ASC";
+			case 2:
+				return "ORDER BY PRICE DESC";
+			case 3:
+				return "ORDER BY `TITLE` ASC";
+			case 4:
+				return "ORDER BY `TITLE` DESC";
+		}
+		return "ORDER BY `ID`";
 	}
 }
