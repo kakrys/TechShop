@@ -9,6 +9,11 @@
  * @var $productTitle
  * @var $sortBy
  */
+
+if (isset($_SESSION['wishList']))
+{
+	var_dump($_SESSION['wishList']);
+}
 ?>
 <div class="wrapper main">
 	<nav class="toolbar">
@@ -54,7 +59,7 @@
 								</div>
 							</div>
 						</a>
-						<button class="wishlist">
+						<button class="wishlist" onclick="addWishItem('<?=$product->getId()?>')">
 							<img src="/assets/images/accountIcons/heart.svg" alt="add to wish list" class="wishlist__icon">
 						</button>
 					</li>

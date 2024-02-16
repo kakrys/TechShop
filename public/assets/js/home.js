@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", function() {
 //add to wish list
 document.addEventListener('DOMContentLoaded', function() {
 	const wishlistButtons = document.querySelectorAll('.wishlist');
-
 	wishlistButtons.forEach(function(button) {
 		button.addEventListener('click', function() {
 			const wishlistIcon = button.querySelector('.wishlist__icon');

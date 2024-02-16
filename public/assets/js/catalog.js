@@ -14,3 +14,29 @@ function resetCheckboxes() {
 }
 
 document.querySelector('.categorySection__clear').addEventListener('click', resetCheckboxes);
+
+async function addWishItem(wishID) {
+	const wishParams = {id:wishID};
+	try
+	{
+		const response = await fetch('/addWishItem/', {
+			method: 'POST',
+			headers:{
+				'Content-Type': 'application/json;charset=utf-8',
+			},
+			body: JSON.stringify(wishParams)
+		});
+
+		console.log(wishID)
+		const responseJson = await response.json();
+		if (responseJson.result !== 'Y')
+		{
+			console.log('error while add item');
+		}
+		console.log('success')
+	}
+	catch (error)
+	{
+		console.log( error);
+	}
+}
