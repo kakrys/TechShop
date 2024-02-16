@@ -99,8 +99,8 @@
 		</nav>
 	</aside>
 	<main class="account__main" id="adminProductContainer" data-admin-cont="0">
-		<?= $this->renderComponent('admin-list', ['products' => $products,'pageArray'=>$pageArray]) ?>
-		<?= $this->renderComponent('admin-edit', []) ?>
+		<?= $this->renderComponent('admin-list', ['products' => $products,'pageArray'=>$pageArray, 'tags' => $tags]) ?>
+		<?= $this->renderComponent('admin-edit', ['products' => $products, 'tags' => $tags, 'brands' => $brands]) ?>
 	</main>
 	<main class="account__main" id="adminUserContainer" data-admin-cont="1">
 		<?= $this->renderComponent('admin-users', ['users' => $users]) ?>

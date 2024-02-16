@@ -29,6 +29,45 @@ document.querySelectorAll('.admin__productEdit').forEach(button => {
 		const productTitle = this.parentElement.querySelector('.admin__productTitle').getAttribute('data-title');
 		const productPrice = this.parentElement.querySelector('.admin__productCost').getAttribute('data-price');
 		const productDescription = this.parentElement.querySelector('.admin__productDescription').getAttribute('data-description');
+		const productBrand = this.parentElement.querySelector('.admin__productBrand').getAttribute('data-brand');
+		const productTags = this.parentElement.querySelectorAll('.admin__productTag');
+
+		const brandLabels = document.querySelectorAll('.editRadioLabel');
+		const tagsLabels = document.querySelectorAll('.editCheckboxLabel');
+
+		const tagsArray = [];
+		productTags.forEach(tag => {
+			tagsArray.push(tag.getAttribute('data-tag'));
+		});
+
+		tagsLabels.forEach(label => {
+			const input = label.querySelector('.admin__editCheckboxInput');
+			const labelText = label.textContent.trim();
+
+			if (tagsArray.includes(labelText)) {
+				input.setAttribute('type', 'checkbox');
+				input.checked = true;
+			}
+			else
+			{
+				input.checked = false;
+			}
+		});
+
+		brandLabels.forEach(label => {
+			const input = label.querySelector('.admin__editRadioInput');
+			const labelText = label.textContent.trim();
+
+			if (labelText === productBrand)
+			{
+				input.setAttribute('type', 'radio');
+				input.checked = true;
+			}
+			else
+			{
+				input.checked = false;
+			}
+		});
 
 		const modal = document.querySelector('.admin__edit');
 		const productNameInput = modal.querySelector('#productName');
@@ -42,8 +81,66 @@ document.querySelectorAll('.admin__productEdit').forEach(button => {
 		productIdInput.value = productId;
 
 		modal.style.display = 'block';
+
 	});
 });
+const updateBtn = document.querySelector('.admin__editUpdateBtn');
+
+function updateProduct(modal)
+{
+	updateBtn.addEventListener('click', async function () {
+		//update product info
+		const updateId = document.getElementById('productId');
+		const updateTitle = document.getElementById('productName');
+		const updateDescription = document.getElementById('productDescription');
+		const updatePrice = document.getElementById( 'productPrice');
+		const updateBrand = document.querySelector('input[name="editBrand"]:checked');
+		const updateTags = Array.from(document.querySelectorAll('input[name="tags[]"]:checked')).map(checkbox => checkbox.value);
+
+		const updateParams = {
+			title: updateTitle.value,
+			id: updateId.value,
+			description: updateDescription.value,
+			price: updatePrice.value,
+			brand: updateBrand.value,
+			tags: updateTags,
+		};
+		try
+		{
+			const response = await fetch('/update/product/', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json;charset=utf-8',
+				},
+				body: JSON.stringify(updateParams),
+			});
+
+			const responseJson = await response.json();
+
+			if (responseJson.result !== 'Y')
+			{
+				console.log('error while updating');
+			}
+			else
+			{
+				// Обновление элемента на странице
+				const productItem = document.querySelector(`[data-id="${updateId.value}"]`).closest('.admin__productItem');
+				productItem.querySelector('.admin__productTitle').innerText = updateTitle.value;
+				productItem.querySelector('.admin__productDescription').innerText = updateDescription.value;
+				productItem.querySelector('.admin__productCost').innerText = '$' + updatePrice.value;
+
+				modal.style.display = 'none';
+			}
+		}
+		catch (error)
+		{
+			console.log('update error:' + error);
+		}
+	});
+}
+
+updateProduct(document.querySelector('.admin__edit'));
+
 document.querySelector('.closeModal').addEventListener('click', function() {
 	const modal = document.querySelector('.admin__edit');
 	modal.style.display = 'none';
@@ -284,64 +381,13 @@ submitDbDelete.addEventListener("click", function (title = 'submitDbDelete'){
 		})
 });
 
-//update product info
-const updateId = document.getElementById('productId');
-const updateTitle = document.getElementById('productName');
-const updateDescription = document.getElementById('productDescription');
-const updatePrice = document.getElementById( 'productPrice');
-
-const updateBtn = document.querySelector('.admin__editUpdateBtn');
-const modal = document.querySelector('.admin__edit');
-
-updateBtn.addEventListener('click', async function () {
-
-
-	const updateParams = {
-		title: updateTitle.value,
-		id: updateId.value,
-		description: updateDescription.value,
-		price: updatePrice.value,
-	};
-	try
-	{
-		const response = await fetch('/update/product/', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json;charset=utf-8',
-			},
-			body: JSON.stringify(updateParams),
-		});
-
-		const responseJson = await response.json();
-
-		if (responseJson.result !== 'Y')
-		{
-			console.log('error while updating');
-		}
-		else
-		{
-			// Обновление элемента на странице
-			const productItem = document.querySelector(`[data-id="${updateId.value}"]`).closest('.admin__productItem');
-			productItem.querySelector('.admin__productTitle').innerText = updateTitle.value;
-			productItem.querySelector('.admin__productDescription').innerText = updateDescription.value;
-			productItem.querySelector('.admin__productCost').innerText = '$' + updatePrice.value;
-
-			modal.style.display = 'none';
-		}
-	}
-	catch (error)
-	{
-		console.log('update error:' + error);
-	}
-});
-
 //toggle btn for product Status
 function toggleButton(btn) {
 	if (btn.classList.contains('activeStatus'))
 	{
 		btn.classList.remove('activeStatus');
 		btn.classList.add('non-activeStatus');
-		btn.textContent = 'Non-Active';
+		btn.textContent = 'Disabled';
 	}
 	else
 	{

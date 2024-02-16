@@ -3,6 +3,7 @@
  * @var \Up\Models\Product[] $products
  * @var array $pageArray
  */
+
 ?>
 <div class="title__container">
 	<h2 class="account__title">Your Products</h2>
@@ -16,9 +17,15 @@
 			<h3 class="admin__productTitle" data-title="<?=$product->getTitle()?>"><?=$product->getTitle()?></h3>
 			<p class="admin__productDescription" data-description="<?=$product->getDescription()?>"></p>
 			<p class="admin__productCost" data-price="<?=$product->getPrice()?>" >$<?=$product->getPrice()?></p>
+			<p class="admin__productBrand" data-brand="<?= $product->getBrand()?>" hidden></p>
+			<?php foreach ($product->getTags() as $tag):?>
+			<p class="admin__productTag" data-tag="<?= $tag->getTitle() ?>" hidden></p>
+			<?php endforeach;?>
 			<button class="admin__productEdit">Edit Product</button>
 			<button class="admin__productStatus activeStatus" onclick="toggleButton(this)">Active</button>
-			<button onclick="removeItem(<?=$product->getId()?>, '<?=$product->getTitle()?>')" id="dangerBtn" class="admin__productDelete"><img src="/assets/images/common/bin.svg" alt="delete product" class="deleteImg"></button>
+			<button onclick="removeItem(<?=$product->getId()?>, '<?=$product->getTitle()?>')" id="dangerBtn" class="admin__productDelete">
+				<img src="/assets/images/common/bin.svg" alt="delete product" class="deleteImg">
+			</button>
 		</div>
 	</li>
     <?php endforeach;?>
