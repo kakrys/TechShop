@@ -116,7 +116,7 @@ class ProductService
 	 */
 	public static function getProductListForAdmin(int $pageNumber): array
 	{
-		$query = "SELECT PRODUCT.`ID`,PRODUCT.`TITLE`,`PRICE`,`PATH`,`DESCRIPTION`,BRAND.`TITLE` as `BRAND`"
+		$query = "SELECT PRODUCT.`ID`,PRODUCT.`TITLE`,`PRICE`,`PATH`,`DESCRIPTION`,BRAND.`TITLE` as `BRAND`,PRODUCT.`ENTITY_STATUS_ID` "
 			. "from `PRODUCT` INNER JOIN `BRAND` on PRODUCT.BRAND_ID=`BRAND`.`id` "
 			. "inner join `IMAGE`"
 			. "on `PRODUCT`.`ID`=`IMAGE`.`PRODUCT_ID`"
@@ -130,7 +130,7 @@ class ProductService
 
 		$result = SafeQueryBuilder::Select($query, [$isCover, $limit, $offset]);
 
-		return self::fetchProductsFromResult($result, true, true, true);
+		return self::fetchProductsFromResult($result, true, true, true,true);
 	}
 
 	/**
@@ -348,7 +348,8 @@ class ProductService
 		mysqli_result $result,
 		bool          $includeDescription = false,
 		bool          $includeBrand = false,
-		bool          $includeTags = false
+		bool          $includeTags = false,
+		bool          $includeStatus=false
 	): array
 	{
 		$products = [];
@@ -360,7 +361,7 @@ class ProductService
 				$row['TITLE'],
 				$includeDescription ? $row['DESCRIPTION'] : null,
 				$row['PRICE'],
-				null,
+				$includeStatus ? $row['ENTITY_STATUS_ID'] : null,
 				null,
 				null,
 				null,
