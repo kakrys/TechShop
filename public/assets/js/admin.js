@@ -391,11 +391,11 @@ submitDbDelete.addEventListener("click", function (title = 'submitDbDelete'){
 //toggle btn for product Status
 async function toggleButton(btn) {
 	const productId = btn.closest('.admin__productItem').querySelector('.admin__productId').getAttribute('data-id');
-	const status = parseInt(btn.getAttribute('data-status')) === 1 ? 0 : 1;
+	const status = parseInt(btn.getAttribute('data-status')) === 1 ? 2 : 1;
 	const changeParams = { id: productId, status };
 
 	btn.classList.toggle('activeStatus', status === 1);
-	btn.classList.toggle('non-activeStatus', status === 0);
+	btn.classList.toggle('non-activeStatus', status === 2);
 	btn.textContent = status === 1 ? 'Active' : 'Disabled';
 	btn.setAttribute('data-status', status);
 	console.log(status);

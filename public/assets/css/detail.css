@@ -2,11 +2,10 @@
     width: 100%;
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
     justify-content: flex-start;
-    gap: 140px;
+    gap: 85px;
     margin-top: 50px;
-    padding-left: 7%;
 }
 
 .detail__title h2, .detail__cost {
@@ -26,37 +25,60 @@
 .detail__imgContainer {
     position: relative;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
+    width: 690px;
     min-height: 150px;
-    width: 450px;
+    gap: 40px;
+    height: 470px;
 }
 
-.detail__mainImg {
-    cursor: pointer;
-    display: block;
-    max-width: 450px;
-    height: 338px;
-    margin: 0 auto;
+.slider-nav {
+    width: 82px;
+    margin-right: 20px;
 }
 
-.detail__slider {
-    margin-top: 24px;
+.slider-nav__item {
+    height: 82px;
+    width: 100%;
+    background-color: #fff;
     display: flex;
-    flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    width: 100%;
-    overflow-x: auto;
-    white-space: nowrap;
+    border-radius: 8px;
+    box-shadow: -2px 2px 20px -1px rgba(113, 113, 113, 0.20);
+    cursor: pointer;
 }
 
-.detail__slider_img {
+.slider-nav__item img {
     display: block;
-    width: 90px;
-    max-height: 100px;
+    max-width: 80%;
+    max-height: 80%;
+}
+
+.slider-nav__item:not(:last-child) {
+    margin-bottom: 14px;
+}
+
+.slider-block {
+    width: calc(100% - 82px - 20px);
+    overflow: hidden;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: -2px 2px 20px -1px rgba(113, 113, 113, 0.20);
+}
+
+.swiper-slide {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.swiper-slide img {
+    display: block;
+    max-height: 85%;
+    max-width: 85%;
 }
 
 .detail__infoContainer {
@@ -121,9 +143,26 @@
 
 .detail__brandLink:hover, .detail__brandLink:active {
     color: #0C68F4;
-    /*background-color: rgba(12, 104, 244, 0.09);*/
     transition: 0.3s;
     -webkit-box-shadow: 5px 5px 100px 10px rgba(12, 104, 244, 0.3);
     -moz-box-shadow: 5px 5px 100px 10px rgba(12, 104, 244, 0.3);
     box-shadow: 5px 5px 100px 10px rgba(12, 104, 244, 0.3);
+}
+
+.detailModal-open {
+    height: 82px;
+    width: 100%;
+    background-color: #EDEDED;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+}
+
+.detailModal-open__text {
+    border-radius: 50%;
+    background-color: #fff;
+    text-align: center;
+    padding: 6px;
+    color: #444444;
 }
