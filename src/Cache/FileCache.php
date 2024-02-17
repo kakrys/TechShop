@@ -13,7 +13,7 @@ class FileCache
 	public function set(string $key, mixed $value, int $ttl): void
 	{
 		$hash = sha1($key);
-		$path = ROOT . '/var/cache/' . $hash . '.php';
+		$path = ROOT . '/var/cache/' . $key.$hash . '.php';
 
 		$data = [
 			'data' => $value,
@@ -27,7 +27,7 @@ class FileCache
 	public function get(string $key): mixed
 	{
 		$hash = sha1($key);
-		$path = ROOT . '/var/cache/' . $hash . '.php';
+		$path = ROOT . '/var/cache/' . $key.$hash . '.php';
 
 		if (!file_exists($path))
 		{
@@ -60,4 +60,20 @@ class FileCache
 
 	}
 
+	public static function deleteAll(): void
+	{
+		if (file_exists(ROOT . '/var/cache/')) {
+			foreach (glob(ROOT . '/var/cache/*') as $file) {
+				unlink($file);
+			}
+		}
+	}
+	public static function delete(string $key): void
+	{
+		if (file_exists(ROOT . '/var/cache/')) {
+			foreach (glob(ROOT . "/var/cache/$key*") as $file) {
+				unlink($file);
+			}
+		}
+	}
 }

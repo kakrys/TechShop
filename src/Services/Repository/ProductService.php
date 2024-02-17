@@ -6,6 +6,7 @@ use Exception;
 use mysqli_result;
 use RuntimeException;
 
+use Up\Cache\FileCache;
 use Up\Models\Tag;
 use Up\Models\Image;
 use Up\Models\Product;
@@ -175,6 +176,7 @@ class ProductService
 		$imageName = ImageService::renameImage();
 		ImageService::insertImageInFolder($imageName);
 		ImageService::insertImageInDatabase($product_ID, $imageName);
+		FileCache::delete('products');
 	}
 
 	/**
@@ -260,7 +262,7 @@ class ProductService
 				throw new RuntimeException('Error adding an product:  ' . DbConnection::get()->error);
 			}
 		}
-
+		FileCache::delete('products');
 		return SafeQueryBuilder::Update($table, $data, $condition, $params);
 
 	}
@@ -270,6 +272,7 @@ class ProductService
 	 */
 	public static function deleteProductByID(int $id): void
 	{
+
 		ImageService::deleteImage($id);
 
 		// Удаление изображений
@@ -289,6 +292,7 @@ class ProductService
 		{
 			throw new RuntimeException('Error delete product:  ' . DbConnection::get()->error);
 		}
+		FileCache::delete('products');
 	}
 
 	/**

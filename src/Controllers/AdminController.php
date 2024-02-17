@@ -27,11 +27,20 @@ class AdminController extends BaseController
 		$pageNumber = (int)$pageNumber;
 		if (isset($_SESSION['AdminEmail']))
 		{
-			$productArray = ProductService::getProductListForAdmin($pageNumber);
-			$pageArray = PaginationService::determinePage($pageNumber, $productArray);
-			$productArray = PaginationService::trimProductArray($productArray);
-			$user = UserService::getUserByEmail($_SESSION['AdminEmail']);
 			$cache = new FileCache();
+			$productArray = $cache->remember("products$pageNumber", 3600, function() use (&$pageNumber) {
+				return ProductService::getProductListForAdmin($pageNumber);
+			});
+			$pageArray = PaginationService::determinePage($pageNumber, $productArray['data'] ?? $productArray);
+			if (isset($productArray['data']))
+			{
+				$productArray['data'] = PaginationService::trimProductArray($productArray['data']);
+			}
+			else
+			{
+				$productArray = PaginationService::trimProductArray($productArray);
+			}
+			$user = UserService::getUserByEmail($_SESSION['AdminEmail']);
 			$tags = $cache->remember('tags', 3600, function() {
 				return TagService::getTagList();
 			});
@@ -45,7 +54,7 @@ class AdminController extends BaseController
 				'tags' => $tags['data'] ?? $tags,
 				'brands' => $brands['data'] ?? $brands,
 				'orders' => OrderService::getOrderList(),
-				'products' => $productArray,
+				'products' => $productArray['data'] ?? $productArray,
 				'users' => UserService::getUserList(),
 				'pageArray' => $pageArray,
 			];
@@ -236,6 +245,7 @@ class AdminController extends BaseController
 			$id = (int)$data['id'];
 			$status = (int)$data['status'];
 			$result = ProductService::updateProductStatus($id, $status);
+
 			echo Json::encode([
 				'result' => $result > 0 ? 'Y' : 'N',
 			]);

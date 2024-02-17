@@ -3,6 +3,7 @@
 namespace Up\Controllers;
 
 use Exception;
+use Up\Cache\FileCache;
 use Up\Services\Repository\ProductService;
 
 class IndexController extends BaseController
@@ -17,6 +18,7 @@ class IndexController extends BaseController
 			'addProducts' => [9, 10],
 			'newProducts' => $newProducts,
 		];
+
 
 		return $this->render('main', $params);
 	}
