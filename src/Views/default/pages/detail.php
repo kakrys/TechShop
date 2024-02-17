@@ -8,12 +8,47 @@ $tags = $product->getTags();
 <div class="wrapper">
 	<section class="detail">
 		<div class="detail__imgContainer">
-			<img src="/assets/images/productImages/<?=$product->getCover()->getPath()?>" alt="product image" class="detail__mainImg">
-			<div class="detail__slider">
-				<img src="/assets/images/productImages/4.png" alt="slider image" class="detail__slider_img">
-				<img src="/assets/images/productImages/8.webp" alt="slider image" class="detail__slider_img">
-				<img src="/assets/images/productImages/2.webp" alt="slider image" class="detail__slider_img">
-				<img src="/assets/images/productImages/3.png" alt="slider image" class="detail__slider_img">
+			<div class="slider-nav">
+				<div class="slider-nav__item" tabindex="0">
+					<img src="/assets/images/productImages/4.png" alt="slider image" class="detail__slider_img">
+				</div>
+				<div class="slider-nav__item" tabindex="0">
+					<img src="/assets/images/productImages/8.webp" alt="slider image" class="detail__slider_img">
+				</div>
+				<div class="slider-nav__item" tabindex="0">
+					<img src="/assets/images/productImages/2.webp" alt="slider image" class="detail__slider_img">
+				</div>
+				<div class="slider-nav__item" tabindex="0">
+					<img src="/assets/images/productImages/3.png" alt="slider image" class="detail__slider_img">
+				</div>
+				<div class="slider-nav__item" tabindex="0">
+					<img src="/assets/images/productImages/2.webp" alt="slider image" class="detail__slider_img">
+				</div>
+				<div class="slider-nav__item" tabindex="0">
+					<img src="/assets/images/productImages/3.png" alt="slider image" class="detail__slider_img">
+				</div>
+			</div>
+			<div class="slider-block">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide">
+						<img src="/assets/images/productImages/<?=$product->getCover()->getPath()?>" alt="product image" class="detail__mainImg">
+					</div>
+					<div class="swiper-slide">
+						<img src="/assets/images/productImages/<?=$product->getCover()->getPath()?>" alt="product image" class="detail__mainImg">
+					</div>
+					<div class="swiper-slide">
+						<img src="/assets/images/productImages/<?=$product->getCover()->getPath()?>" alt="product image" class="detail__mainImg">
+					</div>
+					<div class="swiper-slide">
+						<img src="/assets/images/productImages/<?=$product->getCover()->getPath()?>" alt="product image" class="detail__mainImg">
+					</div>
+					<div class="swiper-slide">
+						<img src="/assets/images/productImages/<?=$product->getCover()->getPath()?>" alt="product image" class="detail__mainImg">
+					</div>
+					<div class="swiper-slide">
+						<img src="/assets/images/productImages/<?=$product->getCover()->getPath()?>" alt="product image" class="detail__mainImg">
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="detail__infoContainer">
@@ -44,3 +79,5 @@ $tags = $product->getTags();
 		</div>
 	</section>
 </div>
+<script src="/assets/js/swiper-bundle.min.js"></script>
+<script src="/assets/js/slider.js"></script>
