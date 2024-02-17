@@ -38,10 +38,11 @@ class ProductService
 				. "INNER JOIN IMAGE "
 				. "ON PRODUCT.ID = IMAGE.PRODUCT_ID "
 				. "WHERE IS_COVER=? $brandCondition"
+				." AND PRODUCT.ENTITY_STATUS_ID=? "
 				. $sortString
 				. " LIMIT ? OFFSET ? ";
 
-			$params = [1, 10, $offset];
+			$params = [1,1, 10, $offset];
 		}
 		else
 		{
@@ -52,10 +53,11 @@ class ProductService
 				. "ON PRODUCT.ID = PRODUCT_TAG.PRODUCT_ID "
 				. "INNER JOIN TAG ON PRODUCT_TAG.TAG_ID = TAG.ID "
 				. "WHERE IS_COVER=? AND TAG.TITLE=? $brandCondition "
+				." AND PRODUCT.ENTITY_STATUS_ID=? "
 				. $sortString
 				. " LIMIT ? OFFSET ? ";
 
-			$params = [1, $category, 10, $offset];
+			$params = [1, $category,1, 10, $offset];
 		}
 
 		$result = SafeQueryBuilder::Select($query, $params);
@@ -200,10 +202,11 @@ class ProductService
 				. "INNER JOIN IMAGE "
 				. "ON PRODUCT.ID=IMAGE.PRODUCT_ID "
 				. "WHERE TITLE LIKE ? AND IS_COVER=? $brandCondition"
+				." AND PRODUCT.ENTITY_STATUS_ID=? "
 				. $sortString
 				. " LIMIT ? OFFSET ? ";
 
-			$params = ["%$productTitle%", 1, 10, $offset];
+			$params = ["%$productTitle%", 1,1, 10, $offset];
 		}
 		else
 		{
@@ -215,10 +218,11 @@ class ProductService
 				. "INNER JOIN TAG ON PRODUCT_TAG.TAG_ID = TAG.ID "
 				. "WHERE PRODUCT.TITLE LIKE ? AND IS_COVER=? "
 				. "AND TAG.TITLE=? $brandCondition "
+				." AND PRODUCT.ENTITY_STATUS_ID=? "
 				. $sortString
 				. " LIMIT ? OFFSET ? ";
 
-			$params = ["%$productTitle%", 1, $category, 10, $offset];
+			$params = ["%$productTitle%", 1, $category, 1, 10, $offset];
 		}
 
 		$result = SafeQueryBuilder::Select($query, $params);
@@ -304,10 +308,11 @@ class ProductService
 			. " FROM PRODUCT INNER JOIN IMAGE"
 			. " ON PRODUCT.ID = IMAGE.PRODUCT_ID"
 			. " WHERE IS_COVER=?"
+			." AND PRODUCT.ENTITY_STATUS_ID=? "
 			. " ORDER BY DATE_RELEASE DESC"
 			. " LIMIT ?";
 
-		$params = [1, 5];
+		$params = [1, 1,5];
 
 		$result = SafeQueryBuilder::Select($query, $params);
 
