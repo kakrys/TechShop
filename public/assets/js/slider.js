@@ -6,6 +6,7 @@ const sliderNavItems = document.querySelectorAll('.slider-nav__item');
 const sliderNav = document.querySelector('.slider-nav');
 const maxItems = 4;
 
+
 sliderNavItems.forEach((el, index) => {
 	el.setAttribute('data-index', index);
 
@@ -16,7 +17,7 @@ sliderNavItems.forEach((el, index) => {
 	});
 });
 
-const showModal = () => {
+const showMore = () => {
 	let childrenLength = sliderNav.children.length;
 
 	if(childrenLength > maxItems)
@@ -30,4 +31,36 @@ const showModal = () => {
 	}
 };
 
-showModal();
+showMore();
+
+const openModal = document.querySelector('.detailModal-open');
+const closeModal = document.querySelector('.detailModal__close');
+const detailModal = document.getElementById('detailModal');
+
+let modalSwiper;
+
+openModal.addEventListener('click', () => {
+	detailModal.style.display = 'block';
+
+	if (!modalSwiper)
+	{
+		modalSwiper = new Swiper('.detailSlider-block', {
+			slidesPerView: 1,
+		});
+		modalSwiper.update();
+
+		const modalSliderNavItems = document.querySelectorAll('.detailSlider-nav__item');
+		modalSliderNavItems.forEach((el, modalIndex) => {
+			el.setAttribute('data-modal', modalIndex);
+			el.addEventListener('click', () => {
+				modalSwiper.slideTo(modalIndex);
+			});
+		});
+	}
+});
+
+closeModal.addEventListener('click', () => {
+	detailModal.style.display = 'none';
+});
+
+
