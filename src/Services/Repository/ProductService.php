@@ -325,7 +325,7 @@ class ProductService
 		];
 		$condition = '`ID` = ?';
 		$params = [$id];
-
+		FileCache::delete('products');
 		return SafeQueryBuilder::Update($table, $data, $condition, $params);
 	}
 

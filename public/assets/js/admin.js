@@ -400,7 +400,8 @@ async function toggleButton(btn) {
 	btn.setAttribute('data-status', status);
 	console.log(status);
 
-	try {
+	try
+	{
 		const response = await fetch('/changeStatus/', {
 			method: 'POST',
 			headers: {
@@ -413,10 +414,15 @@ async function toggleButton(btn) {
 		const json = JSON.parse(responseText);
 
 		console.log(json.result ? 'Status updated successfully' : 'Error updating status');
-	} catch (error) {
-		if (error instanceof SyntaxError) {
+	}
+	catch (error)
+	{
+		if (error instanceof SyntaxError)
+		{
 			console.error('Invalid JSON response:', error.message);
-		} else {
+		}
+		else
+		{
 			console.error('Error:', error);
 		}
 	}
