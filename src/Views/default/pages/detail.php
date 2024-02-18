@@ -71,48 +71,22 @@ $tags = $product->getTags();
 					<div class="detailSlider-nav__item">
 						<img src="/assets/images/productImages/<?=$product->getCover()->getPath()?>" alt="product image" class="detail__slider_img">
 					</div>
+					<?php foreach ($images as $image):?>
 					<div class="detailSlider-nav__item">
-						<img src="/assets/images/productImages/8.webp" alt="slider image" class="detail__slider_img">
+						<img src="/assets/images/productImages/<?=$image->getPath()?>" alt="slider image" class="detail__slider_img">
 					</div>
-					<div class="detailSlider-nav__item">
-						<img src="/assets/images/productImages/2.webp" alt="slider image" class="detail__slider_img">
-					</div>
-					<div class="detailSlider-nav__item">
-						<img src="/assets/images/productImages/3.png" alt="slider image" class="detail__slider_img">
-					</div>
-					<div class="detailSlider-nav__item">
-						<img src="/assets/images/productImages/7.webp" alt="slider image" class="detail__slider_img">
-					</div>
-					<div class="detailSlider-nav__item">
-						<img src="/assets/images/productImages/9.png" alt="slider image" class="detail__slider_img">
-					</div>
-					<div class="detailSlider-nav__item">
-						<img src="/assets/images/productImages/10.png" alt="slider image" class="detail__slider_img">
-					</div>
+					<?php endforeach;?>
 				</div>
 				<div class="detailSlider-block">
 					<div class="swiper-wrapper">
 						<div class="swiper-slide">
 							<img src="/assets/images/productImages/<?=$product->getCover()->getPath()?>" alt="product image" class="detail__mainImg">
 						</div>
+						<?php foreach ($images as $image):?>
 						<div class="swiper-slide">
-							<img src="/assets/images/productImages/8.webp" alt="slider image" class="detail__mainImg">
+							<img src="/assets/images/productImages/<?=$image->getPath()?>" alt="slider image" class="detail__mainImg">
 						</div>
-						<div class="swiper-slide">
-							<img src="/assets/images/productImages/2.webp" alt="slider image" class="detail__mainImg">
-						</div>
-						<div class="swiper-slide">
-							<img src="/assets/images/productImages/3.png" alt="slider image" class="detail__slider_img">
-						</div>
-						<div class="swiper-slide">
-							<img src="/assets/images/productImages/7.webp" alt="product image" class="detail__mainImg">
-						</div>
-						<div class="swiper-slide">
-							<img src="/assets/images/productImages/9.png" alt="product image" class="detail__mainImg">
-						</div>
-						<div class="swiper-slide">
-							<img src="/assets/images/productImages/10.png" alt="product image" class="detail__mainImg">
-						</div>
+						<?php endforeach;?>
 					</div>
 				</div>
 			</div>
