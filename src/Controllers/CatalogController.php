@@ -38,6 +38,12 @@ class CatalogController extends BaseController
 			$_SESSION['sortBy'] = $sortBy;
 
 		}
+		if (Request::getSession('wishList') === null)
+		{
+			$_SESSION['wishList'] = [];
+		}
+		$wishList = $_SESSION['wishList'];
+
 		$cache = new FileCache();
 		$tags = $cache->remember('tags', 3600, function() {
 			return TagService::getTagList();
@@ -73,6 +79,7 @@ class CatalogController extends BaseController
 			'productTitle' => $productTitle,
 			'activeBrands' => $activeBrands,
 			'sortBy' => $sortBy,
+			'wishList' => $wishList
 		];
 
 		return $this->render('catalog', $params);
