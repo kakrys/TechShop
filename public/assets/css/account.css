@@ -243,6 +243,10 @@ nav .account__asideLine {
     box-shadow: -2px 2px 20px -1px rgba(113, 113, 113, 0.20);
     min-height: 300px;
 }
+.account__wishItem:hover {
+	transform: scale(1.04, 1.04);
+	transition: 0.7s;
+}
 
 .account__wishImg {
     display: block;
