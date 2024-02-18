@@ -79,7 +79,7 @@ class CatalogController extends BaseController
 			'productTitle' => $productTitle,
 			'activeBrands' => $activeBrands,
 			'sortBy' => $sortBy,
-			'wishList' => $wishList
+			'wishList' => $wishList ?? [],
 		];
 
 		return $this->render('catalog', $params);

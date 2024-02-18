@@ -7,6 +7,7 @@ namespace Up\Controllers;
 use Core\Http\Request;
 use Exception;
 use Up\Services\Repository\OrderService;
+use Up\Services\Repository\ProductService;
 use Up\Services\Repository\UserService;
 
 class UserController extends BaseController
@@ -21,18 +22,21 @@ class UserController extends BaseController
 		{
 			$user = UserService::getUserByEmail($_SESSION['UserEmail']);
 			$orders = OrderService::getOrderList($_SESSION['UserEmail']);
+			$wishesProducts = ProductService::getProductsByIds($_SESSION['wishList']);
 
 			$params = [
 				'userEmail' => $user->email,
 				'user' => $user,
 				'userFullName' => $user->name . ' ' . $user->surname,
 				'orders' => $orders,
+				'wishesProducts' => $wishesProducts,
 			];
 
 			return $this->render('account', $params);
 		}
 
 		header('Location: /login/');
+
 		return null;
 	}
 

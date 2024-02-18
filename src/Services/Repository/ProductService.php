@@ -38,11 +38,11 @@ class ProductService
 				. "INNER JOIN IMAGE "
 				. "ON PRODUCT.ID = IMAGE.PRODUCT_ID "
 				. "WHERE IS_COVER=? $brandCondition"
-				." AND PRODUCT.ENTITY_STATUS_ID=? "
+				. " AND PRODUCT.ENTITY_STATUS_ID=? "
 				. $sortString
 				. " LIMIT ? OFFSET ? ";
 
-			$params = [1,1, 10, $offset];
+			$params = [1, 1, 10, $offset];
 		}
 		else
 		{
@@ -53,11 +53,11 @@ class ProductService
 				. "ON PRODUCT.ID = PRODUCT_TAG.PRODUCT_ID "
 				. "INNER JOIN TAG ON PRODUCT_TAG.TAG_ID = TAG.ID "
 				. "WHERE IS_COVER=? AND TAG.TITLE=? $brandCondition "
-				." AND PRODUCT.ENTITY_STATUS_ID=? "
+				. " AND PRODUCT.ENTITY_STATUS_ID=? "
 				. $sortString
 				. " LIMIT ? OFFSET ? ";
 
-			$params = [1, $category,1, 10, $offset];
+			$params = [1, $category, 1, 10, $offset];
 		}
 
 		$result = SafeQueryBuilder::Select($query, $params);
@@ -132,7 +132,7 @@ class ProductService
 
 		$result = SafeQueryBuilder::Select($query, [$isCover, $limit, $offset]);
 
-		return self::fetchProductsFromResult($result, true, true, true,true);
+		return self::fetchProductsFromResult($result, true, true, true, true);
 	}
 
 	/**
@@ -202,11 +202,11 @@ class ProductService
 				. "INNER JOIN IMAGE "
 				. "ON PRODUCT.ID=IMAGE.PRODUCT_ID "
 				. "WHERE TITLE LIKE ? AND IS_COVER=? $brandCondition"
-				." AND PRODUCT.ENTITY_STATUS_ID=? "
+				. " AND PRODUCT.ENTITY_STATUS_ID=? "
 				. $sortString
 				. " LIMIT ? OFFSET ? ";
 
-			$params = ["%$productTitle%", 1,1, 10, $offset];
+			$params = ["%$productTitle%", 1, 1, 10, $offset];
 		}
 		else
 		{
@@ -218,7 +218,7 @@ class ProductService
 				. "INNER JOIN TAG ON PRODUCT_TAG.TAG_ID = TAG.ID "
 				. "WHERE PRODUCT.TITLE LIKE ? AND IS_COVER=? "
 				. "AND TAG.TITLE=? $brandCondition "
-				." AND PRODUCT.ENTITY_STATUS_ID=? "
+				. " AND PRODUCT.ENTITY_STATUS_ID=? "
 				. $sortString
 				. " LIMIT ? OFFSET ? ";
 
@@ -233,12 +233,13 @@ class ProductService
 	/**
 	 * @throws Exception
 	 */
-	public static function updateProductByID(int    $id,
-											 string $title,
-											 float  $price,
-											 string $description,
-											 int    $brandId,
-											 array  $tags
+	public static function updateProductByID(
+		int    $id,
+		string $title,
+		float  $price,
+		string $description,
+		int    $brandId,
+		array  $tags
 	): bool
 	{
 		$table = 'PRODUCT';
@@ -267,6 +268,7 @@ class ProductService
 			}
 		}
 		FileCache::delete('products');
+
 		return SafeQueryBuilder::Update($table, $data, $condition, $params);
 
 	}
@@ -308,11 +310,11 @@ class ProductService
 			. " FROM PRODUCT INNER JOIN IMAGE"
 			. " ON PRODUCT.ID = IMAGE.PRODUCT_ID"
 			. " WHERE IS_COVER=?"
-			." AND PRODUCT.ENTITY_STATUS_ID=? "
+			. " AND PRODUCT.ENTITY_STATUS_ID=? "
 			. " ORDER BY DATE_RELEASE DESC"
 			. " LIMIT ?";
 
-		$params = [1, 1,5];
+		$params = [1, 1, 5];
 
 		$result = SafeQueryBuilder::Select($query, $params);
 
@@ -331,6 +333,7 @@ class ProductService
 		$condition = '`ID` = ?';
 		$params = [$id];
 		FileCache::delete('products');
+
 		return SafeQueryBuilder::Update($table, $data, $condition, $params);
 	}
 
@@ -354,7 +357,7 @@ class ProductService
 		bool          $includeDescription = false,
 		bool          $includeBrand = false,
 		bool          $includeTags = false,
-		bool          $includeStatus=false
+		bool          $includeStatus = false
 	): array
 	{
 		$products = [];
@@ -393,5 +396,27 @@ class ProductService
 		}
 
 		return $products;
+	}
+
+	/**
+	 * @throws Exception
+	 */
+	public static function getProductsByIds(?array $ids): array
+	{
+		if ($ids !== [])
+		{
+			$placeholder = "(" . implode(",", $ids) . ")";
+
+			$query = "SELECT PRODUCT.ID, TITLE, PRICE, PATH FROM PRODUCT "
+				. "INNER JOIN IMAGE "
+				. "ON PRODUCT.ID = IMAGE.PRODUCT_ID "
+				. "WHERE PRODUCT.ID IN $placeholder";
+
+			$result = SafeQueryBuilder::Select($query);
+
+			return self::fetchProductsFromResult($result);
+		}
+
+		return [];
 	}
 }

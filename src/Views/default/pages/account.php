@@ -5,6 +5,7 @@
  * @var \Up\Models\User $user
  * @var \Up\Models\Order $orders
  * @var $warning
+ * @var \Up\Models\Product[] $wishesProducts
  */
 ?>
 <div class="navbar">
@@ -78,7 +79,7 @@
 		<?= $this->renderComponent('account-orders', ['orders' => $orders]) ?>
 	</main>
 	<main class="account__main" id="accountWishListContainer" data-user-cont="2">
-		<?= $this->renderComponent('account-wishes', []) ?>
+		<?= $this->renderComponent('account-wishes', ['wishesProducts'  =>$wishesProducts]) ?>
 	</main>
 </div>
 <?= $this->renderComponent('account-modals', ['user' => $user]) ?>
