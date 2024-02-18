@@ -8,17 +8,19 @@
 <div class="admin__create">
 	<form action="/admin/create/product/" method="post" class="admin__createForm" enctype="multipart/form-data">
 		<div class="admin__createForm_container">
-			<div class="admin__createContainer admin__createTextarea">
-				<label for="name" class="admin__textareaLabel">Name</label>
-				<input id="name" name="name" type="text" class="admin__createInput" placeholder="Input Product Name" pattern="^[^\s]+(\s.*)?$" required>
-			</div>
-			<div class="admin__createContainer admin__createTextarea">
-				<label for="description" class="admin__textareaLabel">Description</label>
-				<input id="description" name="description" type="text" class="admin__createInput" placeholder="Input Product Description" pattern="^[^\s]+(\s.*)?$" required>
-			</div>
-			<div class="admin__createContainer admin__createTextarea">
-				<label for="price" class="admin__textareaLabel">Price</label>
-				<input id="price" name="price" type="number" placeholder="Input Product Price" class="admin__createInput" required>
+			<div class="admin__createContainer">
+				<div class="admin__textarea">
+					<label for="name" class="admin__textareaLabel">Name</label>
+					<input id="name" name="name" type="text" class="admin__createInput" placeholder="Input Product Name" pattern="^[^\s]+(\s.*)?$" required>
+				</div>
+				<div class=" admin__textarea">
+					<label for="description" class="admin__textareaLabel">Description</label>
+					<input id="description" name="description" type="text" class="admin__createInput" placeholder="Input Product Description" pattern="^[^\s]+(\s.*)?$" required>
+				</div>
+				<div class="admin__textarea">
+					<label for="price" class="admin__textareaLabel">Price</label>
+					<input id="price" name="price" type="number" placeholder="Input Product Price" class="admin__createInput" required>
+				</div>
 			</div>
 			<div class="admin__createContainer">
 				<fieldset class="admin__createFieldset">
@@ -33,8 +35,6 @@
 						</div>
 					<?php endforeach;?>
 				</fieldset>
-			</div>
-			<div class="admin__createContainer">
 				<fieldset class="admin__createFieldset">
 					<legend class="admin__createLegend">Choose Tags</legend>
 					<?php foreach($tags as $tag):?>
@@ -47,9 +47,14 @@
 						</div>
 					<?php endforeach;?>
 				</fieldset>
+				<div class="admin__uploadMore_wrapper">
+					<button class="admin__uploadBtn">Upload Additional Images</button>
+					<input type="file" name="images[]" id="images" multiple>
+					<div class="preview-images"></div>
+				</div>
 			</div>
 		</div>
-		<div class="admin__createForm_container">
+		<div class="admin__createForm_mainImg">
 			<div class="admin__createForm_wrapper">
 				<div class="admin__createForm_image">
 					<img class="admin__createForm_img" src="" alt="">
@@ -67,7 +72,8 @@
 			</div>
 			<input type="file" name="image" id="defaultBtn" hidden required>
 			<button onclick="defaultBtnActive()" type="button" id="customBtn">Upload Image</button>
+			<button class="admin__createBtn" type="submit">Create!</button>
 		</div>
-		<button class="admin__createBtn" type="submit">Create!</button>
 	</form>
 </div>
+<script src="/assets/js/upload.js"></script>

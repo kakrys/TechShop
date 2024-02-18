@@ -281,46 +281,6 @@ closeDbDelete.addEventListener('click', function() {
 	dbModalDelete.style.display = 'none';
 });
 
-//upload image
-const fileName = document.querySelector('#admin__createForm_fileName');
-const fileWrapper = document.querySelector('.admin__createForm_wrapper');
-const defaultBtn = document.querySelector('#defaultBtn');
-const customBtn = document.querySelector('#customBtn');
-const image = document.querySelector(".admin__createForm_img");
-const cancelBtn = document.querySelector("#admin__createForm_cancelBtn");
-
-let regExp = /.:\\.+\\/;
-
-function defaultBtnActive()
-{
-	defaultBtn.click();
-
-	defaultBtn.addEventListener("change", function (){
-		const file = this.files[0];
-		if (file)
-		{
-			const reader = new FileReader();
-			reader.onload = function (){
-				const result = reader.result;
-				image.style.display = 'block';
-				image.src = result;
-				fileWrapper.classList.add('active-wrapper');
-			}
-			cancelBtn.addEventListener("click", function (){
-				image.src = "";
-				image.style.display = 'none';
-				fileWrapper.classList.remove('active-wrapper');
-			});
-			reader.readAsDataURL(file);
-		}
-		if (this.value)
-		{
-			let valueStorage = this.value.replace(regExp, ' ');
-			fileName.textContent = valueStorage;
-		}
-	});
-}
-
 //execute migrations
 const submitDbExecute = document.getElementById('submitDbExecute');
 function executeDb(title)
