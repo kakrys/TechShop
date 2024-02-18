@@ -2,6 +2,7 @@
 /**
  * @var $id
  * @var \Up\Models\Product $product
+ * @var \Up\Models\Image $images
  */
 $tags = $product->getTags();
 ?>
@@ -12,45 +13,22 @@ $tags = $product->getTags();
 				<div class="slider-nav__item" tabindex="0">
 					<img src="/assets/images/productImages/<?=$product->getCover()->getPath()?>" alt="product image" class="detail__slider_img">
 				</div>
-				<div class="slider-nav__item" tabindex="0">
-					<img src="/assets/images/productImages/8.webp" alt="slider image" class="detail__slider_img">
-				</div>
-				<div class="slider-nav__item" tabindex="0">
-					<img src="/assets/images/productImages/2.webp" alt="slider image" class="detail__slider_img">
-				</div>
-				<div class="slider-nav__item" tabindex="0">
-					<img src="/assets/images/productImages/3.png" alt="slider image" class="detail__slider_img">
-				</div>
-				<div class="slider-nav__item" tabindex="0">
-					<img src="/assets/images/productImages/7.webp" alt="slider image" class="detail__slider_img">
-				</div>
-				<div class="slider-nav__item" tabindex="0">
-					<img src="/assets/images/productImages/2.webp" alt="slider image" class="detail__slider_img">
-				</div>
-				<div class="slider-nav__item" tabindex="0">
-					<img src="/assets/images/productImages/3.png" alt="slider image" class="detail__slider_img">
-				</div>
+                <?php foreach ($images as $image):?>
+                    <div class="slider-nav__item" tabindex="0">
+                        <img src="/assets/images/productImages/<?=$image->getPath()?>" alt="slider image" class="detail__slider_img">
+                    </div>
+                <?php endforeach;?>
 			</div>
 			<div class="slider-block">
 				<div class="swiper-wrapper">
 					<div class="swiper-slide">
 						<img src="/assets/images/productImages/<?=$product->getCover()->getPath()?>" alt="product image" class="detail__mainImg">
 					</div>
+					<?php foreach ($images as $image):?>
 					<div class="swiper-slide">
-						<img src="/assets/images/productImages/<?=$product->getCover()->getPath()?>" alt="product image" class="detail__mainImg">
+						<img src="/assets/images/productImages/<?=$image->getPath()?>" alt="product image" class="detail__mainImg">
 					</div>
-					<div class="swiper-slide">
-						<img src="/assets/images/productImages/<?=$product->getCover()->getPath()?>" alt="product image" class="detail__mainImg">
-					</div>
-					<div class="swiper-slide">
-						<img src="/assets/images/productImages/<?=$product->getCover()->getPath()?>" alt="product image" class="detail__mainImg">
-					</div>
-					<div class="swiper-slide">
-						<img src="/assets/images/productImages/<?=$product->getCover()->getPath()?>" alt="product image" class="detail__mainImg">
-					</div>
-					<div class="swiper-slide">
-						<img src="/assets/images/productImages/<?=$product->getCover()->getPath()?>" alt="product image" class="detail__mainImg">
-					</div>
+					<?php endforeach;?>
 				</div>
 			</div>
 		</div>

@@ -12,7 +12,7 @@ const changeHandler = event => {
 
 	const files = Array.from(event.target.files);
 
-	//preview.innerHTML = '';
+	preview.innerHTML = '';
 	files.forEach(file => {
 		if (!file.type.match('image'))
 		{

@@ -177,7 +177,17 @@ class ProductService
 
 		$imageName = ImageService::renameImage();
 		ImageService::insertImageInFolder($imageName);
-		ImageService::insertImageInDatabase($product_ID, $imageName);
+		ImageService::insertImageInDatabase($product_ID, $imageName,1);
+
+		$additionalImages=ImageService::renameAndSendAddImages();
+		if($additionalImages!==[])
+		{
+			foreach ($additionalImages as $additionalImage)
+			{
+				ImageService::insertImageInDatabase($product_ID, $additionalImage,0);
+			}
+		}
+
 		FileCache::delete('products');
 	}
 
