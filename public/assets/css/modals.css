@@ -120,6 +120,7 @@
     position: absolute;
     top: 12px;
     left: 12px;
+    width: 24px;
 }
 
 .modalField__eye{

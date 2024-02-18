@@ -209,7 +209,7 @@ async function removeUser(id, fullName)
 		);
 		const responseJson = await response.json();
 
-		const userItem = document.querySelector(`[data-id="${id}"]`).closest('.account__userInfoItem');
+		const userItem = document.querySelector('.account__userInfoItem');
 		const adminUser = userItem.closest('.adminUser');
 		if (responseJson.result !== 'Y')
 		{

@@ -55,15 +55,15 @@
 		<div class="modalResponse <?= !empty($registerError) ? 'invalidField' : '' ?>"><?=$registerError ?? ''?></div>
 		<form class="modalCard__form" action="/registration/" method="post">
 			<div class="modalField">
-				<img src="/assets/images/common/modalUser.svg" alt="click and write your Full name" class="modalField__img">
+				<img src="/assets/images/common/modalUser.svg" alt="click and write your name" class="modalField__img">
 				<input class="modalCard__form_input" type="text" name="userName" placeholder="Name" pattern="^[^\s]+(\s.*)?$" required>
 			</div>
 			<div class="modalField">
-				<img src="/assets/images/common/modalUser.svg" alt="click and write your Full name" class="modalField__img">
+				<img src="/assets/images/common/modalUser.svg" alt="click and write your surname" class="modalField__img">
 				<input class="modalCard__form_input" type="text" name="userSurname" placeholder="Surname" pattern="^[^\s]+(\s.*)?$" required>
 			</div>
 			<div class="modalField">
-				<img src="/assets/images/common/modalUser.svg" alt="click and write your Full name" class="modalField__img">
+				<img src="/assets/images/common/modalAddress.svg" alt="click and write your address" class="modalField__img">
 				<input class="modalCard__form_input" type="text" name="userAddress" placeholder="Address" pattern="^[^\s]+(\s.*)?$" required>
 			</div>
 			<div class="modalField">
