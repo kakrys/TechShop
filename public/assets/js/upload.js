@@ -22,6 +22,11 @@ const changeHandler = event => {
 
 		reader.onload = function (ev){
 			const src= ev.target.result;
+			if (preview.children.length >= 12)
+			{
+				alert('You can upload a maximum of 12 images');
+				return;
+			}
 			preview.insertAdjacentHTML('afterbegin', `
 			<div class="preview-image">
 				<button class="preview-remove" type="button">
@@ -42,7 +47,6 @@ const changeHandler = event => {
 		reader.readAsDataURL(file);
 	});
 }
-
 openBtn.addEventListener('click', triggerInput)
 uploadInput.addEventListener('change', changeHandler)
 

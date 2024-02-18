@@ -27,14 +27,14 @@
 					<li class="categorySection__item">
 						<label class="customCheckbox">
 							<input type="checkbox" name=activeBrands[] value="<?=$brand->getId()?>" checked class="customCheckbox__input">
-							<span class="customCheckbox__text"><?=$brand->getTitle()?><sup>23</sup></span>
+							<span class="customCheckbox__text"><?=$brand->getTitle()?></span>
 						</label>
 					</li>
 							<?php else: ?>
                                 <li class="categorySection__item">
                                     <label class="customCheckbox">
                                         <input type="checkbox" name=activeBrands[] value="<?=$brand->getId()?>"  class="customCheckbox__input">
-                                        <span class="customCheckbox__text"><?=$brand->getTitle()?><sup>23</sup></span>
+                                        <span class="customCheckbox__text"><?=$brand->getTitle()?></span>
                                     </label>
                                 </li>
 							<?php endif; ?>
@@ -42,20 +42,12 @@
                             <li class="categorySection__item">
                                 <label class="customCheckbox">
                                     <input type="checkbox" name=activeBrands[] value="<?=$brand->getId()?>" class="customCheckbox__input">
-                                    <span class="customCheckbox__text"><?=$brand->getTitle()?><sup>23</sup></span>
+                                    <span class="customCheckbox__text"><?=$brand->getTitle()?></span>
                                 </label>
                             </li>
 						<?php endif; ?>
 					<?php endforeach;?>
 				</ul>
-			</div>
-		</div>
-		<div class="categorySection">
-			<div class="categorySection__top">
-				<div class="categorySection__caption">
-					<h3 class="categorySection__title">Discount</h3>
-					<input type="checkbox" id="switch" /><label class="switchLabel" for="switch">Toggle</label>
-				</div>
 			</div>
 		</div>
 		<div class="categorySection">

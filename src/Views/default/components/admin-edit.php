@@ -9,7 +9,7 @@
 	<div class="admin__editTitleContainer">
 		<h2>Edit your product</h2>
 		<button class="closeModal">
-			<img src="/assets/images/common/close-square.png" alt="close edit mode">
+			<img src="/assets/images/common/close-search.svg" alt="close edit mode">
 		</button>
 	</div>
 	<div class="admin__editForm">
