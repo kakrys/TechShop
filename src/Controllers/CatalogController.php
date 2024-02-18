@@ -43,7 +43,6 @@ class CatalogController extends BaseController
 			$_SESSION['wishList'] = [];
 		}
 		$wishList = $_SESSION['wishList'];
-
 		$cache = new FileCache();
 		$tags = $cache->remember('tags', 3600, function() {
 			return TagService::getTagList();
@@ -64,22 +63,40 @@ class CatalogController extends BaseController
 		}
 		else
 		{
-			$productArray = ProductService::getProductList($pageNumber, $tagName, $activeBrands, $sortBy);
+			//$productArray = ProductService::getProductList($pageNumber, $tagName, $activeBrands, $sortBy);
+			if (isset($activeBrands))
+			{
+				$key = "products$pageNumber$tagName" . implode(array_values($activeBrands)) .  "$sortBy";
+			}
+			else
+			{
+				$key = "products$pageNumber$tagName" .  "$sortBy";
+			}
+			$productArray = $cache->remember($key, 3600, function() use ($pageNumber,$tagName,$activeBrands,$sortBy) {
+				return ProductService::getProductList($pageNumber,$tagName,$activeBrands,$sortBy);
+			});
 		}
-		$pageArray = PaginationService::determinePage($pageNumber, $productArray);
-		$productArray = PaginationService::trimProductArray($productArray);
+		$pageArray = PaginationService::determinePage($pageNumber, $productArray['data'] ?? $productArray);
+		if (isset($productArray['data']))
+		{
+			$productArray['data'] = PaginationService::trimProductArray($productArray['data']);
+		}
+		else
+		{
+			$productArray = PaginationService::trimProductArray($productArray);
+		}
 		$params = [
 			'tags' => $tags['data'] ?? $tags,
 			'tag' => $tagName,
 			'pageNumber' => $pageNumber,
-			'products' => $productArray,
+			'products' => $productArray['data'] ?? $productArray,
 			'tagName' => $tagName,
 			'pageArray' => $pageArray,
 			'brandArray' => $brands['data'] ?? $brands,
 			'productTitle' => $productTitle,
 			'activeBrands' => $activeBrands,
 			'sortBy' => $sortBy,
-			'wishList' => $wishList
+			'wishList' => $wishList,
 		];
 
 		return $this->render('catalog', $params);
@@ -129,3 +146,6 @@ class CatalogController extends BaseController
 		}
 	}
 }
+
+
+/**/
