@@ -146,6 +146,3 @@ class CatalogController extends BaseController
 		}
 	}
 }
-
-
-/**/

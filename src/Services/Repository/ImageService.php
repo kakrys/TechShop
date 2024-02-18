@@ -9,7 +9,6 @@ use Core\Http\Request;
 use Core\DB\DbConnection;
 use Core\DB\SafeQueryBuilder;
 
-
 class ImageService
 {
 	private static string $uploadDir = __DIR__ . "/../../../public/assets/images/productImages/";

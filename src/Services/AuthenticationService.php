@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace Up\Services;
 
+use Exception;
 use Up\Models\User;
 
 class AuthenticationService
 {
 	/**
-	 * @throws \Exception
+	 * @throws Exception
 	 */
-	public static function authenticateUser(?User $user,string $email, string $password, bool $isAdmin = false): bool
+	public static function authenticateUser(?User $user, string $email, string $password, bool $isAdmin = false): bool
 	{
 
 		if ($isAdmin)
@@ -27,7 +28,7 @@ class AuthenticationService
 			return false;
 		}
 
-		return ($user->email === $email && password_verify($password,$user->password) && $roleID === $user->roleId);
+		return ($user->email === $email && password_verify($password, $user->password) && $roleID === $user->roleId);
 	}
 
 }

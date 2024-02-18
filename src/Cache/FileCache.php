@@ -13,7 +13,7 @@ class FileCache
 	public function set(string $key, mixed $value, int $ttl): void
 	{
 		$hash = sha1($key);
-		$path = ROOT . '/var/cache/' . $key.$hash . '.php';
+		$path = ROOT . '/var/cache/' . $key . $hash . '.php';
 
 		$data = [
 			'data' => $value,
@@ -27,14 +27,17 @@ class FileCache
 	public function get(string $key): mixed
 	{
 		$hash = sha1($key);
-		$path = ROOT . '/var/cache/' . $key.$hash . '.php';
+		$path = ROOT . '/var/cache/' . $key . $hash . '.php';
 
 		if (!file_exists($path))
 		{
 			return null;
 		}
 
-		$data = unserialize(file_get_contents($path), ['allowed_classes' => [Tag::class,Brand::class,Product::class,Image::class]]);
+		$data = unserialize(
+			file_get_contents($path),
+			['allowed_classes' => [Tag::class, Brand::class, Product::class, Image::class]]
+		);
 		$ttl = $data['ttl'];
 
 		if (time() > $ttl)
@@ -53,6 +56,7 @@ class FileCache
 		{
 			$value = $fetcher();
 			$this->set($key, $value, $ttl);
+
 			return $value;
 		}
 
@@ -62,16 +66,21 @@ class FileCache
 
 	public static function deleteAll(): void
 	{
-		if (file_exists(ROOT . '/var/cache/')) {
-			foreach (glob(ROOT . '/var/cache/*') as $file) {
+		if (file_exists(ROOT . '/var/cache/'))
+		{
+			foreach (glob(ROOT . '/var/cache/*') as $file)
+			{
 				unlink($file);
 			}
 		}
 	}
+
 	public static function delete(string $key): void
 	{
-		if (file_exists(ROOT . '/var/cache/')) {
-			foreach (glob(ROOT . "/var/cache/$key*") as $file) {
+		if (file_exists(ROOT . '/var/cache/'))
+		{
+			foreach (glob(ROOT . "/var/cache/$key*") as $file)
+			{
 				unlink($file);
 			}
 		}

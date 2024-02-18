@@ -13,6 +13,7 @@ class UserService
 {
 	/**
 	 * @param string|null $email
+	 *
 	 * @return User|null
 	 * @throws Exception
 	 */
@@ -228,7 +229,7 @@ class UserService
 	 */
 	public static function deleteUserByID(int $id): void
 	{
-		if (!SafeQueryBuilder::Delete('`USER`','`USER`.`ID` = ?', [$id]))
+		if (!SafeQueryBuilder::Delete('`USER`', '`USER`.`ID` = ?', [$id]))
 		{
 			throw new RuntimeException('Error delete user:  ' . DbConnection::get()->error);
 		}

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Up\Controllers;
 
-use Core\Http\Request;
 use Exception;
+use Core\Http\Request;
 use Up\Services\Repository\OrderService;
 use Up\Services\Repository\ProductService;
 use Up\Services\Repository\UserService;
@@ -67,6 +67,5 @@ class UserController extends BaseController
 		];
 
 		return $this->render('account', $params);
-		// header('Location: /account/');
 	}
 }

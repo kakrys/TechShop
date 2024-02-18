@@ -217,7 +217,7 @@ class AdminController extends BaseController
 			$title = (string)$data['title'];
 			$price = (float)$data['price'];
 			$description = (string)$data['description'];
-			$brandId  = (int)$data['brand'];
+			$brandId = (int)$data['brand'];
 			$tags = (array)$data['tags'];
 
 			$result = ProductService::updateProductByID($id, $title, $price, $description, $brandId, $tags);
@@ -234,7 +234,7 @@ class AdminController extends BaseController
 		}
 	}
 
-	public function changeProductStatus():void
+	public function changeProductStatus(): void
 	{
 		header('Content-Type: application/json');
 
@@ -247,15 +247,15 @@ class AdminController extends BaseController
 			$result = ProductService::updateProductStatus($id, $status);
 
 			echo Json::encode([
-				'result' => $result > 0 ? 'Y' : 'N',
-			]);
+								  'result' => $result > 0 ? 'Y' : 'N',
+							  ]);
 		}
 		else
 		{
 			echo Json::encode([
-				'result' => 'N',
-				'error' => 'Some problems',
-			]);
+								  'result' => 'N',
+								  'error' => 'Some problems',
+							  ]);
 		}
 	}
 }

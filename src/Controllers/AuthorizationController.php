@@ -20,18 +20,18 @@ class AuthorizationController extends BaseController
 
 		$request = Request::getBody();
 		$user = UserService::getUserByEmail($request['email']);
-		if (AuthenticationService::authenticateUser($user, $request['email'], $request['password'],true))
+		if (AuthenticationService::authenticateUser($user, $request['email'], $request['password'], true))
 		{
 			$_SESSION['AdminId'] = $user->id;
 			$_SESSION['AdminEmail'] = $user->email;
 			header("Location: /admin/1/");
 		}
 		if (AuthenticationService::authenticateUser($user, $request['email'], $request['password']))
-			{
-				$_SESSION['UserId'] = $user->id;
-				$_SESSION['UserEmail'] = $user->email;
-				header("Location: /account/");
-			}
+		{
+			$_SESSION['UserId'] = $user->id;
+			$_SESSION['UserEmail'] = $user->email;
+			header("Location: /account/");
+		}
 		else
 		{
 			return $this->render('login', ['authError' => 'Invalid login or password']);

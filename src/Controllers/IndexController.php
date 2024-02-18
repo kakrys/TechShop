@@ -19,7 +19,6 @@ class IndexController extends BaseController
 			'newProducts' => $newProducts,
 		];
 
-
 		return $this->render('main', $params);
 	}
 }
