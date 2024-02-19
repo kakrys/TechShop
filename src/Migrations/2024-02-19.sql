@@ -1,0 +1,26 @@
+SET NAMES utf8mb4;
+
+INSERT INTO `IMAGE` (`ID`, `PRODUCT_ID`, `PATH`, `IS_COVER`)
+VALUES (20, 1, 'iphone2.jpeg', 0),
+       (21, 1, 'iphone3.jpg', 0),
+       (22, 1, 'iphone4.jpg', 0),
+       (23, 1, 'iphone5.jpg', 0),
+       (24, 1, 'iphone6.jpg', 0),
+       (25, 1, 'iphone7.jpg', 0),
+       (26, 2, 'samsung1.webp', 0),
+       (27, 2, 'samsung2.webp', 0),
+       (28, 2, 'samsung3.png', 0),
+       (29, 3, 'dell1.jpg', 0),
+       (30, 3, 'del2.jpg', 0),
+       (31, 4, 'nintendo2.jpg', 0),
+       (32, 4, 'nintendo3.webp', 0),
+       (33, 4, 'nintendo5.webp', 0),
+       (34, 6, 'appleWatch2.jpg', 0),
+       (35, 6, 'appleWatch3.png', 0),
+       (36, 7, 'buds2.jpg', 0),
+       (37, 7, 'buds3.jpg', 0),
+       (38, 8, 'canon1.jpg', 0),
+       (39, 9, 'iphone14-1.png', 0),
+       (40, 9, 'iphone14-2.jpg', 0),
+       (41, 9, 'iphone14-3.png', 0),
+       (42, 9, 'iphone14-4.png', 0);
