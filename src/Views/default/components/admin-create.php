@@ -28,7 +28,7 @@
 					<?php foreach($brands as $brand):?>
 						<div class="selectTag">
 							<label for="tagApple" class="admin__createLabel createRadioLabel">
-								<input  name="brand" type="radio" class="admin__createInput createRadioInput" value="<?=$brand->getId()?>">
+								<input  name="brand" type="radio" class="admin__createInput createRadioInput" value="<?=$brand->getId()?>" required>
 								<?=$brand->getTitle()?>
 								<span class="createRadioSpan"></span>
 							</label>
