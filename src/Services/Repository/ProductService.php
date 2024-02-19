@@ -420,9 +420,9 @@ class ProductService
 			$query = "SELECT PRODUCT.ID, TITLE, PRICE, PATH FROM PRODUCT "
 				. "INNER JOIN IMAGE "
 				. "ON PRODUCT.ID = IMAGE.PRODUCT_ID "
-				. "WHERE PRODUCT.ID IN $placeholder";
+				. "WHERE PRODUCT.ID IN $placeholder AND IS_COVER = ?";
 
-			$result = SafeQueryBuilder::Select($query);
+			$result = SafeQueryBuilder::Select($query, [1]);
 
 			return self::fetchProductsFromResult($result);
 		}
