@@ -7,7 +7,7 @@
 	<h1 class="account__title">Your Wish List</h1>
 	<p class="account__subtitle">See your favorites list here</p>
 </div>
-<?php if (count($wishesProducts) > 0): ?>
+<?php if (isset($wishesProducts) && count($wishesProducts) > 0): ?>
 <ul class="account__wishList">
 	<?php foreach($wishesProducts as $wishesProduct):?>
 	<li class="account__wishItem">
