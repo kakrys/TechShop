@@ -86,11 +86,6 @@
 					 class="account__img">
 				Create product
 			</button>
-			<button class="account__sideBarBtn" data-tab-Index="4" data-tab-content="adminDeleteContainer">
-				<img src="/assets/images/accountIcons/accountAccess.svg" alt="show Contact us button"
-					 class="account__img">
-				Security & access
-			</button>
 			<a href="/login/logout" class="account__sideBarBtn" style="color: #C91433;" >
 				<img src="/assets/images/accountIcons/accountLogout.svg" alt="Log out button" class="account__img">
 				Log out
@@ -110,9 +105,6 @@
 	</main>
 	<main class="account__main" id="adminCreateContainer" data-admin-cont="3">
 		<?= $this->renderComponent('admin-create', ['tags' => $tags, 'brands' => $brands]) ?>
-	</main>
-	<main class="account__main" id="adminDeleteContainer" data-admin-cont="4">
-		<?= $this->renderComponent('admin-clear', []) ?>
 	</main>
 </div>
 <script src="/assets/js/admin.js"></script>

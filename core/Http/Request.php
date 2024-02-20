@@ -32,16 +32,26 @@ class Request
 		return $filteredArray;
 	}
 
+	public static function isGet(): string
+	{
+		return self::method() === 'GET';
+	}
+
+	public static function isPost(): string
+	{
+		return self::method() === 'POST';
+	}
+
 	public static function getBody(): array|null
 	{
 		$data = [];
-		if (self::method() === 'GET')
+		if (self::isGet())
 		{
-			$data=self::filterArray($_GET);
+			$data = self::filterArray($_GET);
 		}
-		if (self::method() === 'POST')
+		if (self::isPost())
 		{
-			$data=self::filterArray($_POST);
+			$data = self::filterArray($_POST);
 		}
 		return $data;
 	}

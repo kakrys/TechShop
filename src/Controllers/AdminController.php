@@ -141,56 +141,6 @@ class AdminController extends BaseController
 	}
 
 	/**
-	 * @throws JsonException
-	 */
-	public function dbAction(): void
-	{
-		header('Content-Type: application/json');
-		$input = file_get_contents('php://input');
-		$data = Json::decode($input);
-
-		if (isset($data['title']))
-		{
-			echo Json::encode([
-								  'result' => 'Y',
-							  ]);
-		}
-		else
-		{
-			echo Json::encode([
-								  'result' => 'N',
-								  'error' => 'deleteDb not provided',
-							  ]);
-		}
-	}
-
-	/**
-	 * @throws JsonException
-	 * @throws Exception
-	 */
-	public function executeAction(): void
-	{
-		header('Content-Type: application/json');
-		$input = file_get_contents('php://input');
-		$data = Json::decode($input);
-
-		if (isset($data['title']))
-		{
-			$result = Migrator::executeMigrations();
-			echo Json::encode([
-								  'result' => $result > 0 ? 'Y' : 'N',
-							  ]);
-		}
-		else
-		{
-			echo Json::encode([
-								  'result' => 'N',
-								  'error' => 'executeDb not provided',
-							  ]);
-		}
-	}
-
-	/**
 	 * @throws Exception
 	 */
 	public function addProductAction(): string
