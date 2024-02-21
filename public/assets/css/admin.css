@@ -527,3 +527,12 @@
     white-space: nowrap;
     overflow: hidden;
 }
+
+.preview-image-hide {
+    background-color: #EDEDED;
+    width: 82px;
+    height: 82px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
