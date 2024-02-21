@@ -6,7 +6,7 @@
  * @var $sortBy
  */
 ?>
-<form action="/catalog/<?=$tagName?>/1/" method="post">
+<form action="/catalog/<?=$tagName?>/1/" method="get">
 	<aside class="categorySections">
 		<div class="filter btn-reset">
 			<h2 class="filter__title">Filters</h2>

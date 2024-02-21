@@ -9,13 +9,14 @@
  * @var $productTitle
  * @var $sortBy
  * @var $wishList
+ * @var $data
  */
 ?>
 <div class="wrapper main">
 	<nav class="toolbar">
 		<ul class="toolbar__list">
 			<li class="toolbar__item" data-tab-Index="0">
-				<a href="/catalog/all/1/" class="toolbar__btn">
+				<a href="/catalog/all/1/?<?=$data?>" class="toolbar__btn">
 					<img src="/assets/images/tags/all.svg" alt="all category" class="toolbar__img">
 					<p class="toolbar__category">All</p>
 				</a>
@@ -28,7 +29,7 @@
 							<p class="toolbar__category"><?=$tag->getTitle()?></p>
 						</a>
 					<?php else:?>
-						<a href="/catalog/<?=$tag->getTitle()?>/1/" class="toolbar__btn">
+						<a href="/catalog/<?=$tag->getTitle()?>/1/?<?=$data?>" class="toolbar__btn">
 							<img src="/assets/images/tags/<?=$tag->getId()?>.svg" alt="mobile category" class="toolbar__img">
 							<p class="toolbar__category"><?=$tag->getTitle()?></p>
 						</a>
@@ -73,7 +74,7 @@
 								<?php if($productTitle !== null):?>
 								<a class="pagination__btn" href="/catalog/<?=$tagName?>/<?=$pageArray[0]?>/?search=<?=$productTitle?>">
 									<?php else:?>
-									<a class="pagination__btn" href="/catalog/<?=$tagName?>/<?=$pageArray[0]?>/">
+									<a class="pagination__btn" href="/catalog/<?=$tagName?>/<?=$pageArray[0]?>/?<?=$data?>">
 										<?php endif; ?>
 										Previous page
 									</a>
@@ -82,7 +83,7 @@
 								<?php if($productTitle !== null):?>
 								<a class="pagination__btn" href="/catalog/<?=$tagName?>/<?=$pageArray[1]?>/?search=<?=$productTitle?>">
 									<?php else:?>
-									<a class="pagination__btn" href="/catalog/<?=$tagName?>/<?=$pageArray[1]?>/">
+									<a class="pagination__btn" href="/catalog/<?=$tagName?>/<?=$pageArray[1]?>/?<?=$data?>">
 										<?php endif; ?>
 										Next page
 									</a>

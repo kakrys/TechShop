@@ -24,20 +24,16 @@ class CatalogController extends BaseController
 		$request = Request::getBody();
 		$productTitle = $request['search'] ?? null;
 		session_start();
-		if (Request::method() === 'GET')
-		{
-			$sortBy = Request::getSession('sortBy');
-			$activeBrands = Request::getSession('activeBrands');
-		}
-		if (Request::method() === 'POST')
-		{
-			$activeBrands = $request['activeBrands'] ?? null;
-			$_SESSION['activeBrands'] = $activeBrands;
 
-			$sortBy = $request['sortBy'] ?? null;
-			$_SESSION['sortBy'] = $sortBy;
 
-		}
+		$activeBrands = $request['activeBrands'] ?? null;
+
+		$sortBy = $request['sortBy'] ?? null;
+		$data = http_build_query(array('activeBrands'=>$activeBrands,'sortBy'=>$sortBy));
+		$_SESSION['activeBrands'] = $activeBrands;
+
+
+
 		if (Request::getSession('wishList') === null)
 		{
 			$_SESSION['wishList'] = [];
@@ -75,6 +71,7 @@ class CatalogController extends BaseController
 			'activeBrands' => $activeBrands,
 			'sortBy' => $sortBy,
 			'wishList' => $wishList ?? [],
+			'data'=>$data
 			];
 
 		return $this->render('catalog', $params);
