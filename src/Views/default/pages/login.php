@@ -27,10 +27,6 @@
 				<input class="modalCard__form_input password" type="password" name="password" placeholder="Password" required>
 				<img src="/assets/images/common/hide.svg" alt="show your password in the screen" class="modalField__eye">
 			</div>
-			<label for="keepLog" class="keepLog">
-				<input id="keepLog" type="checkbox" class="keepLog__input">
-				Keep me logged in
-			</label>
 			<button id="logInButton" class="modalCard__btn" type="submit">Log In</button>
 			<div class="modalCard__availability">
 				<p class="modalCard__availability_text">Don’t have an account ? </p>
@@ -75,10 +71,6 @@
 				<input class="modalCard__form_input password" type="password" name="password" placeholder="Password" pattern="^[^\s]+(\s.*)?$" required>
 				<img src="/assets/images/common/hide.svg" alt="show your password in the screen" class="modalField__eye">
 			</div>
-			<label for="keepLog2" class="keepLog">
-				<input id="keepLog2" type="checkbox" class="keepLog__input">
-				I agree to all <a href="#" class="keepLog__link">Terms & Conditions</a>
-			</label>
 			<button class="modalCard__btn" type="submit">Create Account</button>
 		</form>
 		<div class="modalCard__availability">

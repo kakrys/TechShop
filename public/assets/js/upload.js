@@ -3,6 +3,8 @@ const openBtn = document.querySelector('.admin__uploadBtn');
 const preview = document.querySelector('.preview-images');
 
 const triggerInput = () => uploadInput.click();
+let detailModalOpenAdded = false;
+
 
 const changeHandler = event => {
 	if (!event.target.files.length)
@@ -22,11 +24,7 @@ const changeHandler = event => {
 
 		reader.onload = function (ev){
 			const src= ev.target.result;
-			if (preview.children.length >= 12)
-			{
-				alert('You can upload a maximum of 12 images');
-				return;
-			}
+
 			preview.insertAdjacentHTML('afterbegin', `
 			<div class="preview-image">
 				<button class="preview-remove" type="button">
@@ -43,6 +41,29 @@ const changeHandler = event => {
 					el.closest('.preview-image').remove();
 				})
 			});
+
+			const childrenLength = preview.children.length;
+			const maxImages = 11;
+
+			if (childrenLength > maxImages)
+			{
+				document.querySelectorAll(`.preview-image:nth-child(n + ${maxImages + 1})`).forEach(el => {
+					el.style.display = 'none';
+				});
+
+
+			}
+		}
+		if (!detailModalOpenAdded)
+		{
+			const hiddenImg = document.querySelectorAll(".preview-image[style*='display: none']");
+			const countHidden = hiddenImg.length;
+			preview.insertAdjacentHTML('beforeend', `
+						<div class="preview-image-hide">
+							<div class="detailModal-open__text">+etc.</div>
+						</div>
+					`);
+			detailModalOpenAdded = true;
 		}
 		reader.readAsDataURL(file);
 	});
