@@ -3,44 +3,31 @@ const openBtn = document.querySelector('.admin__uploadBtn');
 const preview = document.querySelector('.preview-images');
 
 const triggerInput = () => uploadInput.click();
-let detailModalOpenAdded = false;
 
-
-const changeHandler = event => {
-	if (!event.target.files.length)
+const handleFile = (file) => {
+	if (!file.type.match('image'))
 	{
 		return;
 	}
 
-	const files = Array.from(event.target.files);
+	const reader = new FileReader();
 
-	preview.innerHTML = '';
-	files.forEach(file => {
-		if (!file.type.match('image'))
-		{
-			return;
-		}
-		const reader = new FileReader();
+	const loadImage = new Promise((resolve, reject) => {
+		reader.onload = () => resolve(reader.result);
+		reader.onerror = () => reject(reader.error);
+	});
 
-		reader.onload = function (ev){
-			const src= ev.target.result;
+	reader.readAsDataURL(file);
 
-			preview.insertAdjacentHTML('afterbegin', `
+	return loadImage.then(src => {
+		preview.insertAdjacentHTML('afterbegin', `
 			<div class="preview-image">
-				<button class="preview-remove" type="button">
-					<img src="/assets/images/common/close-search.svg" alt="remove">
-				</button>
 				<img src="${src}" alt="${file.name}"/>
 				<div class="preview-info">
 					<p class="preview-name">${file.name}</p>
 				</div>
 			</div>
 			`);
-			preview.querySelectorAll('.preview-remove').forEach(el => {
-				el.addEventListener('click', () => {
-					el.closest('.preview-image').remove();
-				})
-			});
 
 			const childrenLength = preview.children.length;
 			const maxImages = 11;
@@ -48,28 +35,41 @@ const changeHandler = event => {
 			if (childrenLength > maxImages)
 			{
 				document.querySelectorAll(`.preview-image:nth-child(n + ${maxImages + 1})`).forEach(el => {
-					el.style.display = 'none';
-				});
-
-
-			}
+				el.style.display = 'none';
+			});
 		}
-		if (!detailModalOpenAdded)
-		{
-			const hiddenImg = document.querySelectorAll(".preview-image[style*='display: none']");
-			const countHidden = hiddenImg.length;
-			preview.insertAdjacentHTML('beforeend', `
-						<div class="preview-image-hide">
-							<div class="detailModal-open__text">+etc.</div>
-						</div>
-					`);
-			detailModalOpenAdded = true;
-		}
-		reader.readAsDataURL(file);
 	});
-}
-openBtn.addEventListener('click', triggerInput)
-uploadInput.addEventListener('change', changeHandler)
+};
+
+const handleFiles = (event) => {
+	const files = Array.from(event.target.files);
+
+	preview.innerHTML = '';
+
+	const loadImages = files.map(handleFile);
+
+	Promise.all(loadImages).then(() => {
+		const maxImages = 11;
+
+		const hiddenImg = document.querySelectorAll(`.preview-image:nth-child(n + ${maxImages + 1})`);
+
+		if (hiddenImg.length > 0)
+		{
+			const detailModalOpen = document.createElement('div');
+			detailModalOpen.className = 'preview-image-hide';
+
+			const detailModalOpenText = document.createElement('div');
+			detailModalOpenText.className = 'detailModal-open__text';
+			detailModalOpenText.textContent = `+${hiddenImg.length}`;
+
+			detailModalOpen.appendChild(detailModalOpenText);
+			preview.appendChild(detailModalOpen);
+		}
+	});
+};
+
+openBtn.addEventListener('click', triggerInput);
+uploadInput.addEventListener('change', handleFiles);
 
 //upload main image
 const fileName = document.querySelector('#admin__createForm_fileName');
