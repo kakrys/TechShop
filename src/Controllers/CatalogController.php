@@ -43,13 +43,8 @@ class CatalogController extends BaseController
 			$_SESSION['wishList'] = [];
 		}
 		$wishList = $_SESSION['wishList'];
-		$cache = new FileCache();
-		$tags = $cache->remember('tags', 3600, function() {
-			return TagService::getTagList();
-		});
-		$brands = $cache->remember('brands', 3600, function() {
-			return BrandService::getBrandList();
-		});
+		$tags = TagService::getTagList();
+		$brands = BrandService::getBrandList();
 
 		if ($productTitle !== null)
 		{
@@ -63,36 +58,19 @@ class CatalogController extends BaseController
 		}
 		else
 		{
-			//$productArray = ProductService::getProductList($pageNumber, $tagName, $activeBrands, $sortBy);
-			if (isset($activeBrands))
-			{
-				$key = "products$pageNumber$tagName" . implode(array_values($activeBrands)) .  "$sortBy";
-			}
-			else
-			{
-				$key = "products$pageNumber$tagName" .  "$sortBy";
-			}
-			$productArray = $cache->remember($key, 3600, function() use ($pageNumber,$tagName,$activeBrands,$sortBy) {
-				return ProductService::getProductList($pageNumber,$tagName,$activeBrands,$sortBy);
-			});
+			$productArray = ProductService::getProductList($pageNumber, $tagName, $activeBrands, $sortBy);
 		}
-		$pageArray = PaginationService::determinePage($pageNumber, $productArray['data'] ?? $productArray);
-		if (isset($productArray['data']))
-		{
-			$productArray['data'] = PaginationService::trimProductArray($productArray['data']);
-		}
-		else
-		{
-			$productArray = PaginationService::trimProductArray($productArray);
-		}
+		$pageArray = PaginationService::determinePage($pageNumber, $productArray);
+		$productArray = PaginationService::trimProductArray($productArray);
+
 		$params = [
-			'tags' => $tags['data'] ?? $tags,
+			'tags' => $tags,
 			'tag' => $tagName,
 			'pageNumber' => $pageNumber,
-			'products' => $productArray['data'] ?? $productArray,
+			'products' => $productArray,
 			'tagName' => $tagName,
 			'pageArray' => $pageArray,
-			'brandArray' => $brands['data'] ?? $brands,
+			'brandArray' => $brands,
 			'productTitle' => $productTitle,
 			'activeBrands' => $activeBrands,
 			'sortBy' => $sortBy,

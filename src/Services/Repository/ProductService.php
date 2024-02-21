@@ -188,7 +188,6 @@ class ProductService
 			}
 		}
 
-		FileCache::delete('products');
 	}
 
 	/**
@@ -277,7 +276,6 @@ class ProductService
 				throw new RuntimeException('Error adding an product:  ' . DbConnection::get()->error);
 			}
 		}
-		FileCache::delete('products');
 
 		return SafeQueryBuilder::Update($table, $data, $condition, $params);
 
@@ -308,7 +306,6 @@ class ProductService
 		{
 			throw new RuntimeException('Error delete product:  ' . DbConnection::get()->error);
 		}
-		FileCache::delete('products');
 	}
 
 	/**
@@ -342,7 +339,6 @@ class ProductService
 		];
 		$condition = '`ID` = ?';
 		$params = [$id];
-		FileCache::delete('products');
 
 		return SafeQueryBuilder::Update($table, $data, $condition, $params);
 	}
