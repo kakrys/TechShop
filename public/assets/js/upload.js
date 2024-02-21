@@ -24,8 +24,7 @@ const changeHandler = event => {
 			const src= ev.target.result;
 			if (preview.children.length >= 12)
 			{
-				alert('You can upload a maximum of 12 images');
-				return;
+				return preview.children.length >= 12;
 			}
 			preview.insertAdjacentHTML('afterbegin', `
 			<div class="preview-image">

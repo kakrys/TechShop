@@ -48,7 +48,7 @@
 					<?php endforeach;?>
 				</fieldset>
 				<div class="admin__uploadMore_wrapper">
-					<button class="admin__uploadBtn" type="button">Upload Additional Images</button>
+					<button class="admin__uploadBtn" type="button">Upload Additional Images (max is 12)</button>
 					<input type="file" name="images[]" id="images" multiple>
 					<div class="preview-images"></div>
 				</div>
