@@ -28,13 +28,13 @@ class AdminController extends BaseController
 
 		$data = Request::getBody();
 
-		$orderPage = $data['order']??1;
+		$orderPage = $data['order'] ?? 1;
 		$orderPage = (int)$orderPage;
 
-		$profilePage = $data['profile']??1;
+		$profilePage = $data['profile'] ?? 1;
 		$profilePage = (int)$profilePage;
 
-		$productPage = $data['product']??1;
+		$productPage = $data['product'] ?? 1;
 		$productPage = (int)$productPage;
 
 		$pageNumber = (int)$pageNumber;
@@ -48,7 +48,7 @@ class AdminController extends BaseController
 			$userPageArray = PaginationService::determinePage($profilePage, $userArray,5);
 			$userArray = PaginationService::trimPaginationArray($userArray,5);
 
-			$orderArray=OrderService::getOrderList(null,$orderPage);
+			$orderArray=OrderService::getOrderList(null, $orderPage);
 			$orderPageArray = PaginationService::determinePage($orderPage, $orderArray,5);
 			$orderArray = PaginationService::trimPaginationArray($orderArray,5);
 
@@ -64,12 +64,12 @@ class AdminController extends BaseController
 				'orders' => $orderArray,
 				'products' => $productArray['data'] ?? $productArray,
 				'users' => $userArray,
-				'profilePage'=>$profilePage,
-				'productPage'=>$productPage,
-				'orderPage'=>$orderPage,
+				'profilePage' => $profilePage,
+				'productPage' => $productPage,
+				'orderPage' => $orderPage,
 				'pageArray' => $pageArray,
-				'userPageArray'=>$userPageArray,
-				'orderPageArray'=>$orderPageArray
+				'userPageArray' => $userPageArray,
+				'orderPageArray' => $orderPageArray
 			];
 
 			return $this->render('admin', $params);

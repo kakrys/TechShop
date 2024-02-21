@@ -240,9 +240,11 @@ document.addEventListener('DOMContentLoaded', function() {
 			container.style.display = 'none';
 		});
 		const activeButton = document.querySelector('.active-btn');
-		if (activeButton) {
+		if (activeButton)
+		{
 			const targetCont = document.querySelector(`.account__main[id="${activeButton.dataset.tabContent}"]`);
-			if (targetCont) {
+			if (targetCont)
+			{
 				targetCont.style.display = 'block';
 			}
 		}
@@ -255,9 +257,19 @@ document.addEventListener('DOMContentLoaded', function() {
 			});
 			button.classList.add('active-btn');
 			showContainer();
+			localStorage.setItem('activeTabIndex', button.dataset.tabIndex);
 		});
 	});
-
+	//coming soon
+	//const activeTabIndex = localStorage.getItem('activeTabIndex');
+	// if (activeTabIndex)
+	// {
+	// 	buttons[activeTabIndex].classList.add('active-btn');
+	// }
+	// else
+	// {
+	// 	buttons[0].classList.add('active-btn');
+	// }
 	showContainer();
 });
 
