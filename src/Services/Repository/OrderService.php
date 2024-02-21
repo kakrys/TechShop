@@ -67,7 +67,7 @@ class OrderService
 	/**
 	 * @throws Exception
 	 */
-	public static function getOrderList($userEmail = null): array
+	public static function getOrderList($userID = null): array
 	{
 		$query = "SELECT O.`ID`, O.`DATE_CREATE`, O.`PRICE`,"
 			. " U.`NAME`, U.`SURNAME`, O.`EMAIL`, O.`ADDRESS`, P.`TITLE` "
@@ -75,10 +75,10 @@ class OrderService
 			. " INNER JOIN `PRODUCT_ORDER` PR ON O.`ID` = PR.`ORDER_ID`"
 			. "INNER JOIN `PRODUCT` P ON PR.PRODUCT_ID = P.ID";
 
-		if ($userEmail !== null)
+		if ($userID !== null)
 		{
-			$query .= " WHERE O.EMAIL=?";
-			$params = [$userEmail];
+			$query .= " WHERE U.ID=?";
+			$params = [$userID];
 			$result = SafeQueryBuilder::Select($query, $params);
 		}
 		else

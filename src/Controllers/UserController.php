@@ -21,7 +21,7 @@ class UserController extends BaseController
 		if (isset($_SESSION['UserEmail']))
 		{
 			$user = UserService::getUserByEmail($_SESSION['UserEmail']);
-			$orders = OrderService::getOrderList($_SESSION['UserEmail']);
+			$orders = OrderService::getOrderList($user->id);
 
 			$wishesProducts = isset($_SESSION['wishList']) ? ProductService::getProductsByIds($_SESSION['wishList']) : [];
 
@@ -58,7 +58,7 @@ class UserController extends BaseController
 		}
 
 		$user = UserService::getUserByEmail($_SESSION['UserEmail']);
-		$orders = OrderService::getOrderList($_SESSION['UserEmail']);
+		$orders = OrderService::getOrderList($user->id);
 		$wishesProducts = isset($_SESSION['wishList']) ? ProductService::getProductsByIds($_SESSION['wishList']) : [];
 		$params = [
 			'userEmail' => $user->email,
