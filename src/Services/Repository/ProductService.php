@@ -6,14 +6,13 @@ use Exception;
 use mysqli_result;
 use RuntimeException;
 
-use Up\Cache\FileCache;
 use Up\Models\Tag;
 use Up\Models\Image;
 use Up\Models\Product;
 
 use Core\Http\Request;
 use Core\DB\DbConnection;
-use Core\DB\SafeQueryBuilder;
+use Core\DB\QueryBuilder;
 
 class ProductService
 {
@@ -29,38 +28,48 @@ class ProductService
 	{
 		$perPage = 9;
 		$offset = ($pageNumber - 1) * $perPage;
-		$brandCondition = $brands !== null ? "AND PRODUCT.BRAND_ID IN (" . implode(",", $brands) . ")" : "";
+		$brandCondition = $brands !== null ? "AND PRODUCT.BRAND_ID IN (" . implode(
+				",",
+				array_fill(0, count($brands), "?")
+			) . ")" : "";
 		$sortString = self::generateSortingOrder($sortBy);
 
 		if ($category === 'all')
 		{
-			$query = "SELECT PRODUCT.ID, TITLE, PRICE, PATH FROM PRODUCT "
-				. "INNER JOIN IMAGE "
-				. "ON PRODUCT.ID = IMAGE.PRODUCT_ID "
-				. "WHERE IS_COVER=? $brandCondition"
-				. " AND PRODUCT.ENTITY_STATUS_ID=? "
+			$query = "SELECT PRODUCT.ID, TITLE, PRICE, PATH"
+				. " FROM PRODUCT"
+				. " INNER JOIN IMAGE"
+				. " ON PRODUCT.ID = IMAGE.PRODUCT_ID"
+				. " WHERE IS_COVER = 1 $brandCondition"
+				. " AND PRODUCT.ENTITY_STATUS_ID = 1 "
 				. $sortString
-				. " LIMIT ? OFFSET ? ";
+				. " LIMIT 10 OFFSET $offset ";
 
-			$params = [1, 1, 10, $offset];
+			$params = [];
 		}
 		else
 		{
-			$query = "SELECT PRODUCT.ID, PRODUCT.TITLE, PRICE, PATH FROM PRODUCT "
-				. "INNER JOIN IMAGE "
-				. "ON PRODUCT.ID = IMAGE.PRODUCT_ID "
-				. "INNER JOIN PRODUCT_TAG "
-				. "ON PRODUCT.ID = PRODUCT_TAG.PRODUCT_ID "
-				. "INNER JOIN TAG ON PRODUCT_TAG.TAG_ID = TAG.ID "
-				. "WHERE IS_COVER=? AND TAG.TITLE=? $brandCondition "
-				. " AND PRODUCT.ENTITY_STATUS_ID=? "
+			$query = "SELECT PRODUCT.ID, PRODUCT.TITLE, PRICE, PATH"
+				. " FROM PRODUCT"
+				. " INNER JOIN IMAGE"
+				. " ON PRODUCT.ID = IMAGE.PRODUCT_ID"
+				. " INNER JOIN PRODUCT_TAG"
+				. " ON PRODUCT.ID = PRODUCT_TAG.PRODUCT_ID"
+				. " INNER JOIN TAG ON PRODUCT_TAG.TAG_ID = TAG.ID"
+				. " WHERE IS_COVER = 1 AND TAG.TITLE = ? $brandCondition"
+				. " AND PRODUCT.ENTITY_STATUS_ID = 1 "
 				. $sortString
-				. " LIMIT ? OFFSET ? ";
+				. " LIMIT 10 OFFSET $offset";
 
-			$params = [1, $category, 1, 10, $offset];
+			$params = [$category];
 		}
 
-		$result = SafeQueryBuilder::Select($query, $params);
+		if ($brands !== null)
+		{
+			$params = array_merge($params, $brands);
+		}
+
+		$result = QueryBuilder::select($query, $params, true);
 
 		return self::fetchProductsFromResult($result);
 	}
@@ -70,15 +79,13 @@ class ProductService
 	 */
 	public static function getProductInfoByID(int $id): Product
 	{
-		$query = "SELECT `PRODUCT`.`ID`,PRODUCT.`TITLE`,`PRICE`,`DESCRIPTION`,BRAND.`TITLE` as `BRAND`,`PATH`"
-			. "from `PRODUCT` INNER JOIN `BRAND` on PRODUCT.BRAND_ID=`BRAND`.`id` "
-			. "inner join `IMAGE`"
-			. "on `PRODUCT`.`ID`=`IMAGE`.`PRODUCT_ID`"
-			. "WHERE PRODUCT.`ID`=? and `IS_COVER`= ?";
+		$query = "SELECT PRODUCT.ID, PRODUCT.TITLE, PRICE, DESCRIPTION, BRAND.TITLE AS BRAND, PATH"
+			. " FROM PRODUCT INNER JOIN BRAND ON PRODUCT.BRAND_ID = BRAND.ID"
+			. " INNER JOIN IMAGE"
+			. " ON PRODUCT.ID=IMAGE.PRODUCT_ID"
+			. " WHERE PRODUCT.ID = ? AND IMAGE.IS_COVER = 1";
 
-		$params = [$id, 1];
-
-		$result = SafeQueryBuilder::Select($query, $params);
+		$result = QueryBuilder::select($query, [$id], true);
 
 		$row = mysqli_fetch_assoc($result);
 		$cover = new Image(null, $row['ID'], $row['PATH'], 1);
@@ -97,11 +104,12 @@ class ProductService
 			null
 		);
 
-		$query = "SELECT `TITLE` from `TAG`inner join `PRODUCT_TAG`"
-			. " on `TAG`.ID = `PRODUCT_TAG`.TAG_ID"
-			. " WHERE PRODUCT_ID=?";
+		$query = "SELECT TITLE"
+			. " FROM TAG INNER JOIN PRODUCT_TAG"
+			. " ON TAG.ID = PRODUCT_TAG.TAG_ID"
+			. " WHERE PRODUCT_ID = ?";
 
-		$tags = SafeQueryBuilder::Select($query, [$id]);
+		$tags = QueryBuilder::select($query, [$id], true);
 
 		while ($row = mysqli_fetch_assoc($tags))
 		{
@@ -118,19 +126,18 @@ class ProductService
 	 */
 	public static function getProductListForAdmin(int $pageNumber): array
 	{
-		$query = "SELECT PRODUCT.`ID`,PRODUCT.`TITLE`,`PRICE`,`PATH`,`DESCRIPTION`,BRAND.`TITLE` as `BRAND`,PRODUCT.`ENTITY_STATUS_ID` "
-			. "from `PRODUCT` INNER JOIN `BRAND` on PRODUCT.BRAND_ID=`BRAND`.`id` "
-			. "inner join `IMAGE`"
-			. "on `PRODUCT`.`ID`=`IMAGE`.`PRODUCT_ID`"
-			. "WHERE `IS_COVER`=? "
-			. "LIMIT ? OFFSET ?";
-
 		$perPage = 9;
-		$isCover = 1;
-		$limit = 10;
 		$offset = ($pageNumber - 1) * $perPage;
 
-		$result = SafeQueryBuilder::Select($query, [$isCover, $limit, $offset]);
+		$query = "SELECT PRODUCT.ID, PRODUCT.TITLE, PRICE, PATH, DESCRIPTION, BRAND.TITLE"
+			. " AS BRAND, PRODUCT.ENTITY_STATUS_ID"
+			. " FROM PRODUCT INNER JOIN BRAND ON PRODUCT.BRAND_ID = BRAND.ID"
+			. " INNER JOIN IMAGE"
+			. " ON PRODUCT.ID = IMAGE.PRODUCT_ID"
+			. " WHERE IS_COVER = 1 "
+			. " LIMIT 10 OFFSET $offset";
+
+		$result = QueryBuilder::select($query);
 
 		return self::fetchProductsFromResult($result, true, true, true, true);
 	}
@@ -156,7 +163,7 @@ class ProductService
 			'BRAND_ID' => $brand,
 		];
 
-		if (!SafeQueryBuilder::Insert('PRODUCT', $productData))
+		if (!QueryBuilder::insert('PRODUCT', $productData, true))
 		{
 			throw new RuntimeException('Error adding an product:  ' . DbConnection::get()->error);
 		}
@@ -169,7 +176,7 @@ class ProductService
 				'PRODUCT_ID' => $product_ID,
 				'TAG_ID' => $tagId,
 			];
-			if (!SafeQueryBuilder::Insert('PRODUCT_TAG', $productTagData))
+			if (!QueryBuilder::insert('PRODUCT_TAG', $productTagData, true))
 			{
 				throw new RuntimeException('Error adding an product:  ' . DbConnection::get()->error);
 			}
@@ -177,14 +184,14 @@ class ProductService
 
 		$imageName = ImageService::renameImage();
 		ImageService::insertImageInFolder($imageName);
-		ImageService::insertImageInDatabase($product_ID, $imageName,1);
+		ImageService::insertImageInDatabase($product_ID, $imageName, 1);
 
-		$additionalImages=ImageService::renameAndSendAddImages();
-		if($additionalImages!==[])
+		$additionalImages = ImageService::renameAndSendAddImages();
+		if ($additionalImages !== [])
 		{
 			foreach ($additionalImages as $additionalImage)
 			{
-				ImageService::insertImageInDatabase($product_ID, $additionalImage,0);
+				ImageService::insertImageInDatabase($product_ID, $additionalImage, 0);
 			}
 		}
 
@@ -202,39 +209,48 @@ class ProductService
 	): array
 	{
 		$offset = ($pageNumber - 1) * 9;
-		$brandCondition = $brands !== null ? "AND PRODUCT.BRAND_ID IN (" . implode(",", $brands) . ")" : "";
+		$brandCondition = $brands !== null ? "AND PRODUCT.BRAND_ID IN (" . implode(
+				",",
+				array_fill(0, count($brands), "?")
+			) . ")" : "";
 		$sortString = self::generateSortingOrder($sortBy);
 
 		if ($category === 'all')
 		{
-			$query = "SELECT TITLE, PRODUCT.ID,PRICE, DESCRIPTION, PATH FROM PRODUCT "
-				. "INNER JOIN IMAGE "
-				. "ON PRODUCT.ID=IMAGE.PRODUCT_ID "
-				. "WHERE TITLE LIKE ? AND IS_COVER=? $brandCondition"
-				. " AND PRODUCT.ENTITY_STATUS_ID=? "
+			$query = "SELECT TITLE, PRODUCT.ID,PRICE, DESCRIPTION, PATH"
+				. " FROM PRODUCT"
+				. " INNER JOIN IMAGE"
+				. " ON PRODUCT.ID = IMAGE.PRODUCT_ID"
+				. " WHERE TITLE LIKE ? AND IS_COVER = 1 $brandCondition"
+				. " AND PRODUCT.ENTITY_STATUS_ID = 1 "
 				. $sortString
-				. " LIMIT ? OFFSET ? ";
+				. " LIMIT 10 OFFSET $offset";
 
-			$params = ["%$productTitle%", 1, 1, 10, $offset];
+			$params = ["%$productTitle%"];
 		}
 		else
 		{
-			$query = "SELECT PRODUCT.TITLE, PRODUCT.ID,PRICE, DESCRIPTION, PATH FROM PRODUCT "
-				. "INNER JOIN IMAGE "
-				. "ON PRODUCT.ID=IMAGE.PRODUCT_ID "
-				. "INNER JOIN PRODUCT_TAG "
-				. "ON PRODUCT.ID = PRODUCT_TAG.PRODUCT_ID "
-				. "INNER JOIN TAG ON PRODUCT_TAG.TAG_ID = TAG.ID "
-				. "WHERE PRODUCT.TITLE LIKE ? AND IS_COVER=? "
-				. "AND TAG.TITLE=? $brandCondition "
-				. " AND PRODUCT.ENTITY_STATUS_ID=? "
+			$query = "SELECT PRODUCT.TITLE, PRODUCT.ID,PRICE, DESCRIPTION, PATH"
+				. " FROM PRODUCT"
+				. " INNER JOIN IMAGE"
+				. " ON PRODUCT.ID = IMAGE.PRODUCT_ID"
+				. " INNER JOIN PRODUCT_TAG"
+				. " ON PRODUCT.ID = PRODUCT_TAG.PRODUCT_ID"
+				. " INNER JOIN TAG ON PRODUCT_TAG.TAG_ID = TAG.ID"
+				. " WHERE PRODUCT.TITLE LIKE ? AND IS_COVER = 1"
+				. " AND TAG.TITLE = ? $brandCondition"
+				. " AND PRODUCT.ENTITY_STATUS_ID = 1 "
 				. $sortString
-				. " LIMIT ? OFFSET ? ";
+				. " LIMIT 10 OFFSET $offset ";
 
-			$params = ["%$productTitle%", 1, $category, 1, 10, $offset];
+			$params = ["%$productTitle%", $category];
 		}
-
-		$result = SafeQueryBuilder::Select($query, $params);
+		if ($brands !== null)
+		{
+			$params = array_merge($params, $brands);
+		}
+		var_dump($params);
+		$result = QueryBuilder::select($query, $params, true);
 
 		return self::fetchProductsFromResult($result, true);
 	}
@@ -261,7 +277,7 @@ class ProductService
 		];
 		$condition = '`ID` = ?';
 		$params = [$id];
-		if (!SafeQueryBuilder::Delete('`PRODUCT_TAG`', '`PRODUCT_TAG`.`PRODUCT_ID` = ?', [$id]))
+		if (!QueryBuilder::delete('PRODUCT_TAG', 'PRODUCT_TAG.PRODUCT_ID = ?', $params, true))
 		{
 			throw new RuntimeException('Error delete product_tag:  ' . DbConnection::get()->error);
 		}
@@ -271,13 +287,13 @@ class ProductService
 				'PRODUCT_ID' => $id,
 				'TAG_ID' => $tagId,
 			];
-			if (!SafeQueryBuilder::Insert('PRODUCT_TAG', $productTagData))
+			if (!QueryBuilder::insert('PRODUCT_TAG', $productTagData, true))
 			{
 				throw new RuntimeException('Error adding an product:  ' . DbConnection::get()->error);
 			}
 		}
 
-		return SafeQueryBuilder::Update($table, $data, $condition, $params);
+		return QueryBuilder::update($table, $data, $condition, $params, true);
 
 	}
 
@@ -290,19 +306,19 @@ class ProductService
 		ImageService::deleteImage($id);
 
 		// Удаление изображений
-		if (!SafeQueryBuilder::Delete('`IMAGE`', '`IMAGE`.`PRODUCT_ID` = ?', [$id]))
+		if (!QueryBuilder::delete('`IMAGE`', '`IMAGE`.`PRODUCT_ID` = ?', [$id], true))
 		{
 			throw new RuntimeException('Error delete image:  ' . DbConnection::get()->error);
 		}
 
 		// Удаление тегов
-		if (!SafeQueryBuilder::Delete('`PRODUCT_TAG`', '`PRODUCT_TAG`.`PRODUCT_ID` = ?', [$id]))
+		if (!QueryBuilder::delete('`PRODUCT_TAG`', '`PRODUCT_TAG`.`PRODUCT_ID` = ?', [$id], true))
 		{
 			throw new RuntimeException('Error delete product_tag:  ' . DbConnection::get()->error);
 		}
 
 		// Удаление продукта
-		if (!SafeQueryBuilder::Delete('`PRODUCT`', '`PRODUCT`.`ID` = ?', [$id]))
+		if (!QueryBuilder::delete('`PRODUCT`', '`PRODUCT`.`ID` = ?', [$id], true))
 		{
 			throw new RuntimeException('Error delete product:  ' . DbConnection::get()->error);
 		}
@@ -316,14 +332,12 @@ class ProductService
 		$query = "SELECT PRODUCT.ID, TITLE, PRICE, PATH"
 			. " FROM PRODUCT INNER JOIN IMAGE"
 			. " ON PRODUCT.ID = IMAGE.PRODUCT_ID"
-			. " WHERE IS_COVER=?"
-			. " AND PRODUCT.ENTITY_STATUS_ID=? "
+			. " WHERE IS_COVER = 1"
+			. " AND PRODUCT.ENTITY_STATUS_ID = 1 "
 			. " ORDER BY DATE_RELEASE DESC"
-			. " LIMIT ?";
+			. " LIMIT 5";
 
-		$params = [1, 1, 5];
-
-		$result = SafeQueryBuilder::Select($query, $params);
+		$result = QueryBuilder::select($query);
 
 		return self::fetchProductsFromResult($result);
 	}
@@ -334,13 +348,14 @@ class ProductService
 	public static function updateProductStatus(int $id, int $statusId): bool
 	{
 		$table = 'PRODUCT';
+
 		$data = [
 			'ENTITY_STATUS_ID' => $statusId,
 		];
-		$condition = '`ID` = ?';
-		$params = [$id];
 
-		return SafeQueryBuilder::Update($table, $data, $condition, $params);
+		$condition = 'ID = ?';
+
+		return QueryBuilder::update($table, $data, $condition, [$id], true);
 	}
 
 	private static function generateSortingOrder(int|null $sortBy): string
@@ -386,11 +401,12 @@ class ProductService
 			);
 			if ($includeTags)
 			{
-				$query = "SELECT `TAG`.ID as tagId, `TITLE` from `TAG`inner join `PRODUCT_TAG`"
-					. " on `TAG`.ID = `PRODUCT_TAG`.TAG_ID"
-					. " WHERE PRODUCT_ID=?";
+				$query = "SELECT TAG.ID as tagId, TITLE"
+						. " FROM TAG INNER JOIN PRODUCT_TAG"
+						. " ON TAG.ID = PRODUCT_TAG.TAG_ID"
+						. " WHERE PRODUCT_ID = ?";
 
-				$tags = SafeQueryBuilder::Select($query, [$row['ID']]);
+				$tags = QueryBuilder::select($query, [$row['ID']], true);
 
 				while ($tagRow = mysqli_fetch_assoc($tags))
 				{
@@ -413,12 +429,13 @@ class ProductService
 		{
 			$placeholder = "(" . implode(",", $ids) . ")";
 
-			$query = "SELECT PRODUCT.ID, TITLE, PRICE, PATH FROM PRODUCT "
-				. "INNER JOIN IMAGE "
-				. "ON PRODUCT.ID = IMAGE.PRODUCT_ID "
-				. "WHERE PRODUCT.ID IN $placeholder AND IS_COVER = ?";
+			$query = "SELECT PRODUCT.ID, TITLE, PRICE, PATH "
+				. " FROM PRODUCT"
+				. " INNER JOIN IMAGE"
+				. " ON PRODUCT.ID = IMAGE.PRODUCT_ID"
+				. " WHERE PRODUCT.ID IN $placeholder AND IS_COVER = 1";
 
-			$result = SafeQueryBuilder::Select($query, [1]);
+			$result = QueryBuilder::select($query);
 
 			return self::fetchProductsFromResult($result);
 		}

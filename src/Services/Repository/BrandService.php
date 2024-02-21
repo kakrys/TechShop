@@ -4,7 +4,7 @@ namespace Up\Services\Repository;
 
 use Exception;
 use Up\Models\Brand;
-use Core\DB\SafeQueryBuilder;
+use Core\DB\QueryBuilder;
 
 class BrandService
 {
@@ -15,9 +15,9 @@ class BrandService
 	 */
 	public static function getBrandList(): array
 	{
-		$query = "SELECT `ID`,`Title` from BRAND";
+		$query = "SELECT `ID`,`Title` FROM BRAND";
 
-		$result = SafeQueryBuilder::Select($query);
+		$result = QueryBuilder::select($query);
 
 		$brands = [];
 
