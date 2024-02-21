@@ -49,10 +49,13 @@ class UserService
 	/**
 	 * @throws Exception
 	 */
-	public static function getUserList(): ?array
+	public static function getUserList($pageNumber): ?array
 	{
+		$perPage = 4;
+		$offset = ($pageNumber - 1) * $perPage;
 
-		$query = "SELECT `ID`, `NAME`, `SURNAME`, `ADDRESS`, `EMAIL` FROM `USER` WHERE `ROLE_ID`= 2";
+		$query = "SELECT `ID`, `NAME`, `SURNAME`, `ADDRESS`, `EMAIL` FROM `USER` WHERE `ROLE_ID`= 2"
+			. " LIMIT 5 OFFSET $offset";
 
 		$result = QueryBuilder::select($query);
 

@@ -3,6 +3,9 @@ use Up\Models\Order;
 
 /**
  * @var Order[] $orders
+ * @var $orderPageArray
+ * @var $profilePage
+ * @var $productPage
  * */
 
 
@@ -53,6 +56,20 @@ use Up\Models\Order;
 		</ul>
 	</div>
 	<?php endforeach;?>
+    <div class="pagination">
+    <ul class="pagination__list">
+        <li class="pagination__item">
+            <a class="pagination__btn" href="/admin/1/?order=<?=$orderPageArray[0]?>&profile=<?=$profilePage?>&product=<?=$productPage?>">
+                Previous page
+            </a>
+        </li>
+        <li class="pagination__item">
+            <a class="pagination__btn" href="/admin/1/?order=<?=$orderPageArray[1]?>&profile=<?=$profilePage?>&product=<?=$productPage?>">
+                Next page
+            </a>
+        </li>
+    </ul>
+</div>
 		<?php else: ?>
 			<div class="adminSection__noResults">
 				<img src="/assets/images/common/no-results.svg" alt="No Results in Tech Shop">

@@ -1,6 +1,9 @@
 <?php
 /**
  * @var $users
+ * @var $userPageArray
+ * @var $productPage
+ * @var $orderPage
  */
 ?>
 <h2 class="account__title">Your Users</h2>
@@ -34,6 +37,20 @@
 			</ul>
 		</div>
 	<?php endforeach;?>
+            <div class="pagination">
+                <ul class="pagination__list">
+                    <li class="pagination__item">
+                        <a class="pagination__btn" href="/admin/1/?order=<?=$orderPage?>&profile=<?=$userPageArray[0]?>&product=<?=$productPage?>">
+                            Previous page
+                        </a>
+                    </li>
+                    <li class="pagination__item">
+                        <a class="pagination__btn" href="/admin/1/?order=<?=$orderPage?>&profile=<?=$userPageArray[1]?>&product=<?=$productPage?>">
+                            Next page
+                        </a>
+                    </li>
+                </ul>
+            </div>
 		<?php else: ?>
 			<div class="adminSection__noResults">
 				<img src="/assets/images/common/no-results.svg" alt="No Results in Tech Shop">

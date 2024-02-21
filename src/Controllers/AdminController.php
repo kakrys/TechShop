@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Up\Controllers;
 
 use Core\DB\Migrator;
+use Core\Http\Request;
 use Exception;
 use Core\Web\Json;
 use JsonException;
@@ -24,12 +25,33 @@ class AdminController extends BaseController
 	public function adminAction($pageNumber): string
 	{
 		session_start();
-		$pageNumber = (int)$pageNumber;
+
+		$data = Request::getBody();
+
+		$orderPage=$data['order']??1;
+		$orderPage=(int)$orderPage;
+
+		$profilePage=$data['profile']??1;
+		$profilePage=(int)$profilePage;
+
+		$productPage=$data['product']??1;
+		$productPage=(int)$productPage;
+
+		$pageNumber=(int)$pageNumber;
 		if (isset($_SESSION['AdminEmail']))
 		{
-			$productArray = ProductService::getProductListForAdmin($pageNumber);
-			$pageArray = PaginationService::determinePage($pageNumber, $productArray['data'] ?? $productArray);
-			$productArray = PaginationService::trimProductArray($productArray);
+			$productArray = ProductService::getProductListForAdmin($productPage);
+			$pageArray = PaginationService::determinePage($productPage, $productArray['data'] ?? $productArray);
+			$productArray = PaginationService::trimProductArray($productArray,10);
+
+			$userArray=UserService::getUserList($profilePage);
+			$userPageArray = PaginationService::determinePage($profilePage, $userArray,5);
+			$userArray = PaginationService::trimProductArray($userArray,5);
+
+			$orderArray=OrderService::getOrderList(null,$orderPage);
+			$orderPageArray = PaginationService::determinePage($orderPage, $orderArray,5);
+			$orderArray = PaginationService::trimProductArray($orderArray,5);
+
 			$user = UserService::getUserByEmail($_SESSION['AdminEmail']);
 			$tags = TagService::getTagList();
 			$brands = BrandService::getBrandList();
@@ -39,10 +61,15 @@ class AdminController extends BaseController
 				'adminEmail' => $user->email,
 				'tags' => $tags,
 				'brands' => $brands,
-				'orders' => OrderService::getOrderList(),
+				'orders' => $orderArray,
 				'products' => $productArray['data'] ?? $productArray,
-				'users' => UserService::getUserList(),
+				'users' => $userArray,
+				'profilePage'=>$profilePage,
+				'productPage'=>$productPage,
+				'orderPage'=>$orderPage,
 				'pageArray' => $pageArray,
+				'userPageArray'=>$userPageArray,
+				'orderPageArray'=>$orderPageArray
 			];
 
 			return $this->render('admin', $params);

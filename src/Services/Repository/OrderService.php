@@ -67,8 +67,10 @@ class OrderService
 	/**
 	 * @throws Exception
 	 */
-	public static function getOrderList($userID = null): array
+	public static function getOrderList($userID = null,$pageNumber=1): array
 	{
+		$perPage = 4;
+		$offset = ($pageNumber - 1) * $perPage;
 		$query = "SELECT O.`ID`, O.`DATE_CREATE`, O.`PRICE`,"
 			. " U.`NAME`, U.`SURNAME`, O.`EMAIL`, O.`ADDRESS`, P.`TITLE` "
 			. " FROM `ORDER` O left JOIN `USER` U ON O.`USER_ID` = U.`ID`"
@@ -78,13 +80,15 @@ class OrderService
 		if ($userID !== null)
 		{
 
-			$query .= " WHERE U.ID = ?";
-			$params = [$userID];
+			$query .= " WHERE U.ID = ? LIMIT 5 OFFSET ?";
+			$params = [$userID,$offset];
 			$result = QueryBuilder::select($query, $params, true);
 		}
 		else
 		{
-			$result = QueryBuilder::select($query);
+			$query .= "  LIMIT 5 OFFSET ?";
+			$params = [$offset];
+			$result = QueryBuilder::select($query,$params,true);
 		}
 
 		$orders = [];
