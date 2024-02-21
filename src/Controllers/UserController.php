@@ -59,12 +59,14 @@ class UserController extends BaseController
 
 		$user = UserService::getUserByEmail($_SESSION['UserEmail']);
 		$orders = OrderService::getOrderList($_SESSION['UserEmail']);
+		$wishesProducts = isset($_SESSION['wishList']) ? ProductService::getProductsByIds($_SESSION['wishList']) : [];
 		$params = [
 			'userEmail' => $user->email,
 			'user' => $user,
 			'userFullName' => $user->name . ' ' . $user->surname,
 			'orders' => $orders,
 			'warning' => $warning ?? '',
+			'wishesProducts' => $wishesProducts,
 		];
 
 		return $this->render('account', $params);

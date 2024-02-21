@@ -25,8 +25,8 @@ Router::post('/admin/create/product/', [new AdminController(), 'addProductAction
 //new =)
 Router::get('/account/', [new UserController(), 'userAction']);
 Router::post('/registration/', [new RegistrationController(), 'registrationAction']);
-Router::post('/updateInfo/', [new UserController(), 'updateInfoAction']);
 Router::post('/catalog/:tag/:id/', [new CatalogController(), 'catalogAction']);
+Router::post('/account/', [new UserController(), 'updateInfoAction']);
 
 //fetch-api
 Router::post('/remove/', [new AdminController(), 'removeProductAction']);

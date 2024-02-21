@@ -14,7 +14,7 @@ use Up\Services\SecurityService;
 				<img src="/assets/images/accountIcons/accountModalCross.svg" alt="close modal window" class="accountModal__img">
 			</button>
 		</div>
-		<form class="accountModal__form" action="/updateInfo/" method="post">
+		<form class="accountModal__form" action="/account/" method="post">
 			<div class="accountModal__formContainer">
 				<label class="accountModal__label" for="oldName">Old Name</label>
 				<input class="accountModal__input" id="oldName" type="text" placeholder="<?=SecurityService::safeString($user->name)?>" disabled>
@@ -36,7 +36,7 @@ use Up\Services\SecurityService;
 				<img src="/assets/images/accountIcons/accountModalCross.svg" alt="close modal window" class="accountModal__img">
 			</button>
 		</div>
-		<form class="accountModal__form" action="/updateInfo/" method="post">
+		<form class="accountModal__form" action="/account/" method="post">
 			<div class="accountModal__formContainer">
 				<label class="accountModal__label" for="oldEmail">Old E-mail</label>
 				<input class="accountModal__input" id="oldEmail" type="text" placeholder="<?=SecurityService::safeString($user->email)?>" disabled>
@@ -58,7 +58,7 @@ use Up\Services\SecurityService;
 				<img src="/assets/images/accountIcons/accountModalCross.svg" alt="close modal window" class="accountModal__img">
 			</button>
 		</div>
-		<form class="accountModal__form" action="/updateInfo/" method="post">
+		<form class="accountModal__form" action="/account/" method="post">
 			<div class="accountModal__formContainer">
 				<label class="accountModal__label" for="oldSurname">Old Surname</label>
 				<input class="accountModal__input" id="oldSurname" type="text" placeholder="<?=SecurityService::safeString($user->surname)?>" disabled>
@@ -80,7 +80,7 @@ use Up\Services\SecurityService;
 				<img src="/assets/images/accountIcons/accountModalCross.svg" alt="close modal window" class="accountModal__img">
 			</button>
 		</div>
-		<form class="accountModal__form" action="/updateInfo/" method="post">
+		<form class="accountModal__form" action="/account/" method="post">
 			<div class="accountModal__formContainer">
 				<label class="accountModal__label" for="oldPassword">Old Password</label>
 				<input class="accountModal__input" id="oldPassword" type="text" placeholder="*********" disabled>
@@ -102,7 +102,7 @@ use Up\Services\SecurityService;
 				<img src="/assets/images/accountIcons/accountModalCross.svg" alt="close modal window" class="accountModal__img">
 			</button>
 		</div>
-		<form class="accountModal__form" action="/updateInfo/" method="post">
+		<form class="accountModal__form" action="/account/" method="post">
 			<div class="accountModal__formContainer">
 				<label class="accountModal__label" for="oldAddress">Old Address</label>
 				<input class="accountModal__input" id="oldAddress" type="text" placeholder="<?=SecurityService::safeString($user->address)?>" disabled>
