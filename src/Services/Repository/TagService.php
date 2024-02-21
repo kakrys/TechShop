@@ -15,7 +15,7 @@ class TagService
 	public static function getTagList(): array
 	{
 
-		$query = "SELECT `ID`,`Title` from TAG";
+		$query = "SELECT `ID`,`TITLE` from TAG";
 
 		$result = QueryBuilder::select($query);
 
@@ -23,7 +23,7 @@ class TagService
 
 		while ($row = mysqli_fetch_assoc($result))
 		{
-			$tags[] = new Tag($row['ID'], $row['Title'], null);
+			$tags[] = new Tag($row['ID'], $row['TITLE'], null);
 		}
 
 		return $tags;

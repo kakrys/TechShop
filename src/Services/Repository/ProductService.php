@@ -28,10 +28,18 @@ class ProductService
 	{
 		$perPage = 9;
 		$offset = ($pageNumber - 1) * $perPage;
-		$brandCondition = $brands !== null ? "AND PRODUCT.BRAND_ID IN (" . implode(
-				",",
-				array_fill(0, count($brands), "?")
-			) . ")" : "";
+		$brandsIsNull = $brands === null;
+
+		if (!$brandsIsNull)
+		{
+			$placeholders = implode(",", array_fill(0, count($brands), "?"));
+			$brandCondition = "AND PRODUCT.BRAND_ID IN ($placeholders)";
+		}
+		else
+		{
+			$brandCondition = "";
+		}
+
 		$sortString = self::generateSortingOrder($sortBy);
 
 		if ($category === 'all')
@@ -209,10 +217,18 @@ class ProductService
 	): array
 	{
 		$offset = ($pageNumber - 1) * 9;
-		$brandCondition = $brands !== null ? "AND PRODUCT.BRAND_ID IN (" . implode(
-				",",
-				array_fill(0, count($brands), "?")
-			) . ")" : "";
+		$brandsIsNull = $brands === null;
+
+		if (!$brandsIsNull)
+		{
+			$placeholders = implode(",", array_fill(0, count($brands), "?"));
+			$brandCondition = "AND PRODUCT.BRAND_ID IN ($placeholders)";
+		}
+		else
+		{
+			$brandCondition = "";
+		}
+
 		$sortString = self::generateSortingOrder($sortBy);
 
 		if ($category === 'all')
@@ -249,7 +265,6 @@ class ProductService
 		{
 			$params = array_merge($params, $brands);
 		}
-		var_dump($params);
 		$result = QueryBuilder::select($query, $params, true);
 
 		return self::fetchProductsFromResult($result, true);

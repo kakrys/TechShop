@@ -28,15 +28,15 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `BRAND` (
-  `id` int(11) NOT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `ID` int(11) NOT NULL,
+  `TITLE` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Дамп данных таблицы `BRAND`
 --
 
-INSERT INTO `BRAND` (`id`, `title`) VALUES
+INSERT INTO `BRAND` (`ID`, `TITLE`) VALUES
 (1, 'Apple'),
 (2, 'Samsung'),
 (3, 'Dell'),

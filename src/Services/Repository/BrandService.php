@@ -15,7 +15,7 @@ class BrandService
 	 */
 	public static function getBrandList(): array
 	{
-		$query = "SELECT `ID`,`Title` FROM BRAND";
+		$query = "SELECT `ID`,`TITLE` FROM BRAND";
 
 		$result = QueryBuilder::select($query);
 
@@ -23,7 +23,7 @@ class BrandService
 
 		while ($row = mysqli_fetch_assoc($result))
 		{
-			$brands[] = new Brand($row['ID'], $row['Title'], null);
+			$brands[] = new Brand($row['ID'], $row['TITLE'], null);
 		}
 
 		return $brands;
