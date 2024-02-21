@@ -57,7 +57,7 @@ class CatalogController extends BaseController
 			$productArray = ProductService::getProductList($pageNumber, $tagName, $activeBrands, $sortBy);
 		}
 		$pageArray = PaginationService::determinePage($pageNumber, $productArray);
-		$productArray = PaginationService::trimProductArray($productArray);
+		$productArray = PaginationService::trimPaginationArray($productArray);
 
 		$params = [
 			'tags' => $tags,

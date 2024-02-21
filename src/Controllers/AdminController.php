@@ -28,29 +28,29 @@ class AdminController extends BaseController
 
 		$data = Request::getBody();
 
-		$orderPage=$data['order']??1;
-		$orderPage=(int)$orderPage;
+		$orderPage = $data['order']??1;
+		$orderPage = (int)$orderPage;
 
-		$profilePage=$data['profile']??1;
-		$profilePage=(int)$profilePage;
+		$profilePage = $data['profile']??1;
+		$profilePage = (int)$profilePage;
 
-		$productPage=$data['product']??1;
-		$productPage=(int)$productPage;
+		$productPage = $data['product']??1;
+		$productPage = (int)$productPage;
 
-		$pageNumber=(int)$pageNumber;
+		$pageNumber = (int)$pageNumber;
 		if (isset($_SESSION['AdminEmail']))
 		{
 			$productArray = ProductService::getProductListForAdmin($productPage);
 			$pageArray = PaginationService::determinePage($productPage, $productArray['data'] ?? $productArray);
-			$productArray = PaginationService::trimProductArray($productArray,10);
+			$productArray = PaginationService::trimPaginationArray($productArray,10);
 
-			$userArray=UserService::getUserList($profilePage);
+			$userArray = UserService::getUserList($profilePage);
 			$userPageArray = PaginationService::determinePage($profilePage, $userArray,5);
-			$userArray = PaginationService::trimProductArray($userArray,5);
+			$userArray = PaginationService::trimPaginationArray($userArray,5);
 
 			$orderArray=OrderService::getOrderList(null,$orderPage);
 			$orderPageArray = PaginationService::determinePage($orderPage, $orderArray,5);
-			$orderArray = PaginationService::trimProductArray($orderArray,5);
+			$orderArray = PaginationService::trimPaginationArray($orderArray,5);
 
 			$user = UserService::getUserByEmail($_SESSION['AdminEmail']);
 			$tags = TagService::getTagList();

@@ -102,14 +102,14 @@
 		</nav>
 	</aside>
 	<main class="account__main" id="adminProductContainer" data-admin-cont="0">
-		<?= $this->renderComponent('admin-list', ['products' => $products,'pageArray'=>$pageArray, 'tags' => $tags,'profilePage'=>$profilePage,'orderPage'=>$orderPage]) ?>
+		<?= $this->renderComponent('admin-list', ['products' => $products,'pageArray' => $pageArray, 'tags' => $tags,'profilePage' => $profilePage,'orderPage' => $orderPage]) ?>
 		<?= $this->renderComponent('admin-edit', ['products' => $products, 'tags' => $tags, 'brands' => $brands]) ?>
 	</main>
 	<main class="account__main" id="adminUserContainer" data-admin-cont="1">
-		<?= $this->renderComponent('admin-users', ['users' => $users,'userPageArray'=>$userPageArray,'productPage'=>$productPage,'orderPage'=>$orderPage]) ?>
+		<?= $this->renderComponent('admin-users', ['users' => $users,'userPageArray' => $userPageArray,'productPage' => $productPage,'orderPage' => $orderPage]) ?>
 	</main>
 	<main class="account__main" id="adminOrderContainer" data-admin-cont="2">
-		<?= $this->renderComponent('admin-orders', ['orders' => $orders,'orderPageArray'=>$orderPageArray,'profilePage'=>$profilePage,'productPage'=>$productPage]) ?>
+		<?= $this->renderComponent('admin-orders', ['orders' => $orders,'orderPageArray' => $orderPageArray,'profilePage' => $profilePage,'productPage' => $productPage]) ?>
 	</main>
 	<main class="account__main" id="adminCreateContainer" data-admin-cont="3">
 		<?= $this->renderComponent('admin-create', ['tags' => $tags, 'brands' => $brands]) ?>
