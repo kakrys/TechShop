@@ -4,7 +4,7 @@ namespace Up\Services\Repository;
 
 use Exception;
 use Up\Models\Tag;
-use Core\DB\SafeQueryBuilder;
+use Core\DB\QueryBuilder;
 
 class TagService
 {
@@ -17,7 +17,7 @@ class TagService
 
 		$query = "SELECT `ID`,`Title` from TAG";
 
-		$result = SafeQueryBuilder::Select($query);
+		$result = QueryBuilder::select($query);
 
 		$tags = [];
 

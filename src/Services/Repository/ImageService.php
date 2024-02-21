@@ -7,7 +7,7 @@ use RuntimeException;
 use Up\Models\Image;
 use Core\Http\Request;
 use Core\DB\DbConnection;
-use Core\DB\SafeQueryBuilder;
+use Core\DB\QueryBuilder;
 
 class ImageService
 {
@@ -24,7 +24,7 @@ class ImageService
 			'IS_COVER' => $isCover,
 		];
 
-		if (!SafeQueryBuilder::Insert('IMAGE', $imageData))
+		if (!QueryBuilder::insert('IMAGE', $imageData, true))
 		{
 			throw new RuntimeException('Error adding an image: ' . DbConnection::get()->error);
 		}
@@ -91,9 +91,9 @@ class ImageService
 	 */
 	public static function deleteImage(int $productId): void
 	{
-		$query = "SELECT `PATH`,`PRODUCT_ID` FROM `IMAGE` WHERE `PRODUCT_ID`=?";
+		$query = "SELECT `PATH`,`PRODUCT_ID` FROM `IMAGE` WHERE `PRODUCT_ID`= ?";
 
-		$result = SafeQueryBuilder::Select($query, [$productId]);
+		$result = QueryBuilder::select($query, [$productId], true);
 
 		while ($row = mysqli_fetch_assoc($result))
 		{
@@ -101,13 +101,17 @@ class ImageService
 			unlink(self::$uploadDir . $image->getPath());
 		}
 	}
+
+	/**
+	 * @throws Exception
+	 */
 	public static function selectProductImages(int $productId): array
 	{
 		$imageArray=[];
 		$query = "SELECT `PATH`,`PRODUCT_ID` FROM `IMAGE` WHERE `PRODUCT_ID`=?"
-		." AND IS_COVER=0";
+		." AND IS_COVER = 0";
 
-		$result = SafeQueryBuilder::Select($query, [$productId]);
+		$result = QueryBuilder::select($query, [$productId], true);
 		while ($row = mysqli_fetch_assoc($result))
 		{
 			$image = new Image(null, null, $row['PATH'], null);
