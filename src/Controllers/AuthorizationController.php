@@ -23,7 +23,7 @@ class AuthorizationController extends BaseController
 		if (AuthenticationService::authenticateUser($user, $request['email'], $request['password'], true))
 		{
 			$_SESSION['AdminEmail'] = $user->email;
-			header("Location: /admin/1/");
+			header("Location: /admin/");
 		}
 		if (AuthenticationService::authenticateUser($user, $request['email'], $request['password']))
 		{

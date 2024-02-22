@@ -22,7 +22,7 @@ class AdminController extends BaseController
 	/**
 	 * @throws Exception
 	 */
-	public function adminAction($pageNumber): string
+	public function adminAction(): string
 	{
 		session_start();
 
@@ -37,7 +37,6 @@ class AdminController extends BaseController
 		$productPage = $data['product'] ?? 1;
 		$productPage = (int)$productPage;
 
-		$pageNumber = (int)$pageNumber;
 		if (isset($_SESSION['AdminEmail']))
 		{
 			$productArray = ProductService::getProductListForAdmin($productPage);

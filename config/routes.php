@@ -15,7 +15,7 @@ Router::get('/', [new IndexController(), 'indexAction']);
 Router::get('/catalog/:tag/:id/', [new CatalogController(), 'catalogAction']);
 Router::get('/product/:id/', [new DetailController(), 'detailsAction']);
 Router::get('/login/', [new AdminController(), 'loginAction']);
-Router::get('/admin/:pageNumber/', [new AdminController(), 'adminAction']);
+Router::get('/admin/', [new AdminController(), 'adminAction']);
 Router::get('/order/:id/', [new OrderController(), 'orderAction']);
 Router::post('/success/', [new OrderController(), 'successAction']);
 Router::post('/login/auth', [new AuthorizationController(), 'authAction']);

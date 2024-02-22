@@ -40,12 +40,12 @@
             <div class="pagination">
                 <ul class="pagination__list">
                     <li class="pagination__item">
-                        <a class="pagination__btn" href="/admin/1/?order=<?=$orderPage?>&profile=<?=$userPageArray[0]?>&product=<?=$productPage?>">
+                        <a class="pagination__btn" href="/admin/?order=<?=$orderPage?>&profile=<?=$userPageArray[0]?>&product=<?=$productPage?>">
                             Previous page
                         </a>
                     </li>
                     <li class="pagination__item">
-                        <a class="pagination__btn" href="/admin/1/?order=<?=$orderPage?>&profile=<?=$userPageArray[1]?>&product=<?=$productPage?>">
+                        <a class="pagination__btn" href="/admin/?order=<?=$orderPage?>&profile=<?=$userPageArray[1]?>&product=<?=$productPage?>">
                             Next page
                         </a>
                     </li>

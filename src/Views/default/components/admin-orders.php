@@ -59,12 +59,12 @@ use Up\Models\Order;
     <div class="pagination">
     <ul class="pagination__list">
         <li class="pagination__item">
-            <a class="pagination__btn" href="/admin/1/?order=<?=$orderPageArray[0]?>&profile=<?=$profilePage?>&product=<?=$productPage?>">
+            <a class="pagination__btn" href="/admin/?order=<?=$orderPageArray[0]?>&profile=<?=$profilePage?>&product=<?=$productPage?>">
                 Previous page
             </a>
         </li>
         <li class="pagination__item">
-            <a class="pagination__btn" href="/admin/1/?order=<?=$orderPageArray[1]?>&profile=<?=$profilePage?>&product=<?=$productPage?>">
+            <a class="pagination__btn" href="/admin/?order=<?=$orderPageArray[1]?>&profile=<?=$profilePage?>&product=<?=$productPage?>">
                 Next page
             </a>
         </li>
