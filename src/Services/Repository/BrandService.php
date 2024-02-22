@@ -28,4 +28,11 @@ class BrandService
 
 		return $brands;
 	}
+	public static function getBrandId($name):int
+	{
+		$query = "SELECT `ID`FROM BRAND where TITLE=?";
+		$params = [$name];
+		$result = QueryBuilder::select($query, $params, true);
+		return mysqli_fetch_assoc($result)['ID'];
+	}
 }

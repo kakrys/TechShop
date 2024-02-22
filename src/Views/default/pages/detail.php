@@ -3,6 +3,7 @@
  * @var $id
  * @var \Up\Models\Product $product
  * @var \Up\Models\Image $images
+ * @var $brandId
  */
 $tags = $product->getTags();
 ?>
@@ -39,7 +40,7 @@ $tags = $product->getTags();
 			<div class="detail__brandContainer">
 				<ul class="detail__brandList">
 					<li class="detail__brandItem">
-						<a href="/catalog/all/1/?search=<?=$product->getBrand()?>" class="detail__brandLink"><?=$product->getBrand()?></a>
+						<a href="/catalog/all/1/?activeBrands%5B%5D=<?=$brandId?>" class="detail__brandLink"><?=$product->getBrand()?></a>
 					</li>
 					<?php foreach ($tags as $tag):?>
 						<li class="detail__brandItem">
