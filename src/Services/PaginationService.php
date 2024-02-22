@@ -32,12 +32,11 @@ class PaginationService
 		return ($pageArray);
 	}
 
-	public static function trimPaginationArray(array $paginationArray, $productArrayLimit = 10): array
+	public static function trimPaginationArray(array $paginationArray, $ArrayLimit = 10): array
 	{
 		$productArraySize = count($paginationArray);
-//		$productArrayLimit = 10;
 
-		if ($productArraySize === $productArrayLimit)
+		if ($productArraySize === $ArrayLimit)
 		{
 			array_pop($paginationArray);
 		}
