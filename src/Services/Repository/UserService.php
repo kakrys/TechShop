@@ -6,7 +6,7 @@ use Exception;
 use Up\Models\User;
 use RuntimeException;
 use Core\Http\Request;
-use Core\DB\DbConnection;
+use Core\DB\MysqlConnection;
 use Core\DB\QueryBuilder;
 
 class UserService
@@ -232,7 +232,7 @@ class UserService
 	{
 		if (!QueryBuilder::delete('`USER`', '`USER`.`ID` = ?', [$id], true))
 		{
-			throw new RuntimeException('Error delete user:  ' . DbConnection::get()->error);
+			throw new RuntimeException('Error delete user:  ' . MysqlConnection::get()->error);
 		}
 	}
 }

@@ -11,7 +11,7 @@ use Up\Models\Image;
 use Up\Models\Product;
 
 use Core\Http\Request;
-use Core\DB\DbConnection;
+use Core\DB\MysqlConnection;
 use Core\DB\QueryBuilder;
 
 class ProductService
@@ -173,10 +173,10 @@ class ProductService
 
 		if (!QueryBuilder::insert('PRODUCT', $productData, true))
 		{
-			throw new RuntimeException('Error adding an product:  ' . DbConnection::get()->error);
+			throw new RuntimeException('Error adding an product:  ' . MysqlConnection::get()->error);
 		}
 
-		$product_ID = DbConnection::get()->insert_id;
+		$product_ID = MysqlConnection::get()->insert_id;
 
 		foreach ($tags as $tagId)
 		{
@@ -186,7 +186,7 @@ class ProductService
 			];
 			if (!QueryBuilder::insert('PRODUCT_TAG', $productTagData, true))
 			{
-				throw new RuntimeException('Error adding an product:  ' . DbConnection::get()->error);
+				throw new RuntimeException('Error adding an product:  ' . MysqlConnection::get()->error);
 			}
 		}
 
@@ -294,7 +294,7 @@ class ProductService
 		$params = [$id];
 		if (!QueryBuilder::delete('PRODUCT_TAG', 'PRODUCT_TAG.PRODUCT_ID = ?', $params, true))
 		{
-			throw new RuntimeException('Error delete product_tag:  ' . DbConnection::get()->error);
+			throw new RuntimeException('Error delete product_tag:  ' . MysqlConnection::get()->error);
 		}
 		foreach ($tags as $tagId)
 		{
@@ -304,7 +304,7 @@ class ProductService
 			];
 			if (!QueryBuilder::insert('PRODUCT_TAG', $productTagData, true))
 			{
-				throw new RuntimeException('Error adding an product:  ' . DbConnection::get()->error);
+				throw new RuntimeException('Error adding an product:  ' . MysqlConnection::get()->error);
 			}
 		}
 
@@ -323,19 +323,19 @@ class ProductService
 		// Удаление изображений
 		if (!QueryBuilder::delete('`IMAGE`', '`IMAGE`.`PRODUCT_ID` = ?', [$id], true))
 		{
-			throw new RuntimeException('Error delete image:  ' . DbConnection::get()->error);
+			throw new RuntimeException('Error delete image:  ' . MysqlConnection::get()->error);
 		}
 
 		// Удаление тегов
 		if (!QueryBuilder::delete('`PRODUCT_TAG`', '`PRODUCT_TAG`.`PRODUCT_ID` = ?', [$id], true))
 		{
-			throw new RuntimeException('Error delete product_tag:  ' . DbConnection::get()->error);
+			throw new RuntimeException('Error delete product_tag:  ' . MysqlConnection::get()->error);
 		}
 
 		// Удаление продукта
 		if (!QueryBuilder::delete('`PRODUCT`', '`PRODUCT`.`ID` = ?', [$id], true))
 		{
-			throw new RuntimeException('Error delete product:  ' . DbConnection::get()->error);
+			throw new RuntimeException('Error delete product:  ' . MysqlConnection::get()->error);
 		}
 	}
 

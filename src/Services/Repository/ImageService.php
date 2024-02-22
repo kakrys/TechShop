@@ -6,7 +6,7 @@ use Exception;
 use RuntimeException;
 use Up\Models\Image;
 use Core\Http\Request;
-use Core\DB\DbConnection;
+use Core\DB\MysqlConnection;
 use Core\DB\QueryBuilder;
 
 class ImageService
@@ -26,7 +26,7 @@ class ImageService
 
 		if (!QueryBuilder::insert('IMAGE', $imageData, true))
 		{
-			throw new RuntimeException('Error adding an image: ' . DbConnection::get()->error);
+			throw new RuntimeException('Error adding an image: ' . MysqlConnection::get()->error);
 		}
 	}
 

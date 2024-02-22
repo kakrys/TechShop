@@ -38,7 +38,7 @@ class Migrator
 		$migrationsDir = scandir(self::getMigrationsPath());
 
 		$migrations = array_slice($migrationsDir, 2);
-		$connection = DbConnection::get();
+		$connection = MysqlConnection::get();
 
 		foreach ($migrations as $migration)
 		{
@@ -64,7 +64,7 @@ class Migrator
 	 */
 	public static function deleteMigrations(): void
 	{
-		$connection = DbConnection::get();
+		$connection = MysqlConnection::get();
 		$dbConfigFile = fopen(self::getConfigPath(), "wb");
 
 		fwrite($dbConfigFile, 0);

@@ -7,7 +7,7 @@ namespace Up\Services;
 use Exception;
 use mysqli_result;
 use mysqli_stmt;
-use Core\DB\DbConnection;
+use Core\DB\MysqlConnection;
 use RuntimeException;
 
 class QueryHelperService
@@ -59,7 +59,7 @@ class QueryHelperService
 		bool   $isSelect = false
 	): bool|mysqli_result
 	{
-		$connection = DbConnection::get();
+		$connection = MysqlConnection::get();
 		$stmt = $connection->prepare($query);
 
 		if (!$stmt)

@@ -7,7 +7,7 @@ namespace Up\Services\Repository;
 use Exception;
 use Up\Models\Order;
 use Core\Http\Request;
-use Core\DB\DbConnection;
+use Core\DB\MysqlConnection;
 use Core\DB\QueryBuilder;
 
 class OrderService
@@ -41,10 +41,10 @@ class OrderService
 
 			if (!QueryBuilder::insert('`ORDER`', $orderData, true))
 			{
-				$errors[] = 'Error adding an order: ' . DbConnection::get()->error;
+				$errors[] = 'Error adding an order: ' . MysqlConnection::get()->error;
 			}
 
-			$orderID = DbConnection::get()->insert_id;
+			$orderID = MysqlConnection::get()->insert_id;
 
 			$productOrderData = [
 				'PRODUCT_ID' => $productID,
@@ -53,7 +53,7 @@ class OrderService
 
 			if (!QueryBuilder::insert('`PRODUCT_ORDER`', $productOrderData, true))
 			{
-				$errors[] = 'Error adding a product/order link: ' . DbConnection::get()->error;
+				$errors[] = 'Error adding a product/order link: ' . MysqlConnection::get()->error;
 			}
 
 			return !empty($errors) ? $errors : null;
@@ -134,10 +134,10 @@ class OrderService
 
 			if (!QueryBuilder::insert('`ORDER`', $orderData, true))
 			{
-				$errors[] = 'Error adding an order: ' . DbConnection::get()->error;
+				$errors[] = 'Error adding an order: ' . MysqlConnection::get()->error;
 			}
 
-			$orderID = DbConnection::get()->insert_id;
+			$orderID = MysqlConnection::get()->insert_id;
 
 			$productOrderData = [
 				'PRODUCT_ID' => $productID,
@@ -146,7 +146,7 @@ class OrderService
 
 			if (!QueryBuilder::insert('`PRODUCT_ORDER`', $productOrderData, true))
 			{
-				$errors[] = 'Error adding a product/order link: ' . DbConnection::get()->error;
+				$errors[] = 'Error adding a product/order link: ' . MysqlConnection::get()->error;
 			}
 
 			return !empty($errors) ? $errors : null;

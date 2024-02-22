@@ -22,7 +22,7 @@ class QueryBuilder
 		}
 		else
 		{
-			$connection = DbConnection::get();
+			$connection = MysqlConnection::get();
 			$result = mysqli_query($connection, $query);
 
 			if (!$result)
@@ -47,7 +47,7 @@ class QueryBuilder
 
 		if (!$safe)
 		{
-			$connection = DbConnection::get();
+			$connection = MysqlConnection::get();
 			$result =  mysqli_query($connection, $query);
 
 			if (!$result)
@@ -72,7 +72,7 @@ class QueryBuilder
 
 		if (!$safe)
 		{
-			$connection = DbConnection::get();
+			$connection = MysqlConnection::get();
 			$result =  mysqli_query($connection, $query);
 
 			if (!$result)
@@ -101,7 +101,7 @@ class QueryBuilder
 
 		if (!$safe)
 		{
-			$connection = DbConnection::get();
+			$connection = MysqlConnection::get();
 			$result =  mysqli_query($connection, $query);
 
 			if (!$result)
