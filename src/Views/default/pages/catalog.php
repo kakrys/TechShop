@@ -29,7 +29,7 @@
 							<p class="toolbar__category"><?=$tag->getTitle()?></p>
 						</a>
 					<?php else:?>
-						<a href="/catalog/<?=$tag->getTitle()?>/1/?<?=$data?>" class="toolbar__btn">
+						<a href="/catalog/<?=$tag->getTitle()?>/1/<?=$data?>" class="toolbar__btn">
 							<img src="/assets/images/tags/<?=$tag->getId()?>.svg" alt="mobile category" class="toolbar__img">
 							<p class="toolbar__category"><?=$tag->getTitle()?></p>
 						</a>
@@ -74,7 +74,7 @@
 								<?php if($productTitle !== null):?>
 								<a class="pagination__btn" href="/catalog/<?=$tagName?>/<?=$pageArray[0]?>/?search=<?=$productTitle?>">
 									<?php else:?>
-									<a class="pagination__btn" href="/catalog/<?=$tagName?>/<?=$pageArray[0]?>/?<?=$data?>">
+									<a class="pagination__btn" href="/catalog/<?=$tagName?>/<?=$pageArray[0]?>/<?=$data?>">
 										<?php endif; ?>
 										Previous page
 									</a>
@@ -83,7 +83,7 @@
 								<?php if($productTitle !== null):?>
 								<a class="pagination__btn" href="/catalog/<?=$tagName?>/<?=$pageArray[1]?>/?search=<?=$productTitle?>">
 									<?php else:?>
-									<a class="pagination__btn" href="/catalog/<?=$tagName?>/<?=$pageArray[1]?>/?<?=$data?>">
+									<a class="pagination__btn" href="/catalog/<?=$tagName?>/<?=$pageArray[1]?>/<?=$data?>">
 										<?php endif; ?>
 										Next page
 									</a>

@@ -189,19 +189,21 @@ class ProductService
 				throw new RuntimeException('Error adding an product:  ' . MysqlConnection::get()->error);
 			}
 		}
-
-		$imageName = ImageService::renameImage();
-		ImageService::insertImageInFolder($imageName);
-		ImageService::insertImageInDatabase($product_ID, $imageName, 1);
-
-		$additionalImages = ImageService::renameAndSendAddImages();
-		if ($additionalImages !== [])
+		if(ImageService::checkIfImage())
 		{
-			foreach ($additionalImages as $additionalImage)
+			$imageName = ImageService::renameImage();
+			ImageService::insertImageInFolder($imageName);
+			ImageService::insertImageInDatabase($product_ID, $imageName, 1);
+			$additionalImages = ImageService::renameAndSendAddImages();
+			if ($additionalImages !== [])
 			{
-				ImageService::insertImageInDatabase($product_ID, $additionalImage, 0);
+				foreach ($additionalImages as $additionalImage)
+				{
+					ImageService::insertImageInDatabase($product_ID, $additionalImage, 0);
+				}
 			}
 		}
+
 
 	}
 

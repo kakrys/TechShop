@@ -33,12 +33,6 @@ class ImageService
 	public static function insertImageInFolder(string $filename): void
 	{
 		$files = Request::getFiles();
-
-		$ext = pathinfo($filename, PATHINFO_EXTENSION);
-		if ($ext !== 'png' && $ext !== 'jpg')
-		{
-			throw new RuntimeException('Error adding an image: ' . "Недопустимое расширение");
-		}
 		$target_file = self::$uploadDir . $filename;
 
 		if (!move_uploaded_file($files["image"]['tmp_name'], $target_file))
@@ -46,7 +40,26 @@ class ImageService
 			throw new RuntimeException('Error adding an image: ' . "Файл не найден");
 		}
 	}
-
+	public static function checkIfImage()
+	{
+		$images = Request::getFiles()['images'];
+		$size = count($images['name']);
+		if(!getimagesize( Request::getFiles()['image']['tmp_name']))
+		{
+			throw new RuntimeException('Error adding an image: ' . "Недопустимое расширение на главном изображении ");
+		}
+		if ($images["name"][0] !== "")
+		{
+			for ($i = 0; $i < $size; $i++)
+			{
+				if (!getimagesize($images['tmp_name'][$i]))
+				{
+					throw new RuntimeException('Error adding an additional image: '."Недопустимое расширение");
+				}
+			}
+		}
+		return true;
+	}
 	public static function renameImage(): string
 	{
 		$files = Request::getFiles();
@@ -68,17 +81,10 @@ class ImageService
 		{
 			for ($i = 0; $i < $size; $i++)
 			{
-				//getting section
 				$originalFilename = $images["name"][$i];
 				$ext = pathinfo($originalFilename, PATHINFO_EXTENSION);
 				$newName = md5(time() . $originalFilename) . "." . $ext;
 				$imageArray[] = $newName;
-
-				//uploading section
-				if ($ext !== 'png' && $ext !== 'jpg')
-				{
-					throw new RuntimeException('Error adding an additional image: ' . "Недопустимое расширение");
-				}
 				$target_file = self::$uploadDir . $newName;
 
 				if (!move_uploaded_file($images['tmp_name'][$i], $target_file))
