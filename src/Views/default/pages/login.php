@@ -17,7 +17,7 @@
 		</ul>
 		<h2 class="modalCard__title">Log in to Tech Shop</h2>
 		<div class="modalResponse <?= !empty($authError) ? 'invalidField' : '' ?>"><?=$authError ?? ''?></div>
-		<form class="modalCard__form" action="/login/auth" method="post">
+		<form class="modalCard__form" action="/login/" method="post">
 			<div class="modalField">
 				<img src="/assets/images/common/email.svg" alt="click and write your E-mail" class="modalField__img">
 				<input class="modalCard__form_input" type="text" name="email" placeholder="E-mail" required>

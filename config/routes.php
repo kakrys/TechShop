@@ -18,7 +18,7 @@ Router::get('/login/', [new AdminController(), 'loginAction']);
 Router::get('/admin/', [new AdminController(), 'adminAction']);
 Router::get('/order/:id/', [new OrderController(), 'orderAction']);
 Router::post('/success/', [new OrderController(), 'successAction']);
-Router::post('/login/auth', [new AuthorizationController(), 'authAction']);
+Router::post('/login/', [new AuthorizationController(), 'authAction']);
 Router::get('/login/logout', [new AuthorizationController(), 'logOutAction']);
 Router::post('/admin/create/product/', [new AdminController(), 'addProductAction']);
 
