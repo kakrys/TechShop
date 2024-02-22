@@ -88,7 +88,7 @@ class AdminController extends BaseController
 		session_start();
 		if (isset($_SESSION['AdminEmail']))
 		{
-			header("Location: /admin/1/");
+			header("Location: /admin/");
 		}
 		if (isset($_SESSION['UserEmail']))
 		{
