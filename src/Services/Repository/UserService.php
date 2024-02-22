@@ -29,6 +29,7 @@ class UserService
 		$result = QueryBuilder::select($query, [$email], true);
 
 		$row = mysqli_fetch_assoc($result);
+
 		if (!$row)
 		{
 			return null;
@@ -54,10 +55,11 @@ class UserService
 		$perPage = 4;
 		$offset = ($pageNumber - 1) * $perPage;
 
-		$query = "SELECT `ID`, `NAME`, `SURNAME`, `ADDRESS`, `EMAIL` FROM `USER` WHERE `ROLE_ID`= 2"
-			. " LIMIT 5 OFFSET $offset";
+		$query = "SELECT ID, NAME, SURNAME, ADDRESS, EMAIL"
+				. " FROM USER WHERE ROLE_ID = 2"
+				. " LIMIT 5 OFFSET ?";
 
-		$result = QueryBuilder::select($query);
+		$result = QueryBuilder::select($query, [$offset], true);
 
 		$users = [];
 
@@ -230,7 +232,7 @@ class UserService
 	 */
 	public static function deleteUserByID(int $id): void
 	{
-		if (!QueryBuilder::delete('`USER`', '`USER`.`ID` = ?', [$id], true))
+		if (!QueryBuilder::delete('USER', 'USER.ID = ?', [$id], true))
 		{
 			throw new RuntimeException('Error delete user:  ' . MysqlConnection::get()->error);
 		}

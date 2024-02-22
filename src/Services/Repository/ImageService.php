@@ -16,7 +16,7 @@ class ImageService
 	/**
 	 * @throws Exception
 	 */
-	public static function insertImageInDatabase(int $productId, string $filename,int $isCover): void
+	public static function insertImageInDatabase(int $productId, string $filename, int $isCover): void
 	{
 		$imageData = [
 			'PRODUCT_ID' => $productId,
@@ -57,15 +57,17 @@ class ImageService
 
 		return md5(time() . $originalFilename) . "." . $ext;
 	}
+
 	public static function renameAndSendAddImages(): array
 	{
 		$files = Request::getFiles();
-		$images=$files['images'];
-		$size=count($images['name']);
-		$imageArray=[];
-		if($images["name"][0]!=="")
+		$images = $files['images'];
+		$size = count($images['name']);
+		$imageArray = [];
+		if ($images["name"][0] !== "")
 		{
-			for ($i = 0; $i < $size; $i++) {
+			for ($i = 0; $i < $size; $i++)
+			{
 				//getting section
 				$originalFilename = $images["name"][$i];
 				$ext = pathinfo($originalFilename, PATHINFO_EXTENSION);
@@ -73,16 +75,19 @@ class ImageService
 				$imageArray[] = $newName;
 
 				//uploading section
-				if ($ext !== 'png' && $ext !== 'jpg') {
+				if ($ext !== 'png' && $ext !== 'jpg')
+				{
 					throw new RuntimeException('Error adding an additional image: ' . "Недопустимое расширение");
 				}
 				$target_file = self::$uploadDir . $newName;
 
-				if (!move_uploaded_file($images['tmp_name'][$i], $target_file)) {
+				if (!move_uploaded_file($images['tmp_name'][$i], $target_file))
+				{
 					throw new RuntimeException('Error adding an additional image: ' . "Файл не найден");
 				}
 			}
 		}
+
 		return $imageArray;
 	}
 
@@ -91,7 +96,7 @@ class ImageService
 	 */
 	public static function deleteImage(int $productId): void
 	{
-		$query = "SELECT `PATH`,`PRODUCT_ID` FROM `IMAGE` WHERE `PRODUCT_ID`= ?";
+		$query = "SELECT PATH, PRODUCT_ID FROM IMAGE WHERE PRODUCT_ID = ?";
 
 		$result = QueryBuilder::select($query, [$productId], true);
 
@@ -107,16 +112,18 @@ class ImageService
 	 */
 	public static function selectProductImages(int $productId): array
 	{
-		$imageArray=[];
-		$query = "SELECT `PATH`,`PRODUCT_ID` FROM `IMAGE` WHERE `PRODUCT_ID`=?"
-		." AND IS_COVER = 0";
+		$imageArray = [];
+		$query = "SELECT PATH, PRODUCT_ID"
+				. " FROM IMAGE WHERE PRODUCT_ID = ?"
+				. " AND IS_COVER = 0";
 
 		$result = QueryBuilder::select($query, [$productId], true);
 		while ($row = mysqli_fetch_assoc($result))
 		{
 			$image = new Image(null, null, $row['PATH'], null);
-			$imageArray[]=$image;
+			$imageArray[] = $image;
 		}
+
 		return $imageArray;
 	}
 }

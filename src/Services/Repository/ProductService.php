@@ -417,9 +417,9 @@ class ProductService
 			if ($includeTags)
 			{
 				$query = "SELECT TAG.ID as tagId, TITLE"
-						. " FROM TAG INNER JOIN PRODUCT_TAG"
-						. " ON TAG.ID = PRODUCT_TAG.TAG_ID"
-						. " WHERE PRODUCT_ID = ?";
+					. " FROM TAG INNER JOIN PRODUCT_TAG"
+					. " ON TAG.ID = PRODUCT_TAG.TAG_ID"
+					. " WHERE PRODUCT_ID = ?";
 
 				$tags = QueryBuilder::select($query, [$row['ID']], true);
 

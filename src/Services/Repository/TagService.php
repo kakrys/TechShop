@@ -15,7 +15,7 @@ class TagService
 	public static function getTagList(): array
 	{
 
-		$query = "SELECT `ID`,`TITLE` from TAG";
+		$query = "SELECT ID, TITLE FROM TAG";
 
 		$result = QueryBuilder::select($query);
 

@@ -15,7 +15,7 @@ class BrandService
 	 */
 	public static function getBrandList(): array
 	{
-		$query = "SELECT `ID`,`TITLE` FROM BRAND";
+		$query = "SELECT ID, TITLE FROM BRAND";
 
 		$result = QueryBuilder::select($query);
 
@@ -28,11 +28,16 @@ class BrandService
 
 		return $brands;
 	}
-	public static function getBrandId($name):int
+
+	/**
+	 * @throws Exception
+	 */
+	public static function getBrandId($name): int
 	{
-		$query = "SELECT `ID`FROM BRAND where TITLE=?";
-		$params = [$name];
-		$result = QueryBuilder::select($query, $params, true);
+		$query = "SELECT ID FROM BRAND WHERE TITLE = ?";
+
+		$result = QueryBuilder::select($query, [$name], true);
+
 		return mysqli_fetch_assoc($result)['ID'];
 	}
 }
