@@ -4,7 +4,7 @@
 			<img src="/assets/images/common/tick-circle.png" alt="Successful order submit" class="orderStatus__img">
 			<p class="orderStatus__text">Successfully Create Product</p>
 		</div>
-		<a href="/admin/1/" class="orderModal__btn">Return To Admin Page</a>
+		<a href="/admin/" class="orderModal__btn">Return To Admin Page</a>
 	</div>
 </div>
 
