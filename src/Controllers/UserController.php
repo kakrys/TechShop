@@ -73,16 +73,27 @@ class UserController extends BaseController
 		return $this->render('account', $params);
 	}
 
-	public function removeWishItemAction()
+	public function removeWishItemAction(): void
 	{
+		session_start();
 		header('Content-Type: application/json');
 		$input = file_get_contents('php://input');
 		$data = Json::decode($input);
 
 		if (isset($data['id']))
 		{
+			$id = $data['id'];
+			$wishlist = &$_SESSION['wishList'];
+
+			if (in_array($id, $wishlist, true))
+			{
+				$wishlist = array_diff($wishlist, [$id]);
+			}
+
+			$result = $wishlist;
+
 			echo Json::encode([
-				'result' => 'Y',
+				'result' => $result ? 'Y' : 'N',
 			]);
 		}
 		else
