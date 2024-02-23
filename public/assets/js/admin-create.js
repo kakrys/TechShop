@@ -117,6 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	const priceInput = document.getElementById('price');
 	const radioInputs = document.querySelectorAll('input[name="brand"]');
 	const checkboxInputs = document.querySelectorAll('input[name="tags[]"]');
+	const cleanStorageBtn = document.getElementById('logOut');
 
 	if (localStorage.getItem('name'))
 	{
@@ -171,4 +172,6 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 		});
 	});
+
+	cleanStorageBtn.addEventListener('click', () => {localStorage.clear()});
 });

@@ -89,7 +89,6 @@ const updateBtn = document.querySelector('.admin__editUpdateBtn');
 function updateProduct(modal)
 {
 	updateBtn.addEventListener('click', async function () {
-		//update product info
 		const updateId = document.getElementById('productId');
 		const updateTitle = document.getElementById('productName');
 		const updateDescription = document.getElementById('productDescription');
@@ -123,13 +122,13 @@ function updateProduct(modal)
 			}
 			else
 			{
-				// Обновление элемента на странице
 				const productItem = document.querySelector(`[data-id="${updateId.value}"]`).closest('.admin__productItem');
 				productItem.querySelector('.admin__productTitle').innerText = updateTitle.value;
 				productItem.querySelector('.admin__productDescription').innerText = updateDescription.value;
 				productItem.querySelector('.admin__productCost').innerText = '$' + updatePrice.value;
 
 				modal.style.display = 'none';
+				window.location.reload();
 			}
 		}
 		catch (error)

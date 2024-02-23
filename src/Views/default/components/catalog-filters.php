@@ -16,36 +16,35 @@
 			<div class="categorySection__top">
 				<div class="categorySection__caption">
 					<h3 class="categorySection__title">Brands</h3>
-					<div class="categorySection__toogle"></div>
 				</div>
 			</div>
 			<div class="categorySection__bottom">
 				<ul class="categorySection__list">
 					<?php foreach($brandArray as $brand):?>
 					<?php if (isset($activeBrands)): ?>
-					<?php if (in_array($brand->getId(),$activeBrands)): ?>
+					<?php if (in_array($brand->getId(), $activeBrands)): ?>
 					<li class="categorySection__item">
 						<label class="customCheckbox">
 							<input type="checkbox" name=activeBrands[] value="<?=$brand->getId()?>" checked class="customCheckbox__input">
 							<span class="customCheckbox__text"><?=$brand->getTitle()?></span>
 						</label>
 					</li>
-							<?php else: ?>
-                                <li class="categorySection__item">
-                                    <label class="customCheckbox">
-                                        <input type="checkbox" name=activeBrands[] value="<?=$brand->getId()?>"  class="customCheckbox__input">
-                                        <span class="customCheckbox__text"><?=$brand->getTitle()?></span>
-                                    </label>
-                                </li>
-							<?php endif; ?>
-						<?php else: ?>
-                            <li class="categorySection__item">
-                                <label class="customCheckbox">
-                                    <input type="checkbox" name=activeBrands[] value="<?=$brand->getId()?>" class="customCheckbox__input">
-                                    <span class="customCheckbox__text"><?=$brand->getTitle()?></span>
-                                </label>
-                            </li>
-						<?php endif; ?>
+					<?php else: ?>
+					<li class="categorySection__item">
+						<label class="customCheckbox">
+							<input type="checkbox" name=activeBrands[] value="<?=$brand->getId()?>"  class="customCheckbox__input">
+							<span class="customCheckbox__text"><?=$brand->getTitle()?></span>
+						</label>
+					</li>
+					<?php endif; ?>
+					<?php else: ?>
+						<li class="categorySection__item">
+							<label class="customCheckbox">
+								<input type="checkbox" name=activeBrands[] value="<?=$brand->getId()?>" class="customCheckbox__input">
+								<span class="customCheckbox__text"><?=$brand->getTitle()?></span>
+							</label>
+						</li>
+					<?php endif; ?>
 					<?php endforeach;?>
 				</ul>
 			</div>
@@ -54,47 +53,46 @@
 			<div class="categorySection__top">
 				<div class="categorySection__caption">
 					<h3 class="categorySection__title">Sort by</h3>
-					<div class="categorySection__toogle"></div>
 				</div>
 			</div>
 			<div class="categorySection__bottom">
 				<ul class="categorySection__list">
 					<li class="categorySection__item">
 						<label class="customCheckbox">
-                            <?php if($sortBy==1):?>
+							<?php if($sortBy == 1):?>
 							<input type="radio" name="sortBy" value="1" class="customCheckbox__input" checked>
-                            <?php else:?>
-                            <input type="radio" name="sortBy" value="1" class="customCheckbox__input">
+							<?php else:?>
+							<input type="radio" name="sortBy" value="1" class="customCheckbox__input">
 							<?php endif;?>
 							<span class="customCheckbox__text">Price: Low-High</span>
 						</label>
 					</li>
 					<li class="categorySection__item">
 						<label class="customCheckbox">
-							<?php if($sortBy==2):?>
-                                <input type="radio" name="sortBy" value="2" class="customCheckbox__input" checked>
+							<?php if($sortBy == 2):?>
+								<input type="radio" name="sortBy" value="2" class="customCheckbox__input" checked>
 							<?php else:?>
-                                <input type="radio" name="sortBy" value="2" class="customCheckbox__input">
+								<input type="radio" name="sortBy" value="2" class="customCheckbox__input">
 							<?php endif;?>
 							<span class="customCheckbox__text">Price: High-Low</span>
 						</label>
 					</li>
 					<li class="categorySection__item">
 						<label class="customCheckbox">
-							<?php if($sortBy==3):?>
-                                <input type="radio" name="sortBy" value="3" class="customCheckbox__input" checked>
+							<?php if( $sortBy == 3):?>
+								<input type="radio" name="sortBy" value="3" class="customCheckbox__input" checked>
 							<?php else:?>
-                                <input type="radio" name="sortBy" value="3" class="customCheckbox__input">
+								<input type="radio" name="sortBy" value="3" class="customCheckbox__input">
 							<?php endif;?>
 							<span class="customCheckbox__text">Name: A-Z</span>
 						</label>
 					</li>
 					<li class="categorySection__item">
 						<label class="customCheckbox">
-							<?php if($sortBy==4):?>
-                                <input type="radio" name="sortBy" value="4" class="customCheckbox__input" checked>
+							<?php if( $sortBy == 4):?>
+								<input type="radio" name="sortBy" value="4" class="customCheckbox__input" checked>
 							<?php else:?>
-                                <input type="radio" name="sortBy" value="4" class="customCheckbox__input">
+								<input type="radio" name="sortBy" value="4" class="customCheckbox__input">
 							<?php endif;?>
 							<span class="customCheckbox__text">Name: Z-A</span>
 						</label>

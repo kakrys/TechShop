@@ -89,7 +89,7 @@
 					 class="account__img">
 				Create product
 			</button>
-			<a href="/login/logout" class="account__sideBarBtn" style="color: #C91433;" >
+			<a href="/login/logout" id="logOut" class="account__sideBarBtn" style="color: #C91433;" >
 				<img src="/assets/images/accountIcons/accountLogout.svg" alt="Log out button" class="account__img">
 				Log out
 			</a>
