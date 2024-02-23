@@ -1,16 +1,3 @@
-document.addEventListener("DOMContentLoaded", function() {
-	let currentPage = window.location.pathname;
-
-	let toolbarLinks = document.querySelectorAll(".toolbar__btn");
-	toolbarLinks.forEach(function(link) {
-		if (link.getAttribute("href") === currentPage)
-		{
-			link.classList.add('active-toolbarItem');
-		}
-	});
-});
-
-//add to wish list
 document.addEventListener('DOMContentLoaded', function() {
 	const wishlistButtons = document.querySelectorAll('.wishlist');
 	wishlistButtons.forEach(function(button) {

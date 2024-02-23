@@ -75,7 +75,6 @@ uploadInput.addEventListener('change', handleFiles);
 const fileName = document.querySelector('#admin__createForm_fileName');
 const fileWrapper = document.querySelector('.admin__createForm_wrapper');
 const defaultBtn = document.querySelector('#defaultBtn');
-const customBtn = document.querySelector('#customBtn');
 const image = document.querySelector(".admin__createForm_img");
 const cancelBtn = document.querySelector("#admin__createForm_cancelBtn");
 

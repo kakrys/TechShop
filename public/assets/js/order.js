@@ -5,15 +5,12 @@ const orderInputs = document.querySelectorAll('.order__input');
 orderForm.addEventListener('submit', function (event) {
 	event.preventDefault();
 
-
-	// Prepare form data
 	const formData = new FormData(orderForm);
 	const formName = formData.get('name');
 	const formSurname = formData.get('surname');
 	const formAddress = formData.get('address');
 	const formEmail = formData.get('email');
 
-	// Make AJAX request
 	fetch('/order/id/', {
 		method: 'POST',
 		name: formData.get('name'),
@@ -24,7 +21,6 @@ orderForm.addEventListener('submit', function (event) {
 	.then(response => {
 		if (response.ok)
 		{
-			// If the request is successful, display modal
 			orderModal.style.display = 'block';
 			orderInputs.forEach(input => {
 				input.disabled = true;
