@@ -163,7 +163,7 @@ class ProductService
 		$title = $request['name'];
 		$description = $request["description"];
 		$price = $request["price"];
-		$tags = $request["tags"];
+		$tags = $request["tags"] ?? [];
 		$brand = $request["brand"];
 
 		$productData = [

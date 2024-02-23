@@ -1,4 +1,8 @@
 <?php
+
+use Up\Models\Tag;
+use Up\Models\Brand;
+
 /**
  * @var Tag[] $tags
  * @var Brand[] $brands
@@ -19,7 +23,7 @@
 				</div>
 				<div class="admin__textarea">
 					<label for="price" class="admin__textareaLabel">Price</label>
-					<input id="price" name="price" type="number" placeholder="Input Product Price" class="admin__createInput" required>
+					<input id="price" name="price" min="0" type="number" placeholder="Input Product Price" class="admin__createInput" required>
 				</div>
 			</div>
 			<div class="admin__createContainer">
