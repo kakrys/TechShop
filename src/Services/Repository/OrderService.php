@@ -15,63 +15,11 @@ class OrderService
 	/**
 	 * @throws Exception
 	 */
-	public static function addOrder(): ?array
-	{
-		$request = Request::getBody();
-		try
-		{
-			$errors = [];
-
-			$userID = $request['id'];
-			$userEmail = $request['email'];
-			$userAddress = $request['address'];
-			$productID = $request['productID'];
-			$productPrice = $request['productPrice'];
-
-			$orderData = [
-				'PRICE' => $productPrice,
-				'USER_ID' => $userID,
-				'PRODUCT_ID' => $productID,
-				'EMAIL' => $userEmail,
-				'ADDRESS' => $userAddress,
-				'STATUS_ID' => 1,
-				'ENTITY_STATUS_ID' => 1,
-				'DATE_CREATE' => date('Y-m-d H:i:s'),
-			];
-
-			if (!QueryBuilder::insert('`ORDER`', $orderData, true))
-			{
-				$errors[] = 'Error adding an order: ' . MysqlConnection::get()->error;
-			}
-
-			$orderID = MysqlConnection::get()->insert_id;
-
-			$productOrderData = [
-				'PRODUCT_ID' => $productID,
-				'ORDER_ID' => $orderID,
-			];
-
-			if (!QueryBuilder::insert('`PRODUCT_ORDER`', $productOrderData, true))
-			{
-				$errors[] = 'Error adding a product/order link: ' . MysqlConnection::get()->error;
-			}
-
-			return !empty($errors) ? $errors : null;
-		}
-		catch (Exception $e)
-		{
-			return ['An error has occurred: ' . $e->getMessage()];
-		}
-	}
-
-	/**
-	 * @throws Exception
-	 */
 	public static function getOrderList($userID = null, $pageNumber = 1): array
 	{
 		$perPage = 4;
 		$offset = ($pageNumber - 1) * $perPage;
-		
+
 		$query = "SELECT O.`ID`, O.`DATE_CREATE`, O.`PRICE`,"
 			. " U.`NAME`, U.`SURNAME`, O.`EMAIL`, O.`ADDRESS`, P.`TITLE` "
 			. " FROM `ORDER` O left JOIN `USER` U ON O.`USER_ID` = U.`ID`"
@@ -83,14 +31,13 @@ class OrderService
 
 			$query .= " WHERE U.ID = ? LIMIT 5 OFFSET ?";
 			$params = [$userID, $offset];
-			$result = QueryBuilder::select($query, $params, true);
 		}
 		else
 		{
 			$query .= "  LIMIT 5 OFFSET ?";
 			$params = [$offset];
-			$result = QueryBuilder::select($query, $params, true);
 		}
+		$result = QueryBuilder::select($query, $params, true);
 
 		$orders = [];
 
@@ -110,45 +57,19 @@ class OrderService
 
 		return $orders;
 	}
-
-	public static function addOrderUnauthorised(): ?array
+	public static function addOrder(): ?array
 	{
-		$request = Request::getBody();
 		try
 		{
-			$errors = [];
+			$request = Request::getBody();
+			$userID = $request['id'];
 			$userEmail = $request['email'];
 			$userAddress = $request['address'];
 			$productID = $request['productID'];
 			$productPrice = $request['productPrice'];
 
-			$orderData = [
-				'PRICE' => $productPrice,
-				'USER_ID' => null,
-				'PRODUCT_ID' => $productID,
-				'EMAIL' => $userEmail,
-				'ADDRESS' => $userAddress,
-				'STATUS_ID' => 1,
-				'ENTITY_STATUS_ID' => 1,
-				'DATE_CREATE' => date('Y-m-d H:i:s'),
-			];
-
-			if (!QueryBuilder::insert('`ORDER`', $orderData, true))
-			{
-				$errors[] = 'Error adding an order: ' . MysqlConnection::get()->error;
-			}
-
-			$orderID = MysqlConnection::get()->insert_id;
-
-			$productOrderData = [
-				'PRODUCT_ID' => $productID,
-				'ORDER_ID' => $orderID,
-			];
-
-			if (!QueryBuilder::insert('`PRODUCT_ORDER`', $productOrderData, true))
-			{
-				$errors[] = 'Error adding a product/order link: ' . MysqlConnection::get()->error;
-			}
+			$orderData = self::buildOrderData($userID, $userEmail, $userAddress, $productID, $productPrice);
+			$errors = self::saveOrderAndProductLink($orderData, $productID);
 
 			return !empty($errors) ? $errors : null;
 		}
@@ -156,5 +77,66 @@ class OrderService
 		{
 			return ['An error has occurred: ' . $e->getMessage()];
 		}
+	}
+
+	public static function addOrderUnauthorised(): ?array
+	{
+		try
+		{
+			$request = Request::getBody();
+			$userEmail = $request['email'];
+			$userAddress = $request['address'];
+			$productID = $request['productID'];
+			$productPrice = $request['productPrice'];
+
+			$orderData = self::buildOrderData(null, $userEmail, $userAddress, $productID, $productPrice);
+			$errors = self::saveOrderAndProductLink($orderData, $productID);
+
+			return !empty($errors) ? $errors : null;
+		}
+		catch (Exception $e)
+		{
+			return ['An error has occurred: ' . $e->getMessage()];
+		}
+	}
+
+	private static function buildOrderData($userID, $userEmail, $userAddress, $productID, $productPrice): array
+	{
+		return [
+			'PRICE' => $productPrice,
+			'USER_ID' => $userID,
+			'PRODUCT_ID' => $productID,
+			'EMAIL' => $userEmail,
+			'ADDRESS' => $userAddress,
+			'STATUS_ID' => 1,
+			'ENTITY_STATUS_ID' => 1,
+			'DATE_CREATE' => date('Y-m-d H:i:s'),
+		];
+	}
+
+	/**
+	 * @throws Exception
+	 */
+	private static function saveOrderAndProductLink(array $orderData, $productID): ?array
+	{
+		$errors = [];
+		if (!QueryBuilder::insert('`ORDER`', $orderData, true))
+		{
+			$errors[] = 'Error adding an order: ' . MysqlConnection::get()->error;
+		}
+
+		$orderID = MysqlConnection::get()->insert_id;
+
+		$productOrderData = [
+			'PRODUCT_ID' => $productID,
+			'ORDER_ID' => $orderID,
+		];
+
+		if (!QueryBuilder::insert('`PRODUCT_ORDER`', $productOrderData, true))
+		{
+			$errors[] = 'Error adding a product/order link: ' . MysqlConnection::get()->error;
+		}
+
+		return $errors;
 	}
 }
