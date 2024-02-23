@@ -111,18 +111,17 @@ class AdminController extends BaseController
 		if (isset($data['id']))
 		{
 			$id = $data['id'];
-			$result = ProductService::deleteProductByID($id);
+			ProductService::deleteProductByID($id);
 
 			echo Json::encode([
-								  'result' => $result > 0 ? 'Y' : 'N',
-							  ]);
+				'result' => 'Y',
+			]);
 		}
 		else
 		{
 			echo Json::encode([
-								  'result' => 'N',
-								  'error' => 'Id not provided',
-							  ]);
+				'result' => 'N',
+			]);
 		}
 	}
 

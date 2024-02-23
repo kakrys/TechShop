@@ -273,7 +273,6 @@ async function toggleButton(btn) {
 	btn.classList.toggle('non-activeStatus', status === 2);
 	btn.textContent = status === 1 ? 'Active' : 'Disabled';
 	btn.setAttribute('data-status', status);
-	console.log(status);
 
 	try
 	{
