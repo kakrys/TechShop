@@ -16,7 +16,7 @@
 	<nav class="toolbar">
 		<ul class="toolbar__list">
 			<li class="toolbar__item" data-tab-Index="0">
-				<a href="/catalog/all/1/?<?=$data?>" class="toolbar__btn">
+				<a href="/catalog/all/1/<?=$data?>" class="toolbar__btn">
 					<img src="/assets/images/tags/all.svg" alt="all category" class="toolbar__img">
 					<p class="toolbar__category">All</p>
 				</a>

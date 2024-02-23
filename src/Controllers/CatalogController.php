@@ -32,7 +32,8 @@ class CatalogController extends BaseController
 		$activeBrands = $request['activeBrands'] ?? null;
 
 		$sortBy = $request['sortBy'] ?? null;
-		$data = "?".http_build_query(array('activeBrands'=>$activeBrands,'sortBy'=>$sortBy));
+		$query=http_build_query(array('activeBrands'=>$activeBrands,'sortBy'=>$sortBy));
+		$data = ($query!=="")?"?".$query:null;
 		$_SESSION['activeBrands'] = $activeBrands;
 
 
