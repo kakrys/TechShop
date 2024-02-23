@@ -1,6 +1,8 @@
 <?php
 /**
  * @var $wishesProducts
+ * @var $wishPageArray
+ * @var $orderPage
 */
 ?>
 <div class="title__container user__titleContainer">
@@ -25,6 +27,20 @@
 	</li>
 	<?php endforeach;?>
 </ul>
+<div class="pagination">
+    <ul class="pagination__list">
+        <li class="pagination__item">
+            <a class="pagination__btn" href="/account/?order=<?=$orderPage?>&wish=<?=$wishPageArray[0]?>">
+                Previous page
+            </a>
+        </li>
+        <li class="pagination__item">
+            <a class="pagination__btn" href="/account/?order=<?=$orderPage?>&wish=<?=$wishPageArray[1]?>">
+                Next page
+            </a>
+        </li>
+    </ul>
+</div>
 <?php else: ?>
 	<div class="userSection__noResults">
 		<img src="/assets/images/common/no-results.svg" alt="No Results in Tech Shop">

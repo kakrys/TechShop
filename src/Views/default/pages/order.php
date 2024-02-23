@@ -6,7 +6,6 @@
  */
 
 use Up\Services\SecurityService;
-var_dump($user->address);
 
 ?>
 <div class="wrapper orderTitleContainer">

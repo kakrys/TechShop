@@ -1,6 +1,8 @@
 <?php
 /**
  * @var Up\Models\Order[] $orders
+ * @var array $orderPageArray
+ * @var $wishPage
  * */
 ?>
 
@@ -36,6 +38,20 @@
 		</ul>
 	</div>
 	<?php endforeach;?>
+            <div class="pagination">
+                <ul class="pagination__list">
+                    <li class="pagination__item">
+                        <a class="pagination__btn" href="/account/?order=<?=$orderPageArray[0]?>&wish=<?=$wishPage?>">
+                            Previous page
+                        </a>
+                    </li>
+                    <li class="pagination__item">
+                        <a class="pagination__btn" href="/account/?order=<?=$orderPageArray[1]?>&wish=<?=$wishPage?>">
+                            Next page
+                        </a>
+                    </li>
+                </ul>
+            </div>
 		<?php else: ?>
 			<div class="userSection__noResults">
 				<img src="/assets/images/common/no-results.svg" alt="No Results in Tech Shop">

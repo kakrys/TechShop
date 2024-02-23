@@ -7,6 +7,7 @@ namespace Up\Controllers;
 use Core\Web\Json;
 use Exception;
 use Core\Http\Request;
+use Up\Services\PaginationService;
 use Up\Services\Repository\OrderService;
 use Up\Services\Repository\ProductService;
 use Up\Services\Repository\UserService;
@@ -21,17 +22,39 @@ class UserController extends BaseController
 		session_start();
 		if (isset($_SESSION['UserEmail']))
 		{
+			$data = Request::getBody();
 			$user = UserService::getUserByEmail($_SESSION['UserEmail']);
-			$orders = OrderService::getOrderList($user->id);
 
-			$wishesProducts = isset($_SESSION['wishList']) ? ProductService::getProductsByIds($_SESSION['wishList']) : [];
+
+			$orderPage=$data['order']??1;
+			$orderPage=(int)$orderPage;
+
+			$wishPage=$data['wish']??1;
+			$wishPage=(int)$wishPage;
+
+			$local=ProductService::getProductsByIds($_SESSION['wishList'])??[];
+
+			$wishArray=array_slice($local,9*($wishPage-1),10);
+			$wishPageArray=PaginationService::determinePage($wishPage,$wishArray);
+			$wishArray=PaginationService::trimPaginationArray($wishArray);
+
+
+			$wishesProducts = isset($wishArray) ? $wishArray : [];
+
+			$orderArray=OrderService::getOrderList($user->id, $orderPage);
+			$orderPageArray = PaginationService::determinePage($orderPage, $orderArray,5);
+			$orderArray = PaginationService::trimPaginationArray($orderArray,5);
 
 			$params = [
 				'userEmail' => $user->email,
 				'user' => $user,
 				'userFullName' => $user->name . ' ' . $user->surname,
-				'orders' => $orders,
+				'orders' => $orderArray,
 				'wishesProducts' => $wishesProducts,
+				'orderPageArray'=>$orderPageArray,
+				'wishPageArray'=>$wishPageArray,
+				'orderPage'=>$orderPage,
+				'wishPage'=>$wishPage
 			];
 
 			return $this->render('account', $params);

@@ -6,6 +6,10 @@
  * @var \Up\Models\Order $orders
  * @var $warning
  * @var \Up\Models\Product[] $wishesProducts
+ * @var array $orderPageArray
+ * @var array $wishPageArray
+ * @var $orderPage
+ * @var $wishPage
  */
 ?>
 <div class="navbar">
@@ -76,10 +80,10 @@
 		<?= $this->renderComponent('account-profile', ['user' => $user, 'userEmail' => $userEmail, 'warning' => $warning ?? '']) ?>
 	</main>
 	<main class="account__main" id="accountOrderContainer" data-user-cont="1">
-		<?= $this->renderComponent('account-orders', ['orders' => $orders]) ?>
+		<?= $this->renderComponent('account-orders', ['orders' => $orders,'orderPageArray'=>$orderPageArray,'wishPage'=>$wishPage]) ?>
 	</main>
 	<main class="account__main" id="accountWishListContainer" data-user-cont="2">
-		<?= $this->renderComponent('account-wishes', ['wishesProducts'  =>$wishesProducts]) ?>
+		<?= $this->renderComponent('account-wishes', ['wishesProducts'  =>$wishesProducts,'wishPageArray'=>$wishPageArray,'orderPage'=>$orderPage]) ?>
 	</main>
 </div>
 <?= $this->renderComponent('account-modals', ['user' => $user]) ?>
