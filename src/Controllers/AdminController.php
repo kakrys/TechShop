@@ -9,6 +9,7 @@ use Core\Http\Request;
 use Exception;
 use Core\Web\Json;
 use JsonException;
+use RuntimeException;
 use Up\Cache\FileCache;
 use Up\Services\PaginationService;
 use Up\Services\Repository\BrandService;
@@ -157,9 +158,17 @@ class AdminController extends BaseController
 	 */
 	public function addProductAction(): string
 	{
-		ProductService::addProduct();
+		try
+		{
+			ProductService::addProduct();
+			return $this->render('admin-create-product', []);
+		}
+		catch(RuntimeException $e)
+		{
+			var_dump($e->getMessage());
+			return $this->get404();
+		}
 
-		return $this->render('admin-create-product', []);
 	}
 
 	/**

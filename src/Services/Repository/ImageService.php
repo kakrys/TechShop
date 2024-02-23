@@ -12,6 +12,11 @@ use Core\DB\QueryBuilder;
 class ImageService
 {
 	private static string $uploadDir = __DIR__ . "/../../../public/assets/images/productImages/";
+	private static function getImageArray($arrayName):array
+	{
+		return Request::getFiles()[$arrayName];
+	}
+
 
 	/**
 	 * @throws Exception
@@ -32,21 +37,23 @@ class ImageService
 
 	public static function insertImageInFolder(string $filename): void
 	{
-		$files = Request::getFiles();
+		//$files = Request::getFiles();
 		$target_file = self::$uploadDir . $filename;
 
-		if (!move_uploaded_file($files["image"]['tmp_name'], $target_file))
+		if (!move_uploaded_file(self::getImageArray('image')['tmp_name'], $target_file))
 		{
 			throw new RuntimeException('Error adding an image: ' . "Файл не найден");
 		}
 	}
-	public static function checkIfImage()
+	public static function checkIfImage():bool
 	{
-		$images = Request::getFiles()['images'];
+		$image=self::getImageArray('image');
+		$images = self::getImageArray('images');
+
 		$size = count($images['name']);
-		if(!getimagesize( Request::getFiles()['image']['tmp_name']))
+		if(!getimagesize( $image['tmp_name']))
 		{
-			throw new RuntimeException('Error adding an image: ' . "Недопустимое расширение на главном изображении ");
+			throw new RuntimeException('Invalid main image');
 		}
 		if ($images["name"][0] !== "")
 		{
@@ -54,7 +61,7 @@ class ImageService
 			{
 				if (!getimagesize($images['tmp_name'][$i]))
 				{
-					throw new RuntimeException('Error adding an additional image: '."Недопустимое расширение");
+					throw new RuntimeException('Invalid additional image');
 				}
 			}
 		}
@@ -62,9 +69,9 @@ class ImageService
 	}
 	public static function renameImage(): string
 	{
-		$files = Request::getFiles();
+		$image=self::getImageArray('image');
 
-		$originalFilename = $files["image"]["name"];
+		$originalFilename = $image["name"];
 
 		$ext = pathinfo($originalFilename, PATHINFO_EXTENSION);
 
@@ -73,8 +80,8 @@ class ImageService
 
 	public static function renameAndSendAddImages(): array
 	{
-		$files = Request::getFiles();
-		$images = $files['images'];
+		$image = self::getImageArray('image');
+		$images = self::getImageArray('images');
 		$size = count($images['name']);
 		$imageArray = [];
 		if ($images["name"][0] !== "")
