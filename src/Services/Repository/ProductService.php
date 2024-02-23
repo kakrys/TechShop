@@ -85,7 +85,7 @@ class ProductService
 	/**
 	 * @throws Exception
 	 */
-	public static function getProductInfoByID(int $id): Product
+	public static function getProductInfoByID(int $id): ?Product
 	{
 		$query = "SELECT PRODUCT.ID, PRODUCT.TITLE, PRICE, DESCRIPTION, BRAND.TITLE AS BRAND, PATH"
 			. " FROM PRODUCT INNER JOIN BRAND ON PRODUCT.BRAND_ID = BRAND.ID"
@@ -96,6 +96,10 @@ class ProductService
 		$result = QueryBuilder::select($query, [$id], true);
 
 		$row = mysqli_fetch_assoc($result);
+		if (!isset($row['ID']))
+		{
+			return null;
+		}
 		$cover = new Image(null, $row['ID'], $row['PATH'], 1);
 		$product = new Product(
 			$row['ID'],

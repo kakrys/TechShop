@@ -24,7 +24,10 @@ class CatalogController extends BaseController
 		$request = Request::getBody();
 		$productTitle = $request['search'] ?? null;
 		session_start();
-
+		if (!is_numeric($pageNumber))
+		{
+			return $this->get404();
+		}
 
 		$activeBrands = $request['activeBrands'] ?? null;
 
