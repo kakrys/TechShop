@@ -140,15 +140,15 @@ class AdminController extends BaseController
 			UserService::deleteUserByID($id);
 
 			echo Json::encode([
-								  'result' => 'Y',
-							  ]);
+				'result' => 'Y',
+			]);
 		}
 		else
 		{
 			echo Json::encode([
-								  'result' => 'N',
-								  'error' => 'Id not provided',
-							  ]);
+				'result' => 'N',
+				'error' => 'Id not provided',
+			]);
 		}
 	}
 
@@ -192,15 +192,15 @@ class AdminController extends BaseController
 
 			$result = ProductService::updateProductByID($id, $title, $price, $description, $brandId, $tags);
 			echo Json::encode([
-								  'result' => $result > 0 ? 'Y' : 'N',
-							  ]);
+				'result' => $result > 0 ? 'Y' : 'N',
+			]);
 		}
 		else
 		{
 			echo Json::encode([
-								  'result' => 'N',
-								  'error' => 'Some problems',
-							  ]);
+				'result' => 'N',
+				'error' => 'Some problems',
+			]);
 		}
 	}
 
@@ -217,15 +217,14 @@ class AdminController extends BaseController
 			$result = ProductService::updateProductStatus($id, $status);
 
 			echo Json::encode([
-								  'result' => $result > 0 ? 'Y' : 'N',
-							  ]);
+				'result' => $result > 0 ? 'Y' : 'N',
+			]);
 		}
 		else
 		{
 			echo Json::encode([
-								  'result' => 'N',
-								  'error' => 'Some problems',
-							  ]);
+				'result' => 'N',
+			]);
 		}
 	}
 }

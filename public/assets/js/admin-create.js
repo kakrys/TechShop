@@ -110,3 +110,65 @@ function defaultBtnActive()
 	});
 }
 
+//localStorage for inputs
+document.addEventListener('DOMContentLoaded', () => {
+	const nameInput = document.getElementById('name');
+	const descriptionInput = document.getElementById('description');
+	const priceInput = document.getElementById('price');
+	const radioInputs = document.querySelectorAll('input[name="brand"]');
+	const checkboxInputs = document.querySelectorAll('input[name="tags[]"]');
+
+	if (localStorage.getItem('name'))
+	{
+		nameInput.value = localStorage.getItem('name');
+	}
+	if (localStorage.getItem('description'))
+	{
+		descriptionInput.value = localStorage.getItem('description');
+	}
+	if (localStorage.getItem('price'))
+	{
+		priceInput.value = localStorage.getItem('price');
+	}
+	if (localStorage.getItem('brand'))
+	{
+		const savedRadioInput = document.querySelector(`input[name="brand"][value="${localStorage.getItem('brand')}"]`);
+		if (savedRadioInput)
+		{
+			savedRadioInput.checked = true;
+		}
+	}
+	checkboxInputs.forEach(input => {
+		const tagValue = input.value;
+		if (localStorage.getItem(tagValue))
+		{
+			input.checked = true;
+		}
+	});
+
+	[nameInput, descriptionInput, priceInput].forEach(input => {
+		input.addEventListener('input', () => {
+			localStorage.setItem(input.id, input.value);
+		});
+	});
+
+	radioInputs.forEach(input => {
+		input.addEventListener('change', () => {
+			localStorage.setItem('brand', input.value);
+		});
+	});
+
+	checkboxInputs.forEach(input => {
+		input.addEventListener('change', () => {
+			const tagValue = input.value;
+			if (input.checked)
+			{
+				localStorage.setItem(tagValue, tagValue);
+			}
+			else
+			{
+				localStorage.removeItem(tagValue);
+			}
+		});
+	});
+});

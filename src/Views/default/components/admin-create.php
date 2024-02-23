@@ -31,10 +31,9 @@ use Up\Models\Brand;
 					<legend class="admin__createLegend">Choose Brand</legend>
 					<?php foreach($brands as $brand):?>
 						<div class="selectTag">
-							<label for="tagApple" class="admin__createLabel createRadioLabel">
+							<label class="admin__createLabel createRadioLabel">
 								<input  name="brand" type="radio" class="admin__createInput createRadioInput" value="<?=$brand->getId()?>" required>
 								<?=$brand->getTitle()?>
-								<span class="createRadioSpan"></span>
 							</label>
 						</div>
 					<?php endforeach;?>
@@ -43,10 +42,9 @@ use Up\Models\Brand;
 					<legend class="admin__createLegend">Choose Tags</legend>
 					<?php foreach($tags as $tag):?>
 						<div class="selectTag">
-							<label for="tagMobile" class="admin__createLabel createCheckboxLabel">
-								<input name="tags[]" type="checkbox" class="admin__createInput createCheckboxInput" value="<?=$tag->getId()?>">
+							<label class="admin__createLabel createCheckboxLabel">
+								<input name="tags[]" type="checkbox" data-input="<?=$tag->getTitle()?>" class="admin__createInput createCheckboxInput" value="<?=$tag->getId()?>">
 								<?=$tag->getTitle()?>
-								<span class="createCheckboxSpan"></span>
 							</label>
 						</div>
 					<?php endforeach;?>
@@ -80,4 +78,4 @@ use Up\Models\Brand;
 		</div>
 	</form>
 </div>
-<script src="/assets/js/upload.js"></script>
+<script src="/assets/js/admin-create.js"></script>
