@@ -43,6 +43,14 @@ class BaseController
 		return str_replace('{{content}}', $viewContent, $layoutContent);
 	}
 
+	public function get404() : string
+	{
+		ob_start();
+		http_response_code(404);
+		require_once __DIR__ . "/../Views/default/pages/_404.php";
+		return ob_get_clean();
+	}
+
 	protected function setLayout(): bool|string
 	{
 		ob_start();

@@ -15,6 +15,10 @@ class DetailController extends BaseController
 	public function detailsAction($id): string
 	{
 		$product= ProductService::getProductInfoByID($id);
+		if (!ProductService::getProductInfoByID($id))
+		{
+			return $this->get404();
+		}
 		$brandName=$product->getBrand();
 		$brandId=BrandService::getBrandId($brandName);
 		$params = [
