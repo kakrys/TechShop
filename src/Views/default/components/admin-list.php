@@ -11,7 +11,7 @@
 	<h2 class="account__title">Your Products</h2>
 </div>
 <ul class="admin admin__productList">
-    <?php foreach($products as $product):?>
+	<?php foreach($products as $product):?>
 	<li class="admin__productItem">
 		<img src="/assets/images/productImages/<?=$product->getCover()->getPath()?>" alt="product image" class="admin__productImage">
 		<div class="admin__productTextContainer">
@@ -32,7 +32,7 @@
 			</button>
 		</div>
 	</li>
-    <?php endforeach;?>
+	<?php endforeach;?>
 </ul>
 <div class="pagination">
 	<ul class="pagination__list">
