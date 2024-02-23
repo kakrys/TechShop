@@ -41,7 +41,7 @@
 	<div class="modalCard signUp">
 		<ul class="modal__list">
 			<li class="modal__item">
-				<p class="modal__link ">Log in</p>
+				<p class="modal__link">Log in</p>
 			</li>
 			<li class="modal__item activeModalItem">
 				<p class="modal__link activeModalLink">Create Account</p>

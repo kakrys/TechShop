@@ -1,5 +1,5 @@
-const $catalogFilters = document.querySelectorAll('.categorySection');
-$catalogFilters.forEach(element => {
+const catalogFilters = document.querySelectorAll('.categorySection');
+catalogFilters.forEach(element => {
 	element.addEventListener('click', (event)=> {
 		event.currentTarget.classList.toggle('categorySection--open');
 	})
@@ -7,7 +7,6 @@ $catalogFilters.forEach(element => {
 
 function resetCheckboxes() {
 	const checkboxes = document.querySelectorAll('input[type="checkbox"], input[type="radio"]');
-	const radios = document.querySelectorAll('input[type="radio"]')
 	checkboxes.forEach(checkbox => {
 		checkbox.checked = false;
 	});

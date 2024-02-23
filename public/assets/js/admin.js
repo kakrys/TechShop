@@ -147,7 +147,6 @@ document.querySelector('.closeModal').addEventListener('click', function() {
 });
 
 //delete product
-const deleteBtn = document.getElementById('dangerBtn');
 async function removeItem(id, title)
 {
 	const shouldRemove = confirm(`Are you sure you want to delete this product: ${title}`);
@@ -260,16 +259,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			localStorage.setItem('activeTabIndex', button.dataset.tabIndex);
 		});
 	});
-	//coming soon
-	//const activeTabIndex = localStorage.getItem('activeTabIndex');
-	// if (activeTabIndex)
-	// {
-	// 	buttons[activeTabIndex].classList.add('active-btn');
-	// }
-	// else
-	// {
-	// 	buttons[0].classList.add('active-btn');
-	// }
+
 	showContainer();
 });
 
