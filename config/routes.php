@@ -34,5 +34,6 @@ Router::post('/removeUser/', [new AdminController(), 'removeUserAction']);
 Router::post('/addWishItem/', [new CatalogController(), 'addWishItemAction']);
 Router::post('/update/product/', [new AdminController(), 'updateProductAction']);
 Router::post('/changeStatus/', [new AdminController(), 'changeProductStatus']);
+Router::post('/removeWishItem/', [new UserController(), 'removeWishItemAction']);
 
 

@@ -98,3 +98,41 @@ document.getElementById('accountEditAddress').addEventListener('click', function
 document.getElementById('accountCloseAddressModal').addEventListener('click', function() {
 	document.getElementById('accountAddressModal').style.display = 'none';
 });
+
+//remove product from wish list
+async function removeFromWishList(title, id)
+{
+	const shouldRemove = confirm(`Are you sure you want to delete this product: ${title}`);
+	if (!shouldRemove)
+	{
+		return;
+	}
+	const removeParams = {
+		id: id,
+	};
+	try {
+		const response = await fetch('/removeWishItem/',
+			{
+				method: 'POST',
+				headers:{
+					'Content-Type': 'application/json;charset=utf-8',
+				},
+				body: JSON.stringify(removeParams)
+			}
+		);
+		const responseJson = await response.json();
+		if (responseJson.result !== 'Y')
+		{
+			console.log('error while deleting item :(');
+		}
+		const productItem = document.querySelector(`[data-id="${id}"]`).closest('.account__wishItem');
+		if (productItem)
+		{
+			productItem.remove();
+		}
+	}
+	catch (error)
+	{
+		console.log('error while deleting item:' + error);
+	}
+}

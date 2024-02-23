@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Up\Controllers;
 
+use Core\Web\Json;
 use Exception;
 use Core\Http\Request;
 use Up\Services\Repository\OrderService;
@@ -70,5 +71,26 @@ class UserController extends BaseController
 		];
 
 		return $this->render('account', $params);
+	}
+
+	public function removeWishItemAction()
+	{
+		header('Content-Type: application/json');
+		$input = file_get_contents('php://input');
+		$data = Json::decode($input);
+
+		if (isset($data['id']))
+		{
+			echo Json::encode([
+				'result' => 'Y',
+			]);
+		}
+		else
+		{
+			echo Json::encode([
+				'result' => 'N',
+				'error' => 'Id not provided',
+			]);
+		}
 	}
 }

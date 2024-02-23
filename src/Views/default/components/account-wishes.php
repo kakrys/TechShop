@@ -14,11 +14,11 @@
 		<img src="/assets/images/productImages/<?=$wishesProduct->getCover()->getPath()?>" alt="product Image" class="account__wishImg">
 		<p class="account__wishName"><?=$wishesProduct->getTitle()?></p>
 		<div class="account__wishFooter">
-			<a href="/order/<?=$wishesProduct->getID()?>/" class="account__wishBuy">Buy now</a>
+			<a href="/order/<?=$wishesProduct->getID()?>/" data-id="<?=$wishesProduct->getID()?>" class="account__wishBuy">Buy now</a>
 			<div class="product__footer_container">
 				<p class="product__cost"><?=$wishesProduct->getPrice()?>$</p>
 			</div>
-			<button class="account__wishDelete">
+			<button onclick="removeFromWishList('<?=$wishesProduct->getTitle()?>', '<?=$wishesProduct->getID()?>')" class="account__wishDelete">
 				<img src="/assets/images/common/bin.svg" alt="delete product from wish list" class="deleteImg">
 			</button>
 		</div>
