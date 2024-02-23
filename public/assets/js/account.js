@@ -102,15 +102,12 @@ document.getElementById('accountCloseAddressModal').addEventListener('click', fu
 //remove product from wish list
 async function removeFromWishList(title, id)
 {
-	const shouldRemove = confirm(`Are you sure you want to delete this product: ${title}`);
-	if (!shouldRemove)
-	{
-		return;
-	}
 	const removeParams = {
 		id: id,
 	};
-	try {
+
+	try
+	{
 		const response = await fetch('/removeWishItem/',
 			{
 				method: 'POST',
