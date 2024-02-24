@@ -22,6 +22,8 @@ class CatalogController extends BaseController
 	public function catalogAction(string $tagName, $pageNumber): string
 	{
 		$request = Request::getBody();
+
+		$pageNumber=(int)substr($pageNumber,0,10);
 		$productTitle = $request['search'] ?? null;
 		session_start();
 		if (!is_numeric($pageNumber))

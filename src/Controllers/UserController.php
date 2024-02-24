@@ -32,11 +32,19 @@ class UserController extends BaseController
 			$wishPage=$data['wish']??1;
 			$wishPage=(int)$wishPage;
 
-			$local=ProductService::getProductsByIds($_SESSION['wishList'])??[];
+			$local=isset($_SESSION['wishList'])?ProductService::getProductsByIds($_SESSION['wishList']):[];
+			if($local!==[])
+			{
+				$wishArray = array_slice($local, 9 * ($wishPage - 1), 10);
+				$wishPageArray = PaginationService::determinePage($wishPage, $wishArray);
+				$wishArray = PaginationService::trimPaginationArray($wishArray);
+			}
+			else
+			{
+				$wishArray =[];
+				$wishPageArray=[1,1];
 
-			$wishArray=array_slice($local,9*($wishPage-1),10);
-			$wishPageArray=PaginationService::determinePage($wishPage,$wishArray);
-			$wishArray=PaginationService::trimPaginationArray($wishArray);
+			}
 
 
 			$wishesProducts = isset($wishArray) ? $wishArray : [];
