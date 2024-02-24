@@ -85,8 +85,12 @@ class ProductService
 	/**
 	 * @throws Exception
 	 */
-	public static function getProductInfoByID(int $id): ?Product
+	public static function getProductInfoByID(int|string $id): ?Product
 	{
+		if (is_string($id) && !is_numeric($id))
+		{
+			return null;
+		}
 		$query = "SELECT PRODUCT.ID, PRODUCT.TITLE, PRICE, DESCRIPTION, BRAND.TITLE AS BRAND, PATH"
 			. " FROM PRODUCT INNER JOIN BRAND ON PRODUCT.BRAND_ID = BRAND.ID"
 			. " INNER JOIN IMAGE"
