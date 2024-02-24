@@ -73,7 +73,7 @@
 				<?php foreach($newProducts as $newProduct):?>
 					<li class="productSection__item">
 						<a href="/product/<?=$newProduct->getID()?>/" class="mainSection__link">
-							<img src="/assets/images/productImages/<?=$newProduct->getCover()->getPath()?>" alt="product Image" class="mainSection__img">
+							<img src="/assets/images/productImages/<?=$newProduct->getCover()->getPath()?>" alt="product Image" class="mainSection__image">
 							<div class="description__section">
 								<p class="description__title"><?=$newProduct->getTitle()?></p>
 								<div class="product__footer_container">
