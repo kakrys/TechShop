@@ -20,38 +20,34 @@ class UserController extends BaseController
 	public function userAction(): string|null
 	{
 		session_start();
-		if (isset($_SESSION['UserEmail']))
-		{
+		if (isset($_SESSION['UserEmail'])) {
 			$data = Request::getBody();
 			$user = UserService::getUserByEmail($_SESSION['UserEmail']);
 
 
-			$orderPage=$data['order']??1;
-			$orderPage=(int)$orderPage;
+			$orderPage = $data['order'] ?? 1;
+			$orderPage = (int)$orderPage;
 
-			$wishPage=$data['wish']??1;
-			$wishPage=(int)$wishPage;
+			$wishPage = $data['wish'] ?? 1;
+			$wishPage = (int)$wishPage;
 
-			$local=isset($_SESSION['wishList'])?ProductService::getProductsByIds($_SESSION['wishList']):[];
-			if($local!==[])
-			{
+			$local = isset($_SESSION['wishList']) ? ProductService::getProductsByIds($_SESSION['wishList']) : [];
+			if ($local !== []) {
 				$wishArray = array_slice($local, 9 * ($wishPage - 1), 10);
 				$wishPageArray = PaginationService::determinePage($wishPage, $wishArray);
 				$wishArray = PaginationService::trimPaginationArray($wishArray);
-			}
-			else
-			{
-				$wishArray =[];
-				$wishPageArray=[1,1];
+			} else {
+				$wishArray = [];
+				$wishPageArray = [1, 1];
 
 			}
 
 
 			$wishesProducts = isset($wishArray) ? $wishArray : [];
 
-			$orderArray=OrderService::getOrderList($user->id, $orderPage);
-			$orderPageArray = PaginationService::determinePage($orderPage, $orderArray,5);
-			$orderArray = PaginationService::trimPaginationArray($orderArray,5);
+			$orderArray = OrderService::getOrderList($user->id, $orderPage);
+			$orderPageArray = PaginationService::determinePage($orderPage, $orderArray, 5);
+			$orderArray = PaginationService::trimPaginationArray($orderArray, 5);
 
 			$params = [
 				'userEmail' => $user->email,
@@ -59,10 +55,10 @@ class UserController extends BaseController
 				'userFullName' => $user->name . ' ' . $user->surname,
 				'orders' => $orderArray,
 				'wishesProducts' => $wishesProducts,
-				'orderPageArray'=>$orderPageArray,
-				'wishPageArray'=>$wishPageArray,
-				'orderPage'=>$orderPage,
-				'wishPage'=>$wishPage
+				'orderPageArray' => $orderPageArray,
+				'wishPageArray' => $wishPageArray,
+				'orderPage' => $orderPage,
+				'wishPage' => $wishPage
 			];
 
 			return $this->render('account', $params);
@@ -84,21 +80,45 @@ class UserController extends BaseController
 		$updateField = mb_substr($arrayKey, 3);
 		$funcName = 'updateUser' . $updateField;
 
-		if (!UserService::$funcName())
-		{
+		if (!UserService::$funcName()) {
 			$warning = "Invalid " . $updateField;
 		}
 
 		$user = UserService::getUserByEmail($_SESSION['UserEmail']);
-		$orders = OrderService::getOrderList($user->id);
-		$wishesProducts = isset($_SESSION['wishList']) ? ProductService::getProductsByIds($_SESSION['wishList']) : [];
+		$orderPage = $request['order'] ?? 1;
+		$orderPage = (int)$orderPage;
+
+		$wishPage = $request['wish'] ?? 1;
+		$wishPage = (int)$wishPage;
+
+		$local = isset($_SESSION['wishList']) ? ProductService::getProductsByIds($_SESSION['wishList']) : [];
+		if ($local !== []) {
+			$wishArray = array_slice($local, 9 * ($wishPage - 1), 10);
+			$wishPageArray = PaginationService::determinePage($wishPage, $wishArray);
+			$wishArray = PaginationService::trimPaginationArray($wishArray);
+		} else {
+			$wishArray = [];
+			$wishPageArray = [1, 1];
+
+		}
+
+
+		$wishesProducts = isset($wishArray) ? $wishArray : [];
+
+		$orderArray = OrderService::getOrderList($user->id, $orderPage);
+		$orderPageArray = PaginationService::determinePage($orderPage, $orderArray, 5);
+		$orderArray = PaginationService::trimPaginationArray($orderArray, 5);
 		$params = [
 			'userEmail' => $user->email,
 			'user' => $user,
 			'userFullName' => $user->name . ' ' . $user->surname,
-			'orders' => $orders,
+			'orders' => $orderArray,
 			'warning' => $warning ?? '',
 			'wishesProducts' => $wishesProducts,
+			'orderPageArray' => $orderPageArray,
+			'wishPageArray' => $wishPageArray,
+			'orderPage' => $orderPage,
+			'wishPage' => $wishPage
 		];
 
 		return $this->render('account', $params);
@@ -111,13 +131,11 @@ class UserController extends BaseController
 		$input = file_get_contents('php://input');
 		$data = Json::decode($input);
 
-		if (isset($data['id']))
-		{
+		if (isset($data['id'])) {
 			$id = $data['id'];
 			$wishlist = &$_SESSION['wishList'];
 
-			if (in_array($id, $wishlist, true))
-			{
+			if (in_array($id, $wishlist, true)) {
 				$wishlist = array_diff($wishlist, [$id]);
 			}
 
@@ -126,9 +144,7 @@ class UserController extends BaseController
 			echo Json::encode([
 				'result' => $result ? 'Y' : 'N',
 			]);
-		}
-		else
-		{
+		} else {
 			echo Json::encode([
 				'result' => 'N',
 				'error' => 'Id not provided',
