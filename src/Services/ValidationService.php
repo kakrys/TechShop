@@ -46,4 +46,13 @@ class ValidationService
 			'brand' => $brand,
 		];
 	}
+	public static function getValidateProductTitle(?string $productTitle): string
+	{
+		if (empty(trim($productTitle)))
+		{
+			throw new RuntimeException("Error search: Fields search must be filled");
+		}
+
+		return $productTitle;
+	}
 }
