@@ -67,6 +67,10 @@ class OrderService
 			$userAddress = $request['address'];
 			$productID = $request['productID'];
 			$productPrice = $request['productPrice'];
+			if (!filter_var($userEmail,FILTER_VALIDATE_EMAIL) || trim($userAddress) === '')
+			{
+				return ['An error has occurred'];
+			}
 
 			$orderData = self::buildOrderData($userID, $userEmail, $userAddress, $productID, $productPrice);
 			$errors = self::saveOrderAndProductLink($orderData, $productID);
@@ -88,6 +92,10 @@ class OrderService
 			$userAddress = $request['address'];
 			$productID = $request['productID'];
 			$productPrice = $request['productPrice'];
+			if (!filter_var($userEmail,FILTER_VALIDATE_EMAIL) || trim($userAddress) === '')
+			{
+				return ['An error has occurred'];
+			}
 
 			$orderData = self::buildOrderData(null, $userEmail, $userAddress, $productID, $productPrice);
 			$errors = self::saveOrderAndProductLink($orderData, $productID);
