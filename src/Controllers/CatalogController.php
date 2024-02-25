@@ -8,11 +8,13 @@ use JsonException;
 use Core\Web\Json;
 use Core\Http\Request;
 
+use RuntimeException;
 use Up\Cache\FileCache;
 use Up\Services\PaginationService;
 use Up\Services\Repository\TagService;
 use Up\Services\Repository\BrandService;
 use Up\Services\Repository\ProductService;
+use Up\Services\ValidationService;
 
 class CatalogController extends BaseController
 {
@@ -21,66 +23,76 @@ class CatalogController extends BaseController
 	 */
 	public function catalogAction(string $tagName, $pageNumber): string
 	{
-		$request = Request::getBody();
+		try
+		{
+			$request = Request::getBody();
 
-		$pageNumber=substr($pageNumber,0,10);
-		$productTitle = $request['search'] ?? null;
-		session_start();
-		if (!is_numeric($pageNumber))
+			$pageNumber = substr($pageNumber, 0, 10);
+
+			$productTitle = $request['search'] ?? null;
+
+			session_start();
+
+			if (!is_numeric($pageNumber))
+			{
+				return $this->get404();
+			}
+
+			$activeBrands = $request['activeBrands'] ?? null;
+
+			$sortBy = $request['sortBy'] ?? null;
+			$query = http_build_query(['activeBrands' => $activeBrands, 'sortBy' => $sortBy]);
+			$data = ($query !== "") ? "?" . $query : null;
+			$_SESSION['activeBrands'] = $activeBrands;
+
+			if (Request::getSession('wishList') === null)
+			{
+				$_SESSION['wishList'] = [];
+			}
+			$wishList = $_SESSION['wishList'];
+			$tags = TagService::getTagList();
+			$brands = BrandService::getBrandList();
+
+			if ($productTitle !== null)
+			{
+				$productTitle = ValidationService::getValidateProductTitle($productTitle);
+
+				$productArray = ProductService::getProductsByTitle(
+					$pageNumber,
+					$productTitle,
+					$tagName,
+					$activeBrands,
+					$sortBy
+				);
+			}
+			else
+			{
+				$productArray = ProductService::getProductList($pageNumber, $tagName, $activeBrands, $sortBy);
+			}
+			$pageArray = PaginationService::determinePage($pageNumber, $productArray);
+			$productArray = PaginationService::trimPaginationArray($productArray);
+
+			$params = [
+				'tags' => $tags,
+				'tag' => $tagName,
+				'pageNumber' => $pageNumber,
+				'products' => $productArray,
+				'tagName' => $tagName,
+				'pageArray' => $pageArray,
+				'brandArray' => $brands,
+				'productTitle' => $productTitle,
+				'activeBrands' => $activeBrands,
+				'sortBy' => $sortBy,
+				'wishList' => $wishList ?? [],
+				'data' => $data
+			];
+
+			return $this->render('catalog', $params);
+		}
+		catch (RuntimeException)
 		{
 			return $this->get404();
 		}
-
-		$activeBrands = $request['activeBrands'] ?? null;
-
-		$sortBy = $request['sortBy'] ?? null;
-		$query=http_build_query(array('activeBrands'=>$activeBrands,'sortBy'=>$sortBy));
-		$data = ($query!=="")?"?".$query:null;
-		$_SESSION['activeBrands'] = $activeBrands;
-
-
-
-		if (Request::getSession('wishList') === null)
-		{
-			$_SESSION['wishList'] = [];
-		}
-		$wishList = $_SESSION['wishList'];
-		$tags = TagService::getTagList();
-		$brands = BrandService::getBrandList();
-
-		if ($productTitle !== null)
-		{
-			$productArray = ProductService::getProductsByTitle(
-				$pageNumber,
-				$productTitle,
-				$tagName,
-				$activeBrands,
-				$sortBy
-			);
-		}
-		else
-		{
-			$productArray = ProductService::getProductList($pageNumber, $tagName, $activeBrands, $sortBy);
-		}
-		$pageArray = PaginationService::determinePage($pageNumber, $productArray);
-		$productArray = PaginationService::trimPaginationArray($productArray);
-
-		$params = [
-			'tags' => $tags,
-			'tag' => $tagName,
-			'pageNumber' => $pageNumber,
-			'products' => $productArray,
-			'tagName' => $tagName,
-			'pageArray' => $pageArray,
-			'brandArray' => $brands,
-			'productTitle' => $productTitle,
-			'activeBrands' => $activeBrands,
-			'sortBy' => $sortBy,
-			'wishList' => $wishList ?? [],
-			'data'=>$data
-			];
-
-		return $this->render('catalog', $params);
 
 	}
 
