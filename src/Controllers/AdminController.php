@@ -42,15 +42,15 @@ class AdminController extends BaseController
 		{
 			$productArray = ProductService::getProductListForAdmin($productPage);
 			$pageArray = PaginationService::determinePage($productPage, $productArray['data'] ?? $productArray);
-			$productArray = PaginationService::trimPaginationArray($productArray,10);
+			$productArray = PaginationService::trimPaginationArray($productArray, 10);
 
 			$userArray = UserService::getUserList($profilePage);
-			$userPageArray = PaginationService::determinePage($profilePage, $userArray,5);
-			$userArray = PaginationService::trimPaginationArray($userArray,5);
+			$userPageArray = PaginationService::determinePage($profilePage, $userArray, 5);
+			$userArray = PaginationService::trimPaginationArray($userArray, 5);
 
-			$orderArray=OrderService::getOrderList(null, $orderPage);
-			$orderPageArray = PaginationService::determinePage($orderPage, $orderArray,5);
-			$orderArray = PaginationService::trimPaginationArray($orderArray,5);
+			$orderArray = OrderService::getOrderList(null, $orderPage);
+			$orderPageArray = PaginationService::determinePage($orderPage, $orderArray, 5);
+			$orderArray = PaginationService::trimPaginationArray($orderArray, 5);
 
 			$user = UserService::getUserByEmail($_SESSION['AdminEmail']);
 			$tags = TagService::getTagList();
@@ -69,7 +69,7 @@ class AdminController extends BaseController
 				'orderPage' => $orderPage,
 				'pageArray' => $pageArray,
 				'userPageArray' => $userPageArray,
-				'orderPageArray' => $orderPageArray
+				'orderPageArray' => $orderPageArray,
 			];
 
 			return $this->render('admin', $params);
@@ -114,14 +114,14 @@ class AdminController extends BaseController
 			ProductService::deleteProductByID($id);
 
 			echo Json::encode([
-				'result' => 'Y',
-			]);
+								  'result' => 'Y',
+							  ]);
 		}
 		else
 		{
 			echo Json::encode([
-				'result' => 'N',
-			]);
+								  'result' => 'N',
+							  ]);
 		}
 	}
 
@@ -140,15 +140,15 @@ class AdminController extends BaseController
 			UserService::deleteUserByID($id);
 
 			echo Json::encode([
-				'result' => 'Y',
-			]);
+								  'result' => 'Y',
+							  ]);
 		}
 		else
 		{
 			echo Json::encode([
-				'result' => 'N',
-				'error' => 'Id not provided',
-			]);
+								  'result' => 'N',
+								  'error' => 'Id not provided',
+							  ]);
 		}
 	}
 
@@ -161,13 +161,15 @@ class AdminController extends BaseController
 		try
 		{
 			ProductService::addProduct();
+
 			return $this->render('admin-create-product', []);
 		}
-		catch(RuntimeException $e)
+		catch (RuntimeException $e)
 		{
 			$params = [
-				'errors' => $e->getMessage()
+				'errors' => $e->getMessage(),
 			];
+
 			return $this->render('admin-create-product', $params);
 		}
 
@@ -195,18 +197,22 @@ class AdminController extends BaseController
 
 			$result = ProductService::updateProductByID($id, $title, $price, $description, $brandId, $tags);
 			echo Json::encode([
-				'result' => $result > 0 ? 'Y' : 'N',
-			]);
+								  'result' => $result > 0 ? 'Y' : 'N',
+							  ]);
 		}
 		else
 		{
 			echo Json::encode([
-				'result' => 'N',
-				'error' => 'Some problems',
-			]);
+								  'result' => 'N',
+								  'error' => 'Some problems',
+							  ]);
 		}
 	}
 
+	/**
+	 * @throws JsonException
+	 * @throws Exception
+	 */
 	public function changeProductStatus(): void
 	{
 		header('Content-Type: application/json');
@@ -220,14 +226,14 @@ class AdminController extends BaseController
 			$result = ProductService::updateProductStatus($id, $status);
 
 			echo Json::encode([
-				'result' => $result > 0 ? 'Y' : 'N',
-			]);
+								  'result' => $result > 0 ? 'Y' : 'N',
+							  ]);
 		}
 		else
 		{
 			echo Json::encode([
-				'result' => 'N',
-			]);
+								  'result' => 'N',
+							  ]);
 		}
 	}
 }

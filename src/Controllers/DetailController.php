@@ -14,18 +14,18 @@ class DetailController extends BaseController
 	 */
 	public function detailsAction($id): string
 	{
-		$product= ProductService::getProductInfoByID($id);
+		$product = ProductService::getProductInfoByID($id);
 		if (!ProductService::getProductInfoByID($id))
 		{
 			return $this->get404();
 		}
-		$brandName=$product->getBrand();
-		$brandId=BrandService::getBrandId($brandName);
+		$brandName = $product->getBrand();
+		$brandId = BrandService::getBrandId($brandName);
 		$params = [
 			'product' => $product,
 			'id' => $id,
-			'images'=>ImageService::selectProductImages($id),
-			'brandId'=>$brandId
+			'images' => ImageService::selectProductImages($id),
+			'brandId' => $brandId,
 		];
 
 		return $this->render('detail', $params);

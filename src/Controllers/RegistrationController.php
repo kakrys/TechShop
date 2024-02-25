@@ -31,17 +31,24 @@ class RegistrationController extends BaseController
 			return $this->render('login', ['registerError' => 'User already exists']);
 		}
 
-		if (trim($userName) === '' || trim($userPassword) === '' || trim($userSurname) === '' || trim($userAddress) === '')
+		if (
+			trim($userName) === '' || trim($userPassword) === '' || trim($userSurname) === ''
+			|| trim($userAddress) === ''
+		)
 		{
 			return $this->render('login', ['registerError' => 'Fill in all the fields']);
 		}
 
-		if (strlen($userName) > 60 || strlen($userSurname) > 60 || strlen($userAddress) > 200 || strlen($userEmail) > 100 || strlen($userPassword) > 400)
+		if (
+			strlen($userName) > 60 || strlen($userSurname) > 60 || strlen($userAddress) > 200
+			|| strlen($userEmail) > 100
+			|| strlen($userPassword) > 400
+		)
 		{
 			return $this->render('login', ['registerError' => 'Invalid field length']);
 		}
 
-		UserService::addUser($userName,$userSurname,$userEmail,$userPassword,$userAddress);
+		UserService::addUser($userName, $userSurname, $userEmail, $userPassword, $userAddress);
 		$_SESSION['UserEmail'] = $userEmail;
 		header('Location: /account/');
 	}
