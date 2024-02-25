@@ -26,21 +26,21 @@
 				<p class="account__userName"><?=$userFullName?></p>
 				<p class="account__userName"><?=$userEmail?></p>
 			</div>
-			<nav class="account__nav">
-				<button class="account__sideBarBtn active-btn" id="loadProfile" data-tab-content="accountProfileContainer">
+			<nav class="account__nav" id="mobileNav">
+				<button class="account__burgerBtn" data-tab-Index="0" id="loadProfile" data-tab-content="accountProfileContainer">
 					<img src="/assets/images/accountIcons/accountUserEdit.svg" alt="edit Personal Data button"
 						 class="account__img">
 					Personal Data
 				</button>
-				<button class="account__sideBarBtn" id="loadUserOrders" data-tab-content="accountOrderContainer">
+				<button class="account__burgerBtn" data-tab-Index="1" id="loadUserOrders" data-tab-content="accountOrderContainer">
 					<img src="/assets/images/accountIcons/accountBag.svg" alt="show Orders button" class="account__img">
 					Orders
 				</button>
-				<button class="account__sideBarBtn" id="loadUserWishList" data-tab-content="accountWishListContainer">
+				<button class="account__burgerBtn" data-tab-Index="2" id="loadUserWishList" data-tab-content="accountWishListContainer">
 					<img src="/assets/images/accountIcons/accountHeart.svg" alt="show Wish List button" class="account__img">
 					Wish List
 				</button>
-				<a href="/login/logout" class="account__sideBarBtn" style="color: #C91433;" data-tab-Index="2">
+				<a href="/login/logout" class="account__burgerBtn" style="color: #C91433;" id="mobileLogOut">
 					<img src="/assets/images/accountIcons/accountLogout.svg" alt="Log out button" class="account__img">
 					Log out
 				</a>
@@ -56,7 +56,7 @@
 			<p class="account__userName"><?=$userEmail?></p>
 		</div>
 		<nav class="account__nav" id="descNav">
-			<button class="account__sideBarBtn active-btn" data-tab-Index="0" id="loadProfile" data-tab-content="accountProfileContainer">
+			<button class="account__sideBarBtn" data-tab-Index="0" id="loadProfile" data-tab-content="accountProfileContainer">
 				<img src="/assets/images/accountIcons/accountUserEdit.svg" alt="edit Personal Data button"
 					 class="account__img">
 				Personal Data
@@ -69,7 +69,7 @@
 				<img src="/assets/images/accountIcons/accountHeart.svg" alt="show Wish List button" class="account__img">
 				Wish List
 			</button>
-			<a href="/login/logout" class="account__sideBarBtn" style="color: #C91433;" data-tab-Index="2">
+			<a href="/login/logout" class="account__sideBarBtn" id="logOut" style="color: #C91433;">
 				<img src="/assets/images/accountIcons/accountLogout.svg" alt="Log out button" class="account__img">
 				Log out
 			</a>

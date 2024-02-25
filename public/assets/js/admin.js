@@ -1,7 +1,6 @@
 const tabs = document.querySelector('#descNav');
 const mobileTabs = document.querySelector('#mobileNav');
-const accountButtons = document.querySelectorAll('.account__sideBarBtn');
-const mobileButtons = document.querySelectorAll('.account__burgerBtn');
+const accountButtons = document.querySelectorAll('.account__sideBarBtn, .account__burgerBtn');
 
 if (localStorage.getItem('activeTabIndex') === 'undefined')
 {
@@ -40,18 +39,7 @@ mobileTabs.addEventListener('click', (event) => {
 	}
 });
 
-mobileButtons.forEach(button => {
-	button.addEventListener('click', function() {
-		mobileButtons.forEach(btn => {
-			if (btn !== button)
-			{
-				btn.classList.remove('active-btn');
-			}
-		});
-		button.classList.toggle('active-btn');
-		localStorage.setItem('activeTabIndex', button.dataset.tabIndex);
-	});
-});
+
 
 
 //modal window for edit
