@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	const nameInput = document.getElementById('name');
 	const descriptionInput = document.getElementById('description');
 	const priceInput = document.getElementById('price');
-	const radioInputs = document.querySelectorAll('input[name="brand"]');
+	const radioInputs = document.querySelectorAll('.createRadioInput');
 	const checkboxInputs = document.querySelectorAll('input[name="tags[]"]');
 	const cleanStorageBtn = document.getElementById('logOut');
 

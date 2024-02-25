@@ -1,11 +1,19 @@
 const tabs = document.querySelector('#descNav');
+const mobileTabs = document.querySelector('#mobileNav');
 const accountButtons = document.querySelectorAll('.account__sideBarBtn');
+const mobileButtons = document.querySelectorAll('.account__burgerBtn');
+
+if (localStorage.getItem('activeTabIndex') === 'undefined')
+{
+	localStorage.setItem('activeTabIndex', '0');
+}
 
 tabs.addEventListener('click', (event) => {
 	const tab = event.target.closest('.account__sideBarBtn');
 	if (tab)
 	{
 		const tabIndex = tab.dataset.tabIndex;
+		localStorage.setItem('activeTabIndex', tabIndex);
 		event.currentTarget.style.setProperty('--active-tab', tabIndex);
 	}
 });
@@ -19,8 +27,32 @@ accountButtons.forEach(button => {
 			}
 		});
 		button.classList.toggle('active-btn');
+		localStorage.setItem('activeTabIndex', button.dataset.tabIndex);
 	});
 });
+mobileTabs.addEventListener('click', (event) => {
+	const tab = event.target.closest('.account__burgerBtn');
+	if (tab)
+	{
+		const tabIndex = tab.dataset.tabIndex;
+		localStorage.setItem('activeTabIndex', tabIndex);
+		event.currentTarget.style.setProperty('--active-tab', tabIndex);
+	}
+});
+
+mobileButtons.forEach(button => {
+	button.addEventListener('click', function() {
+		mobileButtons.forEach(btn => {
+			if (btn !== button)
+			{
+				btn.classList.remove('active-btn');
+			}
+		});
+		button.classList.toggle('active-btn');
+		localStorage.setItem('activeTabIndex', button.dataset.tabIndex);
+	});
+});
+
 
 //modal window for edit
 document.querySelectorAll('.admin__productEdit').forEach(button => {
@@ -94,7 +126,7 @@ function updateProduct(modal)
 		const updateDescription = document.getElementById('productDescription');
 		const updatePrice = document.getElementById( 'productPrice');
 		const updateBrand = document.querySelector('input[name="editBrand"]:checked');
-		const updateTags = Array.from(document.querySelectorAll('input[name="tags[]"]:checked')).map(checkbox => checkbox.value);
+		const updateTags = Array.from(document.querySelectorAll('input[name="editTags[]"]:checked')).map(checkbox => checkbox.value);
 
 		const updateParams = {
 			title: updateTitle.value,
@@ -230,9 +262,8 @@ async function removeUser(id, fullName)
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-	const buttons = document.querySelectorAll('.account__sideBarBtn');
+	const buttons = document.querySelectorAll('.account__sideBarBtn, .account__burgerBtn');
 	const containers = document.querySelectorAll('.account__main');
-
 	function showContainer() {
 		containers.forEach(function(container) {
 			container.style.display = 'none';
@@ -255,10 +286,19 @@ document.addEventListener('DOMContentLoaded', function() {
 			});
 			button.classList.add('active-btn');
 			showContainer();
-			localStorage.setItem('activeTabIndex', button.dataset.tabIndex);
 		});
 	});
-
+	const savedTabIndex = localStorage.getItem('activeTabIndex');
+	if (savedTabIndex)
+	{
+		tabs.style.setProperty('--active-tab', savedTabIndex);
+		const savedTabButton = Array.from(accountButtons).find(btn => btn.dataset.tabIndex === savedTabIndex);
+		if (savedTabButton)
+		{
+			savedTabButton.classList.add('active-btn');
+			showContainer();
+		}
+	}
 	showContainer();
 });
 

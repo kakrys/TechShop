@@ -50,6 +50,7 @@ class ImageService
 		$image=self::getImageArray('image');
 		$images = self::getImageArray('images');
 
+
 		$size = count($images['name']);
 		if(!getimagesize( $image['tmp_name']))
 		{

@@ -25,7 +25,7 @@
 				<legend class="admin__editLegend">Choose Tags</legend>
 				<?php foreach ($tags as $tag): ?>
 					<label for="tagMobile" class="editCheckboxLabel">
-						<input name="tags[]" type="checkbox" class="admin__editCheckboxInput" value="<?= $tag->getId()?>">
+						<input name="editTags[]" type="checkbox" class="admin__editCheckboxInput" value="<?= $tag->getId()?>">
 						<?= $tag->getTitle() ?>
 					</label>
 				<?php endforeach; ?>
