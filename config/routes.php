@@ -22,7 +22,6 @@ Router::post('/login/', [new AuthorizationController(), 'authAction']);
 Router::get('/login/logout', [new AuthorizationController(), 'logOutAction']);
 Router::post('/admin/create/product/', [new AdminController(), 'addProductAction']);
 
-//new =)
 Router::get('/account/', [new UserController(), 'userAction']);
 Router::post('/registration/', [new RegistrationController(), 'registrationAction']);
 Router::post('/catalog/:tag/:id/', [new CatalogController(), 'catalogAction']);
