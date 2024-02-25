@@ -15,20 +15,29 @@ class RegistrationController extends BaseController
 	{
 		session_start();
 		$request = Request::getBody();
+		$userName = $request['userName'];
+		$userSurname = $request['userSurname'];
+		$userEmail = $request['email'];
+		$userPassword = $request['password'];
+		$userAddress = $request['userAddress'];
 
-		if (!filter_var($request['email'], FILTER_VALIDATE_EMAIL))
+		if (!filter_var($userEmail, FILTER_VALIDATE_EMAIL))
 		{
 			return $this->render('login', ['registerError' => 'Invalid Email']);
 		}
 
-		if (UserService::getUserByEmail($request['email']))
+		if (UserService::getUserByEmail($userEmail))
 		{
 			return $this->render('login', ['registerError' => 'User already exists']);
 		}
 
-		UserService::addUser();
-		UserService::getUserByEmail($request['email']);
-		$_SESSION['UserEmail'] = $request['email'];
+		if (trim($userName) === '' || trim($userPassword) === '' || trim($userSurname) === '' || trim($userAddress) === '')
+		{
+			return $this->render('login', ['registerError' => 'Fill in all the fields']);
+		}
+
+		UserService::addUser($userName,$userSurname,$userEmail,$userPassword,$userAddress);
+		$_SESSION['UserEmail'] = $userEmail;
 		header('Location: /account/');
 	}
 }

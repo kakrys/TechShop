@@ -77,16 +77,8 @@ class UserService
 	/**
 	 * @throws Exception
 	 */
-	public static function addUser(): bool
+	public static function addUser($userName,$userSurname,$userEmail,$userPassword,$userAddress): bool
 	{
-		$request = Request::getBody();
-
-		$userName = $request['userName'];
-		$userSurname = $request['userSurname'];
-		$userEmail = $request['email'];
-		$userPassword = $request['password'];
-		$userAddress = $request['userAddress'];
-
 		$userPassword = password_hash($userPassword, PASSWORD_DEFAULT);
 
 		$userData = [
@@ -212,6 +204,11 @@ class UserService
 		$request = Request::getBody();
 		$session = Request::getSession();
 
+		if (empty(trim($request['newPassword'])))
+		{
+			return false;
+		}
+
 		$userNewPassword = password_hash($request['newPassword'], PASSWORD_DEFAULT);
 
 		$table = 'USER';
@@ -219,10 +216,7 @@ class UserService
 		$condition = 'EMAIL = ?';
 		$params = [$session['UserEmail']];
 
-		if (empty(trim($userNewPassword)))
-		{
-			return false;
-		}
+
 
 		return QueryBuilder::update($table, $data, $condition, $params, true);
 	}
