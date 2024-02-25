@@ -165,6 +165,7 @@ class AdminController extends BaseController
 		catch(RuntimeException $e)
 		{
 			var_dump($e->getMessage());
+			$params=['error'=>$e->getMessage()];
 			return $this->get404();
 		}
 
