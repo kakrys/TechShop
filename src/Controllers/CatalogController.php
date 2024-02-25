@@ -23,7 +23,7 @@ class CatalogController extends BaseController
 	{
 		$request = Request::getBody();
 
-		$pageNumber=(int)substr($pageNumber,0,10);
+		$pageNumber=substr($pageNumber,0,10);
 		$productTitle = $request['search'] ?? null;
 		session_start();
 		if (!is_numeric($pageNumber))
