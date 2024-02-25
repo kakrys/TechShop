@@ -178,19 +178,20 @@ document.addEventListener('DOMContentLoaded', () => {
 	});
 });
 fileValidation = () => {
-	const fileInput = document.getElementById("defaultBtn");
-	if (fileInput.files.length > 0) {
-		for (const i = 0; i <= fileInput.files.length - 1; i++) {
-			const fsize = fileInput.files.item(i).size;
-			const file = Math.round((fsize / 1024));
-			if (file >= 20480) {
-				alert(
-					"File too Big, please select a file less than 20mb");
-				fileInput.value = '';
-			} else {
-				document.getElementById('size').innerHTML =
-					'<b>'+ file + '</b> KB';
+	const fileInputs = document.querySelectorAll("#defaultBtn, #images");
+	fileInputs.forEach(fileInput => {
+		if (fileInput.files.length > 0)
+		{
+			for (let i = 0; i <= fileInput.files.length - 1; i++) {
+				const fileSize = fileInput.files.item(i).size;
+				const file = Math.round((fileSize / 1024));
+				if (file >= 20480)
+				{
+					alert(
+						"File too Big, please select a file less than 20mb");
+					fileInput.value = '';
+				}
 			}
 		}
-	}
+	});
 }

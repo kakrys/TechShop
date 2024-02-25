@@ -163,7 +163,20 @@ class ProductService
 	 */
 	public static function addProduct(): void
 	{
-		ImageService::checkIfImage();
+		if(ImageService::checkIfImage())
+		{
+			$imageName = ImageService::renameImage();
+			ImageService::insertImageInFolder($imageName);
+			ImageService::insertImageInDatabase($product_ID, $imageName, 1);
+			$additionalImages = ImageService::renameAndSendAddImages();
+			if ($additionalImages !== [])
+			{
+				foreach ($additionalImages as $additionalImage)
+				{
+					ImageService::insertImageInDatabase($product_ID, $additionalImage, 0);
+				}
+			}
+		}
 		$productsParams = ValidationService::getValidateProductCreationParams();
 		$productData = [
 			'TITLE' => $productsParams['title'],
@@ -193,20 +206,7 @@ class ProductService
 				throw new RuntimeException('Error adding an product:  ' . MysqlConnection::get()->error);
 			}
 		}
-		if(ImageService::checkIfImage())
-		{
-			$imageName = ImageService::renameImage();
-			ImageService::insertImageInFolder($imageName);
-			ImageService::insertImageInDatabase($product_ID, $imageName, 1);
-			$additionalImages = ImageService::renameAndSendAddImages();
-			if ($additionalImages !== [])
-			{
-				foreach ($additionalImages as $additionalImage)
-				{
-					ImageService::insertImageInDatabase($product_ID, $additionalImage, 0);
-				}
-			}
-		}
+
 
 
 	}
