@@ -94,7 +94,7 @@ function updateProduct(modal)
 		const updateDescription = document.getElementById('productDescription');
 		const updatePrice = document.getElementById( 'productPrice');
 		const updateBrand = document.querySelector('input[name="editBrand"]:checked');
-		const updateTags = Array.from(document.querySelectorAll('input[name="tags[]"]:checked')).map(checkbox => checkbox.value);
+		const updateTags = Array.from(document.querySelectorAll('input[name="editTags[]"]:checked')).map(checkbox => checkbox.value);
 
 		const updateParams = {
 			title: updateTitle.value,
