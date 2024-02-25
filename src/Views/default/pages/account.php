@@ -79,10 +79,10 @@
 	<main class="account__main" id="accountProfileContainer" data-user-cont="0">
 		<?= $this->renderComponent('account-profile', ['user' => $user, 'userEmail' => $userEmail, 'warning' => $warning ?? '']) ?>
 	</main>
-	<main class="account__main" id="accountOrderContainer" data-user-cont="1">
+	<main class="account__main" id="accountOrderContainer" data-user-cont="1" style="display:none;">
 		<?= $this->renderComponent('account-orders', ['orders' => $orders,'orderPageArray'=>$orderPageArray,'wishPage'=>$wishPage]) ?>
 	</main>
-	<main class="account__main" id="accountWishListContainer" data-user-cont="2">
+	<main class="account__main" id="accountWishListContainer" data-user-cont="2" style="display:none;">
 		<?= $this->renderComponent('account-wishes', ['wishesProducts'  =>$wishesProducts,'wishPageArray'=>$wishPageArray,'orderPage'=>$orderPage]) ?>
 	</main>
 </div>
