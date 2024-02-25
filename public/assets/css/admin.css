@@ -536,3 +536,11 @@
     align-items: center;
     justify-content: center;
 }
+
+.createStatus__text {
+    margin-top: 5px;
+    color: #717171;
+    font-size: 21px;
+    font-weight: 300;
+    text-align: center;
+}

@@ -164,9 +164,10 @@ class AdminController extends BaseController
 		}
 		catch(RuntimeException $e)
 		{
-			var_dump($e->getMessage());
-			$params=['error'=>$e->getMessage()];
-			return $this->get404();
+			$params = [
+				'errors' => $e->getMessage()
+			];
+			return $this->render('admin-create-product', $params);
 		}
 
 	}
