@@ -10,9 +10,9 @@ use Up\Models\Tag;
 use Up\Models\Image;
 use Up\Models\Product;
 
-use Core\Http\Request;
 use Core\DB\MysqlConnection;
 use Core\DB\QueryBuilder;
+use Up\Services\ValidationService;
 
 class ProductService
 {
@@ -163,20 +163,15 @@ class ProductService
 	 */
 	public static function addProduct(): void
 	{
-		$request = Request::getBody();
-		$title = $request['name'];
-		$description = $request["description"];
-		$price = $request["price"];
-		$tags = $request["tags"] ?? [];
-		$brand = $request["brand"];
+		$productsParams = ValidationService::getValidateProductCreationParams();
 
 		$productData = [
-			'TITLE' => $title,
-			'DESCRIPTION' => $description,
-			'PRICE' => $price,
+			'TITLE' => $productsParams['title'],
+			'DESCRIPTION' => $productsParams['description'],
+			'PRICE' => $productsParams['price'],
 			'ENTITY_STATUS_ID' => 1,
 			'SORT_ORDER' => 1,
-			'BRAND_ID' => $brand,
+			'BRAND_ID' => $productsParams['brand'],
 		];
 
 		if (!QueryBuilder::insert('PRODUCT', $productData, true))
@@ -186,6 +181,7 @@ class ProductService
 
 		$product_ID = MysqlConnection::get()->insert_id;
 
+		$tags = $productsParams['tags'];
 		foreach ($tags as $tagId)
 		{
 			$productTagData = [
