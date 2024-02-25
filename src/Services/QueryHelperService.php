@@ -12,7 +12,7 @@ use RuntimeException;
 
 class QueryHelperService
 {
-	public static function getBindTypes(array $params): string
+	private static function getBindTypes(array $params): string
 	{
 		$types = '';
 		foreach ($params as $param)
@@ -38,7 +38,7 @@ class QueryHelperService
 		return $types;
 	}
 
-	public static function executeStatement(mysqli_stmt $stmt): bool
+	private static function executeStatement(mysqli_stmt $stmt): bool
 	{
 		$result = $stmt->execute();
 		if (!$result)
@@ -53,7 +53,7 @@ class QueryHelperService
 	 * @throws Exception
 	 *
 	 */
-	public static function executePreparedStatement(
+	public static function executePreparedQuery(
 		string $query,
 		array  $params,
 		bool   $isSelect = false
@@ -78,5 +78,21 @@ class QueryHelperService
 
 		return $stmt->get_result();
 
+	}
+
+	/**
+	 * @throws Exception
+	 */
+	public static function executeUnpreparedQuery(string $query): bool|mysqli_result
+	{
+		$connection = MysqlConnection::get();
+		$result = mysqli_query($connection, $query);
+
+		if (!$result)
+		{
+			throw new RuntimeException(mysqli_error($connection));
+		}
+
+		return $result;
 	}
 }

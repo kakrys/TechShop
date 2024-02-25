@@ -100,13 +100,13 @@
 		<?= $this->renderComponent('admin-list', ['products' => $products,'pageArray' => $pageArray, 'tags' => $tags,'profilePage' => $profilePage,'orderPage' => $orderPage]) ?>
 		<?= $this->renderComponent('admin-edit', ['products' => $products, 'tags' => $tags, 'brands' => $brands]) ?>
 	</main>
-	<main class="account__main" id="adminUserContainer" data-admin-cont="1">
+	<main class="account__main" id="adminUserContainer" data-admin-cont="1" style="display:none;">
 		<?= $this->renderComponent('admin-users', ['users' => $users,'userPageArray' => $userPageArray,'productPage' => $productPage,'orderPage' => $orderPage]) ?>
 	</main>
-	<main class="account__main" id="adminOrderContainer" data-admin-cont="2">
+	<main class="account__main" id="adminOrderContainer" data-admin-cont="2" style="display:none;">
 		<?= $this->renderComponent('admin-orders', ['orders' => $orders,'orderPageArray' => $orderPageArray,'profilePage' => $profilePage,'productPage' => $productPage]) ?>
 	</main>
-	<main class="account__main" id="adminCreateContainer" data-admin-cont="3">
+	<main class="account__main" id="adminCreateContainer" data-admin-cont="3" style="display:none;">
 		<?= $this->renderComponent('admin-create', ['tags' => $tags, 'brands' => $brands]) ?>
 	</main>
 </div>

@@ -6,7 +6,6 @@ namespace Core\DB;
 
 use Exception;
 use mysqli_result;
-use RuntimeException;
 use Up\Services\QueryHelperService;
 
 class QueryBuilder
@@ -18,17 +17,11 @@ class QueryBuilder
 	{
 		if (!empty($params) && $safe)
 		{
-			$result = QueryHelperService::executePreparedStatement($query, $params, true);
+			$result = QueryHelperService::executePreparedQuery($query, $params, true);
 		}
 		else
 		{
-			$connection = MysqlConnection::get();
-			$result = mysqli_query($connection, $query);
-
-			if (!$result)
-			{
-				throw new RuntimeException(mysqli_error($connection));
-			}
+			$result = QueryHelperService::executeUnpreparedQuery($query);
 		}
 
 		return $result;
@@ -47,17 +40,11 @@ class QueryBuilder
 
 		if (!$safe)
 		{
-			$connection = MysqlConnection::get();
-			$result =  mysqli_query($connection, $query);
-
-			if (!$result)
-			{
-				throw new RuntimeException(mysqli_error($connection));
-			}
+			$result = QueryHelperService::executeUnpreparedQuery($query);
 		}
 		else
 		{
-			$result =  QueryHelperService::executePreparedStatement($query, $values);
+			$result =  QueryHelperService::executePreparedQuery($query, $values);
 		}
 
 		return $result;
@@ -72,17 +59,11 @@ class QueryBuilder
 
 		if (!$safe)
 		{
-			$connection = MysqlConnection::get();
-			$result =  mysqli_query($connection, $query);
-
-			if (!$result)
-			{
-				throw new RuntimeException(mysqli_error($connection));
-			}
+			$result = QueryHelperService::executeUnpreparedQuery($query);
 		}
 		else
 		{
-			$result =  QueryHelperService::executePreparedStatement($query, $params);
+			$result =  QueryHelperService::executePreparedQuery($query, $params);
 		}
 
 		return $result;
@@ -101,17 +82,11 @@ class QueryBuilder
 
 		if (!$safe)
 		{
-			$connection = MysqlConnection::get();
-			$result =  mysqli_query($connection, $query);
-
-			if (!$result)
-			{
-				throw new RuntimeException(mysqli_error($connection));
-			}
+			$result = QueryHelperService::executeUnpreparedQuery($query);
 		}
 		else
 		{
-			$result =  QueryHelperService::executePreparedStatement($query, $values);
+			$result =  QueryHelperService::executePreparedQuery($query, $values);
 		}
 
 		return $result;

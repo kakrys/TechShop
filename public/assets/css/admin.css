@@ -108,6 +108,10 @@
 }
 
 .adminOrder {
+    width: 102%;
+}
+
+.adminOrder {
     border-radius: 6px;
     margin-bottom: 5px;
 }
@@ -137,7 +141,7 @@
 }
 
 .account__ordersInfoItem {
-    max-width: 240px;
+    max-width: 200px;
     width: 100%;
 }
 
