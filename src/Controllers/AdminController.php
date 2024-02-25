@@ -157,6 +157,7 @@ class AdminController extends BaseController
 	 */
 	public function addProductAction(): string
 	{
+		error_reporting(E_ALL ^ E_WARNING);
 		try
 		{
 			ProductService::addProduct();

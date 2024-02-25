@@ -47,10 +47,13 @@ class ImageService
 	}
 	public static function checkIfImage():bool
 	{
+		$maxFileSize=40 * 1024 * 1024;
+		if ($_SERVER['CONTENT_LENGTH'] > $maxFileSize)
+		{
+			throw new RuntimeException('File too big');
+		}
 		$image=self::getImageArray('image');
 		$images = self::getImageArray('images');
-
-
 		$size = count($images['name']);
 		if(!getimagesize( $image['tmp_name']))
 		{

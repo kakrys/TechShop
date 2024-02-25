@@ -163,8 +163,8 @@ class ProductService
 	 */
 	public static function addProduct(): void
 	{
+		ImageService::checkIfImage();
 		$productsParams = ValidationService::getValidateProductCreationParams();
-
 		$productData = [
 			'TITLE' => $productsParams['title'],
 			'DESCRIPTION' => $productsParams['description'],

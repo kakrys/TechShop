@@ -51,7 +51,7 @@ use Up\Models\Brand;
 				</fieldset>
 				<div class="admin__uploadMore_wrapper">
 					<button class="admin__uploadBtn" type="button">Upload Additional Images</button>
-					<input type="file" name="images[]" id="images" multiple>
+					<input type="file" onchange="fileValidation()" name="images[]" id="images" multiple>
 					<div class="preview-images"></div>
 				</div>
 			</div>
@@ -59,7 +59,7 @@ use Up\Models\Brand;
 		<div class="admin__createForm_mainImg">
 			<div class="admin__createForm_wrapper">
 				<div class="admin__createForm_image">
-					<img class="admin__createForm_img" src="" alt="">
+					<img class="admin__createForm_img" src="" alt="" >
 				</div>
 				<div class="admin__createForm_content">
 					<div class="admin__createForm_icon">
@@ -72,7 +72,8 @@ use Up\Models\Brand;
 				</div>
 				<div id="admin__createForm_fileName">File name here</div>
 			</div>
-			<input type="file" name="image" id="defaultBtn" hidden required>
+			<input type="file" name="image" id="defaultBtn" onchange="fileValidation()" hidden required>
+            <p id="size"></p>
 			<button onclick="defaultBtnActive()" type="button" id="customBtn">Upload Image</button>
 			<button class="admin__createBtn" type="submit">Create!</button>
 		</div>
