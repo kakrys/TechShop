@@ -116,9 +116,16 @@ function updateProduct(modal)
 		const updateBrand = document.querySelector('input[name="editBrand"]:checked');
 		const updateTags = Array.from(document.querySelectorAll('input[name="editTags[]"]:checked')).map(checkbox => checkbox.value);
 
+		const htmlTagRegex = /<[a-z][\s\S]*>/i;
 		if (!updateTitle.value.trim() || !updateId.value.trim() || !updateDescription.value.trim() || !updatePrice.value.trim() || !updateBrand.value)
 		{
 			alert('Please fill in all required fields.');
+			modal.style.display = 'none';
+			return;
+		}
+		if (htmlTagRegex.test(updateTitle.value) || htmlTagRegex.test(updateDescription.value))
+		{
+			alert('Please fill in all fields correctly. Do not filled with links');
 			modal.style.display = 'none';
 			return;
 		}
