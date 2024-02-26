@@ -52,11 +52,11 @@
 		<form class="modalCard__form" action="/registration/" method="post">
 			<div class="modalField">
 				<img src="/assets/images/common/modalUser.svg" alt="click and write your name" class="modalField__img">
-				<input class="modalCard__form_input" type="text" name="userName" maxlength="30" placeholder="Name" pattern="^[^\s]+(\s.*)?$" required>
+				<input class="modalCard__form_input" type="text" name="userName" maxlength="30" placeholder="Name" pattern="[A-ZА-ЯЁa-zа-яё]+" required>
 			</div>
 			<div class="modalField">
 				<img src="/assets/images/common/modalUser.svg" alt="click and write your surname" class="modalField__img">
-				<input class="modalCard__form_input" type="text" name="userSurname"  maxlength="30" placeholder="Surname" pattern="^[^\s]+(\s.*)?$" required>
+				<input class="modalCard__form_input" type="text" name="userSurname"  maxlength="30" placeholder="Surname" pattern="[A-ZА-ЯЁa-zа-яё]+$" required>
 			</div>
 			<div class="modalField">
 				<img src="/assets/images/common/modalAddress.svg" alt="click and write your address" class="modalField__img">

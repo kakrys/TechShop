@@ -5,6 +5,7 @@ namespace Up\Controllers;
 use Core\Http\Request;
 use Exception;
 use Up\Services\Repository\UserService;
+use Up\Services\ValidationService;
 
 class RegistrationController extends BaseController
 {
@@ -21,31 +22,10 @@ class RegistrationController extends BaseController
 		$userPassword = $request['password'];
 		$userAddress = $request['userAddress'];
 
-		if (!filter_var($userEmail, FILTER_VALIDATE_EMAIL))
+		$registerError = ValidationService::getRegisterError($userName, $userSurname, $userEmail, $userPassword, $userAddress);
+		if ($registerError !== null)
 		{
-			return $this->render('login', ['registerError' => 'Invalid Email']);
-		}
-
-		if (UserService::getUserByEmail($userEmail))
-		{
-			return $this->render('login', ['registerError' => 'User already exists']);
-		}
-
-		if (
-			trim($userName) === '' || trim($userPassword) === '' || trim($userSurname) === ''
-			|| trim($userAddress) === ''
-		)
-		{
-			return $this->render('login', ['registerError' => 'Fill in all the fields']);
-		}
-
-		if (
-			strlen($userName) > 60 || strlen($userSurname) > 60 || strlen($userAddress) > 200
-			|| strlen($userEmail) > 100
-			|| strlen($userPassword) > 400
-		)
-		{
-			return $this->render('login', ['registerError' => 'Invalid field length']);
+			return $this->render('login', ['registerError' => $registerError]);
 		}
 
 		UserService::addUser($userName, $userSurname, $userEmail, $userPassword, $userAddress);

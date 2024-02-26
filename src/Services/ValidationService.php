@@ -6,6 +6,7 @@ namespace Up\Services;
 
 use Core\Http\Request;
 use RuntimeException;
+use Up\Services\Repository\UserService;
 
 class ValidationService
 {
@@ -54,5 +55,41 @@ class ValidationService
 		}
 
 		return $productTitle;
+	}
+
+	public static function getRegisterError($userName, $userSurname, $userEmail, $userPassword, $userAddress):	?string
+	{
+		if (!filter_var($userEmail, FILTER_VALIDATE_EMAIL))
+		{
+			return 'Invalid Email';
+		}
+
+		if (UserService::getUserByEmail($userEmail))
+		{
+			return 'User already exists';
+		}
+
+		if (!preg_match('/^[a-zа-яёA-ZА-ЯЁ]+$/u', $userName) || !preg_match('/^[a-zа-яёA-ZА-ЯЁ]+$/u', $userSurname))
+		{
+			return 'Enter data in the specified format';
+		}
+
+		if (
+			trim($userName) === '' || trim($userPassword) === '' || trim($userSurname) === ''
+			|| trim($userAddress) === ''
+		)
+		{
+			return 'Fill in all the fields';
+		}
+
+		if (
+			strlen($userName) > 60 || strlen($userSurname) > 60 || strlen($userAddress) > 200
+			|| strlen($userEmail) > 100
+			|| strlen($userPassword) > 400
+		)
+		{
+			return 'Invalid field length';
+		}
+		return null;
 	}
 }
