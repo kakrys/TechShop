@@ -15,7 +15,8 @@ class DetailController extends BaseController
 	public function detailsAction($id): string
 	{
 		$product = ProductService::getProductInfoByID($id);
-		if (!ProductService::getProductInfoByID($id))
+		$entityStatusId = $product->getEntityStatusId();
+		if (!ProductService::getProductInfoByID($id) || $entityStatusId === 2)
 		{
 			return $this->get404();
 		}

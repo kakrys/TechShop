@@ -91,7 +91,7 @@ class ProductService
 		{
 			return null;
 		}
-		$query = "SELECT PRODUCT.ID, PRODUCT.TITLE, PRICE, DESCRIPTION, BRAND.TITLE AS BRAND, PATH"
+		$query = "SELECT PRODUCT.ID, PRODUCT.TITLE, PRICE, DESCRIPTION, PRODUCT.ENTITY_STATUS_ID, BRAND.TITLE AS BRAND, PATH"
 			. " FROM PRODUCT INNER JOIN BRAND ON PRODUCT.BRAND_ID = BRAND.ID"
 			. " INNER JOIN IMAGE"
 			. " ON PRODUCT.ID=IMAGE.PRODUCT_ID"
@@ -110,7 +110,7 @@ class ProductService
 			$row['TITLE'],
 			$row['DESCRIPTION'],
 			$row['PRICE'],
-			null,
+			$row['ENTITY_STATUS_ID'],
 			null,
 			null,
 			null,
