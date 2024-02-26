@@ -8,6 +8,7 @@ use Up\Models\Image;
 use Core\Http\Request;
 use Core\DB\MysqlConnection;
 use Core\DB\QueryBuilder;
+use Up\Services\ConfigurationService;
 
 class ImageService
 {
@@ -48,6 +49,7 @@ class ImageService
 	public static function checkIfImage():bool
 	{
 		$maxFileSize=40 * 1024 * 1024;
+		$types=ConfigurationService::option('ALLOWED_FILES');
 		if ($_SERVER['CONTENT_LENGTH'] > $maxFileSize)
 		{
 			throw new RuntimeException('File too big');
@@ -55,7 +57,7 @@ class ImageService
 		$image=self::getImageArray('image');
 		$images = self::getImageArray('images');
 		$size = count($images['name']);
-		if(!getimagesize( $image['tmp_name']))
+		if(!in_array(mime_content_type($image['tmp_name']), $types, true))
 		{
 			throw new RuntimeException('Invalid main image');
 		}
@@ -63,7 +65,7 @@ class ImageService
 		{
 			for ($i = 0; $i < $size; $i++)
 			{
-				if (!getimagesize($images['tmp_name'][$i]))
+				if(!in_array(mime_content_type($images['tmp_name'][$i]), $types, true))
 				{
 					throw new RuntimeException('Invalid additional image');
 				}
