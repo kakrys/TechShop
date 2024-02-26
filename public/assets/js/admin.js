@@ -116,6 +116,13 @@ function updateProduct(modal)
 		const updateBrand = document.querySelector('input[name="editBrand"]:checked');
 		const updateTags = Array.from(document.querySelectorAll('input[name="editTags[]"]:checked')).map(checkbox => checkbox.value);
 
+		if (!updateTitle.value.trim() || !updateId.value.trim() || !updateDescription.value.trim() || !updatePrice.value.trim() || !updateBrand.value)
+		{
+			alert('Please fill in all required fields.');
+			modal.style.display = 'none';
+			return;
+		}
+
 		const updateParams = {
 			title: updateTitle.value,
 			id: updateId.value,
