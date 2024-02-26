@@ -57,6 +57,7 @@ class Migrator
 		{
 			throw new RuntimeException(mysqli_error($connection));
 		}
+		while(mysqli_next_result($connection)){;}
 	}
 
 	/**
