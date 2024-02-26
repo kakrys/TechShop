@@ -47,6 +47,7 @@ class ValidationService
 			'brand' => $brand,
 		];
 	}
+
 	public static function getValidateProductTitle(?string $productTitle): string
 	{
 		if (empty(trim($productTitle)))
@@ -57,7 +58,10 @@ class ValidationService
 		return $productTitle;
 	}
 
-	public static function getRegisterError($userName, $userSurname, $userEmail, $userPassword, $userAddress):	?string
+	/**
+	 * @throws \Exception
+	 */
+	public static function getRegisterError($userName, $userSurname, $userEmail, $userPassword, $userAddress): ?string
 	{
 		if (!filter_var($userEmail, FILTER_VALIDATE_EMAIL))
 		{
@@ -90,6 +94,7 @@ class ValidationService
 		{
 			return 'Invalid field length';
 		}
+
 		return null;
 	}
 }

@@ -8,5 +8,5 @@ return [
 	'DB_USER' => '',
 	'DB_PASSWORD' => '',
 	'DB_NAME' => '',
-	'ALLOWED_FILES'=>['image/gif','image/png','image/jpeg','image/jpg','image/svg','image/webp']
+	'ALLOWED_FILES' => ['image/gif', 'image/png', 'image/jpeg', 'image/jpg', 'image/svg', 'image/webp'],
 ];

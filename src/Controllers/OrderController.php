@@ -51,7 +51,7 @@ class OrderController extends BaseController
 		if (isset($session['UserEmail']))
 		{
 			$params = [
-				'orderErrors' => OrderService::addOrder(),
+				'orderErrors' => OrderService::addOrderOrGetErrors(),
 			];
 
 			return $this->render('success', $params);

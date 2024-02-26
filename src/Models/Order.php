@@ -24,21 +24,21 @@ class Order
 	 * @param string $productTitle
 	 */
 	public function __construct(
-		int    $id,
-		string $dataCreate,
-		float  $price,
+		int     $id,
+		string  $dataCreate,
+		float   $price,
 		?string $userName,
 		?string $userSurname,
-		string $userEmail,
-		string $userAddress,
-		string $productTitle
+		string  $userEmail,
+		string  $userAddress,
+		string  $productTitle
 	)
 	{
 		$this->id = $id;
 		$this->dataCreate = $dataCreate;
 		$this->price = $price;
-		$this->userName = $userName??null;
-		$this->userSurname = $userSurname??null;
+		$this->userName = $userName ?? null;
+		$this->userSurname = $userSurname ?? null;
 		$this->userEmail = $userEmail;
 		$this->userAddress = $userAddress;
 		$this->productTitle = $productTitle;

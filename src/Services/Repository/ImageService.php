@@ -13,11 +13,11 @@ use Up\Services\ConfigurationService;
 class ImageService
 {
 	private static string $uploadDir = __DIR__ . "/../../../public/assets/images/productImages/";
-	private static function getImageArray($arrayName):array
+
+	private static function getImageArray($arrayName): array
 	{
 		return Request::getFiles()[$arrayName];
 	}
-
 
 	/**
 	 * @throws Exception
@@ -46,18 +46,19 @@ class ImageService
 			throw new RuntimeException('Error adding an image: ' . "Файл не найден");
 		}
 	}
-	public static function checkIfImage():bool
+
+	public static function checkIfImage(): bool
 	{
-		$maxFileSize=40 * 1024 * 1024;
-		$types=ConfigurationService::option('ALLOWED_FILES');
+		$maxFileSize = 40 * 1024 * 1024;
+		$types = ConfigurationService::option('ALLOWED_FILES');
 		if ($_SERVER['CONTENT_LENGTH'] > $maxFileSize)
 		{
 			throw new RuntimeException('File too big');
 		}
-		$image=self::getImageArray('image');
+		$image = self::getImageArray('image');
 		$images = self::getImageArray('images');
 		$size = count($images['name']);
-		if(!in_array(mime_content_type($image['tmp_name']), $types, true))
+		if (!in_array(mime_content_type($image['tmp_name']), $types, true))
 		{
 			throw new RuntimeException('Invalid main image');
 		}
@@ -65,17 +66,19 @@ class ImageService
 		{
 			for ($i = 0; $i < $size; $i++)
 			{
-				if(!in_array(mime_content_type($images['tmp_name'][$i]), $types, true))
+				if (!in_array(mime_content_type($images['tmp_name'][$i]), $types, true))
 				{
 					throw new RuntimeException('Invalid additional image');
 				}
 			}
 		}
+
 		return true;
 	}
+
 	public static function renameImage(): string
 	{
-		$image=self::getImageArray('image');
+		$image = self::getImageArray('image');
 
 		$originalFilename = $image["name"];
 
@@ -132,9 +135,7 @@ class ImageService
 	public static function selectProductImages(int $productId): array
 	{
 		$imageArray = [];
-		$query = "SELECT PATH, PRODUCT_ID"
-				. " FROM IMAGE WHERE PRODUCT_ID = ?"
-				. " AND IS_COVER = 0";
+		$query = "SELECT PATH, PRODUCT_ID" . " FROM IMAGE WHERE PRODUCT_ID = ?" . " AND IS_COVER = 0";
 
 		$result = QueryBuilder::select($query, [$productId], true);
 		while ($row = mysqli_fetch_assoc($result))

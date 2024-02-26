@@ -9,7 +9,6 @@ use Core\Web\Json;
 use Core\Http\Request;
 
 use RuntimeException;
-use Up\Cache\FileCache;
 use Up\Services\PaginationService;
 use Up\Services\Repository\TagService;
 use Up\Services\Repository\BrandService;

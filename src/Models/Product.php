@@ -16,8 +16,8 @@ class Product
 	private ?int $sortOrder;
 	private ?array $tags;
 	private ?string $brand;
-    private ?Image $cover;
-    private ?array $images;
+	private ?Image $cover;
+	private ?array $images;
 
 	/**
 	 * @param int|null $id
@@ -30,23 +30,23 @@ class Product
 	 * @param int|null $sortOrder
 	 * @param array|null $tags
 	 * @param string|null $brand
-     * @param Image|null $cover
-     * @param array|null $images
-     *
+	 * @param Image|null $cover
+	 * @param array|null $images
+	 *
 	 */
 	public function __construct(
-		?int $id,
-		?string $title,
-		?string $description,
-		?float $price,
-		?int $entityStatusId,
+		?int      $id,
+		?string   $title,
+		?string   $description,
+		?float    $price,
+		?int      $entityStatusId,
 		?DateTime $dateRelease,
 		?DateTime $dateUpdate,
-		?int $sortOrder,
-		?array $tags,
-		?string $brand,
-        ?Image $cover,
-        ?array $images
+		?int      $sortOrder,
+		?array    $tags,
+		?string   $brand,
+		?Image    $cover,
+		?array    $images
 	)
 	{
 		$this->id = $id ?? null;
@@ -59,8 +59,8 @@ class Product
 		$this->sortOrder = $sortOrder ?? null;
 		$this->tags = $tags ?? [];
 		$this->brand = $brand ?? null;
-        $this->cover = $cover ?? null;
-        $this->images = $images ?? null;
+		$this->cover = $cover ?? null;
+		$this->images = $images ?? null;
 	}
 
 	public function getId(): int
@@ -167,23 +167,24 @@ class Product
 	{
 		$this->brand = $brand;
 	}
-    public function getCover(): ?Image
-    {
-        return $this->cover;
-    }
 
-    public function setCover(?Image $cover): void
-    {
-        $this->cover = $cover;
-    }
+	public function getCover(): ?Image
+	{
+		return $this->cover;
+	}
 
-    public function getImages(): ?array
-    {
-        return $this->images;
-    }
+	public function setCover(?Image $cover): void
+	{
+		$this->cover = $cover;
+	}
 
-    public function setImages(?array $images): void
-    {
-        $this->images = $images;
-    }
+	public function getImages(): ?array
+	{
+		return $this->images;
+	}
+
+	public function setImages(?array $images): void
+	{
+		$this->images = $images;
+	}
 }

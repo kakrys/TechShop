@@ -57,7 +57,8 @@ class OrderService
 
 		return $orders;
 	}
-	public static function addOrder(): ?array
+
+	public static function addOrderOrGetErrors(): ?array
 	{
 		try
 		{
@@ -67,7 +68,7 @@ class OrderService
 			$userAddress = $request['address'];
 			$productID = $request['productID'];
 			$productPrice = $request['productPrice'];
-			if (!filter_var($userEmail,FILTER_VALIDATE_EMAIL) || trim($userAddress) === '')
+			if (!filter_var($userEmail, FILTER_VALIDATE_EMAIL) || trim($userAddress) === '')
 			{
 				return ['An error has occurred'];
 			}
@@ -92,7 +93,7 @@ class OrderService
 			$userAddress = $request['address'];
 			$productID = $request['productID'];
 			$productPrice = $request['productPrice'];
-			if (!filter_var($userEmail,FILTER_VALIDATE_EMAIL) || trim($userAddress) === '')
+			if (!filter_var($userEmail, FILTER_VALIDATE_EMAIL) || trim($userAddress) === '')
 			{
 				return ['An error has occurred'];
 			}

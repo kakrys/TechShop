@@ -163,50 +163,49 @@ class ProductService
 	 */
 	public static function addProduct(): void
 	{
-		if(ImageService::checkIfImage())
+		if (ImageService::checkIfImage())
 		{
-		$productsParams = ValidationService::getValidateProductCreationParams();
-		$productData = [
-			'TITLE' => $productsParams['title'],
-			'DESCRIPTION' => $productsParams['description'],
-			'PRICE' => $productsParams['price'],
-			'ENTITY_STATUS_ID' => 1,
-			'SORT_ORDER' => 1,
-			'BRAND_ID' => $productsParams['brand'],
-		];
-
-		if (!QueryBuilder::insert('PRODUCT', $productData, true))
-		{
-			throw new RuntimeException('Error adding an product:  ' . MysqlConnection::get()->error);
-		}
-
-		$product_ID = MysqlConnection::get()->insert_id;
-
-		$tags = $productsParams['tags'];
-		foreach ($tags as $tagId)
-		{
-			$productTagData = [
-				'PRODUCT_ID' => $product_ID,
-				'TAG_ID' => $tagId,
+			$productsParams = ValidationService::getValidateProductCreationParams();
+			$productData = [
+				'TITLE' => $productsParams['title'],
+				'DESCRIPTION' => $productsParams['description'],
+				'PRICE' => $productsParams['price'],
+				'ENTITY_STATUS_ID' => 1,
+				'SORT_ORDER' => 1,
+				'BRAND_ID' => $productsParams['brand'],
 			];
-			if (!QueryBuilder::insert('PRODUCT_TAG', $productTagData, true))
+
+			if (!QueryBuilder::insert('PRODUCT', $productData, true))
 			{
 				throw new RuntimeException('Error adding an product:  ' . MysqlConnection::get()->error);
 			}
-		}
-		$imageName = ImageService::renameImage();
-		ImageService::insertImageInFolder($imageName);
-		ImageService::insertImageInDatabase($product_ID, $imageName, 1);
-		$additionalImages = ImageService::renameAndSendAddImages();
-		if ($additionalImages !== [])
-		{
-			foreach ($additionalImages as $additionalImage)
+
+			$product_ID = MysqlConnection::get()->insert_id;
+
+			$tags = $productsParams['tags'];
+			foreach ($tags as $tagId)
 			{
-				ImageService::insertImageInDatabase($product_ID, $additionalImage, 0);
+				$productTagData = [
+					'PRODUCT_ID' => $product_ID,
+					'TAG_ID' => $tagId,
+				];
+				if (!QueryBuilder::insert('PRODUCT_TAG', $productTagData, true))
+				{
+					throw new RuntimeException('Error adding an product:  ' . MysqlConnection::get()->error);
+				}
+			}
+			$imageName = ImageService::renameImage();
+			ImageService::insertImageInFolder($imageName);
+			ImageService::insertImageInDatabase($product_ID, $imageName, 1);
+			$additionalImages = ImageService::renameAndSendAddImages();
+			if ($additionalImages !== [])
+			{
+				foreach ($additionalImages as $additionalImage)
+				{
+					ImageService::insertImageInDatabase($product_ID, $additionalImage, 0);
+				}
 			}
 		}
-	}
-
 
 	}
 

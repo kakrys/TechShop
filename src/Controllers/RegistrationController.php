@@ -22,7 +22,13 @@ class RegistrationController extends BaseController
 		$userPassword = $request['password'];
 		$userAddress = $request['userAddress'];
 
-		$registerError = ValidationService::getRegisterError($userName, $userSurname, $userEmail, $userPassword, $userAddress);
+		$registerError = ValidationService::getRegisterError(
+			$userName,
+			$userSurname,
+			$userEmail,
+			$userPassword,
+			$userAddress
+		);
 		if ($registerError !== null)
 		{
 			return $this->render('login', ['registerError' => $registerError]);

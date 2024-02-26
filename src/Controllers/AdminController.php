@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Up\Controllers;
 
-use Core\DB\Migrator;
 use Core\Http\Request;
 use Exception;
 use Core\Web\Json;
 use JsonException;
 use RuntimeException;
-use Up\Cache\FileCache;
 use Up\Services\PaginationService;
 use Up\Services\Repository\BrandService;
 use Up\Services\Repository\OrderService;

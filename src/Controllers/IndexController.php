@@ -3,7 +3,6 @@
 namespace Up\Controllers;
 
 use Exception;
-use Up\Cache\FileCache;
 use Up\Services\Repository\ProductService;
 
 class IndexController extends BaseController

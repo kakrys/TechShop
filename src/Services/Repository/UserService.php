@@ -56,8 +56,8 @@ class UserService
 		$offset = ($pageNumber - 1) * $perPage;
 
 		$query = "SELECT ID, NAME, SURNAME, ADDRESS, EMAIL"
-				. " FROM USER WHERE ROLE_ID = 2"
-				. " LIMIT 5 OFFSET ?";
+			. " FROM USER WHERE ROLE_ID = 2"
+			. " LIMIT 5 OFFSET ?";
 
 		$result = QueryBuilder::select($query, [$offset], true);
 
@@ -77,7 +77,7 @@ class UserService
 	/**
 	 * @throws Exception
 	 */
-	public static function addUser($userName,$userSurname,$userEmail,$userPassword,$userAddress): bool
+	public static function addUser($userName, $userSurname, $userEmail, $userPassword, $userAddress): bool
 	{
 		$userPassword = password_hash($userPassword, PASSWORD_DEFAULT);
 
@@ -215,8 +215,6 @@ class UserService
 		$data = ['PASSWORD' => $userNewPassword];
 		$condition = 'EMAIL = ?';
 		$params = [$session['UserEmail']];
-
-
 
 		return QueryBuilder::update($table, $data, $condition, $params, true);
 	}
