@@ -17,22 +17,13 @@ class QueryHelperService
 		$types = '';
 		foreach ($params as $param)
 		{
-			if (is_int($param))
+			$types .= match (gettype($param))
 			{
-				$types .= 'i';
-			}
-			elseif (is_float($param))
-			{
-				$types .= 'd';
-			}
-			elseif (is_string($param))
-			{
-				$types .= 's';
-			}
-			else
-			{
-				$types .= 'b';
-			}
+				'integer' => 'i',
+				'double' => 'd',
+				'string' => 's',
+				default => 'b',
+			};
 		}
 
 		return $types;
@@ -53,7 +44,7 @@ class QueryHelperService
 	 * @throws Exception
 	 *
 	 */
-	public static function executePreparedQuery(
+	private static function executePreparedQuery(
 		string $query,
 		array  $params,
 		bool   $isSelect = false
@@ -74,7 +65,7 @@ class QueryHelperService
 		{
 			return self::executeStatement($stmt);
 		}
-		$stmt->execute();
+		self::executeStatement($stmt);
 
 		return $stmt->get_result();
 
@@ -83,7 +74,7 @@ class QueryHelperService
 	/**
 	 * @throws Exception
 	 */
-	public static function executeUnpreparedQuery(string $query): bool|mysqli_result
+	private static function executeUnpreparedQuery(string $query): bool|mysqli_result
 	{
 		$connection = MysqlConnection::get();
 		$result = mysqli_query($connection, $query);
@@ -91,6 +82,32 @@ class QueryHelperService
 		if (!$result)
 		{
 			throw new RuntimeException(mysqli_error($connection));
+		}
+
+		return $result;
+	}
+
+	/**
+	 * @throws Exception
+	 */
+	public static function executeQuery(
+		string $query,
+		array  $params = null,
+		bool   $safe = false,
+		bool   $isSelect = false
+	): mysqli_result|bool
+	{
+		if (!empty($params) && $safe && $isSelect)
+		{
+			$result = self::executePreparedQuery($query, $params, $isSelect);
+		}
+		elseif ($safe && !$isSelect)
+		{
+			$result = self::executePreparedQuery($query, $params);
+		}
+		else
+		{
+			$result = self::executeUnpreparedQuery($query);
 		}
 
 		return $result;

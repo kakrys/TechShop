@@ -101,5 +101,5 @@
 			</div>
 		</div>
 	</aside>
-	<button type="submit" id="filterBtn">Sort !</button>
+	<button type="submit" id="filterBtn">Sort</button>
 </form>
