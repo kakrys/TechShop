@@ -14,28 +14,30 @@ class RegistrationController extends BaseController
 	 */
 	public function registrationAction()
 	{
-		session_start();
-		$request = Request::getBody();
-		$userName = $request['userName'];
-		$userSurname = $request['userSurname'];
-		$userEmail = $request['email'];
-		$userPassword = $request['password'];
-		$userAddress = $request['userAddress'];
-
-		$registerError = ValidationService::getRegisterError(
-			$userName,
-			$userSurname,
-			$userEmail,
-			$userPassword,
-			$userAddress
-		);
-		if ($registerError !== null)
+		try
 		{
-			return $this->render('login', ['registerError' => $registerError]);
-		}
+			session_start();
+			$request = Request::getBody();
+			$userName = $request['userName'];
+			$userSurname = $request['userSurname'];
+			$userEmail = $request['email'];
+			$userPassword = $request['password'];
+			$userAddress = $request['userAddress'];
 
-		UserService::addUser($userName, $userSurname, $userEmail, $userPassword, $userAddress);
-		$_SESSION['UserEmail'] = $userEmail;
-		header('Location: /account/');
+			ValidationService::getRegisterError(
+				$userName,
+				$userSurname,
+				$userEmail,
+				$userPassword,
+				$userAddress
+			);
+			UserService::addUser($userName, $userSurname, $userEmail, $userPassword, $userAddress);
+			$_SESSION['UserEmail'] = $userEmail;
+			header('Location: /account/');
+		}
+		catch (\RuntimeException $e)
+		{
+			return $this->render('login', ['registerError' => $e->getMessage()]);
+		}
 	}
 }

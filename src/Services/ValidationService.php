@@ -61,21 +61,21 @@ class ValidationService
 	/**
 	 * @throws \Exception
 	 */
-	public static function getRegisterError($userName, $userSurname, $userEmail, $userPassword, $userAddress): ?string
+	public static function getRegisterError($userName, $userSurname, $userEmail, $userPassword, $userAddress)
 	{
 		if (!filter_var($userEmail, FILTER_VALIDATE_EMAIL))
 		{
-			return 'Invalid Email';
+			throw new RuntimeException("Invalid Email");
 		}
 
 		if (UserService::getUserByEmail($userEmail))
 		{
-			return 'User already exists';
+			throw new RuntimeException("User already exists");
 		}
 
 		if (!preg_match('/^[a-zа-яёA-ZА-ЯЁ]+$/u', $userName) || !preg_match('/^[a-zа-яёA-ZА-ЯЁ]+$/u', $userSurname))
 		{
-			return 'Enter data in the specified format';
+			throw new RuntimeException("Enter data in the specified format");
 		}
 
 		if (
@@ -83,18 +83,16 @@ class ValidationService
 			|| trim($userAddress) === ''
 		)
 		{
-			return 'Fill in all the fields';
+			throw new RuntimeException("Fill in all the fields");
 		}
 
 		if (
-			strlen($userName) > 60 || strlen($userSurname) > 60 || strlen($userAddress) > 200
-			|| strlen($userEmail) > 100
-			|| strlen($userPassword) > 400
+			mb_strlen($userName) > 30 || mb_strlen($userSurname) > 30 || mb_strlen($userAddress) > 100
+			|| mb_strlen($userEmail) > 100
+			|| mb_strlen($userPassword) > 200
 		)
 		{
-			return 'Invalid field length';
+			throw new RuntimeException("Invalid field length");
 		}
-
-		return null;
 	}
 }
