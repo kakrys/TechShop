@@ -9,24 +9,24 @@ class Request
 		return $_SERVER['REQUEST_METHOD'];
 	}
 
-	public static function uri(): string
+	public static function server(string $key): string
 	{
-		return $_SERVER['REQUEST_URI'];
+		return $_SERVER[$key] ?? '';
 	}
 	private static function filterArray($array):array
 	{
-		$filteredArray=[];
+		$filteredArray = [];
 
 		foreach ($array as $key=> $arrayElement)
 		{
 
 			if(is_array($arrayElement))
 			{
-				$filteredArray[$key]=self::filterArray($arrayElement);
+				$filteredArray[$key] = self::filterArray($arrayElement);
 			}
 			else
 			{
-				$filteredArray[$key]=filter_var($arrayElement, FILTER_SANITIZE_SPECIAL_CHARS);
+				$filteredArray[$key] = filter_var($arrayElement, FILTER_SANITIZE_SPECIAL_CHARS);
 			}
 		}
 		return $filteredArray;
