@@ -4,11 +4,6 @@ namespace Core\Http;
 
 class Request
 {
-	public static function method(): string
-	{
-		return $_SERVER['REQUEST_METHOD'];
-	}
-
 	public static function server(string $key): string
 	{
 		return $_SERVER[$key] ?? '';
@@ -34,12 +29,12 @@ class Request
 
 	public static function isGet(): string
 	{
-		return self::method() === 'GET';
+		return self::server('REQUEST_METHOD') === 'GET';
 	}
 
 	public static function isPost(): string
 	{
-		return self::method() === 'POST';
+		return self::server('REQUEST_METHOD') === 'POST';
 	}
 
 	public static function getBody(): array|null
