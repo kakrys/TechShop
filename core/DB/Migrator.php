@@ -10,12 +10,12 @@ class Migrator
 	private static string $configPath = __DIR__ . "/../../config/dbtime-config.txt";
 	private static string $migrationsPath = __DIR__ . "/../../src/Migrations/";
 
-	public static function getConfigPath(): string
+	private static function getConfigPath(): string
 	{
 		return self::$configPath;
 	}
 
-	public static function getMigrationsPath(): string
+	private static function getMigrationsPath(): string
 	{
 		return self::$migrationsPath;
 	}
