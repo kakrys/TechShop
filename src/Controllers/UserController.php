@@ -23,46 +23,8 @@ class UserController extends BaseController
 		session_start();
 		if (Request::getSession('UserEmail') !== null)
 		{
-			$data = Request::getBody();
-			$user = UserService::getUserByEmail(Request::getSession('UserEmail'));
-
-			$orderPage = $data['order'] ?? 1;
-			$orderPage = (int)$orderPage;
-
-			$wishPage = $data['wish'] ?? 1;
-			$wishPage = (int)$wishPage;
-
-			$wishList = Request::getSession('wishList') !== null ? ProductService::getProductsByIds(Request::getSession('wishList')) : [];
-			if ($wishList !== [])
-			{
-				$wishArray = array_slice($wishList, 9 * ($wishPage - 1), 10);
-				$wishPageArray = PaginationService::determinePage($wishPage, $wishArray);
-				$wishArray = PaginationService::trimPaginationArray($wishArray);
-			}
-			else
-			{
-				$wishArray = [];
-				$wishPageArray = [1, 1];
-
-			}
-
-			$wishesProducts = isset($wishArray) ? $wishArray : [];
-
-			$orderArray = OrderService::getOrderList($user->id, $orderPage);
-			$orderPageArray = PaginationService::determinePage($orderPage, $orderArray, 5);
-			$orderArray = PaginationService::trimPaginationArray($orderArray, 5);
-
-			$params = [
-				'userEmail' => $user->email,
-				'user' => $user,
-				'userFullName' => $user->name . ' ' . $user->surname,
-				'orders' => $orderArray,
-				'wishesProducts' => $wishesProducts,
-				'orderPageArray' => $orderPageArray,
-				'wishPageArray' => $wishPageArray,
-				'orderPage' => $orderPage,
-				'wishPage' => $wishPage,
-			];
+			$requestData = Request::getBody();
+			$params = self::getParams($requestData);
 
 			return $this->render('account', $params);
 		}
@@ -78,8 +40,8 @@ class UserController extends BaseController
 	public function updateInfoAction(): string
 	{
 		session_start();
-		$request = Request::getBody();
-		$arrayKey = array_key_first($request);
+		$requestData = Request::getBody();
+		$arrayKey = array_key_first($requestData);
 		$updateField = mb_substr($arrayKey, 3);
 		$funcName = 'updateUser' . $updateField;
 
@@ -88,44 +50,8 @@ class UserController extends BaseController
 			$warning = "Invalid " . $updateField;
 		}
 
-		$user = UserService::getUserByEmail(Request::getSession('UserEmail'));
-		$orderPage = $request['order'] ?? 1;
-		$orderPage = (int)$orderPage;
-
-		$wishPage = $request['wish'] ?? 1;
-		$wishPage = (int)$wishPage;
-
-		$wishList = Request::getSession('wishList') !== null ? ProductService::getProductsByIds(Request::getSession('wishList')) : [];
-		if ($wishList !== [])
-		{
-			$wishArray = array_slice($wishList, 9 * ($wishPage - 1), 10);
-			$wishPageArray = PaginationService::determinePage($wishPage, $wishArray);
-			$wishArray = PaginationService::trimPaginationArray($wishArray);
-		}
-		else
-		{
-			$wishArray = [];
-			$wishPageArray = [1, 1];
-
-		}
-
-		$wishesProducts = isset($wishArray) ? $wishArray : [];
-
-		$orderArray = OrderService::getOrderList($user->id, $orderPage);
-		$orderPageArray = PaginationService::determinePage($orderPage, $orderArray, 5);
-		$orderArray = PaginationService::trimPaginationArray($orderArray, 5);
-		$params = [
-			'userEmail' => $user->email,
-			'user' => $user,
-			'userFullName' => $user->name . ' ' . $user->surname,
-			'orders' => $orderArray,
-			'warning' => $warning ?? '',
-			'wishesProducts' => $wishesProducts,
-			'orderPageArray' => $orderPageArray,
-			'wishPageArray' => $wishPageArray,
-			'orderPage' => $orderPage,
-			'wishPage' => $wishPage,
-		];
+		$params = self::getParams($requestData);
+		$params['warning'] = $warning ?? '';
 
 		return $this->render('account', $params);
 	}
@@ -163,5 +89,53 @@ class UserController extends BaseController
 								  'error' => 'Id not provided',
 							  ]);
 		}
+	}
+
+	/**
+	 * @throws Exception
+	 */
+	private static function getParams(?array $data): array
+	{
+
+		$user = UserService::getUserByEmail(Request::getSession('UserEmail'));
+
+		$orderPage = $data['order'] ?? 1;
+		$orderPage = (int)$orderPage;
+
+		$wishPage = $data['wish'] ?? 1;
+		$wishPage = (int)$wishPage;
+
+		$isWishListNotNull = Request::getSession('wishList') !== null;
+
+		$wishList = $isWishListNotNull ? ProductService::getProductsByIds(Request::getSession('wishList')) : [];
+
+		if ($wishList !== [])
+		{
+			$wishArray = array_slice($wishList, 9 * ($wishPage - 1), 10);
+			$wishPageArray = PaginationService::determinePage($wishPage, $wishArray);
+			$wishArray = PaginationService::trimPaginationArray($wishArray);
+		}
+		else
+		{
+			$wishArray = [];
+			$wishPageArray = [1, 1];
+
+		}
+
+		$orderArray = OrderService::getOrderList($user->id, $orderPage);
+		$orderPageArray = PaginationService::determinePage($orderPage, $orderArray, 5);
+		$orderArray = PaginationService::trimPaginationArray($orderArray, 5);
+
+		return [
+			'userEmail' => $user->email,
+			'user' => $user,
+			'userFullName' => $user->name . ' ' . $user->surname,
+			'orders' => $orderArray,
+			'wishesProducts' => $wishArray,
+			'orderPageArray' => $orderPageArray,
+			'wishPageArray' => $wishPageArray,
+			'orderPage' => $orderPage,
+			'wishPage' => $wishPage,
+		];
 	}
 }
