@@ -47,3 +47,52 @@ const handleClick = (e) => {
 
 buttons.forEach((link) => link.addEventListener("click", handleClick));
 links.forEach((link) => link.addEventListener("click", handleClick));
+
+//customize required fields
+const loginForms = document.querySelectorAll('.modalCard__form, .formForSignUp');
+
+loginForms.forEach(form => {
+	form.addEventListener('submit', event => {
+		event.preventDefault();
+
+		const loginFormInputs = form.querySelectorAll('.modalCard__form_input');
+
+		const hasErrors = Array.from(loginFormInputs).some(input => {
+			const trimmedValue = input.value.trim();
+			if (trimmedValue === '')
+			{
+				setError(input, 'This field is required');
+				input.style.border = '1px solid #C91433';
+				return true;
+			}
+			else
+			{
+				setSuccess(input);
+				input.style.border = '1px solid #146C43';
+			}
+		});
+
+		if (!hasErrors)
+		{
+			form.submit();
+		}
+	});
+});
+
+const setError = (element, message) => {
+	const inputControl = element.parentElement;
+	const errorDisplay = inputControl.querySelector('.modalCard__error');
+
+	errorDisplay.textContent = message;
+	inputControl.classList.add('requiredError');
+	inputControl.classList.remove('requiredSuccess');
+};
+
+const setSuccess = (element) => {
+	const inputControl = element.parentElement;
+	const errorDisplay = inputControl.querySelector('.modalCard__error');
+
+	errorDisplay.textContent = '';
+	inputControl.classList.add('requiredSuccess');
+	inputControl.classList.remove('requiredError');
+};

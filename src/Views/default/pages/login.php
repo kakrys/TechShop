@@ -20,12 +20,14 @@
 		<form class="modalCard__form" action="/login/" method="post">
 			<div class="modalField">
 				<img src="/assets/images/common/email.svg" alt="click and write your E-mail" class="modalField__img">
-				<input class="modalCard__form_input" type="text" name="email" maxlength="100" placeholder="E-mail" required>
+				<input class="modalCard__form_input" type="text" name="email" maxlength="100" placeholder="E-mail">
+				<div class="modalCard__error"></div>
 			</div>
 			<div class="modalField">
 				<img src="/assets/images/common/key.svg" alt="click and write your Password" class="modalField__img">
-				<input class="modalCard__form_input password" type="password"  maxlength="200" name="password" placeholder="Password" required>
+				<input class="modalCard__form_input password" type="password"  maxlength="200" name="password" placeholder="Password">
 				<img src="/assets/images/common/hide.svg" alt="show your password in the screen" class="modalField__eye">
+				<div class="modalCard__error requiredError"></div>
 			</div>
 			<button id="logInButton" class="modalCard__btn" type="submit">Log In</button>
 			<div class="modalCard__availability">
@@ -49,27 +51,32 @@
 		</ul>
 		<h2 class="modalCard__title">Create your account</h2>
 		<div class="modalResponse <?= !empty($registerError) ? 'invalidField' : '' ?>"><?=$registerError ?? ''?></div>
-		<form class="modalCard__form" action="/registration/" method="post">
+		<form class="modalCard__form formForSignUp" action="/registration/" method="post">
 			<div class="modalField">
 				<img src="/assets/images/common/modalUser.svg" alt="click and write your name" class="modalField__img">
-				<input class="modalCard__form_input" type="text" name="userName" maxlength="30" placeholder="Name" pattern="[A-ZА-ЯЁa-zа-яё]+" required>
+				<input class="modalCard__form_input" type="text" name="userName" maxlength="30" placeholder="Name" pattern="[A-ZА-ЯЁa-zа-яё]+" >
+				<div class="modalCard__error"></div>
 			</div>
 			<div class="modalField">
 				<img src="/assets/images/common/modalUser.svg" alt="click and write your surname" class="modalField__img">
-				<input class="modalCard__form_input" type="text" name="userSurname"  maxlength="30" placeholder="Surname" pattern="[A-ZА-ЯЁa-zа-яё]+$" required>
+				<input class="modalCard__form_input" type="text" name="userSurname"  maxlength="30" placeholder="Surname" pattern="[A-ZА-ЯЁa-zа-яё]+$" >
+				<div class="modalCard__error"></div>
 			</div>
 			<div class="modalField">
 				<img src="/assets/images/common/modalAddress.svg" alt="click and write your address" class="modalField__img">
-				<input class="modalCard__form_input" type="text" name="userAddress" maxlength="100" placeholder="Address" pattern="^[^\s]+(\s.*)?$" required>
+				<input class="modalCard__form_input" type="text" name="userAddress" maxlength="100" placeholder="Address" pattern="^[^\s]+(\s.*)?$" >
+				<div class="modalCard__error"></div>
 			</div>
 			<div class="modalField">
 				<img src="/assets/images/common/email.svg" alt="click and write your E-mail" class="modalField__img">
-				<input class="modalCard__form_input" type="text" name="email" maxlength="100" placeholder="E-mail" pattern="^[^\s]+(\s.*)?$" required>
+				<input class="modalCard__form_input" type="text" name="email" maxlength="100" placeholder="E-mail" pattern="^[^\s]+(\s.*)?$" >
+				<div class="modalCard__error"></div>
 			</div>
 			<div class="modalField">
 				<img src="/assets/images/common/key.svg" alt="click and write your Password" class="modalField__img">
-				<input class="modalCard__form_input password" type="password" maxlength="200" name="password" placeholder="Password" pattern="^[^\s]+(\s.*)?$" required>
+				<input class="modalCard__form_input password" type="password" maxlength="200" name="password" placeholder="Password" pattern="^[^\s]+(\s.*)?$" >
 				<img src="/assets/images/common/hide.svg" alt="show your password in the screen" class="modalField__eye">
+				<div class="modalCard__error"></div>
 			</div>
 			<button class="modalCard__btn" type="submit">Create Account</button>
 		</form>
@@ -82,5 +89,4 @@
 		</div>
 	</div>
 </div>
-<div class="emptyForBlur"></div>
 <script src="/assets/js/login.js"></script>

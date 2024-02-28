@@ -134,17 +134,11 @@
     cursor: pointer;
 }
 
-
-.keepLog {
-    color: #717171;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 300;
-    line-height: normal;
-    padding-left: 48px;
+.requiredSuccess {
+    color: #146C43;
 }
-
-.keepLog__input {
+.requiredError {
+    color: #C91433;
 }
 
 .modalCard__btn {
@@ -160,7 +154,7 @@
 }
 
 .modalCard__availability {
-    margin: 24px auto 0px;
+    margin: 24px auto 0;
     display: flex;
     flex-direction: row;
     align-items: center;
