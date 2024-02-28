@@ -20,22 +20,30 @@ class ValidationService
 		$tags = $request["tags"] ?? [];
 		$brand = $request["brand"];
 
-		if (empty($title) || empty($description) || empty($price))
+		$isTitleEmpty = empty($title);
+		$isDescriptionEmpty = empty($description);
+		$isPriceEmpty = empty($price);
+		$isBrandEmpty = empty($brand);
+		$isTagsEmpty = empty($tags);
+
+		$isPriceNegative = $price < 0;
+
+		if ($isTitleEmpty || $isDescriptionEmpty || $isPriceEmpty)
 		{
 			throw new RuntimeException("Error adding product: All fields must be filled");
 		}
 
-		if ($price < 0)
+		if ($isPriceNegative)
 		{
-			throw new RuntimeException("Error adding product: Price cannot be negative or zero");
+			throw new RuntimeException("Error adding product: Price cannot be negative");
 		}
 
-		if (empty($brand))
+		if ($isBrandEmpty)
 		{
 			throw new RuntimeException("Error adding product: Brand must be selected");
 		}
 
-		if (empty($tags))
+		if ($isTagsEmpty)
 		{
 			throw new RuntimeException("Error adding product: At least one tag must be selected");
 		}
@@ -51,7 +59,9 @@ class ValidationService
 
 	public static function getValidateProductTitle(?string $productTitle): string
 	{
-		if (empty(trim($productTitle)))
+		$isProductTitleEmpty = empty(trim($productTitle));
+
+		if ($isProductTitleEmpty)
 		{
 			throw new RuntimeException("Error search: Fields search must be filled");
 		}
@@ -64,33 +74,50 @@ class ValidationService
 	 */
 	public static function getRegisterError($userName, $userSurname, $userEmail, $userPassword, $userAddress): void
 	{
-		if (!filter_var($userEmail, FILTER_VALIDATE_EMAIL))
+		$isValidEmail = filter_var($userEmail, FILTER_VALIDATE_EMAIL);
+
+		$userExists = UserService::getUserByEmail($userEmail);
+
+		$isValidName = preg_match('/^[a-zа-яёA-ZА-ЯЁ]+$/u', $userName);
+		$isValidSurname = preg_match('/^[a-zа-яёA-ZА-ЯЁ]+$/u', $userSurname);
+
+		$isUserNameEmpty = empty(trim($userName));
+		$isUserPasswordEmpty = empty(trim($userPassword));
+		$isUserSurnameEmpty = empty(trim($userSurname));
+		$isUserAddressEmpty = empty(trim($userAddress));
+
+		$isValidUserNameLength = mb_strlen($userName) > 30;
+		$isValidUserSurnameLength = mb_strlen($userSurname) > 30;
+		$isValidUserAddressLength = mb_strlen($userAddress) > 100;
+		$isValidUserEmailLength = mb_strlen($userEmail) > 100;
+		$isValidUserPasswordLength = mb_strlen($userPassword) > 200;
+
+		if (!$isValidEmail)
 		{
 			throw new RuntimeException("Invalid Email");
 		}
 
-		if (UserService::getUserByEmail($userEmail))
+		if ($userExists)
 		{
 			throw new RuntimeException("User already exists");
 		}
 
-		if (!preg_match('/^[a-zа-яёA-ZА-ЯЁ]+$/u', $userName) || !preg_match('/^[a-zа-яёA-ZА-ЯЁ]+$/u', $userSurname))
+		if (!$isValidName || !$isValidSurname)
 		{
 			throw new RuntimeException("Enter data in the specified format");
 		}
 
-		if (
-			trim($userName) === '' || trim($userPassword) === '' || trim($userSurname) === ''
-			|| trim($userAddress) === ''
-		)
+		if ($isUserNameEmpty || $isUserSurnameEmpty || $isUserAddressEmpty || $isUserPasswordEmpty)
 		{
 			throw new RuntimeException("Fill in all the fields");
 		}
 
 		if (
-			mb_strlen($userName) > 30 || mb_strlen($userSurname) > 30 || mb_strlen($userAddress) > 100
-			|| mb_strlen($userEmail) > 100
-			|| mb_strlen($userPassword) > 200
+			$isValidUserNameLength
+			|| $isValidUserSurnameLength
+			|| $isValidUserAddressLength
+			|| $isValidUserEmailLength
+			|| $isValidUserPasswordLength
 		)
 		{
 			throw new RuntimeException("Invalid field length");
