@@ -28,4 +28,21 @@ class TagService
 
 		return $tags;
 	}
+	public static function getProductTags($productId):array
+	{
+		$query = "SELECT TAG.ID as tagId, TITLE"
+			. " FROM TAG INNER JOIN PRODUCT_TAG"
+			. " ON TAG.ID = PRODUCT_TAG.TAG_ID"
+			. " WHERE PRODUCT_ID = ?";
+
+		$tagResult = QueryBuilder::select($query, [$productId], true);
+		$tags = [];
+		while ($tagRow = mysqli_fetch_assoc($tagResult))
+		{
+			$tag = new Tag($tagRow['tagId'], $tagRow['TITLE'], null);
+			$tags[]=$tag;
+		}
+
+	return $tags;
+	}
 }

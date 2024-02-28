@@ -398,12 +398,7 @@ class ProductService
 		$products = [];
 		while ($row = mysqli_fetch_assoc($result))
 		{
-			$imageQuery = "SELECT ID,PATH,PRODUCT_ID FROM IMAGE".
-			" WHERE IS_COVER=1 and PRODUCT_ID = ?";
-			$imageResult = QueryBuilder::select($imageQuery, [$row['ID']], true);
-			$imageRow = mysqli_fetch_assoc($imageResult);
-
-			$cover = new Image(null, $imageRow['PRODUCT_ID'], $imageRow['PATH'], 1);
+			$cover = ImageService::getProductCover($row['ID']);
 			$product = new Product(
 				$row['ID'],
 				$row['TITLE'],
@@ -420,18 +415,9 @@ class ProductService
 			);
 			if ($includeTags)
 			{
-				$query = "SELECT TAG.ID as tagId, TITLE"
-					. " FROM TAG INNER JOIN PRODUCT_TAG"
-					. " ON TAG.ID = PRODUCT_TAG.TAG_ID"
-					. " WHERE PRODUCT_ID = ?";
 
-				$tags = QueryBuilder::select($query, [$row['ID']], true);
-
-				while ($tagRow = mysqli_fetch_assoc($tags))
-				{
-					$tag = new Tag($tagRow['tagId'], $tagRow['TITLE'], null);
-					$product->addTag($tag);
-				}
+				$tags=TagService::getProductTags($row['ID']);
+				$product->setTags($tags);
 			}
 			$products[] = $product;
 		}

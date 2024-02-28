@@ -145,4 +145,13 @@ class ImageService
 
 		return $imageArray;
 	}
+	public static function getProductCover($productId):Image
+	{
+		$imageQuery = "SELECT ID,PATH,PRODUCT_ID FROM IMAGE".
+		" WHERE IS_COVER=1 and PRODUCT_ID = ?";
+		$imageResult = QueryBuilder::select($imageQuery, [$productId], true);
+		$imageRow = mysqli_fetch_assoc($imageResult);
+		return new Image(null, $imageRow['PRODUCT_ID'], $imageRow['PATH'], 1);
+	}
+
 }
