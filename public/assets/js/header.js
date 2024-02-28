@@ -1,3 +1,4 @@
+import { setError, setSuccess } from './validation.js';
 const account = document.querySelector('.user__btn');
 const accountBlock = document.querySelector('.user__list');
 
@@ -37,21 +38,4 @@ const validateInputs = () => {
 		searchInput.value = searchValue;
 		searchForm.submit();
 	}
-};
-const setError = (element, message) => {
-	const inputControl = element.parentElement;
-	const errorDisplay = inputControl.querySelector('.modalCard__error');
-
-	errorDisplay.textContent = message;
-	inputControl.classList.add('searchError');
-	inputControl.classList.remove('requiredSuccess');
-};
-
-const setSuccess = (element) => {
-	const inputControl = element.parentElement;
-	const errorDisplay = inputControl.querySelector('.modalCard__error');
-
-	errorDisplay.textContent = '';
-	inputControl.classList.add('requiredSuccess');
-	inputControl.classList.remove('requiredError');
 };

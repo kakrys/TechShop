@@ -106,7 +106,7 @@
 	</div>
 </footer>
 </body>
-<script src="/assets/js/header.js"></script>
+<script type="module" src="/assets/js/header.js"></script>
 <script src="/assets/js/home.js"></script>
 <script src="/assets/js/modals.js"></script>
 </html>
