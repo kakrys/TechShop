@@ -1,38 +1,28 @@
+import { setError, setSuccess } from './validation.js';
 const orderForm = document.querySelector('.order__form');
-const orderModal = document.querySelector('.orderModal');
-const orderInputs = document.querySelectorAll('.order__input');
 
-orderForm.addEventListener('submit', function (event) {
-	event.preventDefault();
+orderForm.addEventListener('submit' , e => {
+	e.preventDefault();
+	const orderInputs = orderForm.querySelectorAll('.order__input');
 
-	const formData = new FormData(orderForm);
-	const formName = formData.get('name');
-	const formSurname = formData.get('surname');
-	const formAddress = formData.get('address');
-	const formEmail = formData.get('email');
-
-	fetch('/order/id/', {
-		method: 'POST',
-		name: formData.get('name'),
-		surname: formData.get('surname'),
-		address: formData.get('address'),
-		email: formData.get('email'),
-	})
-	.then(response => {
-		if (response.ok)
+	const hasErrors = Array.from(orderInputs).some(input => {
+		const trimmedValue = input.value.trim();
+		if (trimmedValue === '')
 		{
-			orderModal.style.display = 'block';
-			orderInputs.forEach(input => {
-				input.disabled = true;
-			});
-			console.log(formName, formSurname, formEmail, formAddress);
+			setError(input, 'This field is required');
+			input.style.border = '1px solid #C91433';
+			return true;
 		}
 		else
 		{
-			throw new Error('Request failed.');
+			setSuccess(input);
+			input.value = trimmedValue;
+			input.style.border = '1px solid #146C43';
 		}
-	})
-	.catch(error => {
-		console.error(error);
 	});
+
+	if (!hasErrors)
+	{
+		orderForm.submit();
+	}
 });

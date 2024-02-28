@@ -29,12 +29,12 @@ const handleFile = (file) => {
 			</div>
 			`);
 
-			const childrenLength = preview.children.length;
-			const maxImages = 11;
+		const childrenLength = preview.children.length;
+		const maxImages = 11;
 
-			if (childrenLength > maxImages)
-			{
-				document.querySelectorAll(`.preview-image:nth-child(n + ${maxImages + 1})`).forEach(el => {
+		if (childrenLength > maxImages)
+		{
+			document.querySelectorAll(`.preview-image:nth-child(n + ${maxImages + 1})`).forEach(el => {
 				el.style.display = 'none';
 			});
 		}
@@ -177,6 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		btn.addEventListener('click', () => {localStorage.clear()});
 	});
 });
+
 fileValidation = () => {
 	const fileInputs = document.querySelectorAll("#defaultBtn, #images");
 	fileInputs.forEach(fileInput => {

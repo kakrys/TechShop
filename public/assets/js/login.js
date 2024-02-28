@@ -1,3 +1,4 @@
+import { setError, setSuccess } from './validation.js';
 let currentPage = window.location.pathname;
 
 const form = document.querySelector(".modal");
@@ -78,21 +79,3 @@ loginForms.forEach(form => {
 		}
 	});
 });
-
-const setError = (element, message) => {
-	const inputControl = element.parentElement;
-	const errorDisplay = inputControl.querySelector('.modalCard__error');
-
-	errorDisplay.textContent = message;
-	inputControl.classList.add('requiredError');
-	inputControl.classList.remove('requiredSuccess');
-};
-
-const setSuccess = (element) => {
-	const inputControl = element.parentElement;
-	const errorDisplay = inputControl.querySelector('.modalCard__error');
-
-	errorDisplay.textContent = '';
-	inputControl.classList.add('requiredSuccess');
-	inputControl.classList.remove('requiredError');
-};
