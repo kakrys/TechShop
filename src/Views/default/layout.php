@@ -45,7 +45,8 @@
 					<div class="search__container">
 						<div class="search__wrapper">
 							<form class="search__form" method="get" action="/catalog/all/1/">
-								<input class="search__input" name="search" type="text" placeholder="What can we help you to find ?" pattern="^[^\s]+(\s.*)?$" required>
+								<input class="search__input" name="search" type="text" placeholder="What can we help you to find ?" >
+								<div class="modalCard__error"></div>
 								<button class="search__btn" type="submit">
 									<img src="/assets/images/common/search.svg" alt="search icon" class="search__img">
 								</button>

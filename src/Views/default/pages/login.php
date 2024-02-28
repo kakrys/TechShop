@@ -54,27 +54,27 @@
 		<form class="modalCard__form formForSignUp" action="/registration/" method="post">
 			<div class="modalField">
 				<img src="/assets/images/common/modalUser.svg" alt="click and write your name" class="modalField__img">
-				<input class="modalCard__form_input" type="text" name="userName" maxlength="30" placeholder="Name" pattern="[A-ZА-ЯЁa-zа-яё]+" >
+				<input class="modalCard__form_input" type="text" name="userName" maxlength="30" placeholder="Name">
 				<div class="modalCard__error"></div>
 			</div>
 			<div class="modalField">
 				<img src="/assets/images/common/modalUser.svg" alt="click and write your surname" class="modalField__img">
-				<input class="modalCard__form_input" type="text" name="userSurname"  maxlength="30" placeholder="Surname" pattern="[A-ZА-ЯЁa-zа-яё]+$" >
+				<input class="modalCard__form_input" type="text" name="userSurname"  maxlength="30" placeholder="Surname">
 				<div class="modalCard__error"></div>
 			</div>
 			<div class="modalField">
 				<img src="/assets/images/common/modalAddress.svg" alt="click and write your address" class="modalField__img">
-				<input class="modalCard__form_input" type="text" name="userAddress" maxlength="100" placeholder="Address" pattern="^[^\s]+(\s.*)?$" >
+				<input class="modalCard__form_input" type="text" name="userAddress" maxlength="100" placeholder="Address">
 				<div class="modalCard__error"></div>
 			</div>
 			<div class="modalField">
 				<img src="/assets/images/common/email.svg" alt="click and write your E-mail" class="modalField__img">
-				<input class="modalCard__form_input" type="text" name="email" maxlength="100" placeholder="E-mail" pattern="^[^\s]+(\s.*)?$" >
+				<input class="modalCard__form_input" type="text" name="email" maxlength="100" placeholder="E-mail">
 				<div class="modalCard__error"></div>
 			</div>
 			<div class="modalField">
 				<img src="/assets/images/common/key.svg" alt="click and write your Password" class="modalField__img">
-				<input class="modalCard__form_input password" type="password" maxlength="200" name="password" placeholder="Password" pattern="^[^\s]+(\s.*)?$" >
+				<input class="modalCard__form_input password" type="password" maxlength="200" name="password" placeholder="Password">
 				<img src="/assets/images/common/hide.svg" alt="show your password in the screen" class="modalField__eye">
 				<div class="modalCard__error"></div>
 			</div>
