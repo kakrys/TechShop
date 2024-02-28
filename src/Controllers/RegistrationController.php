@@ -12,7 +12,7 @@ class RegistrationController extends BaseController
 	/**
 	 * @throws Exception
 	 */
-	public function registrationAction()
+	public function registrationAction(): null|string
 	{
 		try
 		{
@@ -34,6 +34,7 @@ class RegistrationController extends BaseController
 			UserService::addUser($userName, $userSurname, $userEmail, $userPassword, $userAddress);
 			Request::setSession('UserEmail', $userEmail);
 			header('Location: /account/');
+			return null;
 		}
 		catch (\RuntimeException $e)
 		{

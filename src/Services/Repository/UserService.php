@@ -77,7 +77,7 @@ class UserService
 	/**
 	 * @throws Exception
 	 */
-	public static function addUser($userName, $userSurname, $userEmail, $userPassword, $userAddress): bool
+	public static function addUser(string $userName, string $userSurname,string $userEmail,string $userPassword, string $userAddress): bool
 	{
 		$userPassword = password_hash($userPassword, PASSWORD_DEFAULT);
 

@@ -12,7 +12,7 @@ class DetailController extends BaseController
 	/**
 	 * @throws Exception
 	 */
-	public function detailsAction($id): string
+	public function detailsAction(string $id): string
 	{
 		$product = ProductService::getProductInfoByID($id);
 		$entityStatusId = $product->getEntityStatusId();

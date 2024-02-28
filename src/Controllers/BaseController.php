@@ -43,7 +43,7 @@ class BaseController
 		return str_replace('{{content}}', $viewContent, $layoutContent);
 	}
 
-	public function get404(): string
+	public function get404(): bool|string
 	{
 		ob_start();
 		http_response_code(404);

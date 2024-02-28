@@ -14,7 +14,7 @@ class AuthorizationController extends BaseController
 	/**
 	 * @throws Exception
 	 */
-	public function authAction()
+	public function authAction(): null|string
 	{
 		session_start();
 
@@ -24,16 +24,16 @@ class AuthorizationController extends BaseController
 		{
 			Request::setSession('AdminEmail',$user->email);
 			header("Location: /admin/");
+			return null;
 		}
 		if (AuthenticationService::authenticateUser($user, $request['email'], $request['password']))
 		{
 			Request::setSession('UserEmail',$user->email);
 			header("Location: /account/");
+			return null;
 		}
-		else
-		{
-			return $this->render('login', ['authError' => 'Invalid login or password']);
-		}
+
+		return $this->render('login', ['authError' => 'Invalid login or password']);
 	}
 
 	public function logOutAction(): void

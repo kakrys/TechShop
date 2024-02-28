@@ -8,7 +8,7 @@ class Request
 	{
 		return $_SERVER[$key] ?? '';
 	}
-	private static function filterArray($array):array
+	private static function filterArray(array $array):array
 	{
 		$filteredArray = [];
 
@@ -50,7 +50,7 @@ class Request
 		}
 		return $data;
 	}
-	public static function getSession($key = null): mixed
+	public static function getSession(string $key = null): mixed
 	{
 		if ($key)
 		{
@@ -59,7 +59,7 @@ class Request
 		return $_SESSION;
 	}
 
-	public static function unsetSessionValue($key): void
+	public static function unsetSessionValue(string $key): void
 	{
 		unset($_SESSION[$key]);
 	}

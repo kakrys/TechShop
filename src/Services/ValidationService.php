@@ -72,7 +72,7 @@ class ValidationService
 	/**
 	 * @throws Exception
 	 */
-	public static function getRegisterError($userName, $userSurname, $userEmail, $userPassword, $userAddress): void
+	public static function getRegisterError(string $userName, string $userSurname, string $userEmail, string $userPassword, string $userAddress): void
 	{
 		$isValidEmail = filter_var($userEmail, FILTER_VALIDATE_EMAIL);
 

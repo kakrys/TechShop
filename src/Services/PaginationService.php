@@ -6,7 +6,7 @@ namespace Up\Services;
 
 class PaginationService
 {
-	public static function determinePage(int $pageNumber, array $paginationArray, $count = 10): array
+	public static function determinePage(int $pageNumber, array $paginationArray,int $count = 10): array
 	{
 		$pageArray = [];
 		if ($pageNumber === 1)
@@ -32,7 +32,7 @@ class PaginationService
 		return ($pageArray);
 	}
 
-	public static function trimPaginationArray(array $paginationArray, $ArrayLimit = 10): array
+	public static function trimPaginationArray(array $paginationArray, int $ArrayLimit = 10): array
 	{
 		$productArraySize = count($paginationArray);
 

@@ -32,7 +32,7 @@ class BrandService
 	/**
 	 * @throws Exception
 	 */
-	public static function getBrandId($name): int
+	public static function getBrandId(?string $name): int
 	{
 		$query = "SELECT ID FROM BRAND WHERE TITLE = ?";
 
