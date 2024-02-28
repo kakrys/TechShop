@@ -15,16 +15,7 @@ class QueryBuilder
 	 */
 	public static function select(string $query, array $params = null, bool $safe = false): mysqli_result
 	{
-		if (!empty($params) && $safe)
-		{
-			$result = QueryHelperService::executePreparedQuery($query, $params, true);
-		}
-		else
-		{
-			$result = QueryHelperService::executeUnpreparedQuery($query);
-		}
-
-		return $result;
+		return QueryHelperService::executeQuery($query, $params, $safe, true);
 	}
 
 	/**
@@ -38,16 +29,7 @@ class QueryBuilder
 
 		$query = "INSERT INTO $table ($columns) VALUES ($placeholders)";
 
-		if (!$safe)
-		{
-			$result = QueryHelperService::executeUnpreparedQuery($query);
-		}
-		else
-		{
-			$result =  QueryHelperService::executePreparedQuery($query, $values);
-		}
-
-		return $result;
+		return QueryHelperService::executeQuery($query, $values, $safe);
 	}
 
 	/**
@@ -57,16 +39,7 @@ class QueryBuilder
 	{
 		$query = "DELETE FROM $table WHERE $condition";
 
-		if (!$safe)
-		{
-			$result = QueryHelperService::executeUnpreparedQuery($query);
-		}
-		else
-		{
-			$result =  QueryHelperService::executePreparedQuery($query, $params);
-		}
-
-		return $result;
+		return QueryHelperService::executeQuery($query, $params, $safe);
 	}
 
 	/**
@@ -80,15 +53,6 @@ class QueryBuilder
 
 		$values = array_merge(array_values($data), $params);
 
-		if (!$safe)
-		{
-			$result = QueryHelperService::executeUnpreparedQuery($query);
-		}
-		else
-		{
-			$result =  QueryHelperService::executePreparedQuery($query, $values);
-		}
-
-		return $result;
+		return QueryHelperService::executeQuery($query, $values, $safe);
 	}
 }

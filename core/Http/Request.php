@@ -4,29 +4,24 @@ namespace Core\Http;
 
 class Request
 {
-	public static function method(): string
+	public static function server(string $key): string
 	{
-		return $_SERVER['REQUEST_METHOD'];
-	}
-
-	public static function uri(): string
-	{
-		return $_SERVER['REQUEST_URI'];
+		return $_SERVER[$key] ?? '';
 	}
 	private static function filterArray($array):array
 	{
-		$filteredArray=[];
+		$filteredArray = [];
 
 		foreach ($array as $key=> $arrayElement)
 		{
 
 			if(is_array($arrayElement))
 			{
-				$filteredArray[$key]=self::filterArray($arrayElement);
+				$filteredArray[$key] = self::filterArray($arrayElement);
 			}
 			else
 			{
-				$filteredArray[$key]=filter_var($arrayElement, FILTER_SANITIZE_SPECIAL_CHARS);
+				$filteredArray[$key] = filter_var($arrayElement, FILTER_SANITIZE_SPECIAL_CHARS);
 			}
 		}
 		return $filteredArray;
@@ -34,12 +29,12 @@ class Request
 
 	public static function isGet(): string
 	{
-		return self::method() === 'GET';
+		return self::server('REQUEST_METHOD') === 'GET';
 	}
 
 	public static function isPost(): string
 	{
-		return self::method() === 'POST';
+		return self::server('REQUEST_METHOD') === 'POST';
 	}
 
 	public static function getBody(): array|null

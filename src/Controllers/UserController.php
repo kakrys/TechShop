@@ -32,10 +32,10 @@ class UserController extends BaseController
 			$wishPage = $data['wish'] ?? 1;
 			$wishPage = (int)$wishPage;
 
-			$local = Request::getSession('wishList') !== null ? ProductService::getProductsByIds(Request::getSession('wishList')) : [];
-			if ($local !== [])
+			$wishList = Request::getSession('wishList') !== null ? ProductService::getProductsByIds(Request::getSession('wishList')) : [];
+			if ($wishList !== [])
 			{
-				$wishArray = array_slice($local, 9 * ($wishPage - 1), 10);
+				$wishArray = array_slice($wishList, 9 * ($wishPage - 1), 10);
 				$wishPageArray = PaginationService::determinePage($wishPage, $wishArray);
 				$wishArray = PaginationService::trimPaginationArray($wishArray);
 			}
@@ -95,10 +95,10 @@ class UserController extends BaseController
 		$wishPage = $request['wish'] ?? 1;
 		$wishPage = (int)$wishPage;
 
-		$local = Request::getSession('wishList') !== null ? ProductService::getProductsByIds(Request::getSession('wishList')) : [];
-		if ($local !== [])
+		$wishList = Request::getSession('wishList') !== null ? ProductService::getProductsByIds(Request::getSession('wishList')) : [];
+		if ($wishList !== [])
 		{
-			$wishArray = array_slice($local, 9 * ($wishPage - 1), 10);
+			$wishArray = array_slice($wishList, 9 * ($wishPage - 1), 10);
 			$wishPageArray = PaginationService::determinePage($wishPage, $wishArray);
 			$wishArray = PaginationService::trimPaginationArray($wishArray);
 		}

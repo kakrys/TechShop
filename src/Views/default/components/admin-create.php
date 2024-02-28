@@ -74,7 +74,7 @@ use Up\Models\Brand;
 			</div>
 			<input type="file" name="image" id="defaultBtn" onchange="fileValidation()" hidden required>
 			<button onclick="defaultBtnActive()" type="button" id="customBtn">Upload Image</button>
-			<button class="admin__createBtn" type="submit">Create!</button>
+			<button class="admin__createBtn" type="submit">Create</button>
 		</div>
 	</form>
 </div>

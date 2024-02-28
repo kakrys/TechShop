@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Up\Services;
 
 use Core\Http\Request;
+use Exception;
 use RuntimeException;
 use Up\Services\Repository\UserService;
 
@@ -59,9 +60,9 @@ class ValidationService
 	}
 
 	/**
-	 * @throws \Exception
+	 * @throws Exception
 	 */
-	public static function getRegisterError($userName, $userSurname, $userEmail, $userPassword, $userAddress)
+	public static function getRegisterError($userName, $userSurname, $userEmail, $userPassword, $userAddress): void
 	{
 		if (!filter_var($userEmail, FILTER_VALIDATE_EMAIL))
 		{

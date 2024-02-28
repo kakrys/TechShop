@@ -38,7 +38,6 @@ class ImageService
 
 	public static function insertImageInFolder(string $filename): void
 	{
-		//$files = Request::getFiles();
 		$target_file = self::$uploadDir . $filename;
 
 		if (!move_uploaded_file(self::getImageArray('image')['tmp_name'], $target_file))
@@ -51,7 +50,7 @@ class ImageService
 	{
 		$maxFileSize = 40 * 1024 * 1024;
 		$types = ConfigurationService::option('ALLOWED_FILES');
-		if ($_SERVER['CONTENT_LENGTH'] > $maxFileSize)
+		if (Request::server('CONTENT_LENGTH') > $maxFileSize)
 		{
 			throw new RuntimeException('File too big');
 		}

@@ -57,19 +57,24 @@ class ProductService
 		}
 		else
 		{
+
+			$tagQuery = "SELECT ID FROM TAG WHERE TITLE = ?";
+			$result = QueryBuilder::select($tagQuery, [$category], true);
+			$row = mysqli_fetch_assoc($result);
+			$tagId = $row['ID'];
+
 			$query = "SELECT PRODUCT.ID, PRODUCT.TITLE, PRICE, PATH"
 				. " FROM PRODUCT"
 				. " INNER JOIN IMAGE"
 				. " ON PRODUCT.ID = IMAGE.PRODUCT_ID"
 				. " INNER JOIN PRODUCT_TAG"
 				. " ON PRODUCT.ID = PRODUCT_TAG.PRODUCT_ID"
-				. " INNER JOIN TAG ON PRODUCT_TAG.TAG_ID = TAG.ID"
-				. " WHERE IS_COVER = 1 AND TAG.TITLE = ? $brandCondition"
+				. " WHERE IS_COVER = 1 AND PRODUCT_TAG.TAG_ID = ? $brandCondition"
 				. " AND PRODUCT.ENTITY_STATUS_ID = 1 "
 				. $sortString
 				. " LIMIT 10 OFFSET $offset";
 
-			$params = [$category];
+			$params = [$tagId];
 		}
 
 		if ($brands !== null)
@@ -250,20 +255,24 @@ class ProductService
 		}
 		else
 		{
+			$tagQuery = "SELECT ID FROM TAG WHERE TITLE = ?";
+			$result = QueryBuilder::select($tagQuery, [$category], true);
+			$row = mysqli_fetch_assoc($result);
+			$tagId = $row['ID'];
+
 			$query = "SELECT PRODUCT.TITLE, PRODUCT.ID,PRICE, DESCRIPTION, PATH"
 				. " FROM PRODUCT"
 				. " INNER JOIN IMAGE"
 				. " ON PRODUCT.ID = IMAGE.PRODUCT_ID"
 				. " INNER JOIN PRODUCT_TAG"
 				. " ON PRODUCT.ID = PRODUCT_TAG.PRODUCT_ID"
-				. " INNER JOIN TAG ON PRODUCT_TAG.TAG_ID = TAG.ID"
 				. " WHERE PRODUCT.TITLE LIKE ? AND IS_COVER = 1"
-				. " AND TAG.TITLE = ? $brandCondition"
+				. " AND PRODUCT.TAG_ID = ? $brandCondition"
 				. " AND PRODUCT.ENTITY_STATUS_ID = 1 "
 				. $sortString
 				. " LIMIT 10 OFFSET $offset ";
 
-			$params = ["%$productTitle%", $category];
+			$params = ["%$productTitle%", $tagId];
 		}
 		if ($brands !== null)
 		{

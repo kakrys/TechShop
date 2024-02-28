@@ -17,7 +17,7 @@ class Application
 	public function run(): void
 	{
 		Migrator::executeMigrations();
-		$route = Router::find(Request::method(), Request::uri());
+		$route = Router::find(Request::server('REQUEST_METHOD'), Request::server('REQUEST_URI'));
 		if ($route)
 		{
 			$action = $route->action;
