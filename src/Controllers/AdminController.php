@@ -36,7 +36,7 @@ class AdminController extends BaseController
 		$productPage = $data['product'] ?? 1;
 		$productPage = (int)$productPage;
 
-		if (isset($_SESSION['AdminEmail']))
+		if (Request::getSession('AdminEmail') !== null)
 		{
 			$productArray = ProductService::getProductListForAdmin($productPage);
 			$pageArray = PaginationService::determinePage($productPage, $productArray['data'] ?? $productArray);
@@ -50,7 +50,7 @@ class AdminController extends BaseController
 			$orderPageArray = PaginationService::determinePage($orderPage, $orderArray, 5);
 			$orderArray = PaginationService::trimPaginationArray($orderArray, 5);
 
-			$user = UserService::getUserByEmail($_SESSION['AdminEmail']);
+			$user = UserService::getUserByEmail(Request::getSession('AdminEmail'));
 			$tags = TagService::getTagList();
 			$brands = BrandService::getBrandList();
 
@@ -85,11 +85,11 @@ class AdminController extends BaseController
 	public function loginAction(): string
 	{
 		session_start();
-		if (isset($_SESSION['AdminEmail']))
+		if (Request::getSession('AdminEmail') !== null)
 		{
 			header("Location: /admin/");
 		}
-		if (isset($_SESSION['UserEmail']))
+		if (Request::getSession('UserEmail') !== null)
 		{
 			header("Location: /account/");
 		}

@@ -63,6 +63,15 @@ class Request
 		}
 		return $_SESSION;
 	}
+
+	public static function unsetSessionValue($key): void
+	{
+		unset($_SESSION[$key]);
+	}
+	public static function setSession(string $key, mixed $value):void
+	{
+		$_SESSION[$key] = $value;
+	}
 	public static function getFiles(): array|null
 	{
 		$files = [];

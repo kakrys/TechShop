@@ -168,7 +168,7 @@ class UserService
 		{
 			return false;
 		}
-		$_SESSION['UserEmail'] = $userNewEmail;
+		Request::setSession('UserEmail',$userNewEmail);
 
 		return QueryBuilder::update($table, $data, $condition, $params, true);
 	}

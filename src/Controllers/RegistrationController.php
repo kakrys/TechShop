@@ -32,7 +32,7 @@ class RegistrationController extends BaseController
 				$userAddress
 			);
 			UserService::addUser($userName, $userSurname, $userEmail, $userPassword, $userAddress);
-			$_SESSION['UserEmail'] = $userEmail;
+			Request::setSession('UserEmail', $userEmail);
 			header('Location: /account/');
 		}
 		catch (\RuntimeException $e)

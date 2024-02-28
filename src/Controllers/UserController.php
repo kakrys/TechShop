@@ -21,10 +21,10 @@ class UserController extends BaseController
 	public function userAction(): string|null
 	{
 		session_start();
-		if (isset($_SESSION['UserEmail']))
+		if (Request::getSession('UserEmail') !== null)
 		{
 			$data = Request::getBody();
-			$user = UserService::getUserByEmail($_SESSION['UserEmail']);
+			$user = UserService::getUserByEmail(Request::getSession('UserEmail'));
 
 			$orderPage = $data['order'] ?? 1;
 			$orderPage = (int)$orderPage;
@@ -32,7 +32,7 @@ class UserController extends BaseController
 			$wishPage = $data['wish'] ?? 1;
 			$wishPage = (int)$wishPage;
 
-			$local = isset($_SESSION['wishList']) ? ProductService::getProductsByIds($_SESSION['wishList']) : [];
+			$local = Request::getSession('wishList') !== null ? ProductService::getProductsByIds(Request::getSession('wishList')) : [];
 			if ($local !== [])
 			{
 				$wishArray = array_slice($local, 9 * ($wishPage - 1), 10);
@@ -88,14 +88,14 @@ class UserController extends BaseController
 			$warning = "Invalid " . $updateField;
 		}
 
-		$user = UserService::getUserByEmail($_SESSION['UserEmail']);
+		$user = UserService::getUserByEmail(Request::getSession('UserEmail'));
 		$orderPage = $request['order'] ?? 1;
 		$orderPage = (int)$orderPage;
 
 		$wishPage = $request['wish'] ?? 1;
 		$wishPage = (int)$wishPage;
 
-		$local = isset($_SESSION['wishList']) ? ProductService::getProductsByIds($_SESSION['wishList']) : [];
+		$local = Request::getSession('wishList') !== null ? ProductService::getProductsByIds(Request::getSession('wishList')) : [];
 		if ($local !== [])
 		{
 			$wishArray = array_slice($local, 9 * ($wishPage - 1), 10);

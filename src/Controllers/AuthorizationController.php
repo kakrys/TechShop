@@ -22,12 +22,12 @@ class AuthorizationController extends BaseController
 		$user = UserService::getUserByEmail($request['email']);
 		if (AuthenticationService::authenticateUser($user, $request['email'], $request['password'], true))
 		{
-			$_SESSION['AdminEmail'] = $user->email;
+			Request::setSession('AdminEmail',$user->email);
 			header("Location: /admin/");
 		}
 		if (AuthenticationService::authenticateUser($user, $request['email'], $request['password']))
 		{
-			$_SESSION['UserEmail'] = $user->email;
+			Request::setSession('UserEmail',$user->email);
 			header("Location: /account/");
 		}
 		else
@@ -39,7 +39,14 @@ class AuthorizationController extends BaseController
 	public function logOutAction(): void
 	{
 		session_start();
-		session_unset();
+		if (Request::getSession('AdminEmail'))
+		{
+			Request::unsetSessionValue('AdminEmail');
+		}
+		else
+		{
+			Request::unsetSessionValue('UserEmail');
+		}
 		header('Location: /');
 	}
 }

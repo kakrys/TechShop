@@ -42,13 +42,13 @@ class CatalogController extends BaseController
 			$sortBy = $request['sortBy'] ?? null;
 			$query = http_build_query(['activeBrands' => $activeBrands, 'sortBy' => $sortBy]);
 			$data = ($query !== "") ? "?" . $query : null;
-			$_SESSION['activeBrands'] = $activeBrands;
+			Request::setSession('activeBrands',$activeBrands);
 
 			if (Request::getSession('wishList') === null)
 			{
-				$_SESSION['wishList'] = [];
+				Request::setSession('wishList',[]);
 			}
-			$wishList = $_SESSION['wishList'];
+			$wishList = Request::getSession('wishList');
 			$tags = TagService::getTagList();
 			$brands = BrandService::getBrandList();
 
@@ -103,7 +103,7 @@ class CatalogController extends BaseController
 		session_start();
 		if (Request::getSession('wishList') === null)
 		{
-			$_SESSION['wishList'] = [];
+			Request::setSession('wishList',[]);
 		}
 
 		header('Content-Type: application/json');
