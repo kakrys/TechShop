@@ -15,7 +15,7 @@ class OrderService
 	/**
 	 * @throws Exception
 	 */
-	public static function getOrderList($userID = null, $pageNumber = 1): array
+	public static function getOrderList($userID = null, int $pageNumber = 1): array
 	{
 		$perPage = 4;
 		$offset = ($pageNumber - 1) * $perPage;
@@ -63,11 +63,11 @@ class OrderService
 		try
 		{
 			$request = Request::getBody();
-			$userID = $request['id'];
+			$userID = (int)$request['id'];
 			$userEmail = $request['email'];
 			$userAddress = $request['address'];
-			$productID = $request['productID'];
-			$productPrice = $request['productPrice'];
+			$productID = (int)$request['productID'];
+			$productPrice = (float)$request['productPrice'];
 			if (!filter_var($userEmail, FILTER_VALIDATE_EMAIL) || trim($userAddress) === '')
 			{
 				return ['An error has occurred'];
@@ -91,8 +91,8 @@ class OrderService
 			$request = Request::getBody();
 			$userEmail = $request['email'];
 			$userAddress = $request['address'];
-			$productID = $request['productID'];
-			$productPrice = $request['productPrice'];
+			$productID = (int)$request['productID'];
+			$productPrice = (float)$request['productPrice'];
 			if (!filter_var($userEmail, FILTER_VALIDATE_EMAIL) || trim($userAddress) === '')
 			{
 				return ['An error has occurred'];
@@ -109,7 +109,7 @@ class OrderService
 		}
 	}
 
-	private static function buildOrderData($userID, $userEmail, $userAddress, $productID, $productPrice): array
+	private static function buildOrderData( int|null $userID, string $userEmail, string  $userAddress, int $productID,float $productPrice): array
 	{
 		return [
 			'PRICE' => $productPrice,
@@ -126,7 +126,7 @@ class OrderService
 	/**
 	 * @throws Exception
 	 */
-	private static function saveOrderAndProductLink(array $orderData, $productID): ?array
+	private static function saveOrderAndProductLink(array $orderData, int $productID): ?array
 	{
 		$errors = [];
 		if (!QueryBuilder::insert('`ORDER`', $orderData, true))

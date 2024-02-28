@@ -15,7 +15,7 @@ class OrderController extends BaseController
 	/**
 	 * @throws Exception
 	 */
-	public function orderAction($id): string
+	public function orderAction(string $id): string
 	{
 		session_start();
 		$session = Request::getSession();

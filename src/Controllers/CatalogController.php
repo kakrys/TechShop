@@ -20,7 +20,7 @@ class CatalogController extends BaseController
 	/**
 	 * @throws Exception
 	 */
-	public function catalogAction(string $tagName, $pageNumber): string
+	public function catalogAction(string $tagName, string $pageNumber): string
 	{
 		try
 		{

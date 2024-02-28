@@ -9,7 +9,7 @@ use RuntimeException;
 
 class BaseController
 {
-	protected function renderView($view, $params): string|Exception
+	protected function renderView(string $view, array $params): string|Exception
 	{
 		$absolutePath = $this->getViewPath($view);
 		if (!file_exists($absolutePath))
@@ -24,7 +24,7 @@ class BaseController
 		return ob_get_clean();
 	}
 
-	protected function getViewPath($view): string|Exception
+	protected function getViewPath(string $view): string|Exception
 	{
 		$viewPath = ROOT . "/src/Views/default/pages/$view.php";
 		if (!preg_match('/^[0-9A-Za-z\/_-]+$/', $view))
@@ -35,7 +35,7 @@ class BaseController
 		return $viewPath;
 	}
 
-	public function render($view, $params = []): string
+	public function render(string $view, array $params = []): string
 	{
 		$layoutContent = $this->setLayout();
 		$viewContent = $this->renderView($view, $params);
@@ -60,7 +60,7 @@ class BaseController
 		return ob_get_clean();
 	}
 
-	protected function renderComponent($component, $params = []): string|Exception
+	protected function renderComponent(string $component, array $params = []): string|Exception
 	{
 		$componentPath = $this->getComponentPath($component);
 		if (!file_exists($componentPath))
@@ -75,7 +75,7 @@ class BaseController
 		return ob_get_clean();
 	}
 
-	protected function getComponentPath($component): string|Exception
+	protected function getComponentPath(string $component): string|Exception
 	{
 		$componentPath = ROOT . "/src/Views/default/components/$component.php";
 		if (!preg_match('/^[0-9A-Za-z\/_-]+$/', $component))

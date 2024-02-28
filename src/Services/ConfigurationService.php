@@ -8,7 +8,7 @@ use RuntimeException;
 
 class ConfigurationService
 {
-	public static function option(string $name, $defaultValue = null)
+	public static function option(string $name, mixed $defaultValue = null):mixed
 	{
 		/**@var array $config */
 		static $config = null;

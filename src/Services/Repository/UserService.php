@@ -50,7 +50,7 @@ class UserService
 	/**
 	 * @throws Exception
 	 */
-	public static function getUserList($pageNumber): ?array
+	public static function getUserList(int $pageNumber): ?array
 	{
 		$perPage = 4;
 		$offset = ($pageNumber - 1) * $perPage;
