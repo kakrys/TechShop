@@ -44,12 +44,9 @@ class ProductService
 
 		if ($category === 'all')
 		{
-			$query = "SELECT PRODUCT.ID, TITLE, PRICE, PATH"
+			$query = "SELECT PRODUCT.ID, TITLE, PRICE"
 				. " FROM PRODUCT"
-				. " INNER JOIN IMAGE"
-				. " ON PRODUCT.ID = IMAGE.PRODUCT_ID"
-				. " WHERE IS_COVER = 1 $brandCondition"
-				. " AND PRODUCT.ENTITY_STATUS_ID = 1 "
+				. " WHERE PRODUCT.ENTITY_STATUS_ID = 1  $brandCondition"
 				. $sortString
 				. " LIMIT 10 OFFSET $offset ";
 
@@ -63,13 +60,11 @@ class ProductService
 			$row = mysqli_fetch_assoc($result);
 			$tagId = $row['ID'];
 
-			$query = "SELECT PRODUCT.ID, PRODUCT.TITLE, PRICE, PATH"
+			$query = "SELECT PRODUCT.ID, PRODUCT.TITLE, PRICE"
 				. " FROM PRODUCT"
-				. " INNER JOIN IMAGE"
-				. " ON PRODUCT.ID = IMAGE.PRODUCT_ID"
 				. " INNER JOIN PRODUCT_TAG"
 				. " ON PRODUCT.ID = PRODUCT_TAG.PRODUCT_ID"
-				. " WHERE IS_COVER = 1 AND PRODUCT_TAG.TAG_ID = ? $brandCondition"
+				. " WHERE PRODUCT_TAG.TAG_ID = ? $brandCondition"
 				. " AND PRODUCT.ENTITY_STATUS_ID = 1 "
 				. $sortString
 				. " LIMIT 10 OFFSET $offset";
@@ -150,12 +145,9 @@ class ProductService
 		$perPage = 9;
 		$offset = ($pageNumber - 1) * $perPage;
 
-		$query = "SELECT PRODUCT.ID, PRODUCT.TITLE, PRICE, PATH, DESCRIPTION, BRAND.TITLE"
+		$query = "SELECT PRODUCT.ID, PRODUCT.TITLE, PRICE, DESCRIPTION, BRAND.TITLE"
 			. " AS BRAND, PRODUCT.ENTITY_STATUS_ID"
 			. " FROM PRODUCT INNER JOIN BRAND ON PRODUCT.BRAND_ID = BRAND.ID"
-			. " INNER JOIN IMAGE"
-			. " ON PRODUCT.ID = IMAGE.PRODUCT_ID"
-			. " WHERE IS_COVER = 1 "
 			. " LIMIT 10 OFFSET $offset";
 
 		$result = QueryBuilder::select($query);
@@ -242,11 +234,9 @@ class ProductService
 
 		if ($category === 'all')
 		{
-			$query = "SELECT TITLE, PRODUCT.ID,PRICE, DESCRIPTION, PATH"
+			$query = "SELECT TITLE, PRODUCT.ID,PRICE, DESCRIPTION"
 				. " FROM PRODUCT"
-				. " INNER JOIN IMAGE"
-				. " ON PRODUCT.ID = IMAGE.PRODUCT_ID"
-				. " WHERE TITLE LIKE ? AND IS_COVER = 1 $brandCondition"
+				. " WHERE TITLE LIKE ?  $brandCondition"
 				. " AND PRODUCT.ENTITY_STATUS_ID = 1 "
 				. $sortString
 				. " LIMIT 10 OFFSET $offset";
@@ -262,11 +252,9 @@ class ProductService
 
 			$query = "SELECT PRODUCT.TITLE, PRODUCT.ID,PRICE, DESCRIPTION, PATH"
 				. " FROM PRODUCT"
-				. " INNER JOIN IMAGE"
-				. " ON PRODUCT.ID = IMAGE.PRODUCT_ID"
 				. " INNER JOIN PRODUCT_TAG"
 				. " ON PRODUCT.ID = PRODUCT_TAG.PRODUCT_ID"
-				. " WHERE PRODUCT.TITLE LIKE ? AND IS_COVER = 1"
+				. " WHERE PRODUCT.TITLE LIKE ? "
 				. " AND PRODUCT.TAG_ID = ? $brandCondition"
 				. " AND PRODUCT.ENTITY_STATUS_ID = 1 "
 				. $sortString
@@ -357,11 +345,9 @@ class ProductService
 	 */
 	public static function getNewProducts(): array
 	{
-		$query = "SELECT PRODUCT.ID, TITLE, PRICE, PATH"
-			. " FROM PRODUCT INNER JOIN IMAGE"
-			. " ON PRODUCT.ID = IMAGE.PRODUCT_ID"
-			. " WHERE IS_COVER = 1"
-			. " AND PRODUCT.ENTITY_STATUS_ID = 1 "
+		$query = "SELECT PRODUCT.ID, TITLE, PRICE"
+			. " FROM PRODUCT"
+			. " WHERE PRODUCT.ENTITY_STATUS_ID = 1 "
 			. " ORDER BY DATE_RELEASE DESC"
 			. " LIMIT 5";
 
@@ -412,7 +398,12 @@ class ProductService
 		$products = [];
 		while ($row = mysqli_fetch_assoc($result))
 		{
-			$cover = new Image(null, $row['ID'], $row['PATH'], 1);
+			$imageQuery = "SELECT ID,PATH,PRODUCT_ID FROM IMAGE".
+			" WHERE IS_COVER=1 and PRODUCT_ID = ?";
+			$imageResult = QueryBuilder::select($imageQuery, [$row['ID']], true);
+			$imageRow = mysqli_fetch_assoc($imageResult);
+
+			$cover = new Image(null, $imageRow['PRODUCT_ID'], $imageRow['PATH'], 1);
 			$product = new Product(
 				$row['ID'],
 				$row['TITLE'],
@@ -457,11 +448,9 @@ class ProductService
 		{
 			$placeholder = "(" . implode(",", $ids) . ")";
 
-			$query = "SELECT PRODUCT.ID, TITLE, PRICE, PATH "
+			$query = "SELECT PRODUCT.ID, TITLE, PRICE "
 				. " FROM PRODUCT"
-				. " INNER JOIN IMAGE"
-				. " ON PRODUCT.ID = IMAGE.PRODUCT_ID"
-				. " WHERE PRODUCT.ID IN $placeholder AND IS_COVER = 1";
+				. " WHERE PRODUCT.ID IN $placeholder";
 
 			$result = QueryBuilder::select($query);
 
