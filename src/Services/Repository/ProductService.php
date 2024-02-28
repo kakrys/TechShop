@@ -148,6 +148,7 @@ class ProductService
 		$query = "SELECT PRODUCT.ID, PRODUCT.TITLE, PRICE, DESCRIPTION, BRAND.TITLE"
 			. " AS BRAND, PRODUCT.ENTITY_STATUS_ID"
 			. " FROM PRODUCT INNER JOIN BRAND ON PRODUCT.BRAND_ID = BRAND.ID"
+			. " ORDER BY PRODUCT.ID"
 			. " LIMIT 10 OFFSET $offset";
 
 		$result = QueryBuilder::select($query);
@@ -416,7 +417,7 @@ class ProductService
 			if ($includeTags)
 			{
 
-				$tags=TagService::getProductTags($row['ID']);
+				$tags = TagService::getProductTags($row['ID']);
 				$product->setTags($tags);
 			}
 			$products[] = $product;
@@ -434,9 +435,7 @@ class ProductService
 		{
 			$placeholder = "(" . implode(",", $ids) . ")";
 
-			$query = "SELECT PRODUCT.ID, TITLE, PRICE "
-				. " FROM PRODUCT"
-				. " WHERE PRODUCT.ID IN $placeholder";
+			$query = "SELECT PRODUCT.ID, TITLE, PRICE  FROM PRODUCT WHERE PRODUCT.ID IN $placeholder";
 
 			$result = QueryBuilder::select($query);
 

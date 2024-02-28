@@ -88,7 +88,6 @@ class ImageService
 
 	public static function renameAndSendAddImages(): array
 	{
-		$image = self::getImageArray('image');
 		$images = self::getImageArray('images');
 		$size = count($images['name']);
 		$imageArray = [];
@@ -134,7 +133,7 @@ class ImageService
 	public static function selectProductImages(int $productId): array
 	{
 		$imageArray = [];
-		$query = "SELECT PATH, PRODUCT_ID" . " FROM IMAGE WHERE PRODUCT_ID = ?" . " AND IS_COVER = 0";
+		$query = "SELECT PATH, PRODUCT_ID FROM IMAGE WHERE PRODUCT_ID = ? AND IS_COVER = 0";
 
 		$result = QueryBuilder::select($query, [$productId], true);
 		while ($row = mysqli_fetch_assoc($result))
@@ -145,12 +144,16 @@ class ImageService
 
 		return $imageArray;
 	}
-	public static function getProductCover($productId):Image
+
+	/**
+	 * @throws Exception
+	 */
+	public static function getProductCover($productId): Image
 	{
-		$imageQuery = "SELECT ID,PATH,PRODUCT_ID FROM IMAGE".
-		" WHERE IS_COVER=1 and PRODUCT_ID = ?";
+		$imageQuery = "SELECT ID, PATH, PRODUCT_ID FROM IMAGE WHERE IS_COVER = 1 AND PRODUCT_ID = ?";
 		$imageResult = QueryBuilder::select($imageQuery, [$productId], true);
 		$imageRow = mysqli_fetch_assoc($imageResult);
+
 		return new Image(null, $imageRow['PRODUCT_ID'], $imageRow['PATH'], 1);
 	}
 
