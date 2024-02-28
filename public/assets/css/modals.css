@@ -140,6 +140,9 @@
 .requiredError {
     color: #C91433;
 }
+.searchError {
+    color: #FFD580;
+}
 
 .modalCard__btn {
     width: 100%;
