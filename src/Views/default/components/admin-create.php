@@ -78,4 +78,4 @@ use Up\Models\Brand;
 		</div>
 	</form>
 </div>
-<script src="/assets/js/admin-create.js"></script>
+<script src="/assets/js/adminCreate.js"></script>

@@ -88,3 +88,4 @@
 </div>
 <?= $this->renderComponent('account-modals', ['user' => $user]) ?>
 <script src="/assets/js/account.js"></script>
+<script src="/assets/js/accountTabs.js"></script>

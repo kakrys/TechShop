@@ -1,4 +1,4 @@
-import { setError, setSuccess } from './validation.js';
+import { setError, setSuccess } from './validationStatus.js';
 const account = document.querySelector('.user__btn');
 const accountBlock = document.querySelector('.user__list');
 

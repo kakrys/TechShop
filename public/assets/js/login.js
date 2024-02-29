@@ -1,4 +1,4 @@
-import { setError, setSuccess } from './validation.js';
+import { setError, setSuccess } from './validationStatus.js';
 let currentPage = window.location.pathname;
 
 const form = document.querySelector(".modal");
@@ -69,6 +69,7 @@ loginForms.forEach(form => {
 			else
 			{
 				setSuccess(input);
+				input.value = trimmedValue;
 				input.style.border = '1px solid #146C43';
 			}
 		});
