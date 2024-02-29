@@ -1,4 +1,4 @@
-import { setError, setSuccess } from './validation.js';
+import { setError, setSuccess } from './validationStatus.js';
 const orderForm = document.querySelector('.order__form');
 
 orderForm.addEventListener('submit' , e => {

@@ -1,4 +1,4 @@
-import {setError, setSuccess} from "./validation.js";
+import {setError, setSuccess} from "./validationStatus.js";
 
 const accountForms = document.querySelectorAll('.accountModal__form');
 
