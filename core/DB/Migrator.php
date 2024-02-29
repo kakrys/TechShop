@@ -71,7 +71,7 @@ class Migrator
 		fwrite($dbConfigFile, 0);
 		fclose($dbConfigFile);
 
-		$query = file_get_contents(__DIR__ . "/../../install/uninstall-structure.sql");
+		$query = file_get_contents(__DIR__ . "/../../uninstall/uninstall-structure.sql");
 		if (!mysqli_multi_query($connection, $query))
 		{
 			throw new RuntimeException(mysqli_error($connection));

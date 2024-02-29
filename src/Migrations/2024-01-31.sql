@@ -244,7 +244,7 @@ CREATE TABLE `USER` (
 -- Индексы таблицы `BRAND`
 --
 ALTER TABLE `BRAND`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`ID`);
 
 --
 -- Индексы таблицы `ENTITY_STATUS`
