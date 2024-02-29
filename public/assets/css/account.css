@@ -40,6 +40,12 @@
     margin-top: 10px;
 }
 
+.account__userName {
+    max-width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .account__sideBarBtn, .account__burgerBtn {
     padding: 20px 24px;
     display: flex;

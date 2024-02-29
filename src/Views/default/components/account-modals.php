@@ -121,4 +121,4 @@ use Up\Services\SecurityService;
 		</form>
 	</div>
 </div>
-<script type="module" src="/assets/js/account-modals.js"></script>
+<script type="module" src="/assets/js/accountModals.js"></script>
