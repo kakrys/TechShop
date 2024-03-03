@@ -15,6 +15,5 @@ VALUES (1, 1, '1.jpg', 1),
 INSERT INTO `STATUS` (`ID`, `TITLE`)
 VALUE (1, 'Новый заказ');
 
-CREATE INDEX index_product_brand_id ON PRODUCT (BRAND_ID);
-CREATE INDEX index_product_tag_id ON PRODUCT_TAG (TAG_ID);
-CREATE INDEX index_image_product_id ON IMAGE (PRODUCT_ID);
+CREATE INDEX index_product_price ON PRODUCT (PRICE);
+CREATE INDEX index_product_title ON PRODUCT (TITLE);
