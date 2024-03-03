@@ -58,7 +58,7 @@ class ProductService
 			$tagQuery = "SELECT ID FROM TAG WHERE TITLE = ?";
 			$result = QueryBuilder::select($tagQuery, [$category], true);
 			$row = mysqli_fetch_assoc($result);
-			$tagId = $row['ID'];
+			$tagId = $row['ID'] ?? null;
 
 			$query = "SELECT PRODUCT.ID, PRODUCT.TITLE, PRICE"
 				. " FROM PRODUCT"
