@@ -15,15 +15,15 @@ use Up\Models\Brand;
 			<div class="admin__createContainer">
 				<div class="admin__textarea">
 					<label for="name" class="admin__textareaLabel">Name</label>
-					<input id="name" name="name" type="text" class="admin__createInput" placeholder="Input Product Name" pattern="^[^\s]+(\s.*)?$" required>
+					<input id="name" name="name" type="text" class="admin__createInput" autocomplete="off" placeholder="Input Product Name" pattern="^[^\s]+(\s.*)?$" required>
 				</div>
 				<div class=" admin__textarea">
 					<label for="description" class="admin__textareaLabel">Description</label>
-					<input id="description" name="description" type="text" class="admin__createInput" placeholder="Input Product Description" pattern="^[^\s]+(\s.*)?$" required>
+					<input id="description" name="description" type="text" class="admin__createInput" autocomplete="off" placeholder="Input Product Description" pattern="^[^\s]+(\s.*)?$" required>
 				</div>
 				<div class="admin__textarea">
 					<label for="price" class="admin__textareaLabel">Price</label>
-					<input id="price" name="price" min="0" type="number" placeholder="Input Product Price" class="admin__createInput" required>
+					<input id="price" name="price" min="0" type="number" autocomplete="off" placeholder="Input Product Price" class="admin__createInput" required>
 				</div>
 			</div>
 			<div class="admin__createContainer">
