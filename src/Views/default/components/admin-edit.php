@@ -15,9 +15,9 @@
 	<div class="admin__editForm">
 		<input class="admin__editInput" type="hidden" name="id" id="productId">
 		<label class="admin__editLabel" for="productName">Title:</label>
-		<input class="admin__editInput" type="text" name="name" id="productName">
+		<input class="admin__editInput" autocomplete="off" type="text" name="name" id="productName">
 		<label class="admin__editLabel" for="productPrice">Price:</label>
-		<input class="admin__editInput" min=0 step="any" type="number" name="price" id="productPrice">
+		<input class="admin__editInput" autocomplete="off" min=0 step="any" type="number" name="price" id="productPrice">
 		<label class="admin__editLabel" for="productDescription">Description:</label>
 		<textarea class="admin__editInput" name="description" id="productDescription"></textarea>
 		<div class="admin__fieldsetContainer">

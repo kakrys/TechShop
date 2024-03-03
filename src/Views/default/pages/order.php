@@ -20,12 +20,12 @@ use Up\Services\SecurityService;
 			</div>
 			<div class="order__inputContainer">
 				<label class="order__label" for="userEmail">E-mail</label>
-				<input class="order__input" id="userEmail" type="email" name="email" value="<?=SecurityService::safeString($user->email)?>">
+				<input class="order__input" id="userEmail" autocomplete="off" type="email" name="email" value="<?=SecurityService::safeString($user->email)?>">
 				<div class="modalCard__error"></div>
 			</div>
 			<div class="order__inputContainer">
 				<label class="order__label" for="userAddress">Ship to</label>
-				<input class="order__input" id="userAddress" type="text" name="address" value="<?=SecurityService::safeString($user->address)?>">
+				<input class="order__input" id="userAddress" autocomplete="off" type="text" name="address" value="<?=SecurityService::safeString($user->address)?>">
 				<div class="modalCard__error"></div>
 			</div>
 			<input name="productID" type="hidden" value="<?=SecurityService::safeString($product->getId())?>">

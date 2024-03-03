@@ -21,7 +21,7 @@ use Up\Services\SecurityService;
 			</div>
 			<div class="accountModal__formContainer">
 				<label class="accountModal__label" for="newName">New Name</label>
-				<input class="accountModal__input accountModal__requiredInput" id="newName" name="newName" type="text" placeholder="Enter new name">
+				<input class="accountModal__input accountModal__requiredInput" autocomplete="off" id="newName" name="newName" type="text" placeholder="Enter new name">
 				<div class="modalCard__error"></div>
 			</div>
 
@@ -44,7 +44,7 @@ use Up\Services\SecurityService;
 			</div>
 			<div class="accountModal__formContainer">
 				<label class="accountModal__label" for="newEmail">New E-mail</label>
-				<input class="accountModal__input accountModal__requiredInput" id="newEmail" name="newEmail" type="text" placeholder="Enter new e-mail">
+				<input class="accountModal__input accountModal__requiredInput" autocomplete="off" id="newEmail" name="newEmail" type="text" placeholder="Enter new e-mail">
 				<div class="modalCard__error"></div>
 			</div>
 
@@ -67,7 +67,7 @@ use Up\Services\SecurityService;
 			</div>
 			<div class="accountModal__formContainer">
 				<label class="accountModal__label" for="newSurname">New Surname</label>
-				<input class="accountModal__input accountModal__requiredInput" id="newSurname" name="newSurname" type="text" placeholder="Enter new surname">
+				<input class="accountModal__input accountModal__requiredInput" autocomplete="off" id="newSurname" name="newSurname" type="text" placeholder="Enter new surname">
 				<div class="modalCard__error"></div>
 			</div>
 
@@ -90,7 +90,7 @@ use Up\Services\SecurityService;
 			</div>
 			<div class="accountModal__formContainer">
 				<label class="accountModal__label" for="newPassword">New Password</label>
-				<input class="accountModal__input accountModal__requiredInput" id="newPassword" name="newPassword" type="password" placeholder="Enter new password">
+				<input class="accountModal__input accountModal__requiredInput" autocomplete="off" id="newPassword" name="newPassword" type="password" placeholder="Enter new password">
 				<div class="modalCard__error"></div>
 			</div>
 
@@ -113,7 +113,7 @@ use Up\Services\SecurityService;
 			</div>
 			<div class="accountModal__formContainer">
 				<label class="accountModal__label" for="newAddress">New Address</label>
-				<input class="accountModal__input accountModal__requiredInput" id="newAddress" name="newAddress" type="text" placeholder="Enter new address">
+				<input class="accountModal__input accountModal__requiredInput" autocomplete="off" id="newAddress" name="newAddress" type="text" placeholder="Enter new address">
 				<div class="modalCard__error"></div>
 			</div>
 
