@@ -113,7 +113,7 @@ class CatalogController extends BaseController
 		if (isset($data['id']))
 		{
 			$id = $data['id'];
-			$wishlist = &$_SESSION['wishList'];
+			$wishlist = &Request::getLinkSession('wishList');
 
 			if (in_array($id, $wishlist, true))
 			{

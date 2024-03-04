@@ -67,6 +67,10 @@ class Request
 	{
 		$_SESSION[$key] = $value;
 	}
+	public static function &getLinkSession(string $key): array
+	{
+		return $_SESSION[$key];
+	}
 	public static function getFiles(): array|null
 	{
 		$files = [];
