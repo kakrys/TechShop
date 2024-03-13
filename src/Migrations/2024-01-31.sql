@@ -60,8 +60,8 @@ CREATE TABLE `ENTITY_STATUS` (
 --
 
 INSERT INTO `ENTITY_STATUS` (`ID`, `TITLE`) VALUES
-(1, 'Активный'),
-(2, 'Неактивный');
+(1, 'Active'),
+(2, 'Disabled');
 
 -- --------------------------------------------------------
 
