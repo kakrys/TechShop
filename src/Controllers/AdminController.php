@@ -28,12 +28,24 @@ class AdminController extends BaseController
 		$data = Request::getBody();
 
 		$orderPage = $data['order'] ?? 1;
+		if (!is_numeric($orderPage)|| $orderPage<0)
+		{
+			return $this->get404();
+		}
 		$orderPage = (int)$orderPage;
 
 		$profilePage = $data['profile'] ?? 1;
+		if (!is_numeric($profilePage) || $profilePage<0)
+		{
+			return $this->get404();
+		}
 		$profilePage = (int)$profilePage;
 
 		$productPage = $data['product'] ?? 1;
+		if (!is_numeric($productPage) || $productPage<0)
+		{
+			return $this->get404();
+		}
 		$productPage = (int)$productPage;
 
 		if (Request::getSession('AdminEmail') !== null)
@@ -209,6 +221,7 @@ class AdminController extends BaseController
 		{
 			if (Request::getSession('AdminEmail') !== null)
 			{
+
 				$id = (int)$data['id'];
 				$title = (string)$data['title'];
 				$price = (float)$data['price'];
