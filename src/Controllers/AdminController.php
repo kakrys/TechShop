@@ -102,18 +102,27 @@ class AdminController extends BaseController
 	 */
 	public function removeProductAction(): void
 	{
+		session_start();
 		header('Content-Type: application/json');
 		$input = file_get_contents('php://input');
 		$data = Json::decode($input);
 
 		if (isset($data['id']))
 		{
-			$id = $data['id'];
-			ProductService::deleteProductByID($id);
-
-			echo Json::encode([
-								  'result' => 'Y',
-							  ]);
+			if (Request::getSession('AdminEmail') !== null)
+			{
+				$id = $data['id'];
+				ProductService::deleteProductByID($id);
+				echo Json::encode([
+									  'result' => 'Y',
+								  ]);
+			}
+			else
+			{
+				echo Json::encode([
+									  'result' => 'Nice Try',
+								  ]);
+			}
 		}
 		else
 		{
@@ -128,18 +137,26 @@ class AdminController extends BaseController
 	 */
 	public function removeUserAction(): void
 	{
+		session_start();
 		header('Content-Type: application/json');
 		$input = file_get_contents('php://input');
 		$data = Json::decode($input);
-
 		if (isset($data['id']))
 		{
-			$id = $data['id'];
-			UserService::deleteUserByID($id);
-
-			echo Json::encode([
-								  'result' => 'Y',
-							  ]);
+			if (Request::getSession('AdminEmail') !== null)
+			{
+				$id = $data['id'];
+				UserService::deleteUserByID($id);
+				echo Json::encode([
+									  'result' => 'Y',
+								  ]);
+			}
+			else
+			{
+				echo Json::encode([
+									  'result' => 'Nice try',
+								  ]);
+			}
 		}
 		else
 		{
@@ -155,11 +172,14 @@ class AdminController extends BaseController
 	 */
 	public function addProductAction(): string
 	{
+		session_start();
 		error_reporting(E_ALL ^ E_WARNING);
 		try
 		{
-			ProductService::addProduct();
-
+			if (Request::getSession('AdminEmail') !== null)
+			{
+				ProductService::addProduct();
+			}
 			return $this->render('admin-create-product', []);
 		}
 		catch (RuntimeException $e)
@@ -179,6 +199,7 @@ class AdminController extends BaseController
 	 */
 	public function updateProductAction(): void
 	{
+		session_start();
 		header('Content-Type: application/json');
 
 		$input = file_get_contents('php://input');
@@ -186,17 +207,27 @@ class AdminController extends BaseController
 
 		if (isset($data['id']))
 		{
-			$id = (int)$data['id'];
-			$title = (string)$data['title'];
-			$price = (float)$data['price'];
-			$description = (string)$data['description'];
-			$brandId = (int)$data['brand'];
-			$tags = (array)$data['tags'];
+			if (Request::getSession('AdminEmail') !== null)
+			{
+				$id = (int)$data['id'];
+				$title = (string)$data['title'];
+				$price = (float)$data['price'];
+				$description = (string)$data['description'];
+				$brandId = (int)$data['brand'];
+				$tags = (array)$data['tags'];
 
-			$result = ProductService::updateProductByID($id, $title, $price, $description, $brandId, $tags);
-			echo Json::encode([
-								  'result' => $result > 0 ? 'Y' : 'N',
-							  ]);
+				$result = ProductService::updateProductByID($id, $title, $price, $description, $brandId, $tags);
+				echo Json::encode([
+									  'result' => $result > 0 ? 'Y' : 'N',
+								  ]);
+			}
+			else
+			{
+				echo Json::encode([
+									  'result' => 'N',
+									  'error' => 'Nice try',
+								  ]);
+			}
 		}
 		else
 		{
@@ -213,19 +244,29 @@ class AdminController extends BaseController
 	 */
 	public function changeProductStatus(): void
 	{
+		session_start();
 		header('Content-Type: application/json');
 
 		$input = file_get_contents('php://input');
 		$data = Json::decode($input);
 		if (isset($data['id']))
 		{
-			$id = (int)$data['id'];
-			$status = (int)$data['status'];
-			$result = ProductService::updateProductStatus($id, $status);
+			if (Request::getSession('AdminEmail') !== null)
+			{
+				$id = (int)$data['id'];
+				$status = (int)$data['status'];
+				$result = ProductService::updateProductStatus($id, $status);
 
-			echo Json::encode([
-								  'result' => $result > 0 ? 'Y' : 'N',
-							  ]);
+				echo Json::encode([
+									  'result' => $result > 0 ? 'Y' : 'N',
+								  ]);
+			}
+			else
+			{
+				echo Json::encode([
+									  'result' => 'Nice try',
+								  ]);
+			}
 		}
 		else
 		{
