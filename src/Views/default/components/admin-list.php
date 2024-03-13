@@ -1,10 +1,13 @@
 <?php
 /**
- * @var \Up\Models\Product[] $products
+ * @var Product[] $products
  * @var array $pageArray
  * @var $profilePage
  * @var $orderPage
  */
+
+use Up\Models\Product;
+use Up\Services\SecurityService;
 
 ?>
 <div class="title__container">
@@ -15,19 +18,19 @@
 	<li class="admin__productItem">
 		<img src="/assets/images/productImages/<?=$product->getCover()->getPath()?>" alt="product image" class="admin__productImage">
 		<div class="admin__productTextContainer">
-			<p class="admin__productId" data-id="<?=$product->getId()?>" hidden></p>
-			<h3 class="admin__productTitle" data-title="<?=$product->getTitle()?>"><?=$product->getTitle()?></h3>
-			<p class="admin__productDescription" data-description="<?=$product->getDescription()?>"></p>
-			<p class="admin__productCost" data-price="<?=$product->getPrice()?>" >$<?=$product->getPrice()?></p>
-			<p class="admin__productBrand" data-brand="<?= $product->getBrand()?>" hidden></p>
+			<p class="admin__productId" data-id="<?= SecurityService::safeString($product->getId()) ?>" hidden></p>
+			<h3 class="admin__productTitle" data-title="<?= SecurityService::safeString($product->getTitle()) ?>"><?= SecurityService::safeString($product->getTitle()) ?></h3>
+			<p class="admin__productDescription" data-description="<?= SecurityService::safeString($product->getDescription()) ?>"></p>
+			<p class="admin__productCost" data-price="<?= SecurityService::safeString($product->getPrice()) ?>" >$<?= SecurityService::safeString($product->getPrice()) ?></p>
+			<p class="admin__productBrand" data-brand="<?= SecurityService::safeString($product->getBrand()) ?>" hidden></p>
 			<?php foreach ($product->getTags() as $tag):?>
-			<p class="admin__productTag" data-tag="<?= $tag->getTitle() ?>" hidden></p>
+			<p class="admin__productTag" data-tag="<?= SecurityService::safeString($tag->getTitle()) ?>" hidden></p>
 			<?php endforeach;?>
 			<button class="admin__productEdit">Edit Product</button>
 			<button class="admin__productStatus <?= $product->getEntityStatusId() === 1 ? 'activeStatus' : 'non-activeStatus' ?>" data-status="<?= $product->getEntityStatusId()?>" onclick="toggleButton(this)">
 				<?= $product->getEntityStatusId() === 1 ? 'Active' : 'Disabled' ?>
 			</button>
-			<button onclick="removeItem(<?=$product->getId()?>, '<?=$product->getTitle()?>')" id="dangerBtn" class="admin__productDelete">
+			<button onclick="removeItem(<?= SecurityService::safeString($product->getId()) ?>, '<?= SecurityService::safeString($product->getTitle()) ?>')" id="dangerBtn" class="admin__productDelete">
 				<img src="/assets/images/common/bin.svg" alt="delete product" class="deleteImg">
 			</button>
 		</div>

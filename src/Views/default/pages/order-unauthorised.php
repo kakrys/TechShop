@@ -23,8 +23,8 @@ use Up\Services\SecurityService;
 				<input class="order__input" id="userAddress" autocomplete="off" type="text" name="address" placeholder="Input Your Address">
 				<div class="modalCard__error"></div>
 			</div>
-			<input name="productID" type="hidden" value="<?=SecurityService::safeString($product->getId())?>">
-			<input name="productPrice" type="hidden" value="<?=SecurityService::safeString($product->getPrice())?>">
+			<input name="productID" type="hidden" value="<?=$product->getId()?>">
+			<input name="productPrice" type="hidden" value="<?=$product->getPrice()?>">
 			<button class="order__addOrder" type="submit">Submit & Order</button>
 		</form>
 	</div>
@@ -36,14 +36,14 @@ use Up\Services\SecurityService;
 					<img src="/assets/images/productImages/<?=$product->getCover()->getPath()?>" alt="product image">
 				</div>
 				<div class="order__description">
-					<h3 class="order__title"><?=$product->getTitle()?></h3>
-					<p class="order__price"><?=$product->getPrice()?></p>
+					<h3 class="order__title"><?=SecurityService::safeString($product->getTitle())?></h3>
+					<p class="order__price"><?=SecurityService::safeString($product->getPrice())?></p>
 				</div>
 			</li>
 		</ul>
 		<div class="order__totalSum">
 			<h4 class="order__totalTitle">Grand Total</h4>
-			<p class="order__totalPrice"><?=$product->getPrice()?></p>
+			<p class="order__totalPrice"><?=SecurityService::safeString($product->getPrice())?></p>
 		</div>
 	</div>
 </div>

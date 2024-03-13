@@ -11,6 +11,9 @@
  * @var $wishList
  * @var $data
  */
+
+use Up\Services\SecurityService;
+
 ?>
 <div class="wrapper main">
 	<nav class="toolbar">
@@ -26,12 +29,12 @@
 					<?php if($productTitle !== null):?>
 						<a href="/catalog/<?=$tag->getTitle()?>/1/?search=<?=$productTitle?>" class="toolbar__btn">
 							<img src="/assets/images/tags/<?=$tag->getId()?>.svg" alt="mobile category" class="toolbar__img">
-							<p class="toolbar__category"><?=$tag->getTitle()?></p>
+							<p class="toolbar__category"><?=SecurityService::safeString($tag->getTitle())?></p>
 						</a>
 					<?php else:?>
 						<a href="/catalog/<?=$tag->getTitle()?>/1/<?=$data?>" class="toolbar__btn">
 							<img src="/assets/images/tags/<?=$tag->getId()?>.svg" alt="mobile category" class="toolbar__img">
-							<p class="toolbar__category"><?=$tag->getTitle()?></p>
+							<p class="toolbar__category"><?=SecurityService::safeString($tag->getTitle())?></p>
 						</a>
 					<?php endif;?>
 				</li>
@@ -48,17 +51,17 @@
 						<?php foreach($products as $product):?>
 							<li class="mainSection__item">
 								<a href="/product/<?=$product->getID()?>/" class="mainSection__link">
-									<img src="/assets/images/productImages/<?=$product->getCover()->getPath()?>" alt="product Image" class="mainSection__img">
+									<img src="/assets/images/productImages/<?= $product->getCover()->getPath() ?>" alt="product Image" class="mainSection__img">
 									<div class="description__section">
-										<p class="description__title"><?=$product->getTitle()?></p>
+										<p class="description__title"><?= SecurityService::safeString($product->getTitle()) ?></p>
 										<div class="product__footer_container">
-											<p class="product__cost"><?=$product->getPrice()?>$</p>
+											<p class="product__cost"><?= SecurityService::safeString($product->getPrice()) ?>$</p>
 										</div>
 									</div>
 								</a>
 								<button class="wishlist" onclick="addWishItem('<?=$product->getId()?>')">
 									<?php if(isset($wishList)):?>
-										<?php if(in_array($product->getId(),$wishList)):?>
+										<?php if(in_array($product->getId(), $wishList)):?>
 											<img src="/assets/images/accountIcons/redHeart.svg" alt="add to wish list" class="wishlist__icon">
 										<?php else:?>
 											<img src="/assets/images/accountIcons/heart.svg" alt="add to wish list" class="wishlist__icon">

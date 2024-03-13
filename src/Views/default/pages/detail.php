@@ -5,6 +5,9 @@
  * @var \Up\Models\Image $images
  * @var $brandId
  */
+
+use Up\Services\SecurityService;
+
 $tags = $product->getTags();
 ?>
 <div class="wrapper">
@@ -35,26 +38,26 @@ $tags = $product->getTags();
 		</div>
 		<div class="detail__infoContainer">
 			<div class="detail__title">
-				<h2><?=$product->getTitle()?></h2>
+				<h2><?=SecurityService::safeString($product->getTitle())?></h2>
 			</div>
 			<div class="detail__brandContainer">
 				<ul class="detail__brandList">
 					<li class="detail__brandItem">
-						<a href="/catalog/all/1/?activeBrands%5B%5D=<?=$brandId?>" class="detail__brandLink"><?=$product->getBrand()?></a>
+						<a href="/catalog/all/1/?activeBrands%5B%5D=<?=$brandId?>" class="detail__brandLink"><?= SecurityService::safeString($product->getBrand())?></a>
 					</li>
 					<?php foreach ($tags as $tag):?>
 						<li class="detail__brandItem">
-							<a href="/catalog/<?=$tag->getTitle()?>/1/" class="detail__brandLink"><?=$tag->getTitle()?></a>
+							<a href="/catalog/<?=$tag->getTitle()?>/1/" class="detail__brandLink"><?=SecurityService::safeString($tag->getTitle())?></a>
 						</li>
 					<?php endforeach;?>
 				</ul>
 			</div>
 			<div class="techDetail">
 				<p class="techDetail__description">
-					<?=$product->getDescription()?>
+					<?=SecurityService::safeString($product->getDescription())?>
 				</p>
 			</div>
-			<div class="detail__cost">$ <?=$product->getPrice()?></div>
+			<div class="detail__cost">$ <?=SecurityService::safeString($product->getPrice())?></div>
 			<div class="btnContainer">
 				<a href="/order/<?=$product->getId()?>/" class="detail__buyBtn">Buy Now</a>
 			</div>

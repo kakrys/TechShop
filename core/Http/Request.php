@@ -8,24 +8,6 @@ class Request
 	{
 		return $_SERVER[$key] ?? '';
 	}
-	private static function filterArray(array $array):array
-	{
-		$filteredArray = [];
-
-		foreach ($array as $key=> $arrayElement)
-		{
-
-			if(is_array($arrayElement))
-			{
-				$filteredArray[$key] = self::filterArray($arrayElement);
-			}
-			else
-			{
-				$filteredArray[$key] = filter_var($arrayElement, FILTER_SANITIZE_SPECIAL_CHARS);
-			}
-		}
-		return $filteredArray;
-	}
 
 	public static function isGet(): string
 	{
@@ -42,11 +24,11 @@ class Request
 		$data = [];
 		if (self::isGet())
 		{
-			$data = self::filterArray($_GET);
+			$data = $_GET;
 		}
 		if (self::isPost())
 		{
-			$data = self::filterArray($_POST);
+			$data = $_POST;
 		}
 		return $data;
 	}

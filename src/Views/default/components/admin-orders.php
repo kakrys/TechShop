@@ -1,5 +1,6 @@
 <?php
 use Up\Models\Order;
+use Up\Services\SecurityService;
 
 /**
  * @var Order[] $orders
@@ -19,27 +20,27 @@ use Up\Models\Order;
 		<ul class="account__ordersInfoList">
 			<li class="account__ordersInfoItem">
 				<h4 class="account__ordersInfoTitle">order code</h4>
-				<p class="account__ordersInfoSubtitle">#<?=$order->id?></p>
+				<p class="account__ordersInfoSubtitle">#<?= SecurityService::safeString($order->id) ?></p>
 			</li>
 			<li class="account__ordersInfoItem">
 				<h4 class="account__ordersInfoTitle">Placed on</h4>
-				<p class="account__ordersInfoSubtitle"><?=$order->dataCreate?></p>
+				<p class="account__ordersInfoSubtitle"><?= SecurityService::safeString($order->dataCreate) ?></p>
 			</li>
 			<li class="account__ordersInfoItem">
 				<h4 class="account__ordersInfoTitle">Total</h4>
-				<p class="account__ordersInfoSubtitle">$<?=$order->price?></p>
+				<p class="account__ordersInfoSubtitle">$<?= SecurityService::safeString($order->price) ?></p>
 			</li>
 			<li class="account__ordersInfoItem">
 				<h4 class="account__ordersInfoTitle">Product Name</h4>
-				<p class="account__ordersInfoSubtitle"><?=$order->productTitle?></p>
+				<p class="account__ordersInfoSubtitle"><?= SecurityService::safeString($order->productTitle) ?></p>
 			</li>
 			<li class="account__ordersInfoItem">
 				<h4 class="account__ordersInfoTitle">E-mail address</h4>
-				<p class="account__ordersInfoSubtitle"><?=$order->userEmail?></p>
+				<p class="account__ordersInfoSubtitle"><?= SecurityService::safeString($order->userEmail) ?></p>
 			</li>
 			<li class="account__ordersInfoItem">
 				<h4 class="account__ordersInfoTitle">Address</h4>
-				<p class="account__ordersInfoSubtitle"><?=$order->userAddress?></p>
+				<p class="account__ordersInfoSubtitle"><?= SecurityService::safeString($order->userAddress)?></p>
 			</li>
 			<li class="account__ordersInfoItem">
 				<h4 class="account__ordersInfoTitle">Quantity</h4>
@@ -48,7 +49,7 @@ use Up\Models\Order;
 			<?php if (isset($order->userName)): ?>
 				<li class="account__ordersInfoItem">
 					<h4 class="account__ordersInfoTitle">Sent to</h4>
-					<p class="account__ordersInfoSubtitle"><?=$order->userName . ' ' . $order->userSurname?></p>
+					<p class="account__ordersInfoSubtitle"><?= SecurityService::safeString($order->userName) . ' ' . SecurityService::safeString($order->userSurname) ?></p>
 				</li>
 			<?php else: ?>
 				<li class="account__ordersInfoItem" style="display: none"></li>

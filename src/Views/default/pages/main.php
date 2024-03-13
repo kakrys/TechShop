@@ -5,6 +5,9 @@
  * @var array $addProducts
  * @var $newProducts
  */
+
+use Up\Services\SecurityService;
+
 ?>
 <div class="wrapper main">
 	<section class="section__banner">
@@ -75,9 +78,9 @@
 						<a href="/product/<?=$newProduct->getID()?>/" class="mainSection__link">
 							<img src="/assets/images/productImages/<?=$newProduct->getCover()->getPath()?>" alt="product Image" class="mainSection__image">
 							<div class="description__section">
-								<p class="description__title"><?=$newProduct->getTitle()?></p>
+								<p class="description__title"><?= SecurityService::safeString($newProduct->getTitle()) ?></p>
 								<div class="product__footer_container">
-									<p class="product__cost">$<?=$newProduct->getPrice()?></p>
+									<p class="product__cost">$<?= SecurityService::safeString($newProduct->getPrice()) ?></p>
 								</div>
 							</div>
 						</a>
